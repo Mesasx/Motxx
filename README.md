@@ -42,3 +42,18 @@ motxx-web/
 - Web: [motxx.es](https://motxx.es)
 - Email: [contacto@motxx.es](mailto:contacto@motxx.es)
 - WhatsApp: +34 683 567 360
+- Telegram: [@MotxxBot](https://t.me/MotxxBot)
+
+## Funcionalidades de la web
+
+- **Chatbot flotante** por reglas (esquina inferior derecha). Responde FAQs sobre servicios, cursos, precios, pagos, contacto, RGPD y plazos. Si no entiende, redirige a WhatsApp o Telegram.
+- **Inscripción a cursos** con botones de pago (Stripe Checkout: Apple Pay, Google Pay, Mastercard, Visa + PayPal aparte). Mientras los Payment Links no estén configurados, los botones redirigen automáticamente a WhatsApp con un mensaje pre-rellenado.
+- **Contacto multicanal**: WhatsApp con número visible, Telegram (@MotxxBot) y email en todos los CTAs principales.
+
+## Configuración pendiente
+
+Ver `PUBLICAR.md` → sección *"Configurar pagos y bot de Telegram"* para los pasos de:
+
+1. Crear los Stripe Payment Links y pegarlos en `script.js` (objeto `STRIPE_LINKS`).
+2. Crear el bot `@MotxxBot` en Telegram con @BotFather.
+3. (Opcional) Conectar el bot a Claude para respuestas automáticas.
