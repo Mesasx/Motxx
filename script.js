@@ -69,42 +69,282 @@ window.addEventListener('mousemove', (e) => {
 });
 
 // =========================================================
-// STRIPE PAYMENT LINKS
+// DATOS DE CURSOS
 // =========================================================
-// Sustituye las URLs por tus Payment Links reales de Stripe.
-// Cómo: dashboard.stripe.com → Payment links → + Nuevo → pega el link aquí.
-// Stripe Checkout soporta Apple Pay, Google Pay, Mastercard y Visa
-// de forma automática cuando el navegador/dispositivo lo permite.
-const STRIPE_LINKS = {
-  pyme: 'https://buy.stripe.com/REEMPLAZAR_LINK_CURSO_PYME',
-  n8n:  'https://buy.stripe.com/REEMPLAZAR_LINK_CURSO_N8N'
+const COURSES = {
+  pyme: {
+    name: 'IA para PYMEs y autónomos',
+    desc: '8 horas en directo, grupos reducidos y certificación incluida. Sin conocimientos técnicos previos.',
+    price: 297
+  },
+  n8n: {
+    name: 'Automatiza tu negocio con n8n + IA',
+    desc: '16 horas en directo, mentoría personalizada y plantillas profesionales. Oferta de lanzamiento.',
+    price: 597
+  }
 };
 
-document.querySelectorAll('[data-stripe-link]').forEach(el => {
-  el.addEventListener('click', (e) => {
-    const key = el.getAttribute('data-stripe-link');
-    const url = STRIPE_LINKS[key];
+// =========================================================
+// GESTOR GENÉRICO DE MODALES
+// =========================================================
+function openModal(modalId) {
+  const m = document.getElementById(modalId);
+  if (!m) return;
+  m.classList.add('open');
+  m.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  // Enfocar el primer campo útil tras abrir
+  setTimeout(() => {
+    const firstInput = m.querySelector('input:not([type="hidden"]):not([type="radio"]):not([type="checkbox"]), textarea, select');
+    if (firstInput) firstInput.focus();
+  }, 150);
+}
 
-    // Si aún no has pegado el link real, redirigimos a WhatsApp en vez de romper la UX
-    if (!url || url.includes('REEMPLAZAR')) {
-      e.preventDefault();
-      const msg = key === 'n8n'
-        ? 'Hola, quiero inscribirme al curso Automatiza tu negocio con n8n + IA (597 €)'
-        : 'Hola, quiero inscribirme al curso IA para PYMEs y autónomos (297 €)';
-      window.open(`https://wa.me/34683567360?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
-      return;
-    }
+function closeModal(modalId) {
+  const m = document.getElementById(modalId);
+  if (!m) return;
+  m.classList.remove('open');
+  m.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
 
+// Clicks globales para data-close-modal y data-open-contact
+document.addEventListener('click', (e) => {
+  const closeBtn = e.target.closest('[data-close-modal]');
+  if (closeBtn) {
+    const modal = closeBtn.closest('.modal');
+    if (modal) closeModal(modal.id);
+    return;
+  }
+
+  const openContactBtn = e.target.closest('[data-open-contact]');
+  if (openContactBtn) {
     e.preventDefault();
-    window.open(url, '_blank', 'noopener');
+    const topic = openContactBtn.getAttribute('data-contact-topic') || 'general';
+    openContactModal(topic);
+    return;
+  }
+});
+
+// Cerrar modales con Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  document.querySelectorAll('.modal.open').forEach(m => closeModal(m.id));
+});
+
+// =========================================================
+// MODAL DE CHECKOUT (compra de curso)
+// =========================================================
+const checkoutModal     = document.getElementById('checkoutModal');
+const checkoutForm      = document.getElementById('checkoutForm');
+const summaryCourseName = document.getElementById('summaryCourseName');
+const summaryCourseDesc = document.getElementById('summaryCourseDesc');
+const summaryCoursePrice= document.getElementById('summaryCoursePrice');
+const summaryTotal      = document.getElementById('summaryTotal');
+const hiddenCourse      = document.getElementById('hiddenCourse');
+const hiddenPrice       = document.getElementById('hiddenPrice');
+const hiddenPayment     = document.getElementById('hiddenPayment');
+const formNext          = document.getElementById('formNext');
+const payBtnLabel       = document.getElementById('payBtnLabel');
+
+function openCheckoutModal(courseKey) {
+  const course = COURSES[courseKey];
+  if (!course) return;
+
+  // Rellenar resumen
+  summaryCourseName.textContent = course.name;
+  summaryCourseDesc.textContent = course.desc;
+  summaryCoursePrice.textContent = course.price + ' €';
+  summaryTotal.textContent = course.price + ' €';
+  hiddenCourse.value = course.name;
+  hiddenPrice.value = course.price + ' €';
+  if (payBtnLabel) payBtnLabel.textContent = 'Pagar ' + course.price + ' €';
+
+  // URL de redirección post-submit (FormSubmit redirige aquí)
+  formNext.value = window.location.origin + window.location.pathname + '?pago=ok';
+
+  // Reset al paso 1
+  goToStep(1);
+
+  openModal('checkoutModal');
+}
+
+// Enganchar botones de inscripción a curso
+document.querySelectorAll('[data-course]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const key = btn.getAttribute('data-course');
+    openCheckoutModal(key);
   });
 });
+
+// Navegación entre pasos
+function goToStep(n) {
+  checkoutForm.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  const target = checkoutForm.querySelector(`[data-step="${n}"]`);
+  if (target) target.classList.add('active');
+
+  // Stepper
+  checkoutForm.closest('.modal-body').querySelectorAll('[data-step-indicator]').forEach(ind => {
+    const num = parseInt(ind.getAttribute('data-step-indicator'), 10);
+    ind.classList.remove('active', 'done');
+    if (num === n) ind.classList.add('active');
+    else if (num < n) ind.classList.add('done');
+  });
+
+  // Scroll al inicio del modal body
+  const body = checkoutForm.closest('.modal-body');
+  if (body) body.scrollTop = 0;
+}
+
+function validateStep(n) {
+  const step = checkoutForm.querySelector(`[data-step="${n}"]`);
+  if (!step) return true;
+
+  let valid = true;
+  step.querySelectorAll('input, select, textarea').forEach(el => {
+    if (el.hasAttribute('required') && !el.checkValidity()) {
+      valid = false;
+      el.reportValidity();
+    }
+  });
+  // Validar que haya una radio seleccionada en el paso (si hay grupo radio required)
+  const radioGroups = new Set();
+  step.querySelectorAll('input[type="radio"][required]').forEach(r => radioGroups.add(r.name));
+  radioGroups.forEach(name => {
+    const anyChecked = step.querySelector(`input[type="radio"][name="${name}"]:checked`);
+    if (!anyChecked) {
+      valid = false;
+      const first = step.querySelector(`input[type="radio"][name="${name}"]`);
+      if (first) first.reportValidity();
+    }
+  });
+  return valid;
+}
+
+// Botones siguiente / anterior
+checkoutForm.querySelectorAll('[data-next-step]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const currentStep = checkoutForm.querySelector('.form-step.active');
+    const currentNum = parseInt(currentStep.getAttribute('data-step'), 10);
+    if (!validateStep(currentNum)) return;
+    goToStep(currentNum + 1);
+  });
+});
+
+checkoutForm.querySelectorAll('[data-prev-step]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const currentStep = checkoutForm.querySelector('.form-step.active');
+    const currentNum = parseInt(currentStep.getAttribute('data-step'), 10);
+    goToStep(Math.max(1, currentNum - 1));
+  });
+});
+
+// Submit del checkout: guardamos método de pago y dejamos que FormSubmit envíe
+checkoutForm.addEventListener('submit', (e) => {
+  // Guardar método de pago seleccionado en el hidden field
+  const selected = checkoutForm.querySelector('input[name="payment_method"]:checked');
+  if (selected) {
+    const labels = {
+      card: 'Tarjeta',
+      apple_pay: 'Apple Pay',
+      google_pay: 'Google Pay',
+      paypal: 'PayPal',
+      transfer: 'Transferencia bancaria'
+    };
+    hiddenPayment.value = labels[selected.value] || selected.value;
+  }
+  // FormSubmit se encarga del envío
+});
+
+// Al cargar la página, si la URL trae ?pago=ok mostramos paso 4 (éxito)
+if (window.location.search.includes('pago=ok')) {
+  openModal('checkoutModal');
+  goToStep(4);
+  // Limpiar la query
+  history.replaceState(null, '', window.location.pathname);
+}
+
+// =========================================================
+// MODAL DE CONTACTO (consultas, info, presupuesto)
+// =========================================================
+const contactForm   = document.getElementById('contactForm');
+const contactKicker = document.getElementById('contactKicker');
+const contactTitle  = document.getElementById('contactTitle');
+const hiddenTopic   = document.getElementById('hiddenTopic');
+const contactFormNext = document.getElementById('contactFormNext');
+
+const CONTACT_TOPICS = {
+  general: {
+    kicker: 'Consulta gratuita',
+    title: 'Cuéntanos tu caso',
+    topic: 'Consulta general'
+  },
+  consulta: {
+    kicker: 'Consulta gratuita',
+    title: 'Agenda tu consulta de 30 min',
+    topic: 'Agendar consulta gratuita'
+  },
+  presupuesto: {
+    kicker: 'Presupuesto a medida',
+    title: 'Solicita tu presupuesto',
+    topic: 'Solicitud de presupuesto'
+  },
+  'curso-pyme': {
+    kicker: 'Información de curso',
+    title: 'Curso IA para PYMEs y autónomos',
+    topic: 'Info: curso IA para PYMEs (297 €)'
+  },
+  'curso-n8n': {
+    kicker: 'Información de curso',
+    title: 'Curso Automatiza con n8n + IA',
+    topic: 'Info: curso n8n + IA (597 €)'
+  },
+  'curso-incompany': {
+    kicker: 'Formación in-company',
+    title: 'Presupuesto formación in-company',
+    topic: 'Presupuesto formación in-company'
+  }
+};
+
+function openContactModal(topic) {
+  const t = CONTACT_TOPICS[topic] || CONTACT_TOPICS.general;
+  if (contactKicker) contactKicker.textContent = t.kicker;
+  if (contactTitle)  contactTitle.textContent  = t.title;
+  if (hiddenTopic)   hiddenTopic.value         = t.topic;
+  if (contactFormNext) contactFormNext.value = window.location.origin + window.location.pathname + '?consulta=ok';
+  openModal('contactModal');
+}
+
+// Mensaje de éxito al volver de FormSubmit de contacto
+if (window.location.search.includes('consulta=ok')) {
+  // Mostramos un mensaje simple con un toast-like (reutilizamos el modal de contacto)
+  setTimeout(() => {
+    openModal('contactModal');
+    if (contactForm) {
+      // Reemplazar el formulario por un mensaje de éxito
+      const body = contactForm.closest('.modal-body');
+      if (body) {
+        body.innerHTML = `
+          <div class="form-step-success active" style="display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center;padding:1rem 0;">
+            <div class="success-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h2 class="modal-title">¡Mensaje recibido!</h2>
+            <p class="modal-subtitle">Gracias por contactar con Motxx IA. Te responderemos en menos de 24 horas hábiles al correo que nos has facilitado.</p>
+            <button type="button" class="btn btn-primary" data-close-modal style="margin-top: 0.5rem;">Cerrar</button>
+          </div>
+        `;
+      }
+    }
+  }, 300);
+  history.replaceState(null, '', window.location.pathname);
+}
 
 // =========================================================
 // CHATBOT POR REGLAS
 // =========================================================
 const CHATBOT = {
-  WHATSAPP: 'https://wa.me/34683567360',
   TELEGRAM: 'https://t.me/MotxxBot',
   EMAIL: 'mailto:contacto@motxx.es'
 };
@@ -133,43 +373,43 @@ const INTENTS = [
     id: 'curso_pyme',
     patterns: ['pyme', 'pymes', 'autonomo', 'autonomos', 'iniciacion', 'basico', 'principiante'],
     reply: 'El curso <strong>IA para PYMEs y autónomos</strong> son 8 horas en directo, grupos reducidos y certificación incluida. Precio: <strong>297 €</strong> (IVA incluido). Sin conocimientos técnicos previos. ¿Quieres reservar plaza o que te cuente más?',
-    quick: ['Inscribirme', 'Hablar por WhatsApp', 'Ver otros cursos']
+    quick: ['Inscribirme al curso PYMEs', 'Más información', 'Ver otros cursos']
   },
   {
     id: 'curso_n8n',
-    patterns: ['n8n', 'avanzado', 'automatizar todo', 'flujo', 'flujos', 'workflow'],
-    reply: 'El curso <strong>Automatiza tu negocio con n8n + IA</strong> es el más completo: 16 h en directo, mentoría personalizada y plantillas profesionales. Oferta de lanzamiento: <strong>597 €</strong> (antes 897 €). Conectas Claude, ChatGPT y tus herramientas en flujos reales. ¿Reservamos plaza?',
-    quick: ['Reservar plaza', 'Ver todos los cursos', 'WhatsApp']
+    patterns: ['n8n', 'avanzado', 'flujo', 'flujos', 'workflow'],
+    reply: 'El curso <strong>Automatiza tu negocio con n8n + IA</strong> es el más completo: 16 h en directo, mentoría personalizada y plantillas profesionales. Oferta de lanzamiento: <strong>597 €</strong> (antes 897 €). Conectas Claude, ChatGPT y tus herramientas en flujos reales.',
+    quick: ['Reservar plaza n8n', 'Más información', 'Ver todos los cursos']
   },
   {
     id: 'curso_incompany',
     patterns: ['in-company', 'in company', 'incompany', 'empresa', 'equipo', 'plantilla', 'a medida'],
-    reply: 'La formación <strong>in-company a medida</strong> la diseñamos a partir de un análisis de vuestro caso. Duración flexible, contenidos 100% adaptados y proyectos reales con vuestras herramientas. El presupuesto depende del tamaño del equipo y los contenidos. ¿Te paso con nosotros para una propuesta?',
-    quick: ['Pedir presupuesto', 'WhatsApp', 'Email']
+    reply: 'La formación <strong>in-company a medida</strong> la diseñamos a partir de un análisis de vuestro caso. Duración flexible, contenidos 100% adaptados y proyectos reales con vuestras herramientas. El presupuesto depende del tamaño del equipo y los contenidos.',
+    quick: ['Pedir presupuesto', 'Más información']
   },
   {
     id: 'precio',
-    patterns: ['precio', 'precios', 'cuesta', 'cuanto', 'tarifa', 'coste', 'valen', 'pagar', 'pago'],
-    reply: 'Nuestros precios:<br>• Curso IA PYMEs: <strong>297 €</strong><br>• Curso n8n + IA: <strong>597 €</strong> (oferta)<br>• In-company: a medida<br>• Automatizaciones: presupuesto cerrado tras consulta gratuita de 30 min.<br><br>Aceptamos Apple Pay, Google Pay, tarjeta (Mastercard/Visa) y PayPal.',
-    quick: ['Ver cursos', 'Agendar consulta', 'WhatsApp']
+    patterns: ['precio', 'precios', 'cuesta', 'cuanto', 'tarifa', 'coste', 'valen'],
+    reply: 'Nuestros precios:<br>• Curso IA PYMEs: <strong>297 €</strong><br>• Curso n8n + IA: <strong>597 €</strong> (oferta)<br>• In-company: a medida<br>• Automatizaciones: presupuesto cerrado tras consulta gratuita de 30 min.<br><br>Aceptamos Apple Pay, Google Pay, tarjeta (Visa/Mastercard), PayPal y transferencia.',
+    quick: ['Ver cursos', 'Agendar consulta']
   },
   {
     id: 'pago',
-    patterns: ['apple pay', 'google pay', 'paypal', 'tarjeta', 'mastercard', 'visa', 'metodo de pago', 'formas de pago'],
-    reply: 'Puedes pagar con <strong>Apple Pay, Google Pay, Mastercard, Visa y PayPal</strong>. El pago es seguro, procesado a través de Stripe/PayPal. Pago único, sin suscripciones. Factura con IVA incluida.',
-    quick: ['Ver cursos', 'WhatsApp']
+    patterns: ['apple pay', 'google pay', 'paypal', 'tarjeta', 'mastercard', 'visa', 'metodo de pago', 'formas de pago', 'pagar', 'pago'],
+    reply: 'Aceptamos <strong>Apple Pay, Google Pay, tarjeta (Visa/Mastercard), PayPal y transferencia bancaria</strong>. El pago es 100% seguro, procesado a través de pasarelas certificadas PCI-DSS. Pago único, sin suscripciones. Factura con IVA incluida.',
+    quick: ['Ver cursos', 'Más información']
   },
   {
     id: 'contacto',
-    patterns: ['contacto', 'contactar', 'hablar', 'llamar', 'telefono', 'whatsapp', 'telegram', 'email', 'correo'],
-    reply: `Puedes contactarnos por:<br>• <strong>WhatsApp</strong>: <a href="${CHATBOT.WHATSAPP}" target="_blank" rel="noopener">+34 683 567 360</a><br>• <strong>Telegram</strong>: <a href="${CHATBOT.TELEGRAM}" target="_blank" rel="noopener">@MotxxBot</a><br>• <strong>Email</strong>: <a href="${CHATBOT.EMAIL}">contacto@motxx.es</a><br><br>Respuesta garantizada en menos de 24 h.`,
-    quick: ['Agendar consulta', 'Ver cursos']
+    patterns: ['contacto', 'contactar', 'hablar', 'telegram', 'email', 'correo', 'como os contacto'],
+    reply: `Puedes contactarnos por:<br>• <strong>Formulario de contacto</strong> (el más rápido)<br>• <strong>Telegram</strong>: <a href="${CHATBOT.TELEGRAM}" target="_blank" rel="noopener">@MotxxBot</a><br>• <strong>Email</strong>: <a href="${CHATBOT.EMAIL}">contacto@motxx.es</a><br><br>Respuesta garantizada en menos de 24 h.`,
+    quick: ['Abrir formulario', 'Telegram', 'Email']
   },
   {
     id: 'consulta',
     patterns: ['consulta', 'cita', 'reunion', 'agendar', 'presupuesto', 'cotizacion'],
-    reply: 'La consulta inicial es de <strong>30 minutos, gratuita y sin compromiso</strong>. Analizamos tu caso, identificamos qué se puede automatizar y te proponemos una solución con precio cerrado. ¿Te conecto con nosotros?',
-    quick: ['WhatsApp ahora', 'Telegram', 'Email']
+    reply: 'La consulta inicial es de <strong>30 minutos, gratuita y sin compromiso</strong>. Analizamos tu caso, identificamos qué se puede automatizar y te proponemos una solución con precio cerrado.',
+    quick: ['Agendar consulta', 'Pedir presupuesto']
   },
   {
     id: 'ia',
@@ -192,50 +432,47 @@ const INTENTS = [
   {
     id: 'gracias',
     patterns: ['gracias', 'muchas gracias', 'thank', 'vale', 'perfecto', 'genial'],
-    reply: '¡Un placer! Si necesitas algo más, estoy aquí. Y recuerda que tienes WhatsApp y Telegram disponibles para hablar directamente con el equipo. 😊',
-    quick: ['WhatsApp', 'Telegram', 'Ver cursos']
+    reply: '¡Un placer! Si necesitas algo más, estoy aquí. 😊',
+    quick: ['Ver cursos', 'Contactar']
   },
   {
     id: 'despedida',
     patterns: ['adios', 'hasta luego', 'chao', 'nos vemos', 'bye'],
-    reply: '¡Hasta pronto! 👋 Cuando quieras volver, aquí estaré. Si prefieres hablar con el equipo: WhatsApp +34 683 567 360 o Telegram @MotxxBot.',
+    reply: '¡Hasta pronto! 👋 Cuando quieras volver, aquí estaré.',
     quick: []
   }
 ];
 
-// Fallback si nada casa
 const FALLBACK_REPLIES = [
-  'No estoy seguro de haberte entendido bien. ¿Puedes reformular? O si lo prefieres, puedo pasarte directamente con el equipo por WhatsApp o Telegram.',
-  'Esa pregunta se me escapa. Para darte la mejor respuesta, lo mejor es que hables con el equipo humano. ¿Te paso a WhatsApp o Telegram?',
-  'No tengo una respuesta clara para eso. ¿Quieres que te ponga en contacto con nosotros? Respondemos rápido.'
+  'No estoy seguro de haberte entendido bien. ¿Puedes reformular? También puedes abrir el formulario de contacto y te responde el equipo directamente.',
+  'Esa pregunta se me escapa. Para darte la mejor respuesta, lo mejor es que hables con el equipo humano. ¿Abrimos el formulario?',
+  'No tengo una respuesta clara para eso. ¿Quieres que te pase al formulario de contacto? Respondemos en menos de 24 horas.'
 ];
 
-const FALLBACK_QUICK = ['WhatsApp', 'Telegram', 'Ver cursos', 'Precios'];
+const FALLBACK_QUICK = ['Abrir formulario', 'Telegram', 'Ver cursos', 'Precios'];
 
 // Mapeo de quick-replies a texto que se "envía" como usuario
 const QUICK_MAP = {
-  'ver cursos':          'cursos',
-  'curso ia pymes':      'curso pyme',
-  'curso n8n + ia':      'curso n8n',
-  'in-company':          'in-company',
-  'inscribirme':         'inscribirme',
-  'reservar plaza':      'reservar plaza',
-  'precios':             'precios',
-  'contactar':           'contacto',
-  'agendar consulta':    'consulta',
-  'pedir presupuesto':   'presupuesto',
-  'whatsapp':            'whatsapp',
-  'whatsapp ahora':      'whatsapp',
-  'hablar por whatsapp': 'whatsapp',
-  'telegram':            'telegram',
-  'email':               'email',
-  'ver servicios':       'servicios',
-  'ver otros cursos':    'cursos',
-  'ver todos los cursos':'cursos',
-  'cursos de formacion': 'cursos'
+  'ver cursos':           'cursos',
+  'curso ia pymes':       'curso pyme',
+  'curso n8n + ia':       'curso n8n',
+  'in-company':           'in-company',
+  'precios':              'precios',
+  'contactar':            'contacto',
+  'agendar consulta':     '__open_consulta__',
+  'pedir presupuesto':    '__open_presupuesto__',
+  'abrir formulario':     '__open_general__',
+  'inscribirme al curso pymes': '__open_curso_pyme__',
+  'reservar plaza n8n':   '__open_curso_n8n__',
+  'mas informacion':      '__open_general__',
+  'telegram':             '__open_telegram__',
+  'email':                '__open_email__',
+  'ver servicios':        'servicios',
+  'ver otros cursos':     'cursos',
+  'ver todos los cursos': 'cursos',
+  'cursos de formacion':  'cursos'
 };
 
-// Normaliza texto para matching (minúsculas, sin acentos)
 function normalize(text) {
   return text
     .toLowerCase()
@@ -245,15 +482,16 @@ function normalize(text) {
     .trim();
 }
 
-// Busca la intención que mejor case
 function matchIntent(userText) {
   const clean = normalize(userText);
 
-  // Casos especiales: quiero inscribirme/reservar → guía a los botones
+  // Casos especiales: quiero inscribirme/reservar → guiar al botón adecuado
   if (/\b(inscribir|reservar|comprar|apuntar)/.test(clean)) {
+    if (clean.includes('n8n')) return { reply: '¡Genial! Te abro el checkout del curso de n8n + IA para que completes la inscripción. 🚀', quick: ['__open_curso_n8n__|Abrir checkout n8n + IA'] };
+    if (clean.includes('pyme')) return { reply: '¡Genial! Te abro el checkout del curso IA para PYMEs. 🚀', quick: ['__open_curso_pyme__|Abrir checkout PYMEs'] };
     return {
-      reply: '¡Genial! Los botones de inscripción están en cada tarjeta de curso, justo en la sección <strong>Formación</strong> 👆 Aceptamos Apple Pay, Google Pay, tarjeta y PayPal. Si prefieres que te guíe, escríbenos por <a href="' + CHATBOT.WHATSAPP + '" target="_blank" rel="noopener">WhatsApp</a>.',
-      quick: ['Ver cursos', 'WhatsApp']
+      reply: '¡Genial! Los botones de inscripción están en cada tarjeta de curso, en la sección <strong>Formación</strong>. Aceptamos Apple Pay, Google Pay, tarjeta, PayPal y transferencia.',
+      quick: ['Ver cursos']
     };
   }
 
@@ -287,7 +525,6 @@ function toggleChatbot(force) {
 
   if (shouldOpen && !cbOpened) {
     cbOpened = true;
-    // Mensaje de bienvenida diferido
     setTimeout(() => {
       addBotMessage('¡Hola! 👋 Soy el asistente de <strong>Motxx IA</strong>. ¿En qué puedo ayudarte hoy?');
       renderQuickReplies(['Ver cursos', 'Precios', 'Agendar consulta', 'Contactar']);
@@ -333,39 +570,80 @@ function scrollMessagesToBottom() {
   cbMessages.scrollTop = cbMessages.scrollHeight;
 }
 
+// Acciones especiales desencadenadas desde el chatbot
+function runSpecialAction(key, displayLabel) {
+  switch (key) {
+    case '__open_general__':
+      addUserMessage(displayLabel || 'Abrir formulario');
+      addBotMessage('Abriendo el formulario de contacto... ✉️');
+      setTimeout(() => { toggleChatbot(false); openContactModal('general'); }, 400);
+      return true;
+    case '__open_consulta__':
+      addUserMessage(displayLabel || 'Agendar consulta');
+      addBotMessage('Te abro el formulario para agendar tu consulta gratuita.');
+      setTimeout(() => { toggleChatbot(false); openContactModal('consulta'); }, 400);
+      return true;
+    case '__open_presupuesto__':
+      addUserMessage(displayLabel || 'Pedir presupuesto');
+      addBotMessage('Abriendo el formulario de presupuesto...');
+      setTimeout(() => { toggleChatbot(false); openContactModal('presupuesto'); }, 400);
+      return true;
+    case '__open_curso_pyme__':
+      addUserMessage(displayLabel || 'Inscribirme al curso PYMEs');
+      addBotMessage('Te abro el checkout del curso IA para PYMEs. 🚀');
+      setTimeout(() => { toggleChatbot(false); openCheckoutModal('pyme'); }, 400);
+      return true;
+    case '__open_curso_n8n__':
+      addUserMessage(displayLabel || 'Reservar plaza n8n');
+      addBotMessage('Te abro el checkout del curso n8n + IA. 🚀');
+      setTimeout(() => { toggleChatbot(false); openCheckoutModal('n8n'); }, 400);
+      return true;
+    case '__open_telegram__':
+      window.open(CHATBOT.TELEGRAM, '_blank', 'noopener');
+      addUserMessage(displayLabel || 'Telegram');
+      addBotMessage('¡Abriendo Telegram! Enlace: <a href="' + CHATBOT.TELEGRAM + '" target="_blank" rel="noopener">@MotxxBot</a>');
+      return true;
+    case '__open_email__':
+      window.location.href = CHATBOT.EMAIL;
+      addUserMessage(displayLabel || 'Email');
+      addBotMessage('Abriendo tu cliente de correo. También puedes escribir a <a href="' + CHATBOT.EMAIL + '">contacto@motxx.es</a>.');
+      return true;
+  }
+  return false;
+}
+
 function renderQuickReplies(labels) {
   cbQuick.innerHTML = '';
   if (!labels || !labels.length) return;
 
-  labels.forEach(label => {
+  labels.forEach(raw => {
+    // Soporte de formato "__action__|Label visible"
+    let actionKey = null;
+    let label = raw;
+    if (typeof raw === 'string' && raw.includes('|')) {
+      const parts = raw.split('|');
+      if (parts[0].startsWith('__')) {
+        actionKey = parts[0];
+        label = parts[1];
+      }
+    }
+
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'quick-reply';
     btn.textContent = label;
     btn.addEventListener('click', () => {
-      const key = normalize(label);
-      // Si el quick es un canal directo, abrimos
-      if (key === 'whatsapp' || key === 'whatsapp ahora' || key === 'hablar por whatsapp') {
-        window.open(CHATBOT.WHATSAPP, '_blank', 'noopener');
-        addUserMessage(label);
-        addBotMessage('¡Te he abierto WhatsApp en una pestaña nueva! Si no se ha abierto, aquí tienes el enlace: <a href="' + CHATBOT.WHATSAPP + '" target="_blank" rel="noopener">+34 683 567 360</a>');
-        return;
-      }
-      if (key === 'telegram') {
-        window.open(CHATBOT.TELEGRAM, '_blank', 'noopener');
-        addUserMessage(label);
-        addBotMessage('¡Te he abierto Telegram en una pestaña nueva! Enlace: <a href="' + CHATBOT.TELEGRAM + '" target="_blank" rel="noopener">@MotxxBot</a>');
-        return;
-      }
-      if (key === 'email') {
-        window.location.href = CHATBOT.EMAIL;
-        addUserMessage(label);
-        addBotMessage('Abriendo tu cliente de correo. También puedes escribirnos a <a href="' + CHATBOT.EMAIL + '">contacto@motxx.es</a>.');
+      if (actionKey && runSpecialAction(actionKey, label)) return;
+
+      const mapped = QUICK_MAP[normalize(label)] || label;
+
+      // Si el valor mapeado es una acción especial, la ejecutamos
+      if (typeof mapped === 'string' && mapped.startsWith('__')) {
+        runSpecialAction(mapped, label);
         return;
       }
 
-      // El resto, tratamos como mensaje normal usando el mapa
-      const mapped = QUICK_MAP[key] || label;
+      // Si no, tratamos como mensaje normal
       handleUserMessage(mapped, label);
     });
     cbQuick.appendChild(btn);
@@ -380,7 +658,6 @@ function handleUserMessage(rawText, displayText) {
   renderQuickReplies([]);
   showTyping();
 
-  // Simular "pensando"
   setTimeout(() => {
     hideTyping();
 
@@ -407,12 +684,5 @@ if (cb && cbFab && cbPanel) {
     if (!value) return;
     handleUserMessage(value);
     cbInput.value = '';
-  });
-
-  // Cerrar con Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && cb.classList.contains('open')) {
-      toggleChatbot(false);
-    }
   });
 }

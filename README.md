@@ -41,19 +41,20 @@ motxx-web/
 
 - Web: [motxx.es](https://motxx.es)
 - Email: [contacto@motxx.es](mailto:contacto@motxx.es)
-- WhatsApp: +34 683 567 360
 - Telegram: [@MotxxBot](https://t.me/MotxxBot)
 
 ## Funcionalidades de la web
 
-- **Chatbot flotante** por reglas (esquina inferior derecha). Responde FAQs sobre servicios, cursos, precios, pagos, contacto, RGPD y plazos. Si no entiende, redirige a WhatsApp o Telegram.
-- **Inscripción a cursos** con botones de pago (Stripe Checkout: Apple Pay, Google Pay, Mastercard, Visa + PayPal aparte). Mientras los Payment Links no estén configurados, los botones redirigen automáticamente a WhatsApp con un mensaje pre-rellenado.
-- **Contacto multicanal**: WhatsApp con número visible, Telegram (@MotxxBot) y email en todos los CTAs principales.
+- **Chatbot flotante** por reglas (esquina inferior derecha). Responde FAQs sobre servicios, cursos, precios, pagos, contacto, RGPD y plazos. Si no entiende, ofrece abrir el formulario de contacto o derivar a Telegram.
+- **Modal de checkout** profesional para inscripción a cursos, con flujo en 3 pasos: datos personales → datos de empresa (tamaño, sector, público objetivo, facturación) → selección de método de pago (tarjeta, Apple Pay, Google Pay, PayPal, transferencia). Pantalla de éxito al completar.
+- **Modal de contacto** para consultas generales, info de cursos y solicitudes de presupuesto, con los campos de empresa necesarios para calificar el lead.
+- **Formularios conectados a FormSubmit** — los datos llegan a `contacto@motxx.es` formateados en tabla HTML. Sin backend, sin API keys, 50 envíos/mes gratis.
+- **Canales de contacto**: formulario, Telegram (@MotxxBot) y email. WhatsApp desactivado temporalmente (se añadirá en el futuro).
 
 ## Configuración pendiente
 
-Ver `PUBLICAR.md` → sección *"Configurar pagos y bot de Telegram"* para los pasos de:
+Ver `PUBLICAR.md` → sección *"Configurar formularios, pagos y bot de Telegram"* para los pasos de:
 
-1. Crear los Stripe Payment Links y pegarlos en `script.js` (objeto `STRIPE_LINKS`).
+1. Activar FormSubmit (confirmar `contacto@motxx.es` una sola vez).
 2. Crear el bot `@MotxxBot` en Telegram con @BotFather.
-3. (Opcional) Conectar el bot a Claude para respuestas automáticas.
+3. (Cuando llegue el momento) Conectar un pago automático real con Stripe y reactivar WhatsApp.
