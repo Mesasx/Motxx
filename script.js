@@ -31,6 +31,112 @@ if (navToggle && mobileMenu) {
   });
 }
 
+// =========================================================
+// ROUTER ENTRE PÁGINAS (home / nosotros)
+// =========================================================
+// Las secciones con data-page="nosotros" se muestran solo en esa pestaña.
+// Cuando el usuario pulsa "Nosotros" en el menú, ocultamos la home y
+// mostramos solo esas secciones. La URL usa #nosotros para poder
+// compartirse y para que el botón atrás del navegador funcione.
+
+const PAGE_KEYS = ['nosotros']; // Añadir aquí si se crean más pestañas
+
+function getPageFromHash() {
+  const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+  return PAGE_KEYS.includes(hash) ? hash : 'home';
+}
+
+function setPage(page, opts = {}) {
+  const { scroll = true, updateHash = true } = opts;
+
+  // Limpiar clases page-* previas
+  document.body.classList.forEach(cls => {
+    if (cls.startsWith('page-')) document.body.classList.remove(cls);
+  });
+  document.body.classList.add('page-' + page);
+
+  // Actualizar enlaces activos del nav
+  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
+    const href = a.getAttribute('href') || '';
+    const isNosotros = href === '#nosotros';
+    if (page === 'nosotros' && isNosotros) a.classList.add('active');
+    else a.classList.remove('active');
+  });
+
+  // Actualizar URL sin forzar recarga
+  if (updateHash) {
+    const targetHash = page === 'home' ? '' : '#' + page;
+    if (window.location.hash !== targetHash) {
+      if (targetHash) {
+        history.pushState({ page }, '', targetHash);
+      } else {
+        history.pushState({ page }, '', window.location.pathname);
+      }
+    }
+  }
+
+  // Scroll al inicio con animación
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Re-disparar reveal en la página nueva (las secciones ocultas no se animaron)
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 1.1) {
+        el.classList.add('visible');
+      }
+    });
+  }, 100);
+}
+
+// Interceptar clicks a enlaces internos para alternar páginas
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+
+  const href = link.getAttribute('href');
+  const targetKey = href.replace('#', '').toLowerCase();
+
+  // Caso 1: click al logo o href="#" → volver a home
+  if (href === '#' || href === '') {
+    e.preventDefault();
+    setPage('home');
+    return;
+  }
+
+  // Caso 2: click en enlace de pestaña dedicada → cambiar a esa página
+  if (PAGE_KEYS.includes(targetKey)) {
+    e.preventDefault();
+    setPage(targetKey);
+    return;
+  }
+
+  // Caso 3: click en ancla de la home (servicios, cursos, etc.)
+  // Si estamos en una pestaña dedicada, primero volvemos a home y luego hacemos scroll
+  if (document.body.classList.contains('page-nosotros')) {
+    const section = document.querySelector(href);
+    if (section) {
+      e.preventDefault();
+      setPage('home', { scroll: false });
+      // Scroll a la sección tras el reflow
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }
+  }
+  // Si ya estamos en home, el navegador hace el scroll por defecto
+});
+
+// Soportar botones atrás/adelante del navegador
+window.addEventListener('popstate', () => {
+  setPage(getPageFromHash(), { updateHash: false });
+});
+
+// Al cargar la página, inicializar según el hash de la URL
+setPage(getPageFromHash(), { scroll: false, updateHash: false });
+
 // ============ ANIMACIONES AL HACER SCROLL ============
 const observerOptions = {
   threshold: 0.1,

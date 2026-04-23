@@ -2921,3 +2921,58 @@ body.modal-open {
   .tech-item { gap: 0.6rem; }
   .tech-item-icon { width: 30px; height: 30px; }
 }
+
+/* =========================================================
+   NAVEGACIÓN ENTRE PÁGINAS (home / nosotros)
+   ========================================================= */
+
+/* Por defecto, las secciones marcadas como "pestaña" están ocultas */
+.page-section {
+  display: none;
+}
+
+/* Cuando estamos en modo "nosotros", se invierte: ocultamos home y mostramos nosotros */
+body.page-nosotros .hero,
+body.page-nosotros .section:not(.page-section):not(.cta-final) {
+  display: none;
+}
+
+body.page-nosotros .page-section {
+  display: block;
+  animation: pageIn 0.4s ease both;
+}
+
+/* Mantenemos CTA final visible también en Nosotros (tiene su CTA de contacto) */
+body.page-nosotros .cta-final { display: block; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Resaltado del enlace activo en el nav */
+.nav-links a.active,
+.mobile-menu a.active {
+  color: var(--accent-cyan);
+}
+
+.nav-links a.active::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--accent-cyan);
+  margin: 4px auto 0;
+  border-radius: 1px;
+}
+
+/* Primera sección en modo Nosotros necesita más padding-top porque no hay hero arriba */
+body.page-nosotros .page-section:first-of-type {
+  padding-top: 10rem;
+}
+
+@media (max-width: 768px) {
+  body.page-nosotros .page-section:first-of-type {
+    padding-top: 8rem;
+  }
+}
