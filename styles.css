@@ -4768,3 +4768,85 @@ body.chatbot-modal-open { overflow: hidden !important; }
     font-size: .68rem;
   }
 }
+
+
+/* =========================================================
+   CORRECCIÓN FINAL · Cursos visibles, navegación prioritaria y desplegables
+   ========================================================= */
+/* Anula reglas antiguas que escondían secciones completas en páginas internas */
+body.page-cursos .hero,
+body.page-cursos main > .section,
+body.page-nosotros .hero,
+body.page-nosotros main > .section {
+  display: block !important;
+}
+
+/* La marca ya no muestra el bloque "apartados principales" en la home */
+.hero-stack { display: none !important; }
+
+.route-card-featured {
+  border-color: rgba(255, 61, 127, 0.38) !important;
+  background: linear-gradient(180deg, rgba(255,61,127,.10), rgba(13,22,40,.72)) !important;
+  box-shadow: 0 0 55px rgba(255,61,127,.14);
+}
+.route-card-featured .route-kicker,
+.route-card-featured .route-link { color: var(--accent-hot); }
+
+.services-interactive {
+  padding-top: 7rem;
+}
+.service-expand-card summary {
+  display: block;
+}
+.service-expand-card summary::before {
+  content: "Haz clic para abrir/cerrar el ejemplo";
+  display: inline-flex;
+  margin-bottom: 1rem;
+  padding: .42rem .82rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,224,255,.22);
+  background: rgba(0,224,255,.07);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .04em;
+}
+.service-expand-card[open] summary::before {
+  content: "Ejemplo abierto · pulsa para cerrar";
+  background: rgba(0,102,255,.2);
+  color: var(--text-primary);
+}
+.service-expand-card:not([open]) .service-expanded-content {
+  display: none !important;
+}
+.service-expand-card[open] .service-expanded-content {
+  display: block !important;
+}
+.service-open-indicator {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.service-courses-block {
+  position: relative;
+  border-top: 1px solid rgba(255,61,127,.16);
+  border-bottom: 1px solid rgba(0,224,255,.12);
+}
+.service-courses-block .section-title {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.courses-main-programs {
+  scroll-margin-top: 110px;
+  display: block !important;
+}
+#programa-pymes,
+#programa-premium,
+#programa-empresas {
+  scroll-margin-top: 120px;
+}
+.course-card:target {
+  border-color: rgba(0,224,255,.55) !important;
+  box-shadow: 0 0 65px rgba(0,224,255,.20) !important;
+}

@@ -408,3 +408,30 @@ $$('[data-budget-start]').forEach((btn) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeChatbot();
 });
+
+
+// Corrección final: scroll robusto a programas y desplegables de servicios claros
+(function () {
+  document.querySelectorAll('[data-scroll-to]').forEach((el) => {
+    el.addEventListener('click', (event) => {
+      const id = el.getAttribute('data-scroll-to');
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      event.preventDefault();
+      target.style.display = 'block';
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => target.focus?.({ preventScroll: true }), 450);
+      if (history.pushState) history.pushState(null, '', '#' + id);
+    });
+  });
+
+  const serviceCards = Array.from(document.querySelectorAll('.service-expand-card'));
+  serviceCards.forEach((card) => {
+    card.addEventListener('toggle', () => {
+      if (!card.open) return;
+      serviceCards.forEach((other) => {
+        if (other !== card) other.open = false;
+      });
+    });
+  });
+})();
