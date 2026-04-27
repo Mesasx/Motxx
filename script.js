@@ -435,3 +435,141 @@ document.addEventListener('keydown', (event) => {
     });
   });
 })();
+
+// =========================================================
+// CURSOS · Programas desplegables, ventana de pago y promoción
+// =========================================================
+(function () {
+  const paymentModal = document.getElementById('paymentModal');
+  const promoModal = document.getElementById('promoModal');
+  const paymentTitle = document.getElementById('paymentCourseTitle');
+  const paymentHours = document.getElementById('paymentCourseHours');
+  const paymentPrice = document.getElementById('paymentCoursePrice');
+  const paymentNote = document.getElementById('paymentNote');
+  let selectedMethod = '';
+
+  function lockBody(lock) {
+    document.body.classList.toggle('modal-locked', Boolean(lock));
+  }
+
+  function openPaymentFromButton(button) {
+    if (!paymentModal || !button) return;
+    const title = button.dataset.courseTitle || 'Curso Motex';
+    const price = button.dataset.coursePrice || 'Consultar';
+    const hours = button.dataset.courseHours || 'A medida';
+    const type = button.dataset.courseType || 'Formación Motex';
+
+    if (paymentTitle) paymentTitle.textContent = title;
+    if (paymentHours) paymentHours.textContent = hours;
+    if (paymentPrice) paymentPrice.textContent = price;
+    const heading = document.getElementById('paymentTitle');
+    if (heading) heading.textContent = type.includes('empresa') || title.toLowerCase().includes('company') ? 'Solicitar propuesta de formación' : 'Inscribirte al curso';
+    if (paymentNote) paymentNote.textContent = 'Selecciona un método de pago para continuar. Para pagos reales se conectará esta ventana con Stripe, PayPal Checkout o la pasarela bancaria que decidáis.';
+
+    selectedMethod = '';
+    document.querySelectorAll('[data-payment-method]').forEach((el) => el.classList.remove('active'));
+    paymentModal.classList.add('open');
+    paymentModal.setAttribute('aria-hidden', 'false');
+    lockBody(true);
+  }
+
+  function closePayment() {
+    if (!paymentModal) return;
+    paymentModal.classList.remove('open');
+    paymentModal.setAttribute('aria-hidden', 'true');
+    lockBody(Boolean(promoModal?.classList.contains('open')));
+  }
+
+  document.querySelectorAll('[data-course-checkout]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const openedPromo = promoModal?.classList.contains('open');
+      if (openedPromo) closePromo();
+      openPaymentFromButton(button);
+    });
+  });
+
+  document.querySelectorAll('[data-payment-close]').forEach((el) => {
+    el.addEventListener('click', closePayment);
+  });
+
+  document.querySelectorAll('[data-payment-method]').forEach((button) => {
+    button.addEventListener('click', () => {
+      selectedMethod = button.dataset.paymentMethod || button.textContent.trim();
+      document.querySelectorAll('[data-payment-method]').forEach((el) => el.classList.remove('active'));
+      button.classList.add('active');
+      if (paymentNote) paymentNote.textContent = `Método seleccionado: ${selectedMethod}. Completa tus datos y pulsa “Continuar con el pago”.`;
+    });
+  });
+
+  const paymentForm = document.getElementById('paymentForm');
+  if (paymentForm) {
+    paymentForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!selectedMethod) {
+        if (paymentNote) paymentNote.textContent = 'Elige primero un método: PayPal, tarjeta, Apple Pay, Google Pay o transferencia.';
+        return;
+      }
+      if (paymentNote) {
+        paymentNote.innerHTML = `Flujo preparado para <strong>${selectedMethod}</strong>. Cuando conectemos Stripe/PayPal, este botón llevará al checkout real. Mientras tanto, puedes cerrar esta ventana y escribirnos a <a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a>.`;
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-course-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.course-program-card');
+      if (!card) return;
+      const isOpen = card.classList.toggle('program-open');
+      const panel = card.querySelector('.course-program');
+      if (panel) panel.setAttribute('aria-hidden', String(!isOpen));
+      button.textContent = isOpen ? 'Ocultar programa' : 'Ver programa';
+      if (isOpen) setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
+    });
+  });
+
+  function openPromo() {
+    if (!promoModal) return;
+    promoModal.classList.add('open');
+    promoModal.setAttribute('aria-hidden', 'false');
+    lockBody(true);
+  }
+
+  function closePromo() {
+    if (!promoModal) return;
+    promoModal.classList.remove('open');
+    promoModal.setAttribute('aria-hidden', 'true');
+    sessionStorage.setItem('motexPromoClosed', 'true');
+    lockBody(Boolean(paymentModal?.classList.contains('open')));
+  }
+
+  document.querySelectorAll('[data-promo-close]').forEach((el) => {
+    el.addEventListener('click', closePromo);
+  });
+
+  if (promoModal && !sessionStorage.getItem('motexPromoClosed')) {
+    window.setTimeout(openPromo, 900);
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    closePayment();
+    closePromo();
+  });
+})();
+
+// Abre automáticamente el programa si la URL apunta a un curso concreto
+(function () {
+  const hash = window.location.hash;
+  if (!hash) return;
+  const target = document.querySelector(hash);
+  if (!target || !target.classList.contains('course-program-card')) return;
+  window.setTimeout(() => {
+    target.classList.add('program-open');
+    const panel = target.querySelector('.course-program');
+    const button = target.querySelector('[data-course-toggle]');
+    if (panel) panel.setAttribute('aria-hidden', 'false');
+    if (button) button.textContent = 'Ocultar programa';
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 350);
+})();
