@@ -1,5 +1,5 @@
 // =========================================================
-// AIMOTEX — script principal
+// MOTEX — script principal
 // =========================================================
 
 // ============ NAVEGACIÓN: efecto scroll ============
@@ -543,7 +543,7 @@ if (window.location.search.includes('consulta=ok')) {
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             </div>
             <h2 class="modal-title">¡Mensaje recibido!</h2>
-            <p class="modal-subtitle">Gracias por contactar con AIMOTEX. Te responderemos en menos de 24 horas hábiles al correo que nos has facilitado.</p>
+            <p class="modal-subtitle">Gracias por contactar con Motex. Te responderemos en menos de 24 horas hábiles al correo que nos has facilitado.</p>
             <button type="button" class="btn btn-primary" data-close-modal style="margin-top: 0.5rem;">Cerrar</button>
           </div>
         `;
@@ -557,7 +557,7 @@ if (window.location.search.includes('consulta=ok')) {
 // CHATBOT FULLSCREEN + PRESUPUESTO INTELIGENTE
 // =========================================================
 const CHATBOT = {
-  TELEGRAM: 'https://t.me/AimotexBot',
+  TELEGRAM: 'https://t.me/MotexBot',
   EMAIL: 'mailto:contacto@aimotex.com'
 };
 
@@ -629,7 +629,7 @@ function toggleChatbot(force, opts = {}) {
     setTimeout(() => {
       addBotMessage(`
         <div class="bot-welcome-card">
-          <span class="chat-budget-kicker">AimotexBot</span>
+          <span class="chat-budget-kicker">MotexBot</span>
           <h4>Te ayudo sin formularios largos</h4>
           <p>Puedo calcular un presupuesto aproximado, hacer un diagnóstico rápido, explicarte los cursos o preparar un resumen para enviar al equipo.</p>
         </div>
@@ -753,12 +753,12 @@ const INTENTS = [
   {
     id: 'saludo',
     patterns: ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'hey', 'que tal', 'buen dia'],
-    reply: '¡Hola! Soy AimotexBot. Puedo hacerte un presupuesto aproximado en modo chat, sin formulario largo, o explicarte los cursos y automatizaciones.',
+    reply: '¡Hola! Soy MotexBot. Puedo hacerte un presupuesto aproximado en modo chat, sin formulario largo, o explicarte los cursos y automatizaciones.',
     quick: ['Presupuesto aproximado', 'Diagnóstico rápido', 'Ver cursos', 'Telegram']
   },
   {
     id: 'servicios',
-    patterns: ['servicio', 'automatizar', 'automatizacion', 'automatización', 'que haceis', 'que ofreceis', 'que es aimotex', 'agente', 'bot', 'ia para empresa'],
+    patterns: ['servicio', 'automatizar', 'automatizacion', 'automatización', 'que haceis', 'que ofreceis', 'que es motex', 'agente', 'bot', 'ia para empresa'],
     reply: 'Automatizamos sistemas informáticos y procesos de empresa: atención al cliente, correos, documentos, reservas, presupuestos, CRM, informes, redes y flujos con n8n. La idea es convertir la IA en un empleado digital que trabaje 24/7.',
     quick: ['Presupuesto aproximado', 'Diagnóstico rápido', 'Ver cursos']
   },
@@ -1013,7 +1013,7 @@ function showQuoteResult() {
 
   addBotMessage(`
     <div class="chat-budget-result quote-result-card">
-      <span class="chat-budget-kicker">Estimación AimotexBot</span>
+      <span class="chat-budget-kicker">Estimación MotexBot</span>
       <h4>${result.base.label}</h4>
       <p>${result.base.desc}. Según tus respuestas, esta sería una estimación competitiva para una primera versión funcional:</p>
       <div class="chat-budget-numbers">
@@ -1144,7 +1144,7 @@ function submitChatQuote() {
       <div class="chat-budget-result quote-result-card">
         <span class="chat-budget-kicker">Resumen enviado</span>
         <h4>Ya tenemos tu estimación</h4>
-        <p>Hemos enviado el resumen al equipo de AIMOTEX. Te responderemos en menos de 24 horas hábiles con el siguiente paso.</p>
+        <p>Hemos enviado el resumen al equipo de Motex. Te responderemos en menos de 24 horas hábiles con el siguiente paso.</p>
       </div>
     `);
     renderQuickReplies(['Telegram', '__quote_start__|Nueva estimación', 'Ver cursos']);
@@ -1164,7 +1164,7 @@ function openSmartChatFromTopic(topic = 'general') {
     'curso-n8n': 'Te oriento sobre n8n + IA. ¿Quieres automatizar correos, clientes, reservas, informes o varios procesos?',
     'curso-incompany': 'Para formación in-company, lo mejor es un diagnóstico rápido por chat: equipo, objetivo y herramientas. Empezamos por el objetivo.'
   };
-  addUserMessage(topic === 'presupuesto' ? 'Presupuesto inteligente' : 'Diagnóstico AimotexBot');
+  addUserMessage(topic === 'presupuesto' ? 'Presupuesto inteligente' : 'Diagnóstico MotexBot');
   addBotMessage(messages[topic] || messages.general);
   if (topic === 'presupuesto' || topic === 'consulta' || topic === 'curso-incompany') {
     renderQuickReplies(['Presupuesto aproximado', 'Diagnóstico rápido', 'Telegram', 'Email clásico']);
@@ -1236,7 +1236,7 @@ function runSpecialAction(key, displayLabel) {
     case '__open_telegram__':
       addUserMessage(displayLabel || 'Telegram');
       window.open(CHATBOT.TELEGRAM, '_blank', 'noopener');
-      addBotMessage(`Abriendo Telegram. También puedes entrar aquí: <a href="${CHATBOT.TELEGRAM}" target="_blank" rel="noopener">@AimotexBot</a>`);
+      addBotMessage(`Abriendo Telegram. También puedes entrar aquí: <a href="${CHATBOT.TELEGRAM}" target="_blank" rel="noopener">@MotexBot</a>`);
       return true;
     case '__open_email__':
       addUserMessage(displayLabel || 'Email');

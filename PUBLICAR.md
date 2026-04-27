@@ -1,4 +1,4 @@
-# Guía para publicar AIMOTEX
+# Guía para publicar Motex
 
 Guía rápida para poner la web online en menos de 30 minutos.
 
@@ -101,7 +101,7 @@ Sin este paso, **nadie que rellene el formulario te llegará** y FormSubmit devu
 
 ### Cómo se ven los emails
 
-Cuando alguien compra un curso, recibirás un email con asunto *"Nueva inscripción a curso — AIMOTEX"* y una tabla con:
+Cuando alguien compra un curso, recibirás un email con asunto *"Nueva inscripción a curso — Motex"* y una tabla con:
 
 | Campo | Ejemplo |
 |-------|---------|
@@ -152,26 +152,26 @@ Guarda las dos URLs: las usarás cuando respondas a cada cliente por email. Te l
 
 ### Cuenta PayPal
 
-Crea un [PayPal.Me](https://paypal.me) con tu usuario de negocio. Te da un link personalizado tipo `https://paypal.me/AIMOTEXIA/597` que va directo al pago con el importe pre-rellenado.
+Crea un [PayPal.Me](https://paypal.me) con tu usuario de negocio. Te da un link personalizado tipo `https://paypal.me/MOTEX/597` que va directo al pago con el importe pre-rellenado.
 
 ### Cuenta bancaria para transferencias
 
-Prepara una plantilla de email con tu IBAN, titular y el formato del concepto que pides (ej. *"AIMOTEX-N8N-[NombreApellidos]"*) para responder rápido a las solicitudes de transferencia.
+Prepara una plantilla de email con tu IBAN, titular y el formato del concepto que pides (ej. *"Motex-N8N-[NombreApellidos]"*) para responder rápido a las solicitudes de transferencia.
 
-## 3. Crear el bot de Telegram @AimotexBot
+## 3. Crear el bot de Telegram @MotexBot
 
-El código de la web ya enlaza a `https://t.me/AimotexBot`. Para que el enlace funcione tienes que registrar el bot.
+El código de la web ya enlaza a `https://t.me/MotexBot`. Para que el enlace funcione tienes que registrar el bot.
 
 ### Pasos (2 minutos)
 
 1. Abre Telegram y busca **@BotFather** (el oficial, con tick azul).
 2. Envíale `/newbot`.
-3. Te pedirá un **nombre** (lo que verá el usuario, ej. *"AIMOTEX"*).
-4. Luego un **username** — escribe `AimotexBot` (debe acabar en "bot"). Si está cogido, prueba `AIMOTEXIABot`, `AIMOTEXIAOficialBot` o similar. **Importante**: si usas uno distinto a `AimotexBot`, tienes que cambiar las referencias en `index.html` y `script.js` (busca y reemplaza `AimotexBot` → `TuNuevoUsername`).
+3. Te pedirá un **nombre** (lo que verá el usuario, ej. *"Motex"*).
+4. Luego un **username** — escribe `MotexBot` (debe acabar en "bot"). Si está cogido, prueba `MOTEXBot`, `MOTEXOficialBot` o similar. **Importante**: si usas uno distinto a `MotexBot`, tienes que cambiar las referencias en `index.html` y `script.js` (busca y reemplaza `MotexBot` → `TuNuevoUsername`).
 5. BotFather te devuelve un mensaje con un **token** (tipo `123456:ABCdef...`). **Guárdalo en sitio seguro** — es como una contraseña.
 6. Opcional: `/setdescription` y `/setuserpic` para personalizar el bot con tu logo.
 
-A partir de aquí, el enlace `t.me/AimotexBot` ya funciona: abre el chat con tu bot y la gente te puede escribir. Los mensajes los lees tú entrando al bot desde tu propio Telegram.
+A partir de aquí, el enlace `t.me/MotexBot` ya funciona: abre el chat con tu bot y la gente te puede escribir. Los mensajes los lees tú entrando al bot desde tu propio Telegram.
 
 ### Opción A (fácil): bot manual
 
@@ -189,7 +189,7 @@ import Anthropic from '@anthropic-ai/sdk';
 const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, { polling: true });
 const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-const SYSTEM = `Eres el asistente de AIMOTEX, empresa española de automatización con IA y formación.
+const SYSTEM = `Eres el asistente de Motex, empresa española de automatización con IA y formación.
 Servicios: atención al cliente con chatbots, correo automático, contenido en redes, reservas, facturación, informes.
 Cursos: IA para PYMEs (297€, 8h), n8n+IA (597€, 16h), in-company a medida.
 Contacto: formulario en aimotex.com, email contacto@aimotex.com.
@@ -258,17 +258,17 @@ Coste: céntimos por conversación.
 
 ## Cambio importante: presupuesto por chatbot
 
-El flujo recomendado ya no es abrir un formulario para pedir presupuesto. Los botones principales de consulta, diagnóstico y presupuesto abren AimotexBot en modo pantalla completa.
+El flujo recomendado ya no es abrir un formulario para pedir presupuesto. Los botones principales de consulta, diagnóstico y presupuesto abren MotexBot en modo pantalla completa.
 
 El formulario clásico queda como opción secundaria desde el propio chatbot con el botón “Email clásico”.
 
-### Activar envío desde AimotexBot
+### Activar envío desde MotexBot
 
-AimotexBot envía los resúmenes del presupuesto a `contacto@aimotex.com` usando FormSubmit. Igual que con los formularios anteriores, primero debes confirmar el email de FormSubmit cuando hagas la primera prueba.
+MotexBot envía los resúmenes del presupuesto a `contacto@aimotex.com` usando FormSubmit. Igual que con los formularios anteriores, primero debes confirmar el email de FormSubmit cuando hagas la primera prueba.
 
 Haz una prueba real desde la web publicada:
 
-1. Abre AimotexBot.
+1. Abre MotexBot.
 2. Calcula un presupuesto aproximado.
 3. Pulsa “Enviar resumen al equipo”.
 4. Introduce nombre, email, empresa y teléfono opcional.

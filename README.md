@@ -1,10 +1,10 @@
-# AIMOTEX
+# MOTEX
 
-Sitio web oficial de **AIMOTEX** — Automatización con inteligencia artificial y formación para PYMEs y autónomos en España.
+Sitio web oficial de **MOTEX** — Automatización con inteligencia artificial y formación para PYMEs y autónomos en España.
 
 ## Sobre el proyecto
 
-AIMOTEX ayuda a empresas a transformar sus operaciones mediante la implantación de soluciones de IA a medida y la formación de sus equipos.
+Motex ayuda a empresas a transformar sus operaciones mediante la implantación de soluciones de IA a medida y la formación de sus equipos.
 
 ## Servicios
 
@@ -41,7 +41,7 @@ aimotex-web/
 
 - Web: [aimotex.com](https://aimotex.com)
 - Email: [contacto@aimotex.com](mailto:contacto@aimotex.com)
-- Telegram: [@AimotexBot](https://t.me/AimotexBot)
+- Telegram: [@MotexBot](https://t.me/MotexBot)
 
 ## Funcionalidades de la web
 
@@ -49,14 +49,14 @@ aimotex-web/
 - **Modal de checkout** profesional para inscripción a cursos, con flujo en 3 pasos: datos personales → datos de empresa (tamaño, sector, público objetivo, facturación) → selección de método de pago (tarjeta, Apple Pay, Google Pay, PayPal, transferencia). Pantalla de éxito al completar.
 - **Modal de contacto** para consultas generales, info de cursos y solicitudes de presupuesto, con los campos de empresa necesarios para calificar el lead.
 - **Formularios conectados a FormSubmit** — los datos llegan a `contacto@aimotex.com` formateados en tabla HTML. Sin backend, sin API keys, 50 envíos/mes gratis.
-- **Canales de contacto**: formulario, Telegram (@AimotexBot) y email. WhatsApp desactivado temporalmente (se añadirá en el futuro).
+- **Canales de contacto**: formulario, Telegram (@MotexBot) y email. WhatsApp desactivado temporalmente (se añadirá en el futuro).
 
 
 ## Rediseño Next Level incluido
 
-Esta versión mantiene la estética AIMOTEX y añade una capa más interactiva:
+Esta versión mantiene la estética Motex y añade una capa más interactiva:
 
-- Hero renovado con mini panel “AIMOTEX OS” y métricas visuales.
+- Hero renovado con mini panel “MOTEX OS” y métricas visuales.
 - Página interna de **Cursos** al pulsar `#cursos`, centrada solo en formación.
 - Laboratorio interactivo de automatizaciones: atención al cliente, correo, redes e informes.
 - Calculadora de ahorro mensual para estimar horas y coste recuperable.
@@ -70,11 +70,11 @@ Esta versión mantiene la estética AIMOTEX y añade una capa más interactiva:
 Ver `PUBLICAR.md` → sección *"Configurar formularios, pagos y bot de Telegram"* para los pasos de:
 
 1. Activar FormSubmit (confirmar `contacto@aimotex.com` una sola vez).
-2. Crear el bot `@AimotexBot` en Telegram con @BotFather.
+2. Crear el bot `@MotexBot` en Telegram con @BotFather.
 3. (Cuando llegue el momento) Conectar un pago automático real con Stripe y reactivar WhatsApp.
 
 
-## Actualización: AimotexBot presupuestador
+## Actualización: MotexBot presupuestador
 
 La web incluye un flujo guiado dentro del chatbot para calcular un presupuesto aproximado en 4 preguntas: tipo de automatización, volumen, integraciones y complejidad. El resultado muestra una horquilla de setup y mantenimiento mensual, y deriva a formulario, Telegram o email.
 
@@ -83,11 +83,11 @@ Precios de lanzamiento actualizados:
 - Automatiza tu negocio con n8n + IA: 397 €.
 - Formación in-company: desde 690 € para equipos pequeños.
 
-## Actualización: AimotexBot presupuesto inteligente fullscreen
+## Actualización: MotexBot presupuesto inteligente fullscreen
 
-Esta versión sustituye el flujo principal de formularios para presupuestos por un chatbot casi a pantalla completa. El usuario responde en modo conversación y AimotexBot calcula una estimación aproximada de setup y mantenimiento mensual.
+Esta versión sustituye el flujo principal de formularios para presupuestos por un chatbot casi a pantalla completa. El usuario responde en modo conversación y MotexBot calcula una estimación aproximada de setup y mantenimiento mensual.
 
-### Qué hace ahora AimotexBot
+### Qué hace ahora MotexBot
 
 - Abre un chat inmersivo en vez de un formulario cuando el usuario pide diagnóstico, consulta o presupuesto.
 - Pregunta por tipo de automatización, volumen, integraciones, complejidad y urgencia.
