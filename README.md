@@ -1,31 +1,32 @@
-# Motex · Web estática multipágina
+# Motex
 
-Proyecto preparado para GitHub y Vercel.
+Web estática multipágina para Motex: automatización, cursos de IA, servicios y calculadora de ahorro.
 
 ## Estructura
 
-- `index.html`: Home principal con banner de cursos, promoción y calculadora de ahorro.
-- `cursos/`: cursos, programas desplegables y ventana visual de pago.
-- `servicios/`: servicios con ejemplos desplegables.
-- `automatizaciones/`: casos de uso de automatización.
-- `nosotros/`: presentación de la empresa.
-- `contacto/`: contacto, Telegram, email y MotexBot.
-- `script.js`: interacciones, MotexBot, calculadora de ahorro, checkout visual y promoción.
-- `styles.css`: estilos globales.
+- `index.html`
+- `cursos/index.html`
+- `servicios/index.html`
+- `automatizaciones/index.html`
+- `nosotros/index.html`
+- `contacto/index.html`
+- `styles.css`
+- `script.js`
+- `favicon.svg`
+- `sitemap.xml`
+- `robots.txt`
+- `vercel.json`
 
-## Publicar en GitHub
+## Publicación
+
+Sube todo a GitHub y conecta el repositorio con Vercel.
 
 ```bash
 git add .
-git commit -m "Publicar web Motex completa"
+git commit -m "Subir web completa Motex"
 git push
 ```
 
-## Publicar en Vercel
+## Nota de pagos
 
-Importa el repositorio desde Vercel. No hace falta build command. Es una web estática.
-
-## Contacto configurado
-
-- Email: contacto@aimotex.com
-- Telegram: @MotexBot
+La ventana de pago es visual. Para cobrar realmente hay que conectar Stripe, PayPal Checkout o una pasarela bancaria.
