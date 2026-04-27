@@ -54,6 +54,14 @@ Entre 5 minutos y 24 horas. Normalmente en 15-30 minutos ya funciona.
 
 Cuando te aparezca el tick verde en Vercel al lado de `motxx.es`, tu web está online en tu dominio.
 
+
+## Nota sobre la versión rediseñada
+
+El rediseño sigue siendo una web estática: `index.html`, `styles.css` y `script.js`. No necesita instalación, build ni servidor. Al subir estos archivos a Vercel se publicará igual que antes.
+
+La sección `#cursos` funciona ahora como página interna dedicada. Si alguien pulsa Cursos, la web muestra únicamente los cursos, la ruta de aprendizaje y el CTA final de contacto.
+
+
 ## Cada vez que quieras actualizar la web
 
 Simplemente:
@@ -247,3 +255,21 @@ Coste: céntimos por conversación.
 | Aparece la tienda antigua de Shopify | Comprueba que has cambiado el registro A |
 | El correo deja de funcionar | Revisa que los MX de ImprovMX siguen intactos en Shopify |
 | Los cambios no se reflejan | Asegúrate de haber hecho git push |
+
+## Cambio importante: presupuesto por chatbot
+
+El flujo recomendado ya no es abrir un formulario para pedir presupuesto. Los botones principales de consulta, diagnóstico y presupuesto abren MotxxBot en modo pantalla completa.
+
+El formulario clásico queda como opción secundaria desde el propio chatbot con el botón “Email clásico”.
+
+### Activar envío desde MotxxBot
+
+MotxxBot envía los resúmenes del presupuesto a `contacto@motxx.es` usando FormSubmit. Igual que con los formularios anteriores, primero debes confirmar el email de FormSubmit cuando hagas la primera prueba.
+
+Haz una prueba real desde la web publicada:
+
+1. Abre MotxxBot.
+2. Calcula un presupuesto aproximado.
+3. Pulsa “Enviar resumen al equipo”.
+4. Introduce nombre, email, empresa y teléfono opcional.
+5. Revisa `contacto@motxx.es` y confirma FormSubmit si te lo pide.

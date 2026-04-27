@@ -51,6 +51,20 @@ motxx-web/
 - **Formularios conectados a FormSubmit** — los datos llegan a `contacto@motxx.es` formateados en tabla HTML. Sin backend, sin API keys, 50 envíos/mes gratis.
 - **Canales de contacto**: formulario, Telegram (@MotxxBot) y email. WhatsApp desactivado temporalmente (se añadirá en el futuro).
 
+
+## Rediseño Next Level incluido
+
+Esta versión mantiene la estética MOTXX y añade una capa más interactiva:
+
+- Hero renovado con mini panel “Motxx IA OS” y métricas visuales.
+- Página interna de **Cursos** al pulsar `#cursos`, centrada solo en formación.
+- Laboratorio interactivo de automatizaciones: atención al cliente, correo, redes e informes.
+- Calculadora de ahorro mensual para estimar horas y coste recuperable.
+- Ruta de aprendizaje para explicar mejor los cursos.
+- Chatbot mejorado con accesos rápidos a cursos, diagnóstico, calculadora, formulario, Telegram y email.
+- Todo sigue en HTML, CSS y JavaScript vanilla, sin build ni dependencias externas.
+
+
 ## Configuración pendiente
 
 Ver `PUBLICAR.md` → sección *"Configurar formularios, pagos y bot de Telegram"* para los pasos de:
@@ -58,3 +72,31 @@ Ver `PUBLICAR.md` → sección *"Configurar formularios, pagos y bot de Telegram
 1. Activar FormSubmit (confirmar `contacto@motxx.es` una sola vez).
 2. Crear el bot `@MotxxBot` en Telegram con @BotFather.
 3. (Cuando llegue el momento) Conectar un pago automático real con Stripe y reactivar WhatsApp.
+
+
+## Actualización: MotxxBot presupuestador
+
+La web incluye un flujo guiado dentro del chatbot para calcular un presupuesto aproximado en 4 preguntas: tipo de automatización, volumen, integraciones y complejidad. El resultado muestra una horquilla de setup y mantenimiento mensual, y deriva a formulario, Telegram o email.
+
+Precios de lanzamiento actualizados:
+- IA para PYMEs y autónomos: 197 €.
+- Automatiza tu negocio con n8n + IA: 397 €.
+- Formación in-company: desde 690 € para equipos pequeños.
+
+## Actualización: MotxxBot presupuesto inteligente fullscreen
+
+Esta versión sustituye el flujo principal de formularios para presupuestos por un chatbot casi a pantalla completa. El usuario responde en modo conversación y MotxxBot calcula una estimación aproximada de setup y mantenimiento mensual.
+
+### Qué hace ahora MotxxBot
+
+- Abre un chat inmersivo en vez de un formulario cuando el usuario pide diagnóstico, consulta o presupuesto.
+- Pregunta por tipo de automatización, volumen, integraciones, complejidad y urgencia.
+- Acepta botones rápidos o texto libre del usuario.
+- Interpreta respuestas con palabras clave: WhatsApp, correos, reservas, facturas, CRM, informes, redes, etc.
+- Genera un presupuesto aproximado competitivo.
+- Permite enviar el resumen al equipo por FormSubmit sin hacer rellenar un formulario largo.
+- Mantiene como opción secundaria el formulario clásico por email.
+
+### Nota
+
+Sigue siendo una web estática sin backend. El envío del resumen del chat se realiza con FormSubmit mediante un formulario oculto. Para una versión con IA real conectada a API habría que crear una función serverless.
