@@ -1,5 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00E0FF"/>
+      <stop offset="0.55" stop-color="#0066FF"/>
+      <stop offset="1" stop-color="#6B3FFF"/>
+    </linearGradient>
+  </defs>
   <rect width="64" height="64" rx="14" fill="#05070F"/>
-  <text x="32" y="30" text-anchor="middle" font-family="'Rubik Mono One', 'Arial Black', sans-serif" font-size="15" font-weight="900" fill="#E8F4FF" letter-spacing="-0.5">MOT</text>
-  <text x="32" y="48" text-anchor="middle" font-family="'Rubik Mono One', 'Arial Black', sans-serif" font-size="15" font-weight="900" fill="#0066FF" letter-spacing="-0.5" font-style="italic">XX</text>
+  <circle cx="48" cy="14" r="8" fill="url(#g)" opacity="0.45"/>
+  <text x="10" y="21" font-family="Inter, Arial, sans-serif" font-size="7" font-weight="900" fill="#00E0FF" letter-spacing="0.8">ai</text>
+  <text x="32" y="44" text-anchor="middle" font-family="'Rubik Mono One', 'Arial Black', sans-serif" font-size="18" font-weight="900" fill="#E8F4FF" letter-spacing="-1.2">M</text>
 </svg>

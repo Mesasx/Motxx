@@ -1,4 +1,4 @@
-# Guía para publicar Motxx IA
+# Guía para publicar AIMOTEX
 
 Guía rápida para poner la web online en menos de 30 minutos.
 
@@ -22,7 +22,7 @@ git push
 ### 3. Importa el repositorio
 
 1. Dashboard de Vercel → botón **"Add New Project"**
-2. Busca tu repositorio `motxx-web` en la lista
+2. Busca tu repositorio `aimotex-web` en la lista
 3. Dale a **Import**
 4. Framework preset: **Other** (es HTML puro, no necesita build)
 5. Todo lo demás déjalo por defecto
@@ -31,16 +31,16 @@ git push
 Vercel detectará que es una web estática y en 30-60 segundos tu web estará online en una URL tipo:
 
 ```
-https://motxx-web.vercel.app
+https://aimotex-web.vercel.app
 ```
 
-### 4. Conecta tu dominio motxx.es
+### 4. Conecta tu dominio aimotex.com
 
 1. En Vercel, entra a tu proyecto → pestaña **Settings** → **Domains**
-2. Añade `motxx.es` y también `www.motxx.es`
+2. Añade `aimotex.com` y también `www.aimotex.com`
 3. Vercel te mostrará los registros DNS que necesitas añadir
 
-En paralelo, ve a **Shopify** → **Settings** → **Domains** → **motxx.es** → **DNS settings**:
+En paralelo, ve a **Shopify** → **Settings** → **Domains** → **aimotex.com** → **DNS settings**:
 
 Tendrás que **cambiar** los registros actuales. Importante:
 - **Cambia el registro A** de `23.227.38.69` (IP de Shopify) por la IP que te dé Vercel (típicamente `76.76.21.21`)
@@ -52,7 +52,7 @@ Tendrás que **cambiar** los registros actuales. Importante:
 
 Entre 5 minutos y 24 horas. Normalmente en 15-30 minutos ya funciona.
 
-Cuando te aparezca el tick verde en Vercel al lado de `motxx.es`, tu web está online en tu dominio.
+Cuando te aparezca el tick verde en Vercel al lado de `aimotex.com`, tu web está online en tu dominio.
 
 
 ## Nota sobre la versión rediseñada
@@ -85,7 +85,7 @@ Y Vercel detecta el cambio en GitHub y publica la nueva versión automáticament
 
 # Configurar formularios, pagos y bot de Telegram
 
-La web tiene **dos formularios**: el de contacto (consultas, info, presupuestos) y el de checkout (inscripción a cursos). Los dos envían los datos a tu email `contacto@motxx.es` a través de FormSubmit — sin backend, sin API keys.
+La web tiene **dos formularios**: el de contacto (consultas, info, presupuestos) y el de checkout (inscripción a cursos). Los dos envían los datos a tu email `contacto@aimotex.com` a través de FormSubmit — sin backend, sin API keys.
 
 ## 1. Activar FormSubmit (2 minutos, imprescindible)
 
@@ -93,15 +93,15 @@ FormSubmit es el servicio que convierte los `<form>` de la web en emails automá
 
 ### Pasos
 
-1. Sube la web a Vercel como se explica arriba y **haz una primera prueba** enviando el formulario de contacto desde [motxx.es](https://motxx.es) con un email de prueba tuyo.
-2. Revisa la bandeja de **contacto@motxx.es** (y la de spam, por si acaso). Recibirás un email de FormSubmit con asunto *"Please Confirm your Email"*. Dentro hay un botón **"Confirm Email"** — púlsalo.
+1. Sube la web a Vercel como se explica arriba y **haz una primera prueba** enviando el formulario de contacto desde [aimotex.com](https://aimotex.com) con un email de prueba tuyo.
+2. Revisa la bandeja de **contacto@aimotex.com** (y la de spam, por si acaso). Recibirás un email de FormSubmit con asunto *"Please Confirm your Email"*. Dentro hay un botón **"Confirm Email"** — púlsalo.
 3. A partir de ese momento, todos los envíos llegan automáticamente a tu bandeja formateados en tabla HTML con todos los campos del formulario.
 
 Sin este paso, **nadie que rellene el formulario te llegará** y FormSubmit devuelve error.
 
 ### Cómo se ven los emails
 
-Cuando alguien compra un curso, recibirás un email con asunto *"Nueva inscripción a curso — Motxx IA"* y una tabla con:
+Cuando alguien compra un curso, recibirás un email con asunto *"Nueva inscripción a curso — AIMOTEX"* y una tabla con:
 
 | Campo | Ejemplo |
 |-------|---------|
@@ -152,26 +152,26 @@ Guarda las dos URLs: las usarás cuando respondas a cada cliente por email. Te l
 
 ### Cuenta PayPal
 
-Crea un [PayPal.Me](https://paypal.me) con tu usuario de negocio. Te da un link personalizado tipo `https://paypal.me/MotxxIA/597` que va directo al pago con el importe pre-rellenado.
+Crea un [PayPal.Me](https://paypal.me) con tu usuario de negocio. Te da un link personalizado tipo `https://paypal.me/AIMOTEXIA/597` que va directo al pago con el importe pre-rellenado.
 
 ### Cuenta bancaria para transferencias
 
-Prepara una plantilla de email con tu IBAN, titular y el formato del concepto que pides (ej. *"MOTXX-N8N-[NombreApellidos]"*) para responder rápido a las solicitudes de transferencia.
+Prepara una plantilla de email con tu IBAN, titular y el formato del concepto que pides (ej. *"AIMOTEX-N8N-[NombreApellidos]"*) para responder rápido a las solicitudes de transferencia.
 
-## 3. Crear el bot de Telegram @MotxxBot
+## 3. Crear el bot de Telegram @AimotexBot
 
-El código de la web ya enlaza a `https://t.me/MotxxBot`. Para que el enlace funcione tienes que registrar el bot.
+El código de la web ya enlaza a `https://t.me/AimotexBot`. Para que el enlace funcione tienes que registrar el bot.
 
 ### Pasos (2 minutos)
 
 1. Abre Telegram y busca **@BotFather** (el oficial, con tick azul).
 2. Envíale `/newbot`.
-3. Te pedirá un **nombre** (lo que verá el usuario, ej. *"Motxx IA"*).
-4. Luego un **username** — escribe `MotxxBot` (debe acabar en "bot"). Si está cogido, prueba `MotxxIABot`, `MotxxIAOficialBot` o similar. **Importante**: si usas uno distinto a `MotxxBot`, tienes que cambiar las referencias en `index.html` y `script.js` (busca y reemplaza `MotxxBot` → `TuNuevoUsername`).
+3. Te pedirá un **nombre** (lo que verá el usuario, ej. *"AIMOTEX"*).
+4. Luego un **username** — escribe `AimotexBot` (debe acabar en "bot"). Si está cogido, prueba `AIMOTEXIABot`, `AIMOTEXIAOficialBot` o similar. **Importante**: si usas uno distinto a `AimotexBot`, tienes que cambiar las referencias en `index.html` y `script.js` (busca y reemplaza `AimotexBot` → `TuNuevoUsername`).
 5. BotFather te devuelve un mensaje con un **token** (tipo `123456:ABCdef...`). **Guárdalo en sitio seguro** — es como una contraseña.
 6. Opcional: `/setdescription` y `/setuserpic` para personalizar el bot con tu logo.
 
-A partir de aquí, el enlace `t.me/MotxxBot` ya funciona: abre el chat con tu bot y la gente te puede escribir. Los mensajes los lees tú entrando al bot desde tu propio Telegram.
+A partir de aquí, el enlace `t.me/AimotexBot` ya funciona: abre el chat con tu bot y la gente te puede escribir. Los mensajes los lees tú entrando al bot desde tu propio Telegram.
 
 ### Opción A (fácil): bot manual
 
@@ -189,11 +189,11 @@ import Anthropic from '@anthropic-ai/sdk';
 const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, { polling: true });
 const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-const SYSTEM = `Eres el asistente de Motxx IA, empresa española de automatización con IA y formación.
+const SYSTEM = `Eres el asistente de AIMOTEX, empresa española de automatización con IA y formación.
 Servicios: atención al cliente con chatbots, correo automático, contenido en redes, reservas, facturación, informes.
 Cursos: IA para PYMEs (297€, 8h), n8n+IA (597€, 16h), in-company a medida.
-Contacto: formulario en motxx.es, email contacto@motxx.es.
-Responde breve, en español, tono profesional y cercano. Si no sabes algo, redirige al formulario de motxx.es.`;
+Contacto: formulario en aimotex.com, email contacto@aimotex.com.
+Responde breve, en español, tono profesional y cercano. Si no sabes algo, redirige al formulario de aimotex.com.`;
 
 bot.on('message', async (msg) => {
   if (!msg.text) return;
@@ -206,7 +206,7 @@ bot.on('message', async (msg) => {
     });
     bot.sendMessage(msg.chat.id, r.content[0].text);
   } catch (e) {
-    bot.sendMessage(msg.chat.id, 'Tengo un problema técnico. Escríbenos al formulario de motxx.es o a contacto@motxx.es.');
+    bot.sendMessage(msg.chat.id, 'Tengo un problema técnico. Escríbenos al formulario de aimotex.com o a contacto@aimotex.com.');
   }
 });
 ```
@@ -251,25 +251,25 @@ Coste: céntimos por conversación.
 
 | Problema | Solución |
 |----------|----------|
-| La web no carga en motxx.es | Espera más tiempo a la propagación DNS (hasta 24h) |
+| La web no carga en aimotex.com | Espera más tiempo a la propagación DNS (hasta 24h) |
 | Aparece la tienda antigua de Shopify | Comprueba que has cambiado el registro A |
 | El correo deja de funcionar | Revisa que los MX de ImprovMX siguen intactos en Shopify |
 | Los cambios no se reflejan | Asegúrate de haber hecho git push |
 
 ## Cambio importante: presupuesto por chatbot
 
-El flujo recomendado ya no es abrir un formulario para pedir presupuesto. Los botones principales de consulta, diagnóstico y presupuesto abren MotxxBot en modo pantalla completa.
+El flujo recomendado ya no es abrir un formulario para pedir presupuesto. Los botones principales de consulta, diagnóstico y presupuesto abren AimotexBot en modo pantalla completa.
 
 El formulario clásico queda como opción secundaria desde el propio chatbot con el botón “Email clásico”.
 
-### Activar envío desde MotxxBot
+### Activar envío desde AimotexBot
 
-MotxxBot envía los resúmenes del presupuesto a `contacto@motxx.es` usando FormSubmit. Igual que con los formularios anteriores, primero debes confirmar el email de FormSubmit cuando hagas la primera prueba.
+AimotexBot envía los resúmenes del presupuesto a `contacto@aimotex.com` usando FormSubmit. Igual que con los formularios anteriores, primero debes confirmar el email de FormSubmit cuando hagas la primera prueba.
 
 Haz una prueba real desde la web publicada:
 
-1. Abre MotxxBot.
+1. Abre AimotexBot.
 2. Calcula un presupuesto aproximado.
 3. Pulsa “Enviar resumen al equipo”.
 4. Introduce nombre, email, empresa y teléfono opcional.
-5. Revisa `contacto@motxx.es` y confirma FormSubmit si te lo pide.
+5. Revisa `contacto@aimotex.com` y confirma FormSubmit si te lo pide.

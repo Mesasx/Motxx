@@ -1,5 +1,5 @@
 /* =========================================================
-   MOTXX IA — Estilos finales
+   AIMOTEX — Estilos finales
    ========================================================= */
 
 :root {
@@ -90,34 +90,28 @@ body {
 
 .nav-logo:hover { transform: scale(1.03); }
 
-.logo-text-main {
-  font-family: var(--font-impact);
-  font-size: 1.5rem;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.logo-xx {
-  color: var(--accent-blue);
-  text-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
-  font-style: italic;
-  display: inline-block;
-  transform: skewX(-5deg);
-}
-
-.logo-ia {
-  font-family: var(--font-impact);
-  font-size: 0.85rem;
+.logo-ai-prefix {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
   color: var(--accent-cyan);
-  letter-spacing: -0.01em;
+  letter-spacing: 0.16em;
   text-transform: lowercase;
   line-height: 1;
-  margin-left: 2px;
+  opacity: 0.74;
+  transform: translateY(-0.24rem);
 }
 
-.nav-logo-large .logo-text-main { font-size: 1.85rem; }
-.nav-logo-large .logo-ia { font-size: 1rem; }
+.logo-text-main {
+  font-family: var(--font-impact);
+  font-size: 1.55rem;
+  color: var(--text-primary);
+  letter-spacing: -0.06em;
+  line-height: 1;
+  text-shadow: 0 0 22px rgba(0, 102, 255, 0.22);
+}
+
+.nav-logo-large .logo-ai-prefix { font-size: 0.7rem; }
+.nav-logo-large .logo-text-main { font-size: 1.95rem; }
 
 /* ============ NAVEGACIÓN ============ */
 .nav {
@@ -1392,7 +1386,7 @@ body {
 }
 
 /* =========================================================
-   AMPLIACIONES · Motxx IA (Telegram, precios, chatbot, pagos)
+   AMPLIACIONES · AIMOTEX (Telegram, precios, chatbot, pagos)
    ========================================================= */
 
 /* ============ BOTÓN TELEGRAM ============ */
@@ -3849,7 +3843,7 @@ body.page-cursos .courses {
 }
 
 /* =========================================================
-   UPGRADE · MotxxBot presupuesto inteligente fullscreen
+   UPGRADE · AimotexBot presupuesto inteligente fullscreen
    ========================================================= */
 .visually-hidden {
   position: absolute !important;
