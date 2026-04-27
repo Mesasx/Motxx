@@ -1,27 +1,14 @@
-# Publicar Motex en Vercel
+# Cómo subir la web
 
-1. Sube esta carpeta a GitHub.
-2. En Vercel, importa el repositorio.
-3. Añade el dominio `aimotex.com` y `www.aimotex.com`.
-4. Asegúrate de que `sitemap.xml` esté disponible en:
+1. Descomprime el ZIP.
+2. Copia todos los archivos en tu carpeta del proyecto.
+3. Abre terminal en esa carpeta.
+4. Ejecuta:
 
-https://aimotex.com/sitemap.xml
+```bash
+git add .
+git commit -m "Actualizar web Motex completa"
+git push
+```
 
-## Search Console
-
-Cuando esté publicado:
-
-1. Entra en Google Search Console.
-2. Añade la propiedad `aimotex.com`.
-3. Verifica el dominio.
-4. Envía el sitemap:
-
-https://aimotex.com/sitemap.xml
-
-## FormSubmit
-
-El formulario clásico y MotexBot envían datos a:
-
-contacto@aimotex.com
-
-Haz una primera prueba y confirma el email cuando FormSubmit lo pida.
+Después entra en Vercel y espera el despliegue automático.

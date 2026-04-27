@@ -561,20 +561,70 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Botones de pago/curso que existan con data-course-checkout: mantener flujo visual básico
+// Botones de pago/curso: abre una ventana de checkout visual
 const courseCheckoutButtons = document.querySelectorAll('[data-course-checkout]');
+const paymentModal = document.getElementById('paymentModal');
+const paymentCourseTitle = document.getElementById('paymentCourseTitle');
+const paymentCoursePrice = document.getElementById('paymentCoursePrice');
+
+function openPaymentModal(title, price) {
+  if (!paymentModal) {
+    toggleChatbot(true);
+    setTimeout(() => {
+      addBotMessage(`Para reservar <strong>${title}</strong> (${price}), escríbenos y dejamos preparada la inscripción.`);
+      renderQuickReplies([{ text: 'Email', value: '__email__' }, { text: 'Telegram', value: '__telegram__' }]);
+    }, 160);
+    return;
+  }
+  if (paymentCourseTitle) paymentCourseTitle.textContent = title || 'Curso Motex';
+  if (paymentCoursePrice) paymentCoursePrice.textContent = price || 'Precio a consultar';
+  paymentModal.classList.add('open');
+  paymentModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+}
+
+function closePaymentModal() {
+  if (!paymentModal) return;
+  paymentModal.classList.remove('open');
+  paymentModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
+
 courseCheckoutButtons.forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
-    const title = btn.getAttribute('data-course-title') || 'Curso Motex';
-    const price = btn.getAttribute('data-course-price') || 'Precio a consultar';
-    toggleChatbot(true);
-    setTimeout(() => {
-      addBotMessage(`Para reservar <strong>${title}</strong> (${price}), podemos preparar el pago por tarjeta, PayPal, Apple Pay, Google Pay, Bizum o transferencia. Déjame primero calcular si te conviene por ahorro potencial o escríbenos directamente.`);
-      renderQuickReplies([{ text: 'Calcular ahorro', value: '__start_savings__' }, { text: 'Email', value: '__email__' }, { text: 'Telegram', value: '__telegram__' }]);
-    }, 200);
+    openPaymentModal(btn.getAttribute('data-course-title'), btn.getAttribute('data-course-price'));
   });
 });
+
+document.querySelectorAll('[data-payment-close]').forEach(btn => btn.addEventListener('click', closePaymentModal));
+const paymentSubmit = document.getElementById('paymentSubmit');
+if (paymentSubmit) {
+  paymentSubmit.addEventListener('click', () => {
+    paymentSubmit.textContent = 'Pasarela pendiente de conexión';
+    setTimeout(() => { paymentSubmit.textContent = 'Continuar con el pago'; }, 1800);
+  });
+}
+
+// Promo de cursos en la home
+const promoModal = document.getElementById('promoModal');
+function closePromoModal() {
+  if (!promoModal) return;
+  promoModal.classList.remove('open');
+  promoModal.setAttribute('aria-hidden', 'true');
+  try { localStorage.setItem('motexPromoSeen', '1'); } catch (_) {}
+}
+if (promoModal) {
+  let seen = false;
+  try { seen = localStorage.getItem('motexPromoSeen') === '1'; } catch (_) {}
+  if (!seen) {
+    setTimeout(() => {
+      promoModal.classList.add('open');
+      promoModal.setAttribute('aria-hidden', 'false');
+    }, 900);
+  }
+  promoModal.querySelectorAll('[data-promo-close]').forEach(btn => btn.addEventListener('click', closePromoModal));
+}
 
 // Tarjetas de servicio desplegables si existen
 function setupExpandableServices() {

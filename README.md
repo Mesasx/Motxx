@@ -1,28 +1,31 @@
-# Motex — web multipágina
+# Motex · Web estática multipágina
 
-Web oficial de **Motex** preparada para SEO de marca y posibles sitelinks en Google.
+Proyecto preparado para GitHub y Vercel.
 
 ## Estructura
 
-- `/` — Home principal
-- `/servicios/` — Servicios de automatización
-- `/automatizaciones/` — Casos de uso y automatizaciones a medida
-- `/cursos/` — Cursos de IA y automatización
-- `/nosotros/` — Información de la empresa
-- `/contacto/` — Contacto y diagnóstico rápido
+- `index.html`: Home principal con banner de cursos, promoción y calculadora de ahorro.
+- `cursos/`: cursos, programas desplegables y ventana visual de pago.
+- `servicios/`: servicios con ejemplos desplegables.
+- `automatizaciones/`: casos de uso de automatización.
+- `nosotros/`: presentación de la empresa.
+- `contacto/`: contacto, Telegram, email y MotexBot.
+- `script.js`: interacciones, MotexBot, calculadora de ahorro, checkout visual y promoción.
+- `styles.css`: estilos globales.
 
-## SEO incluido
+## Publicar en GitHub
 
-- Títulos y descripciones únicos por página
-- Canonical tags
-- Open Graph
-- Datos estructurados JSON-LD
-- `sitemap.xml`
-- `robots.txt`
-- Navegación interna clara
+```bash
+git add .
+git commit -m "Publicar web Motex completa"
+git push
+```
 
-## Contacto
+## Publicar en Vercel
 
-- Web: https://aimotex.com
+Importa el repositorio desde Vercel. No hace falta build command. Es una web estática.
+
+## Contacto configurado
+
 - Email: contacto@aimotex.com
 - Telegram: @MotexBot
