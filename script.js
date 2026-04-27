@@ -1,27 +1,22 @@
-
 // =========================================================
-// MOTEX — Interacciones multipágina
+// MOTEX — interacción principal + MotexBot Ahorro Empresarial
 // =========================================================
 
-const $ = (selector, parent = document) => parent.querySelector(selector);
-const $$ = (selector, parent = document) => Array.from(parent.querySelectorAll(selector));
+const nav = document.getElementById('nav');
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.pageYOffset > 50);
+  });
+}
 
-const nav = $('#nav');
-window.addEventListener('scroll', () => {
-  if (!nav) return;
-  nav.classList.toggle('scrolled', window.pageYOffset > 50);
-});
-
-const navToggle = $('#navToggle');
-const mobileMenu = $('#mobileMenu');
-
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
 if (navToggle && mobileMenu) {
   navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('open');
     mobileMenu.classList.toggle('open');
   });
-
-  $$('#mobileMenu a, #mobileMenu button').forEach((el) => {
+  mobileMenu.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('click', () => {
       navToggle.classList.remove('open');
       mobileMenu.classList.remove('open');
@@ -29,129 +24,197 @@ if (navToggle && mobileMenu) {
   });
 }
 
-// Reveal on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+// Animaciones reveal
+const observer = 'IntersectionObserver' in window
+  ? new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' })
+  : null;
 
-$$('.reveal').forEach((el, index) => {
-  el.style.transitionDelay = `${Math.min(index * 0.04, 0.24)}s`;
-  observer.observe(el);
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${Math.min(i * 0.04, 0.32)}s`;
+  if (observer) observer.observe(el);
+  else el.classList.add('visible');
 });
 
-// Parallax aurora
-const auroraBlobs = $$('.aurora-blob');
-window.addEventListener('mousemove', (e) => {
-  if (!auroraBlobs.length) return;
-  const x = (e.clientX / window.innerWidth - 0.5) * 16;
-  const y = (e.clientY / window.innerHeight - 0.5) * 16;
-  auroraBlobs.forEach((blob, i) => {
-    const speed = (i + 1) * 0.35;
-    blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-  });
+// Botones de programa si existen
+function openProgramFromHash() {
+  const id = (window.location.hash || '').replace('#', '');
+  if (!id) return;
+  const target = document.getElementById(id);
+  if (!target) return;
+  target.classList.add('open');
+  const body = target.querySelector('.program-body, .course-program-body');
+  if (body) body.style.maxHeight = body.scrollHeight + 'px';
+  setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+}
+
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-program-toggle]');
+  if (!t) return;
+  const selector = t.getAttribute('data-program-toggle');
+  const target = selector ? document.querySelector(selector) : t.closest('.program-card, .course-card');
+  if (!target) return;
+  target.classList.toggle('open');
+  const body = target.querySelector('.program-body, .course-program-body');
+  if (body) body.style.maxHeight = target.classList.contains('open') ? body.scrollHeight + 'px' : '0px';
 });
 
-// =========================================================
-// MOTEXBOT — presupuesto inteligente
-// =========================================================
+window.addEventListener('hashchange', openProgramFromHash);
+openProgramFromHash();
 
+// =========================================================
+// MOTEXBOT · AHORRO EMPRESARIAL
+// =========================================================
 const CHATBOT = {
   TELEGRAM: 'https://t.me/MotexBot',
-  EMAIL: 'mailto:contacto@aimotex.com'
+  EMAIL: 'mailto:contacto@aimotex.com',
+  AVG_HOURLY_COST: 26.51,     // INE ETCL 4T 2025: coste por hora efectiva
+  EMPLOYER_MULTIPLIER: 1.3065, // aprox. cotizaciones empresa: CC + desempleo + Fogasa + FP + MEI
+  MONTHLY_HOURS: 160,
+  WEEKS_PER_MONTH: 4.33
 };
 
-const cb = $('#chatbot');
-const cbFab = $('#chatbotFab');
-const cbPanel = $('#chatbotPanel');
-const cbClose = $('#chatbotClose');
-const cbMessages = $('#chatbotMessages');
-const cbQuick = $('#chatbotQuickReplies');
-const cbForm = $('#chatbotForm');
-const cbInput = $('#chatbotInput');
+const cb         = document.getElementById('chatbot');
+const cbFab      = document.getElementById('chatbotFab');
+const cbPanel    = document.getElementById('chatbotPanel');
+const cbClose    = document.getElementById('chatbotClose');
+const cbMessages = document.getElementById('chatbotMessages');
+const cbQuick    = document.getElementById('chatbotQuickReplies');
+const cbForm     = document.getElementById('chatbotForm');
+const cbInput    = document.getElementById('chatbotInput');
+const cbTitle    = document.getElementById('chatbotTitle');
 
-let chatOpenedOnce = false;
+let cbOpened = false;
+let savingsFlow = null;
+let lastSavingsResult = null;
 
-const budget = {
-  active: false,
-  step: 0,
-  answers: {
-    area: '',
-    volume: '',
-    tools: '',
-    complexity: '',
-    urgency: ''
-  },
-  estimate: null
-};
+function normalize(text) {
+  return String(text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[¿¡?!,;:]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
-const budgetQuestions = [
-  {
-    key: 'area',
-    text: 'Perfecto. Empezamos el diagnóstico rápido. ¿Qué quieres automatizar primero?',
-    quick: ['Atención al cliente', 'Correos', 'Reservas', 'Facturación', 'Informes', 'Redes sociales']
-  },
-  {
-    key: 'volume',
-    text: '¿Qué volumen aproximado tiene ese proceso?',
-    quick: ['Bajo: 1-20 al día', 'Medio: 20-100 al día', 'Alto: +100 al día', 'No lo sé']
-  },
-  {
-    key: 'tools',
-    text: '¿Cuántas herramientas habría que conectar?',
-    quick: ['1 herramienta', '2-3 herramientas', '4-6 herramientas', '+6 herramientas']
-  },
-  {
-    key: 'complexity',
-    text: '¿Qué nivel de complejidad imaginas?',
-    quick: ['Simple', 'Intermedio', 'Avanzado', 'No lo sé']
-  },
-  {
-    key: 'urgency',
-    text: '¿Cuándo te gustaría tenerlo funcionando?',
-    quick: ['Cuanto antes', 'Este mes', '1-2 meses', 'Estoy explorando']
-  }
+function formatEUR(n) {
+  return Math.round(n).toLocaleString('es-ES') + ' €';
+}
+
+function formatHours(n) {
+  return Math.round(n).toLocaleString('es-ES') + ' h';
+}
+
+function extractNumbers(text) {
+  const clean = normalize(text).replace(/(\d),(\d)/g, '$1.$2');
+  const matches = clean.match(/\d+(?:\.\d+)?/g) || [];
+  return matches.map(Number).filter(n => !Number.isNaN(n));
+}
+
+function averageRange(text) {
+  const nums = extractNumbers(text);
+  if (nums.length >= 2 && /-|a|hasta|entre/.test(normalize(text))) return (nums[0] + nums[1]) / 2;
+  return nums[0];
+}
+
+const TASK_CATALOG = [
+  { id: 'email', label: 'Correos', patterns: ['correo', 'email', 'gmail', 'outlook', 'bandeja', 'responder correos'], rate: 0.68 },
+  { id: 'support', label: 'Atención al cliente', patterns: ['cliente', 'soporte', 'atencion', 'whatsapp', 'telegram', 'chat', 'consultas', 'llamadas'], rate: 0.62 },
+  { id: 'booking', label: 'Reservas y agenda', patterns: ['reserva', 'agenda', 'cita', 'calendario', 'recordatorio', 'horario'], rate: 0.72 },
+  { id: 'billing', label: 'Facturación y presupuestos', patterns: ['factura', 'facturacion', 'presupuesto', 'cobro', 'albaran', 'pago'], rate: 0.58 },
+  { id: 'reports', label: 'Informes y análisis', patterns: ['informe', 'reporte', 'dashboard', 'excel', 'analisis', 'datos', 'kpi'], rate: 0.70 },
+  { id: 'marketing', label: 'Contenido y marketing', patterns: ['redes', 'marketing', 'contenido', 'publicacion', 'instagram', 'tiktok', 'linkedin', 'newsletter'], rate: 0.52 },
+  { id: 'crm', label: 'CRM y seguimiento comercial', patterns: ['lead', 'leads', 'crm', 'seguimiento', 'ventas', 'comercial', 'prospecto'], rate: 0.66 },
+  { id: 'admin', label: 'Administración interna', patterns: ['administracion', 'documento', 'archivo', 'copiar', 'pegar', 'formularios', 'manual'], rate: 0.61 }
 ];
 
-function openChatbot({ fullscreen = false, startBudget = false } = {}) {
-  if (!cb) return;
-  cb.classList.add('open');
-  cb.classList.toggle('fullscreen', fullscreen || startBudget);
-  document.body.classList.toggle('chatbot-modal-open', fullscreen || startBudget);
-  cbFab?.setAttribute('aria-expanded', 'true');
-  cbPanel?.setAttribute('aria-hidden', 'false');
-
-  if (!chatOpenedOnce) {
-    chatOpenedOnce = true;
-    addBotMessage('¡Hola! Soy <strong>MotexBot</strong>. Puedo calcular un presupuesto aproximado, explicarte servicios o llevarte a contacto.');
-    renderQuickReplies(['Presupuesto rápido', 'Servicios', 'Cursos', 'Telegram']);
+function detectTasks(text) {
+  const clean = normalize(text);
+  const found = TASK_CATALOG.filter(task => task.patterns.some(p => clean.includes(normalize(p))));
+  if (found.length) return found;
+  if (clean.includes('todo') || clean.includes('varias') || clean.includes('muchas')) {
+    return [TASK_CATALOG[0], TASK_CATALOG[1], TASK_CATALOG[3], TASK_CATALOG[4]];
   }
-
-  if (startBudget) startBudgetFlow();
-
-  setTimeout(() => cbInput?.focus(), 250);
+  return [];
 }
 
-function closeChatbot() {
-  if (!cb) return;
-  cb.classList.remove('open', 'fullscreen');
-  document.body.classList.remove('chatbot-modal-open');
-  cbFab?.setAttribute('aria-expanded', 'false');
-  cbPanel?.setAttribute('aria-hidden', 'true');
+function parseEmployees(text) {
+  const clean = normalize(text);
+  if (clean.includes('autonomo') || clean.includes('solo yo') || clean === 'yo') return 1;
+  const avg = averageRange(text);
+  if (avg && avg > 0) return Math.max(1, Math.round(avg));
+  return null;
 }
 
-function scrollMessagesToBottom() {
-  if (cbMessages) cbMessages.scrollTop = cbMessages.scrollHeight;
+function parseHoursWeek(text) {
+  const clean = normalize(text);
+  const nums = extractNumbers(text);
+  if (!nums.length) return null;
+  let val = nums[0];
+  if (nums.length >= 2 && /-|a|entre/.test(clean)) val = (nums[0] + nums[1]) / 2;
+  if (clean.includes('dia') || clean.includes('/dia') || clean.includes('al dia')) val *= 5;
+  if (clean.includes('mes') || clean.includes('/mes') || clean.includes('al mes')) val = val / CHATBOT.WEEKS_PER_MONTH;
+  return Math.max(0.25, Math.min(val, 60));
 }
 
-function addBotMessage(html) {
+function parseHourlyCost(text) {
+  const clean = normalize(text);
+  if (clean.includes('media') || clean.includes('no se') || clean.includes('no lo se') || clean.includes('ine')) {
+    return { hourly: CHATBOT.AVG_HOURLY_COST, source: 'Media España INE' };
+  }
+  const nums = extractNumbers(text);
+  if (!nums.length) return null;
+  let n = nums[0];
+  if (n < 120) return { hourly: n, source: 'Coste/hora indicado' };
+  const hourly = (n * CHATBOT.EMPLOYER_MULTIPLIER) / CHATBOT.MONTHLY_HOURS;
+  return { hourly, source: 'Salario mensual + cotizaciones empresa aprox.' };
+}
+
+function parseAutomationRate(text, tasks) {
+  const clean = normalize(text);
+  if (clean.includes('baja') || clean.includes('poco') || clean.includes('simple')) return 0.40;
+  if (clean.includes('media') || clean.includes('moderada') || clean.includes('normal')) return 0.58;
+  if (clean.includes('alta') || clean.includes('bastante')) return 0.70;
+  if (clean.includes('muy alta') || clean.includes('maxima') || clean.includes('casi todo')) return 0.82;
+  if (clean.includes('%')) {
+    const n = extractNumbers(text)[0];
+    if (n) return Math.max(0.15, Math.min(n / 100, 0.9));
+  }
+  if (clean.includes('no se') || clean.includes('no lo se') || clean.includes('depende')) return null;
+  const n = extractNumbers(text)[0];
+  if (n && n <= 100) return Math.max(0.15, Math.min(n / 100, 0.9));
+  return null;
+}
+
+function defaultRateForTasks(tasks) {
+  if (!tasks || !tasks.length) return 0.62;
+  return tasks.reduce((sum, t) => sum + t.rate, 0) / tasks.length;
+}
+
+function newSavingsFlow() {
+  savingsFlow = {
+    step: 'employees',
+    employees: null,
+    tasks: [],
+    hoursWeek: null,
+    hourlyCost: null,
+    hourlySource: null,
+    automationRate: null,
+    notes: []
+  };
+}
+
+function addBotMessage(html, extraClass = '') {
   if (!cbMessages) return;
   const div = document.createElement('div');
-  div.className = 'chat-msg chat-msg-bot';
+  div.className = `chat-msg chat-msg-bot ${extraClass}`.trim();
   div.innerHTML = html;
   cbMessages.appendChild(div);
   scrollMessagesToBottom();
@@ -166,410 +229,367 @@ function addUserMessage(text) {
   scrollMessagesToBottom();
 }
 
-function renderQuickReplies(items = []) {
+function showTyping() {
+  if (!cbMessages) return;
+  const div = document.createElement('div');
+  div.className = 'chat-typing';
+  div.id = 'chatTyping';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  cbMessages.appendChild(div);
+  scrollMessagesToBottom();
+}
+
+function hideTyping() {
+  const t = document.getElementById('chatTyping');
+  if (t) t.remove();
+}
+
+function scrollMessagesToBottom() {
+  if (cbMessages) cbMessages.scrollTop = cbMessages.scrollHeight;
+}
+
+function renderQuickReplies(labels) {
   if (!cbQuick) return;
   cbQuick.innerHTML = '';
-  items.forEach((item) => {
+  (labels || []).forEach(label => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'quick-reply';
-    btn.textContent = item;
-    btn.addEventListener('click', () => handleUserInput(item));
+    btn.textContent = label.text || label;
+    btn.addEventListener('click', () => {
+      const value = typeof label === 'object' ? (label.value || label.text) : label;
+      if (String(value).startsWith('__')) return runSpecialAction(value, btn.textContent);
+      handleUserMessage(value, btn.textContent);
+    });
     cbQuick.appendChild(btn);
   });
 }
 
-function normalize(text) {
-  return String(text || '')
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[¿¡?!.,;:]/g, '')
-    .trim();
-}
-
-function startBudgetFlow() {
-  if (cbMessages) cbMessages.innerHTML = '';
-  if (cbQuick) cbQuick.innerHTML = '';
-  budget.active = true;
-  budget.step = 0;
-  budget.answers = { area: '', volume: '', tools: '', complexity: '', urgency: '' };
-  budget.estimate = null;
-  addUserMessage('Presupuesto rápido');
-  askBudgetQuestion();
-}
-
-function askBudgetQuestion() {
-  const q = budgetQuestions[budget.step];
-  if (!q) return finishBudget();
+function startSavingsFlow(source = 'manual') {
+  toggleChatbot(true);
+  newSavingsFlow();
+  if (cbTitle) cbTitle.textContent = 'MotexBot · calculadora de ahorro';
   setTimeout(() => {
-    addBotMessage(q.text);
-    renderQuickReplies(q.quick);
-  }, 250);
+    addBotMessage(`
+      <strong>Vamos a calcular cuánto dinero puede recuperar tu empresa.</strong><br><br>
+      Te haré pocas preguntas, pero puedes responder como quieras: “somos 8”, “unas 3 horas al día”, “facturas y correos”, “no sé, usa la media”…<br><br>
+      Uso como referencia el coste laboral por hora efectiva publicado por el INE y, si me das salario mensual, añado cotizaciones empresariales aproximadas.`);
+    askSavingsQuestion();
+  }, source === 'autoload' ? 500 : 180);
 }
 
-function saveBudgetAnswer(text) {
-  const q = budgetQuestions[budget.step];
-  if (!q) return;
-  budget.answers[q.key] = text;
-  budget.step += 1;
-  if (budget.step >= budgetQuestions.length) finishBudget();
-  else askBudgetQuestion();
+function askSavingsQuestion() {
+  if (!savingsFlow) return;
+  switch (savingsFlow.step) {
+    case 'employees':
+      addBotMessage('Primero: <strong>¿cuántas personas hacen tareas repetitivas</strong> que podrían automatizarse?');
+      renderQuickReplies(['Solo yo', '2-5 personas', '6-10 personas', '11-25 personas', '+25 personas']);
+      break;
+    case 'tasks':
+      addBotMessage('¿Qué trabajos repetitivos se repiten más dentro de la empresa? Puedes escribir varios.');
+      renderQuickReplies(['Correos y respuestas', 'Atención al cliente', 'Reservas y agenda', 'Facturas y presupuestos', 'Informes y Excel', 'Redes sociales']);
+      break;
+    case 'hours':
+      addBotMessage('Aproximadamente, <strong>¿cuántas horas por persona a la semana</strong> se van en esas tareas?');
+      renderQuickReplies(['1-3 h/semana', '4-6 h/semana', '7-10 h/semana', '2 h al día', 'No lo sé']);
+      break;
+    case 'cost':
+      addBotMessage('¿Sabes el <strong>coste por hora</strong> o el salario bruto mensual aproximado de esas personas? Si no, uso la media española.');
+      renderQuickReplies(['Usar media INE 26,51 €/h', 'Salario 1.500 €/mes', 'Salario 2.000 €/mes', 'Salario 2.500 €/mes']);
+      break;
+    case 'rate':
+      addBotMessage('Última: ¿qué parte de esas tareas crees que podríamos automatizar?');
+      renderQuickReplies(['No lo sé, calcula tú', 'Automatización media', 'Alta automatización', 'Casi todo el proceso', 'Solo una parte']);
+      break;
+    default:
+      renderSavingsResult();
+  }
 }
 
-function scoreText(text, words) {
-  const clean = normalize(text);
-  return words.some((w) => clean.includes(normalize(w))) ? 1 : 0;
+function handleSavingsAnswer(text) {
+  const flow = savingsFlow;
+  if (!flow) return false;
+
+  if (flow.step === 'employees') {
+    const emp = parseEmployees(text);
+    if (!emp) {
+      addBotMessage('No he podido sacar el número. Escríbeme algo como “5 personas”, “somos 12” o “solo yo”.');
+      renderQuickReplies(['Solo yo', '4 personas', '8 personas', '15 personas']);
+      return true;
+    }
+    flow.employees = emp;
+    flow.step = 'tasks';
+    askSavingsQuestion();
+    return true;
+  }
+
+  if (flow.step === 'tasks') {
+    let tasks = detectTasks(text);
+    if (!tasks.length) {
+      tasks = [TASK_CATALOG[7]];
+      flow.notes.push('No se detectó una categoría concreta; se estimó como administración interna.');
+    }
+    flow.tasks = tasks;
+    flow.step = 'hours';
+    askSavingsQuestion();
+    return true;
+  }
+
+  if (flow.step === 'hours') {
+    let h = parseHoursWeek(text);
+    if (!h || normalize(text).includes('no se')) {
+      h = 5;
+      flow.notes.push('Como no se indicó tiempo exacto, se usaron 5 h/semana por persona como escenario prudente.');
+    }
+    flow.hoursWeek = h;
+    flow.step = 'cost';
+    askSavingsQuestion();
+    return true;
+  }
+
+  if (flow.step === 'cost') {
+    let parsed = parseHourlyCost(text);
+    if (!parsed) {
+      parsed = { hourly: CHATBOT.AVG_HOURLY_COST, source: 'Media España INE' };
+      flow.notes.push('Se usó el coste laboral medio por hora efectiva de España publicado por el INE.');
+    }
+    flow.hourlyCost = parsed.hourly;
+    flow.hourlySource = parsed.source;
+    flow.step = 'rate';
+    askSavingsQuestion();
+    return true;
+  }
+
+  if (flow.step === 'rate') {
+    let rate = parseAutomationRate(text, flow.tasks);
+    if (!rate) {
+      rate = defaultRateForTasks(flow.tasks);
+      flow.notes.push('El porcentaje automatizable se estimó según el tipo de tareas indicado.');
+    }
+    flow.automationRate = rate;
+    flow.step = 'result';
+    renderSavingsResult();
+    return true;
+  }
+
+  return false;
 }
 
-function calculateBudget() {
-  const a = budget.answers;
-  let setup = 290;
-  let monthly = 49;
-  let label = 'Automatización inicial';
-
-  if (scoreText(a.area, ['atencion', 'cliente', 'bot', 'chat'])) {
-    setup += 120; monthly += 30; label = 'Asistente de atención al cliente';
-  }
-  if (scoreText(a.area, ['facturacion', 'factura', 'presupuesto', 'cobro'])) {
-    setup += 180; monthly += 45; label = 'Sistema administrativo automatizado';
-  }
-  if (scoreText(a.area, ['informe', 'datos', 'analisis', 'reporte'])) {
-    setup += 160; monthly += 35; label = 'Informes automáticos';
-  }
-  if (scoreText(a.area, ['redes', 'marketing', 'contenido'])) {
-    setup += 90; monthly += 25; label = 'Automatización de contenido';
-  }
-  if (scoreText(a.area, ['reserva', 'cita', 'agenda'])) {
-    setup += 140; monthly += 30; label = 'Reservas y agenda inteligente';
-  }
-
-  if (scoreText(a.volume, ['medio', '20-100'])) { setup += 130; monthly += 35; }
-  if (scoreText(a.volume, ['alto', '+100', '100'])) { setup += 290; monthly += 75; }
-
-  if (scoreText(a.tools, ['2-3', '2', '3'])) { setup += 120; monthly += 25; }
-  if (scoreText(a.tools, ['4-6', '4', '5', '6'])) { setup += 260; monthly += 55; }
-  if (scoreText(a.tools, ['+6', 'mas de 6', '7'])) { setup += 420; monthly += 95; }
-
-  if (scoreText(a.complexity, ['intermedio'])) { setup += 170; monthly += 35; }
-  if (scoreText(a.complexity, ['avanzado'])) { setup += 360; monthly += 85; }
-
-  if (scoreText(a.urgency, ['cuanto antes'])) { setup += 120; }
-  if (scoreText(a.urgency, ['este mes'])) { setup += 60; }
-
-  const setupMin = Math.round((setup * 0.85) / 10) * 10;
-  const setupMax = Math.round((setup * 1.25) / 10) * 10;
-  const monthlyMin = Math.round((monthly * 0.85) / 10) * 10;
-  const monthlyMax = Math.round((monthly * 1.25) / 10) * 10;
-
-  return { label, setupMin, setupMax, monthlyMin, monthlyMax };
+function computeSavings(flow) {
+  const employees = flow.employees || 1;
+  const hoursWeek = flow.hoursWeek || 5;
+  const rate = flow.automationRate || defaultRateForTasks(flow.tasks);
+  const hourly = flow.hourlyCost || CHATBOT.AVG_HOURLY_COST;
+  const weeklyHoursSaved = employees * hoursWeek * rate;
+  const monthlyHoursSaved = weeklyHoursSaved * CHATBOT.WEEKS_PER_MONTH;
+  const monthlySavings = monthlyHoursSaved * hourly;
+  const annualSavings = monthlySavings * 12;
+  const complexity = (flow.tasks?.length || 1) + (employees > 10 ? 1 : 0) + (hoursWeek > 8 ? 1 : 0);
+  let setupLow = 690, setupHigh = 1490, maintenance = 120;
+  if (complexity >= 3) { setupLow = 1200; setupHigh = 2900; maintenance = 190; }
+  if (complexity >= 5) { setupLow = 2400; setupHigh = 5200; maintenance = 290; }
+  if (employees >= 25) { setupLow += 1200; setupHigh += 2500; maintenance += 180; }
+  const paybackMonthsLow = monthlySavings > 0 ? setupLow / monthlySavings : Infinity;
+  const paybackMonthsHigh = monthlySavings > 0 ? setupHigh / monthlySavings : Infinity;
+  return { employees, hoursWeek, rate, hourly, weeklyHoursSaved, monthlyHoursSaved, monthlySavings, annualSavings, setupLow, setupHigh, maintenance, paybackMonthsLow, paybackMonthsHigh };
 }
 
-function finishBudget() {
-  budget.active = false;
-  budget.estimate = calculateBudget();
-  const e = budget.estimate;
-  const summary = `
-    <div class="chat-budget-result">
-      <span class="chat-budget-kicker">Estimación MotexBot</span>
-      <h3>${e.label}</h3>
-      <div class="chat-budget-numbers">
-        <div><span>Setup aproximado</span><strong>${e.setupMin} € - ${e.setupMax} €</strong></div>
-        <div><span>Mantenimiento</span><strong>${e.monthlyMin} € - ${e.monthlyMax} €/mes</strong></div>
+function renderSavingsResult() {
+  const flow = savingsFlow;
+  const result = computeSavings(flow);
+  lastSavingsResult = { flow, result };
+  const taskLabels = (flow.tasks || []).map(t => t.label).join(', ') || 'Tareas repetitivas';
+  const roiWidth = Math.max(8, Math.min(100, (result.monthlySavings / Math.max(result.setupLow, 1)) * 70));
+  addBotMessage(`
+    <div class="savings-result-card">
+      <div class="savings-progress">
+        <div class="savings-progress-label"><span>Impacto estimado</span><span>${Math.round(result.rate * 100)}% automatizable</span></div>
+        <div class="savings-progress-bar"><i style="--w:${Math.round(result.rate * 100)}%"></i></div>
       </div>
-      <p>Esta horquilla es orientativa. El precio cerrado depende de accesos, herramientas, seguridad, volumen real y nivel de personalización.</p>
-      <ul>
-        <li><strong>Proceso:</strong> ${budget.answers.area}</li>
-        <li><strong>Volumen:</strong> ${budget.answers.volume}</li>
-        <li><strong>Herramientas:</strong> ${budget.answers.tools}</li>
-        <li><strong>Complejidad:</strong> ${budget.answers.complexity}</li>
-        <li><strong>Urgencia:</strong> ${budget.answers.urgency}</li>
+      <div class="savings-result-main">
+        <div class="savings-result-tile hot"><span>Ahorro potencial al año</span><strong>${formatEUR(result.annualSavings)}</strong></div>
+        <div class="savings-result-tile"><span>Ahorro potencial al mes</span><strong>${formatEUR(result.monthlySavings)}</strong></div>
+        <div class="savings-result-tile"><span>Horas recuperadas al mes</span><strong>${formatHours(result.monthlyHoursSaved)}</strong></div>
+        <div class="savings-result-tile"><span>Inversión orientativa</span><strong>${formatEUR(result.setupLow)} - ${formatEUR(result.setupHigh)}</strong></div>
+      </div>
+      <ul class="savings-result-list">
+        <li>Personas implicadas: <strong>${result.employees}</strong></li>
+        <li>Tareas detectadas: <strong>${taskLabels}</strong></li>
+        <li>Tiempo repetitivo: <strong>${result.hoursWeek.toFixed(1).replace('.', ',')} h/persona/semana</strong></li>
+        <li>Coste usado: <strong>${result.hourly.toFixed(2).replace('.', ',')} €/h</strong> (${flow.hourlySource || 'estimación'})</li>
+        <li>Mantenimiento recomendado: desde <strong>${formatEUR(result.maintenance)}/mes</strong></li>
+        <li>Retorno orientativo: entre <strong>${result.paybackMonthsLow.toFixed(1).replace('.', ',')}</strong> y <strong>${result.paybackMonthsHigh.toFixed(1).replace('.', ',')}</strong> meses si el escenario se confirma.</li>
       </ul>
+      <p class="savings-source-note">Esto no es un presupuesto cerrado: es una estimación inicial basada en coste laboral medio, horas repetitivas y porcentaje automatizable. En una auditoría real se ajusta por sector, herramientas, volumen y complejidad.</p>
     </div>
-  `;
-  addBotMessage(summary);
-  renderQuickReplies(['Enviar resumen al equipo', 'Repetir estimación', 'Telegram', 'Email clásico']);
+  `, 'chat-msg-savings');
+  renderQuickReplies([
+    { text: 'Enviar resumen a Motex', value: '__send_savings__' },
+    { text: 'Calcular otro escenario', value: '__restart_savings__' },
+    { text: 'Hablar por Telegram', value: '__telegram__' },
+    { text: 'Email', value: '__email__' }
+  ]);
 }
 
-function sendQuoteSummary() {
-  const form = $('#chatQuoteForm');
-  if (!form || !budget.estimate) {
-    addBotMessage(`Puedes escribir directamente a <a href="${CHATBOT.EMAIL}">contacto@aimotex.com</a>.`);
-    return;
+function resultSummaryText() {
+  if (!lastSavingsResult) return '';
+  const { flow, result } = lastSavingsResult;
+  const taskLabels = (flow.tasks || []).map(t => t.label).join(', ') || 'Tareas repetitivas';
+  return `Estimación de ahorro MotexBot\n` +
+    `Personas implicadas: ${result.employees}\n` +
+    `Tareas: ${taskLabels}\n` +
+    `Horas repetitivas por persona/semana: ${result.hoursWeek.toFixed(1)}\n` +
+    `Porcentaje automatizable: ${Math.round(result.rate * 100)}%\n` +
+    `Coste/hora usado: ${result.hourly.toFixed(2)} €/h (${flow.hourlySource || 'estimación'})\n` +
+    `Horas recuperables/mes: ${Math.round(result.monthlyHoursSaved)}\n` +
+    `Ahorro potencial/mes: ${Math.round(result.monthlySavings)} €\n` +
+    `Ahorro potencial/año: ${Math.round(result.annualSavings)} €\n` +
+    `Inversión orientativa: ${Math.round(result.setupLow)}-${Math.round(result.setupHigh)} €\n` +
+    `Mantenimiento recomendado: desde ${Math.round(result.maintenance)} €/mes`;
+}
+
+function runSpecialAction(key, label) {
+  if (key === '__restart_savings__') {
+    addUserMessage(label || 'Calcular otro escenario');
+    newSavingsFlow();
+    askSavingsQuestion();
+    return true;
   }
-
-  const e = budget.estimate;
-  const summary = [
-    `Tipo: ${e.label}`,
-    `Setup: ${e.setupMin} € - ${e.setupMax} €`,
-    `Mensual: ${e.monthlyMin} € - ${e.monthlyMax} €/mes`,
-    `Proceso: ${budget.answers.area}`,
-    `Volumen: ${budget.answers.volume}`,
-    `Herramientas: ${budget.answers.tools}`,
-    `Complejidad: ${budget.answers.complexity}`,
-    `Urgencia: ${budget.answers.urgency}`
-  ].join('\n');
-
-  $('#chatQuoteSummary').value = summary;
-  $('#chatQuoteSetup').value = `${e.setupMin} € - ${e.setupMax} €`;
-  $('#chatQuoteMonthly').value = `${e.monthlyMin} € - ${e.monthlyMax} €/mes`;
-
-  form.submit();
-  addBotMessage('Resumen enviado al equipo. Para completar el contacto, escríbenos tu nombre, empresa y teléfono o usa el email que aparece abajo.');
-  renderQuickReplies(['Email clásico', 'Telegram', 'Repetir estimación']);
+  if (key === '__send_savings__') {
+    addUserMessage(label || 'Enviar resumen a Motex');
+    const form = document.getElementById('chatQuoteForm');
+    const summary = document.getElementById('chatQuoteSummary');
+    const setup = document.getElementById('chatQuoteSetup');
+    const monthly = document.getElementById('chatQuoteMonthly');
+    if (summary) summary.value = resultSummaryText();
+    if (setup && lastSavingsResult) setup.value = `${formatEUR(lastSavingsResult.result.setupLow)} - ${formatEUR(lastSavingsResult.result.setupHigh)}`;
+    if (monthly && lastSavingsResult) monthly.value = `${formatEUR(lastSavingsResult.result.monthlySavings)}/mes de ahorro potencial`;
+    if (form) form.submit();
+    addBotMessage('Perfecto. He enviado el resumen al equipo de Motex. También puedes escribirnos por Telegram o email si quieres avanzar más rápido.');
+    renderQuickReplies([{ text: 'Telegram', value: '__telegram__' }, { text: 'Email', value: '__email__' }, { text: 'Nuevo cálculo', value: '__restart_savings__' }]);
+    return true;
+  }
+  if (key === '__telegram__') {
+    addUserMessage(label || 'Telegram');
+    window.open(CHATBOT.TELEGRAM, '_blank', 'noopener');
+    addBotMessage(`Te abro Telegram. También puedes buscar <a href="${CHATBOT.TELEGRAM}" target="_blank" rel="noopener">@MotexBot</a>.`);
+    return true;
+  }
+  if (key === '__email__') {
+    addUserMessage(label || 'Email');
+    window.location.href = CHATBOT.EMAIL;
+    addBotMessage(`Te abro el correo. La dirección es <a href="${CHATBOT.EMAIL}">contacto@aimotex.com</a>.`);
+    return true;
+  }
+  if (key === '__start_savings__') {
+    addUserMessage(label || 'Calcular ahorro');
+    startSavingsFlow();
+    return true;
+  }
+  return false;
 }
 
-function answerGeneral(text) {
+function handleGeneralIntent(text) {
   const clean = normalize(text);
-
-  if (clean.includes('presupuesto') || clean.includes('diagnostico') || clean.includes('calcular')) {
-    startBudgetFlow();
-    return;
-  }
-  if (clean.includes('servicio')) {
-    addBotMessage('Motex automatiza atención al cliente, correo, reservas, facturación, informes, marketing y procesos internos. Puedes verlo en la página de Servicios.');
-    renderQuickReplies(['Presupuesto rápido', 'Cursos', 'Telegram']);
+  if (clean.includes('ahorro') || clean.includes('dinero') || clean.includes('automatizar') || clean.includes('presupuesto') || clean.includes('empleado') || clean.includes('horas')) {
+    startSavingsFlow();
     return;
   }
   if (clean.includes('curso') || clean.includes('formacion')) {
-    addBotMessage('Los cursos de Motex son personalizados, con práctica real, plataforma adaptada y mentoría semanal. Hay programas para PYMEs, n8n y equipos.');
-    renderQuickReplies(['Presupuesto rápido', 'Email clásico', 'Telegram']);
+    addBotMessage('Tenemos cursos para principiantes, PYMEs, automatización premium con n8n y formación a medida para empresas. Si quieres, también puedo calcular cuánto dinero podrías ahorrar antes de decidir qué curso o automatización te conviene.');
+    renderQuickReplies([{ text: 'Calcular ahorro', value: '__start_savings__' }, 'Ver cursos']);
     return;
   }
-  if (clean.includes('telegram')) {
-    addBotMessage(`Puedes hablar por Telegram aquí: <a href="${CHATBOT.TELEGRAM}" target="_blank" rel="noopener">@MotexBot</a>`);
-    window.open(CHATBOT.TELEGRAM, '_blank', 'noopener');
-    return;
-  }
-  if (clean.includes('email') || clean.includes('correo')) {
-    addBotMessage(`Puedes escribirnos a <a href="${CHATBOT.EMAIL}">contacto@aimotex.com</a>.`);
-    window.location.href = CHATBOT.EMAIL;
-    return;
-  }
-
-  addBotMessage('Puedo ayudarte con presupuesto rápido, servicios, cursos o contacto. ¿Qué prefieres?');
-  renderQuickReplies(['Presupuesto rápido', 'Servicios', 'Cursos', 'Telegram']);
+  if (clean.includes('telegram')) return runSpecialAction('__telegram__', 'Telegram');
+  if (clean.includes('email') || clean.includes('correo')) return runSpecialAction('__email__', 'Email');
+  addBotMessage('Puedo ayudarte a estimar ahorro económico, horas recuperables, automatizaciones posibles o cursos. Lo más llamativo es la calculadora de ahorro: en menos de 2 minutos te da una cifra aproximada.');
+  renderQuickReplies([{ text: 'Calcular ahorro', value: '__start_savings__' }, 'Cursos', { text: 'Telegram', value: '__telegram__' }]);
 }
 
-function handleUserInput(text) {
-  const value = String(text || '').trim();
-  if (!value) return;
-
-  addUserMessage(value);
-  if (cbInput) cbInput.value = '';
-
-  const clean = normalize(value);
-  if (clean.includes('enviar resumen')) {
-    sendQuoteSummary();
-    return;
-  }
-  if (clean.includes('repetir')) {
-    startBudgetFlow();
-    return;
-  }
-  if (clean.includes('email clasico')) {
-    window.location.href = CHATBOT.EMAIL;
-    addBotMessage(`Abriendo email. Dirección: <a href="${CHATBOT.EMAIL}">contacto@aimotex.com</a>`);
-    return;
-  }
-  if (clean.includes('telegram')) {
-    window.open(CHATBOT.TELEGRAM, '_blank', 'noopener');
-    addBotMessage(`Abriendo Telegram. También puedes entrar aquí: <a href="${CHATBOT.TELEGRAM}" target="_blank" rel="noopener">@MotexBot</a>`);
-    return;
-  }
-
-  if (budget.active) {
-    saveBudgetAnswer(value);
-    return;
-  }
-
-  answerGeneral(value);
+function handleUserMessage(rawText, displayText) {
+  const text = String(rawText || '').trim();
+  if (!text) return;
+  addUserMessage(displayText || text);
+  renderQuickReplies([]);
+  showTyping();
+  setTimeout(() => {
+    hideTyping();
+    if (savingsFlow && savingsFlow.step !== 'result') {
+      handleSavingsAnswer(text);
+    } else {
+      handleGeneralIntent(text);
+    }
+  }, 420 + Math.random() * 260);
 }
 
-cbFab?.addEventListener('click', () => {
-  if (cb?.classList.contains('open')) closeChatbot();
-  else openChatbot();
+function toggleChatbot(force) {
+  if (!cb || !cbFab || !cbPanel) return;
+  const open = typeof force === 'boolean' ? force : !cb.classList.contains('open');
+  cb.classList.toggle('open', open);
+  cbFab.setAttribute('aria-expanded', String(open));
+  cbPanel.setAttribute('aria-hidden', String(!open));
+  document.body.classList.toggle('modal-open', open);
+
+  if (open && !cbOpened) {
+    cbOpened = true;
+    setTimeout(() => {
+      if (cbTitle) cbTitle.textContent = 'MotexBot · calculadora de ahorro';
+      addBotMessage('Hola 👋 Soy MotexBot. Puedo calcular <strong>cuánto dinero y cuántas horas podrías ahorrar</strong> automatizando tareas repetitivas de tu empresa.');
+      renderQuickReplies([{ text: 'Calcular ahorro ahora', value: '__start_savings__' }, 'Cursos', { text: 'Telegram', value: '__telegram__' }]);
+    }, 220);
+  }
+  if (open) setTimeout(() => cbInput && cbInput.focus(), 260);
+}
+
+if (cb && cbFab && cbPanel) {
+  cbFab.addEventListener('click', () => toggleChatbot());
+  if (cbClose) cbClose.addEventListener('click', () => toggleChatbot(false));
+  if (cbForm) cbForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = cbInput.value.trim();
+    if (!value) return;
+    cbInput.value = '';
+    handleUserMessage(value);
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const savingsBtn = e.target.closest('[data-budget-start], [data-savings-start]');
+  if (savingsBtn) {
+    e.preventDefault();
+    startSavingsFlow();
+  }
 });
 
-cbClose?.addEventListener('click', closeChatbot);
-
-cbForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  handleUserInput(cbInput?.value || '');
-});
-
-$$('[data-budget-start]').forEach((btn) => {
-  btn.addEventListener('click', (event) => {
-    event.preventDefault();
-    openChatbot({ fullscreen: true, startBudget: true });
+// Botones de pago/curso que existan con data-course-checkout: mantener flujo visual básico
+const courseCheckoutButtons = document.querySelectorAll('[data-course-checkout]');
+courseCheckoutButtons.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const title = btn.getAttribute('data-course-title') || 'Curso Motex';
+    const price = btn.getAttribute('data-course-price') || 'Precio a consultar';
+    toggleChatbot(true);
+    setTimeout(() => {
+      addBotMessage(`Para reservar <strong>${title}</strong> (${price}), podemos preparar el pago por tarjeta, PayPal, Apple Pay, Google Pay, Bizum o transferencia. Déjame primero calcular si te conviene por ahorro potencial o escríbenos directamente.`);
+      renderQuickReplies([{ text: 'Calcular ahorro', value: '__start_savings__' }, { text: 'Email', value: '__email__' }, { text: 'Telegram', value: '__telegram__' }]);
+    }, 200);
   });
 });
 
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeChatbot();
-});
-
-
-// Corrección final: scroll robusto a programas y desplegables de servicios claros
-(function () {
-  document.querySelectorAll('[data-scroll-to]').forEach((el) => {
-    el.addEventListener('click', (event) => {
-      const id = el.getAttribute('data-scroll-to');
-      const target = id ? document.getElementById(id) : null;
-      if (!target) return;
-      event.preventDefault();
-      target.style.display = 'block';
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => target.focus?.({ preventScroll: true }), 450);
-      if (history.pushState) history.pushState(null, '', '#' + id);
+// Tarjetas de servicio desplegables si existen
+function setupExpandableServices() {
+  document.querySelectorAll('.service-expand-card, .automation-service-card').forEach((card, index) => {
+    const head = card.querySelector('.service-expand-head, .automation-service-head') || card;
+    const body = card.querySelector('.service-expand-body, .automation-service-body');
+    if (!body) return;
+    if (index === 0) {
+      card.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+    head.addEventListener('click', () => {
+      card.classList.toggle('open');
+      body.style.maxHeight = card.classList.contains('open') ? body.scrollHeight + 'px' : '0px';
     });
   });
-
-  const serviceCards = Array.from(document.querySelectorAll('.service-expand-card'));
-  serviceCards.forEach((card) => {
-    card.addEventListener('toggle', () => {
-      if (!card.open) return;
-      serviceCards.forEach((other) => {
-        if (other !== card) other.open = false;
-      });
-    });
-  });
-})();
-
-// =========================================================
-// CURSOS · Programas desplegables, ventana de pago y promoción
-// =========================================================
-(function () {
-  const paymentModal = document.getElementById('paymentModal');
-  const promoModal = document.getElementById('promoModal');
-  const paymentTitle = document.getElementById('paymentCourseTitle');
-  const paymentHours = document.getElementById('paymentCourseHours');
-  const paymentPrice = document.getElementById('paymentCoursePrice');
-  const paymentNote = document.getElementById('paymentNote');
-  let selectedMethod = '';
-
-  function lockBody(lock) {
-    document.body.classList.toggle('modal-locked', Boolean(lock));
-  }
-
-  function openPaymentFromButton(button) {
-    if (!paymentModal || !button) return;
-    const title = button.dataset.courseTitle || 'Curso Motex';
-    const price = button.dataset.coursePrice || 'Consultar';
-    const hours = button.dataset.courseHours || 'A medida';
-    const type = button.dataset.courseType || 'Formación Motex';
-
-    if (paymentTitle) paymentTitle.textContent = title;
-    if (paymentHours) paymentHours.textContent = hours;
-    if (paymentPrice) paymentPrice.textContent = price;
-    const heading = document.getElementById('paymentTitle');
-    if (heading) heading.textContent = type.includes('empresa') || title.toLowerCase().includes('company') ? 'Solicitar propuesta de formación' : 'Inscribirte al curso';
-    if (paymentNote) paymentNote.textContent = 'Selecciona un método de pago para continuar. Para pagos reales se conectará esta ventana con Stripe, PayPal Checkout o la pasarela bancaria que decidáis.';
-
-    selectedMethod = '';
-    document.querySelectorAll('[data-payment-method]').forEach((el) => el.classList.remove('active'));
-    paymentModal.classList.add('open');
-    paymentModal.setAttribute('aria-hidden', 'false');
-    lockBody(true);
-  }
-
-  function closePayment() {
-    if (!paymentModal) return;
-    paymentModal.classList.remove('open');
-    paymentModal.setAttribute('aria-hidden', 'true');
-    lockBody(Boolean(promoModal?.classList.contains('open')));
-  }
-
-  document.querySelectorAll('[data-course-checkout]').forEach((button) => {
-    button.addEventListener('click', (event) => {
-      event.preventDefault();
-      const openedPromo = promoModal?.classList.contains('open');
-      if (openedPromo) closePromo();
-      openPaymentFromButton(button);
-    });
-  });
-
-  document.querySelectorAll('[data-payment-close]').forEach((el) => {
-    el.addEventListener('click', closePayment);
-  });
-
-  document.querySelectorAll('[data-payment-method]').forEach((button) => {
-    button.addEventListener('click', () => {
-      selectedMethod = button.dataset.paymentMethod || button.textContent.trim();
-      document.querySelectorAll('[data-payment-method]').forEach((el) => el.classList.remove('active'));
-      button.classList.add('active');
-      if (paymentNote) paymentNote.textContent = `Método seleccionado: ${selectedMethod}. Completa tus datos y pulsa “Continuar con el pago”.`;
-    });
-  });
-
-  const paymentForm = document.getElementById('paymentForm');
-  if (paymentForm) {
-    paymentForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!selectedMethod) {
-        if (paymentNote) paymentNote.textContent = 'Elige primero un método: PayPal, tarjeta, Apple Pay, Google Pay o transferencia.';
-        return;
-      }
-      if (paymentNote) {
-        paymentNote.innerHTML = `Flujo preparado para <strong>${selectedMethod}</strong>. Cuando conectemos Stripe/PayPal, este botón llevará al checkout real. Mientras tanto, puedes cerrar esta ventana y escribirnos a <a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a>.`;
-      }
-    });
-  }
-
-  document.querySelectorAll('[data-course-toggle]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const card = button.closest('.course-program-card');
-      if (!card) return;
-      const isOpen = card.classList.toggle('program-open');
-      const panel = card.querySelector('.course-program');
-      if (panel) panel.setAttribute('aria-hidden', String(!isOpen));
-      button.textContent = isOpen ? 'Ocultar programa' : 'Ver programa';
-      if (isOpen) setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
-    });
-  });
-
-  function openPromo() {
-    if (!promoModal) return;
-    promoModal.classList.add('open');
-    promoModal.setAttribute('aria-hidden', 'false');
-    lockBody(true);
-  }
-
-  function closePromo() {
-    if (!promoModal) return;
-    promoModal.classList.remove('open');
-    promoModal.setAttribute('aria-hidden', 'true');
-    sessionStorage.setItem('motexPromoClosed', 'true');
-    lockBody(Boolean(paymentModal?.classList.contains('open')));
-  }
-
-  document.querySelectorAll('[data-promo-close]').forEach((el) => {
-    el.addEventListener('click', closePromo);
-  });
-
-  if (promoModal && !sessionStorage.getItem('motexPromoClosed')) {
-    window.setTimeout(openPromo, 900);
-  }
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape') return;
-    closePayment();
-    closePromo();
-  });
-})();
-
-// Abre automáticamente el programa si la URL apunta a un curso concreto
-(function () {
-  const hash = window.location.hash;
-  if (!hash) return;
-  const target = document.querySelector(hash);
-  if (!target || !target.classList.contains('course-program-card')) return;
-  window.setTimeout(() => {
-    target.classList.add('program-open');
-    const panel = target.querySelector('.course-program');
-    const button = target.querySelector('[data-course-toggle]');
-    if (panel) panel.setAttribute('aria-hidden', 'false');
-    if (button) button.textContent = 'Ocultar programa';
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 350);
-})();
+}
+setupExpandableServices();
