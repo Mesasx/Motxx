@@ -3,40 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Motex — Automatización, formación y agentes de IA para empresas</title>
-  <meta name="description" content="Automatizamos procesos empresariales, creamos agentes de IA y formamos equipos para trabajar mejor con ChatGPT, Claude, Copilot y n8n." />
-
-  <meta property="og:title" content="Motex — Automatización con IA para PYMEs" />
-  <meta property="og:description" content="Transformamos tu negocio con inteligencia artificial. Trabajamos con Claude, ChatGPT y Copilot." />
+  <title>Motex | Automatiza tu empresa con IA</title>
+  <meta name="description" content="Motex automatiza tu empresa con agentes inteligentes, chatbots, n8n y formación personalizada. Ahorra horas, responde clientes 24/7 y convierte la inteligencia artificial en un empleado digital." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://aimotex.com/" />
+  <meta property="og:title" content="Motex | Automatiza tu empresa con IA" />
+  <meta property="og:description" content="Motex automatiza tu empresa con agentes inteligentes, chatbots, n8n y formación personalizada. Ahorra horas, responde clientes 24/7 y convierte la inteligencia artificial en un empleado digital." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aimotex.com/" />
+  <meta property="og:site_name" content="Motex" />
   <meta property="og:locale" content="es_ES" />
-
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Motex | Automatiza tu empresa con IA" />
+  <meta name="twitter:description" content="Motex automatiza tu empresa con agentes inteligentes, chatbots, n8n y formación personalizada. Ahorra horas, responde clientes 24/7 y convierte la inteligencia artificial en un empleado digital." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Rubik+Mono+One&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Motex | Automatiza tu empresa con IA",
+    "description": "Motex automatiza tu empresa con agentes inteligentes, chatbots, n8n y formación personalizada. Ahorra horas, responde clientes 24/7 y convierte la inteligencia artificial en un empleado digital.",
+    "url": "https://aimotex.com/",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Motex",
+      "url": "https://aimotex.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://aimotex.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Motex",
+      "url": "https://aimotex.com/",
+      "email": "contacto@aimotex.com",
+      "sameAs": [
+        "https://t.me/MotexBot"
+      ]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Motex",
+    "url": "https://aimotex.com/",
+    "email": "contacto@aimotex.com",
+    "description": "Automatización de empresas, agentes inteligentes y formación personalizada.",
+    "sameAs": [
+      "https://t.me/MotexBot"
+    ]
+  }
+]</script>
 </head>
-<body>
+<body class="multipage page-home">
 
-  <!-- ============ NAVEGACIÓN ============ -->
   <nav class="nav" id="nav">
-    <a href="#" class="nav-logo" aria-label="Motex - Inicio">
+    <a href="index.html" class="nav-logo" aria-label="Motex - Inicio">
       <span class="logo-ai-prefix">ai</span><span class="logo-text-main">MOTEX</span>
     </a>
 
     <div class="nav-links">
-      <a href="#servicios">Servicios</a>
-      <a href="#cursos">Cursos</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#precios">Precios</a>
-      <a href="#faqs">FAQs</a>
+      <a href="index.html" class="active">Inicio</a>
+<a href="servicios/" class="">Servicios</a>
+<a href="automatizaciones/" class="">Automatizaciones</a>
+<a href="cursos/" class="">Cursos</a>
+<a href="nosotros/" class="">Nosotros</a>
     </div>
 
-    <a href="#contacto" class="nav-cta" data-open-contact>Diagnóstico IA</a>
+    <button type="button" class="nav-cta" data-budget-start>Presupuesto rápido</button>
 
     <button class="nav-toggle" aria-label="Abrir menú" id="navToggle">
       <span></span><span></span><span></span>
@@ -44,1426 +84,201 @@
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#servicios">Servicios</a>
-    <a href="#cursos">Cursos</a>
-    <a href="#proceso">Proceso</a>
-    <a href="#nosotros">Nosotros</a>
-    <a href="#precios">Precios</a>
-    <a href="#faqs">FAQs</a>
-    <a href="#contacto" class="mobile-cta" data-open-contact>Diagnóstico IA</a>
+    <a href="index.html" class="active">Inicio</a>
+<a href="servicios/" class="">Servicios</a>
+<a href="automatizaciones/" class="">Automatizaciones</a>
+<a href="cursos/" class="">Cursos</a>
+<a href="nosotros/" class="">Nosotros</a>
+    <a href="contacto/" class="mobile-cta">Contacto</a>
+    <button type="button" class="mobile-cta mobile-cta-button" data-budget-start>Presupuesto rápido</button>
     <a href="https://t.me/MotexBot" class="mobile-cta mobile-cta-telegram" target="_blank" rel="noopener">Telegram · @MotexBot</a>
   </div>
 
-  <!-- ============ HERO ============ -->
-  <header class="hero">
+  <header class="hero multipage-hero">
     <div class="aurora">
       <div class="aurora-blob aurora-blob-1"></div>
       <div class="aurora-blob aurora-blob-2"></div>
       <div class="aurora-blob aurora-blob-3"></div>
       <div class="aurora-blob aurora-blob-4"></div>
     </div>
-
-    <div class="stars">
-      <span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
-
     <div class="grid-overlay"></div>
 
     <div class="hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        IA aplicada · Automatización · Formación práctica
-      </div>
-
-      <h1 class="hero-title">
-        Convierte tu empresa en una <span class="hero-highlight">máquina inteligente</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        Diseñamos automatizaciones, agentes conversacionales y formaciones prácticas para que tu empresa trabaje más rápido, venda mejor y deje de perder horas en tareas repetitivas.
-      </p>
-
+      <div class="hero-badge"><span class="hero-badge-dot"></span> Automatización · Formación · Crecimiento</div>
+      <h1 class="hero-title">Automatiza tu empresa con <span class="hero-highlight">inteligencia artificial práctica</span></h1>
+      <p class="hero-subtitle">Motex diseña automatizaciones, agentes conversacionales y formaciones personalizadas para que tu empresa ahorre horas, responda mejor y trabaje con sistemas más inteligentes.</p>
       <div class="hero-ctas">
-        <button type="button" class="btn btn-primary" data-open-contact>
-          Haz diagnóstico con MotexBot
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-        <a href="https://t.me/MotexBot" class="btn btn-telegram" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.231-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          Telegram
-        </a>
-        <a href="#servicios" class="btn btn-secondary">Ver automatizaciones</a>
+        <button type="button" class="btn btn-primary" data-budget-start>Calcular presupuesto aproximado</button>
+        <a href="servicios/" class="btn btn-secondary">Ver servicios</a>
+        <a href="cursos/" class="btn btn-telegram">Ver cursos</a>
       </div>
 
       <div class="hero-stack">
-        <span class="hero-stack-label">Trabajamos con</span>
+        <span class="hero-stack-label">Apartados principales</span>
         <div class="hero-stack-logos">
-          <div class="stack-logo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.827 3.52h3.603L24 20h-3.603l-1.343-3.485h-6.875L10.836 20H7.233zm-.693 9.717h4.69l-2.345-6.44zM0 20V3.52h3.325c3.133 0 5.304.576 6.516 1.727 1.213 1.152 1.82 3.08 1.82 5.785 0 2.905-.61 5.03-1.828 6.375C8.615 18.75 6.45 20 3.325 20zm3.41-2.74h.237c1.736 0 2.99-.362 3.763-1.086.773-.724 1.16-1.898 1.16-3.522 0-1.624-.39-2.82-1.17-3.587-.78-.767-2.03-1.15-3.753-1.15h-.237z"/></svg>
-            <span>Claude</span>
-          </div>
-          <div class="stack-logo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5Z"/></svg>
-            <span>ChatGPT</span>
-          </div>
-          <div class="stack-logo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.507 7.083A11.97 11.97 0 0 0 19.52 2.47a1.1 1.1 0 0 0-1.528.253 1.106 1.106 0 0 0 .252 1.541 9.8 9.8 0 0 1 3.265 3.776 1.098 1.098 0 0 0 2.043-.783 1.097 1.097 0 0 0-.045-.174zM12 2.25C6.624 2.25 2.25 6.624 2.25 12S6.624 21.75 12 21.75 21.75 17.376 21.75 12 17.376 2.25 12 2.25zm0 17.25c-4.136 0-7.5-3.364-7.5-7.5S7.864 4.5 12 4.5s7.5 3.364 7.5 7.5-3.364 7.5-7.5 7.5zm0-12.75c-2.895 0-5.25 2.355-5.25 5.25S9.105 17.25 12 17.25s5.25-2.355 5.25-5.25S14.895 6.75 12 6.75zm0 8.25c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3z"/></svg>
-            <span>Copilot</span>
-          </div>
-          <div class="stack-logo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/><path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-            <span>n8n</span>
-          </div>
-        </div>
-
-      <div class="hero-live-lab reveal" aria-label="Vista previa de automatización Motex">
-        <div class="live-lab-card live-lab-card-main">
-          <div class="live-lab-topbar">
-            <span></span><span></span><span></span>
-            <strong>MOTEX OS</strong>
-          </div>
-          <div class="live-lab-terminal">
-            <p><span class="terminal-muted">cliente:</span> “Necesito presupuesto para automatizar reservas y responder WhatsApp”</p>
-            <p><span class="terminal-cyan">agente IA:</span> detecta intención · califica lead · crea tarea</p>
-            <p><span class="terminal-hot">n8n:</span> envía email interno · agenda reunión · actualiza CRM</p>
-            <p class="terminal-success">✓ flujo ejecutado en 3.2s · 0 intervención humana</p>
-          </div>
-        </div>
-        <div class="live-lab-card live-lab-metric">
-          <span>Tiempo recuperado</span>
-          <strong>+14 h/sem</strong>
-          <small>estimación media en procesos repetitivos</small>
-        </div>
-        <div class="live-lab-card live-lab-metric">
-          <span>Respuesta al cliente</span>
-          <strong>24/7</strong>
-          <small>web · Telegram · email · WhatsApp futuro</small>
+          <a class="stack-logo" href="servicios/">Servicios</a>
+          <a class="stack-logo" href="automatizaciones/">Automatizaciones</a>
+          <a class="stack-logo" href="cursos/">Cursos</a>
+          <a class="stack-logo" href="nosotros/">Nosotros</a>
+          <a class="stack-logo" href="contacto/">Contacto</a>
         </div>
       </div>
-      </div>
-    </div>
-
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <div class="scroll-mouse"><span></span></div>
     </div>
   </header>
 
-  <!-- ============ SERVICIOS ============ -->
-  <section class="section services" id="servicios">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">// Servicios</div>
-        <h2 class="section-title">Automatizaciones que <span class="text-gradient">transforman tu día a día</span></h2>
-        <p class="section-subtitle">Diseñamos e implantamos soluciones con inteligencia artificial adaptadas a tu negocio. Resultados medibles desde la primera semana.</p>
-      </div>
-
-      <div class="services-grid">
-        <article class="service-card reveal">
-          <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          </div>
-          <h3>Atención al cliente inteligente</h3>
-          <p>Asistentes conversacionales en WhatsApp, web y redes sociales. Responden al instante, resuelven dudas y captan clientes 24 horas al día, 7 días a la semana.</p>
-        </article>
-
-        <article class="service-card reveal">
-          <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <h3>Gestión automática de correo</h3>
-          <p>Clasificación inteligente de tu bandeja de entrada, redacción automática de respuestas con tu tono de marca y alertas solo de lo importante. Recupera horas cada día.</p>
-        </article>
-
-        <article class="service-card reveal">
-          <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h3>Contenido para redes sociales</h3>
-          <p>Generamos publicaciones, imágenes y calendarios para Instagram, LinkedIn y TikTok. Publicación automática con la voz de tu marca perfectamente definida.</p>
-        </article>
-
-        <article class="service-card reveal">
-          <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-          <h3>Reservas y agenda inteligente</h3>
-          <p>Sistemas automatizados que gestionan citas, confirmaciones y recordatorios. Ideal para clínicas, peluquerías, consultorías y despachos profesionales.</p>
-        </article>
-
-        <article class="service-card reveal">
-          <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <h3>Facturación y presupuestos</h3>
-          <p>Generación automática de presupuestos y facturas, seguimiento de cobros y conexión con tu gestoría. Acelera tus ingresos y elimina tareas administrativas.</p>
-        </article>
-
-        <article class="service-card reveal">
-          <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          </div>
-          <h3>Informes y análisis con IA</h3>
-          <p>Informes automáticos de ventas, clientes y operaciones. La IA analiza los datos de tu negocio y te entrega conclusiones accionables en tu email.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============ LABORATORIO INTERACTIVO ============ -->
-  <section class="section automation-lab" id="laboratorio">
-    <div class="container">
-      <div class="lab-shell reveal">
-        <div class="lab-copy">
-          <div class="section-badge">// Laboratorio Motex</div>
-          <h2 class="section-title">Mira cómo una automatización <span class="text-gradient">cobra vida</span></h2>
-          <p class="section-subtitle">Elige un caso típico y verás el flujo que montaríamos: entrada del cliente, IA, herramientas conectadas y resultado final. Queremos que la web no solo explique: que enseñe cómo trabajamos.</p>
-          <div class="lab-tabs" role="tablist" aria-label="Casos de automatización">
-            <button class="lab-tab active" data-demo="cliente" type="button">Atención al cliente</button>
-            <button class="lab-tab" data-demo="correo" type="button">Correo inteligente</button>
-            <button class="lab-tab" data-demo="contenido" type="button">Redes sociales</button>
-            <button class="lab-tab" data-demo="informes" type="button">Informes</button>
-          </div>
+  <main>
+    <section class="section search-preview-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">// Estructura preparada para Google</div>
+          <h2 class="section-title">Una web organizada para que <span class="text-gradient">Motex aparezca con sus apartados</span></h2>
+          <p class="section-subtitle">La navegación principal ya usa páginas reales: servicios, automatizaciones, cursos, nosotros y contacto. Esta estructura ayuda a los buscadores a entender la marca y sus secciones.</p>
         </div>
-        <div class="lab-board" aria-live="polite">
-          <div class="lab-board-glow"></div>
-          <div class="lab-board-header">
-            <div>
-              <span id="demoBadge">Flujo 01</span>
-              <h3 id="demoTitle">Atención al cliente inteligente</h3>
-            </div>
-            <div class="lab-status"><span></span> Simulación activa</div>
-          </div>
-          <div class="workflow" id="demoWorkflow">
-            <div class="workflow-node"><strong>1. Cliente pregunta</strong><p>Web, Telegram o WhatsApp.</p></div>
-            <div class="workflow-line"></div>
-            <div class="workflow-node"><strong>2. IA entiende</strong><p>Detecta intención, urgencia y datos clave.</p></div>
-            <div class="workflow-line"></div>
-            <div class="workflow-node"><strong>3. Sistema actúa</strong><p>Responde, crea lead y avisa al equipo.</p></div>
-          </div>
-          <div class="lab-result">
-            <span>Resultado</span>
-            <p id="demoResult">Clientes atendidos al instante y oportunidades comerciales registradas sin tocar una hoja de cálculo.</p>
+
+        <div class="google-preview-card reveal">
+          <div class="preview-domain">aimotex.com</div>
+          <h3>Motex | Automatiza tu empresa con IA</h3>
+          <p>Automatiza procesos, crea agentes inteligentes y forma a tu equipo para ahorrar horas cada semana.</p>
+          <div class="preview-sitelinks">
+            <a href="servicios/">Servicios</a>
+            <a href="cursos/">Cursos</a>
+            <a href="automatizaciones/">Automatizaciones</a>
+            <a href="nosotros/">Nosotros</a>
+            <a href="contacto/">Contacto</a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ CURSOS / FORMACIÓN ============ -->
-  <section class="section courses page-section" id="cursos" data-page="cursos">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge section-badge-accent">// Plataforma de formación Motex</div>
-        <h2 class="section-title">Convierte la IA en <span class="text-gradient-alt">un empleado más</span> de tu negocio</h2>
-        <p class="section-subtitle">Cursos personalizados para que dejes de usar la IA como un juguete y empieces a usarla como un sistema de trabajo: responde, resume, crea, ordena, automatiza y ahorra horas todas las semanas.</p>
-      </div>
-
-      <div class="course-promise-grid reveal">
-        <div class="course-promise-card">
-          <span>01</span>
-          <strong>Plataforma única para cada cliente</strong>
-          <p>Adaptamos ejemplos, plantillas y ejercicios a tu sector, tus herramientas y tus procesos reales.</p>
+    <section class="section services">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">// Qué hacemos</div>
+          <h2 class="section-title">Tres formas de hacer crecer tu empresa con <span class="text-gradient">sistemas automatizados</span></h2>
         </div>
-        <div class="course-promise-card">
-          <span>02</span>
-          <strong>A tu ritmo y a tu manera</strong>
-          <p>Sesiones flexibles, materiales reutilizables y espacios de práctica para avanzar sin agobios.</p>
-        </div>
-        <div class="course-promise-card">
-          <span>03</span>
-          <strong>Mentoría semanal incluida</strong>
-          <p>Una sesión reservada cada semana para resolver dudas, revisar avances y aterrizarlo en tu empresa.</p>
+
+        <div class="route-grid">
+          <a class="route-card reveal" href="servicios/">
+            <span class="route-kicker">01</span>
+            <h3>Servicios de automatización</h3>
+            <p>Chatbots, correo, reservas, informes, facturación y procesos internos conectados.</p>
+            <span class="route-link">Ver servicios →</span>
+          </a>
+          <a class="route-card reveal" href="automatizaciones/">
+            <span class="route-kicker">02</span>
+            <h3>Automatizaciones a medida</h3>
+            <p>Diseñamos flujos concretos para tu operativa real, desde diagnóstico hasta despliegue.</p>
+            <span class="route-link">Ver automatizaciones →</span>
+          </a>
+          <a class="route-card reveal" href="cursos/">
+            <span class="route-kicker">03</span>
+            <h3>Cursos personalizados</h3>
+            <p>Formación con mentorías semanales para convertir la inteligencia artificial en un empleado digital más.</p>
+            <span class="route-link">Ver cursos →</span>
+          </a>
         </div>
       </div>
+    </section>
 
-      <div class="courses-grid courses-grid-upgraded">
-        <article class="course-card reveal">
-          <div class="course-level">Nivel iniciación</div>
-          <div class="course-emoji-icon">🚀</div>
-          <h3>IA para PYMEs y autónomos</h3>
-          <p>Para empezar desde cero y transformar ChatGPT, Claude o Copilot en un apoyo diario: redacta correos, prepara propuestas, resume documentos, genera ideas, responde clientes y crea procesos repetibles.</p>
-          <ul class="course-meta course-meta-upgraded">
-            <li>8 horas de contenido guiado + práctica</li>
-            <li>Sesiones al ritmo que tú elijas</li>
-            <li>1 mentoría semanal de dudas</li>
-            <li>Plantillas personalizadas para tu negocio</li>
-          </ul>
-
-          <div class="course-bonus">
-            <strong>Resultado:</strong> sales con tu biblioteca de prompts, asistentes por tarea y un plan para ahorrar trabajo desde la primera semana.
-          </div>
-
-          <div class="course-price">
-            <span class="course-price-old">297&nbsp;€</span>
-            <span class="course-price-amount">197&nbsp;€</span>
-            <span class="course-price-note">IVA incluido · precio lanzamiento · pago único</span>
-          </div>
-          <div class="course-actions">
-            <a href="#" data-stripe-link="pyme" class="btn-checkout" data-course="pyme" data-course-name="IA para PYMEs y autónomos" data-course-price="197">
-              Inscribirme ahora
-            </a>
-            <button type="button" class="course-cta" data-open-contact data-contact-topic="curso-pyme">Quiero orientación <span>→</span></button>
-          </div>
-          <div class="payment-methods payment-methods-text" aria-label="Métodos de pago aceptados">
-            <span class="payment-label">Pagos:</span><span class="pay-pill">Apple Pay</span><span class="pay-pill">Google Pay</span><span class="pay-pill">Tarjeta</span><span class="pay-pill">PayPal</span><span class="pay-pill">Transferencia</span>
-          </div>
-        </article>
-
-        <article class="course-card course-featured reveal">
-          <div class="course-tag">⚡ Más rentable</div>
-          <div class="course-level">Nivel avanzado</div>
-          <div class="course-emoji-icon">🎯</div>
-          <h3>Automatiza tu negocio con n8n + IA</h3>
-          <p>El programa para crear automatizaciones reales: conectas email, formularios, hojas de cálculo, CRM, calendario, Telegram/WhatsApp y modelos de IA para que trabajen como un empleado digital.</p>
-          <ul class="course-meta course-meta-upgraded">
-            <li>16 horas de formación práctica</li>
-            <li>Flujos n8n listos para reutilizar</li>
-            <li>1 mentoría personalizada cada semana</li>
-            <li>Ejercicios sobre tus procesos reales</li>
-          </ul>
-
-          <div class="course-bonus course-bonus-hot">
-            <strong>Resultado:</strong> acabas con flujos funcionando: captación de leads, respuesta a clientes, clasificación de correos, informes, reservas o presupuestos semiautomáticos.
-          </div>
-
-          <div class="course-price">
-            <span class="course-price-old">697&nbsp;€</span>
-            <span class="course-price-amount">397&nbsp;€</span>
-            <span class="course-price-note">IVA incluido · oferta de lanzamiento · plazas limitadas</span>
-          </div>
-          <div class="course-actions">
-            <a href="#" data-stripe-link="n8n" class="btn-checkout btn-checkout-featured" data-course="n8n" data-course-name="Automatiza tu negocio con n8n + IA" data-course-price="397">
-              Reservar mi plaza
-            </a>
-            <button type="button" class="course-cta" data-open-contact data-contact-topic="curso-n8n">Ver si es para mí <span>→</span></button>
-          </div>
-          <div class="payment-methods payment-methods-text" aria-label="Métodos de pago aceptados">
-            <span class="payment-label">Pagos:</span><span class="pay-pill">Apple Pay</span><span class="pay-pill">Google Pay</span><span class="pay-pill">Tarjeta</span><span class="pay-pill">PayPal</span><span class="pay-pill">Transferencia</span>
-          </div>
-        </article>
-
-        <article class="course-card reveal">
-          <div class="course-level">Para equipos</div>
-          <div class="course-emoji-icon">🏢</div>
-          <h3>Formación in-company a medida</h3>
-          <p>Diseñamos una plataforma formativa para tu equipo: casos reales de vuestro negocio, sesiones flexibles, mentorías semanales y un sistema interno para que la IA se use con criterio.</p>
-          <ul class="course-meta course-meta-upgraded">
-            <li>Diagnóstico de procesos incluido</li>
-            <li>Contenido personalizado por departamento</li>
-            <li>Mentorías grupales o individuales</li>
-            <li>Manual interno de uso de IA</li>
-          </ul>
-
-          <div class="course-bonus">
-            <strong>Resultado:</strong> tu equipo aprende a ahorrar trabajo, responder mejor, documentar procesos y convertir la IA en una parte normal de la empresa.
-          </div>
-
-          <div class="course-price">
-            <span class="course-price-amount course-price-custom">Desde 690&nbsp;€</span>
-            <span class="course-price-note">Equipo pequeño · presupuesto según plantilla y objetivos</span>
-          </div>
-          <div class="course-actions">
-            <button type="button" class="btn-checkout" data-open-contact data-contact-topic="curso-incompany">
-              Pedir propuesta para mi equipo
-            </button>
-          </div>
-        </article>
-      </div>
-
-      <div class="courses-footer reveal">
-        <div class="marquee">
-          <div class="marquee-content">
-            <span>🤖 IA como empleado digital</span>
-            <span>⚡ Mentoría semanal</span>
-            <span>🚀 Sesiones a tu ritmo</span>
-            <span>🔥 Automatizaciones reales</span>
-            <span>💡 Plataforma personalizada</span>
-            <span>🎯 Ahorro de horas desde la primera semana</span>
-            <span>🤖 IA como empleado digital</span>
-            <span>⚡ Mentoría semanal</span>
-            <span>🚀 Sesiones a tu ritmo</span>
-            <span>🔥 Automatizaciones reales</span>
-            <span>💡 Plataforma personalizada</span>
-            <span>🎯 Ahorro de horas desde la primera semana</span>
+    <section class="section pricing">
+      <div class="container">
+        <div class="pricing-hero reveal">
+          <div class="pricing-hero-glow"></div>
+          <div class="pricing-hero-content">
+            <div class="section-badge">Presupuesto instantáneo</div>
+            <h2 class="section-title">MotexBot calcula una estimación en menos de 2 minutos</h2>
+            <p class="pricing-hero-desc">Sin formulario largo. Respondes unas preguntas y recibes una horquilla aproximada de inversión para tu automatización.</p>
+            <button type="button" class="btn btn-primary btn-large" data-budget-start>Empezar diagnóstico rápido</button>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-
-  <!-- ============ DETALLE DE CURSOS ============ -->
-  <section class="section course-universe page-section" data-page="cursos">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">// Cómo funciona la plataforma</div>
-        <h2 class="section-title">No compras un curso genérico. Construyes <span class="text-gradient">tu sistema de IA</span></h2>
-        <p class="section-subtitle">La formación se adapta a cada cliente. Aprendes con ejemplos reales, practicas con tus propias tareas y recibes mentoría para convertir lo aprendido en procesos que ahorran trabajo.</p>
-      </div>
-
-      <div class="learning-path learning-path-upgraded">
-        <article class="learning-card reveal">
-          <span class="learning-number">01</span>
-          <h3>Mapa de tareas</h3>
-          <p>Detectamos qué partes de tu trabajo se pueden delegar a la IA: correos, documentos, clientes, redes, agenda, informes o presupuestos.</p>
-          <ul><li>Diagnóstico inicial</li><li>Objetivos por perfil</li><li>Ejemplos de tu sector</li></ul>
-        </article>
-        <article class="learning-card reveal learning-card-hot">
-          <span class="learning-number">02</span>
-          <h3>IA como empleado digital</h3>
-          <p>Creas asistentes por función: uno para responder clientes, otro para generar contenido, otro para resumir documentos y otro para ordenar tareas.</p>
-          <ul><li>Prompts maestros</li><li>Agentes por tarea</li><li>Plantillas reutilizables</li></ul>
-        </article>
-        <article class="learning-card reveal">
-          <span class="learning-number">03</span>
-          <h3>Práctica + mentoría</h3>
-          <p>Cada semana hay un espacio reservado para resolver dudas, revisar resultados y mejorar lo que estás aplicando en tu empresa.</p>
-          <ul><li>Mentoría semanal</li><li>Preguntas abiertas</li><li>Revisión de casos reales</li></ul>
-        </article>
-      </div>
-
-      <div class="course-platform-panel reveal">
-        <div class="platform-copy">
-          <span class="platform-kicker">Plataforma personalizada</span>
-          <h3>Tu curso no se queda en vídeos: se convierte en una zona de trabajo para tu empresa.</h3>
-          <p>Incluye materiales, ejercicios, prompts, espacios de práctica y seguimiento. El objetivo no es “aprender IA” de forma abstracta; es que termines usando la IA para ahorrar horas, responder mejor y automatizar procesos.</p>
-        </div>
-        <div class="platform-list">
-          <div><strong>🧠 Biblioteca de prompts</strong><span>Adaptada a tu negocio.</span></div>
-          <div><strong>🛠️ Plantillas n8n</strong><span>Flujos reutilizables.</span></div>
-          <div><strong>📅 Mentoría semanal</strong><span>Dudas y revisión personalizada.</span></div>
-          <div><strong>🎯 Proyecto final</strong><span>Una automatización aplicable.</span></div>
-        </div>
-      </div>
-
-      <div class="course-cta-panel reveal">
-        <div>
-          <span>¿No sabes qué curso elegir?</span>
-          <h3>Te orientamos en 2 minutos</h3>
-          <p>Cuéntanos tu perfil y te recomendamos el programa más útil para tu caso.</p>
-        </div>
-        <button type="button" class="btn btn-primary" data-open-contact data-contact-topic="curso-incompany">Pedir recomendación</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PROCESO ============ -->
-  <section class="section process" id="proceso">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">// Metodología</div>
-        <h2 class="section-title">Un proceso <span class="text-gradient">claro y eficaz</span></h2>
-        <p class="section-subtitle">Del primer contacto a la implantación completa. Cuatro fases transparentes, sin sorpresas ni proyectos interminables.</p>
-      </div>
-
-      <div class="process-grid">
-        <article class="process-card reveal">
-          <div class="process-number">01</div>
-          <h3>Diagnóstico estratégico</h3>
-          <p>Consulta inicial gratuita de 30 minutos. Analizamos tu operativa, identificamos oportunidades de automatización y trazamos una hoja de ruta realista.</p>
-          <div class="process-tags">
-            <span>Gratuito</span>
-            <span>Sin compromiso</span>
-          </div>
-        </article>
-
-        <article class="process-card reveal">
-          <div class="process-number">02</div>
-          <h3>Desarrollo a medida</h3>
-          <p>Construimos las automatizaciones ajustadas a tu negocio. Seleccionamos la tecnología adecuada para cada caso: Claude, ChatGPT, n8n, Zapier o Make.</p>
-          <div class="process-tags">
-            <span>Personalizado</span>
-            <span>Ágil</span>
-          </div>
-        </article>
-
-        <article class="process-card reveal">
-          <div class="process-number">03</div>
-          <h3>Integración y despliegue</h3>
-          <p>Conectamos la solución con tus herramientas actuales: WhatsApp, Gmail, Calendar, CRM. Tu operativa no se interrumpe, solo se hace más eficiente.</p>
-          <div class="process-tags">
-            <span>WhatsApp</span>
-            <span>Gmail</span>
-            <span>CRM</span>
-          </div>
-        </article>
-
-        <article class="process-card reveal">
-          <div class="process-number">04</div>
-          <h3>Acompañamiento continuo</h3>
-          <p>Mantenimiento técnico, mejoras evolutivas y soporte directo. Revisamos los resultados cada mes y optimizamos lo que haga falta para mantener el rendimiento.</p>
-          <div class="process-tags">
-            <span>Soporte 24/7</span>
-            <span>Mejora continua</span>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============ CALCULADORA DE AHORRO ============ -->
-  <section class="section roi-section" id="diagnostico">
-    <div class="container">
-      <div class="roi-grid reveal">
-        <div class="roi-copy">
-          <div class="section-badge section-badge-accent">// Diagnóstico rápido</div>
-          <h2 class="section-title">Calcula cuánto podrías <span class="text-gradient-alt">ahorrar automatizando</span></h2>
-          <p class="section-subtitle">Mueve los controles y verás una estimación orientativa del tiempo y dinero que se puede recuperar automatizando tareas repetitivas como correos, respuestas, reservas o informes.</p>
-          <button type="button" class="btn btn-secondary" data-open-contact data-contact-topic="presupuesto">Abrir diagnóstico inteligente</button>
-        </div>
-        <div class="roi-calculator">
-          <div class="roi-control">
-            <label for="roiTasks">Tareas repetitivas al día <strong id="roiTasksValue">40</strong></label>
-            <input id="roiTasks" type="range" min="5" max="200" value="40" step="5">
-          </div>
-          <div class="roi-control">
-            <label for="roiMinutes">Minutos por tarea <strong id="roiMinutesValue">6</strong></label>
-            <input id="roiMinutes" type="range" min="1" max="30" value="6" step="1">
-          </div>
-          <div class="roi-control">
-            <label for="roiCost">Coste/hora aproximado <strong id="roiCostValue">22 €</strong></label>
-            <input id="roiCost" type="range" min="8" max="90" value="22" step="1">
-          </div>
-          <div class="roi-output">
-            <div><span>Horas recuperables/mes</span><strong id="roiHours">176 h</strong></div>
-            <div><span>Ahorro estimado/mes</span><strong id="roiMoney">3.872 €</strong></div>
-          </div>
-          <p class="roi-note">Estimación basada en 22 días laborables y automatización parcial del 80%. Sirve para orientarte, no como presupuesto cerrado.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ QUIÉNES SOMOS ============ -->
-  <section class="section about page-section" id="nosotros" data-page="nosotros">
-    <div class="aurora about-aurora" aria-hidden="true">
-      <div class="aurora-blob aurora-blob-1"></div>
-      <div class="aurora-blob aurora-blob-3"></div>
-    </div>
-
-    <div class="container container-narrow">
-      <div class="section-header">
-        <div class="section-badge section-badge-accent">// Quiénes somos</div>
-        <h2 class="section-title">Un equipo <span class="text-gradient-alt">apasionado</span> por la IA aplicada</h2>
-        <p class="section-subtitle">Un proyecto con muchas ganas, ingeniería de verdad detrás y una misión clara: poner la inteligencia artificial al alcance de cualquier empresa.</p>
-      </div>
-
-      <div class="about-content reveal">
-        <p class="about-lead">
-          Somos <strong>Motex</strong>, una empresa española dedicada a <strong>automatizar procesos empresariales con inteligencia artificial</strong>. Ayudamos a PYMEs y autónomos a recuperar horas cada semana eliminando tareas repetitivas: atención al cliente, gestión del correo, facturación, contenidos, reservas o informes. Diseñamos cada solución a medida de cada negocio, porque ninguna empresa es igual a otra.
-        </p>
-
-        <p>
-          Detrás del proyecto hay un equipo joven con formación sólida en <strong>ingeniería informática</strong> y <strong>desarrollo de aplicaciones web y multimedia</strong>. Ingenieros y desarrolladores que combinamos lo mejor de dos mundos: la disciplina técnica de quien sabe cómo funcionan los sistemas por dentro y la mentalidad ágil de quien lleva años construyendo productos digitales que la gente usa de verdad.
-        </p>
-
-        <p>
-          Motex es un proyecto al que le estamos <strong>echando muchas ganas</strong>. Creemos que estamos en un momento histórico: la IA ha dejado de ser ciencia ficción y ya está transformando la forma de trabajar de miles de empresas. Nuestro objetivo es que ninguna PYME ni autónomo se quede atrás por no saber por dónde empezar.
-        </p>
-
-        <p>
-          Por eso no solo implantamos automatizaciones: también creamos <strong>formaciones accesibles para todos los públicos</strong>, pensadas para que cualquier persona — tenga o no perfil técnico — pueda entender qué es la IA, cómo usar herramientas como Claude, ChatGPT o Copilot con criterio y cómo automatizar procesos reales de su negocio con flujos de n8n. Apostamos por una IA <em>útil</em>, ética y bien explicada.
-        </p>
-
-        <div class="about-values">
-          <div class="about-value">
-            <div class="about-value-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-            </div>
-            <h4>Ingeniería real</h4>
-            <p>Perfiles con titulación en informática y desarrollo web, no vendehumos.</p>
-          </div>
-          <div class="about-value">
-            <div class="about-value-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            </div>
-            <h4>Trato cercano</h4>
-            <p>Te hablamos claro, sin jerga técnica. Entendemos tu negocio y lo respetamos.</p>
-          </div>
-          <div class="about-value">
-            <div class="about-value-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-            <h4>Mucha ambición</h4>
-            <p>Un proyecto con ganas de crecer y de dejar huella en la digitalización de España.</p>
-          </div>
-          <div class="about-value">
-            <div class="about-value-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <h4>IA para todos</h4>
-            <p>Formamos con paciencia a cualquier perfil, desde cero. Creemos en el acceso democrático a la IA.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BENEFICIOS ============ -->
-  <section class="section benefits">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">// Por qué la IA</div>
-        <h2 class="section-title">Beneficios que <span class="text-gradient">transforman tu negocio</span></h2>
-        <p class="section-subtitle">Lo que consiguen las empresas que apuestan por la automatización inteligente frente a quienes siguen haciéndolo todo a mano.</p>
-      </div>
-
-      <div class="benefits-grid">
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <h3>Productividad multiplicada</h3>
-          <p>Recupera entre 10 y 20 horas semanales. Ese tiempo lo inviertes en vender, innovar y hacer crecer tu empresa.</p>
-        </div>
-
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </div>
-          <h3>Clientes más satisfechos</h3>
-          <p>Respuesta inmediata, atención permanente y trato personalizado a gran escala, sin necesidad de ampliar tu equipo.</p>
-        </div>
-
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3>Disponibilidad 24/7</h3>
-          <p>Tu negocio atiende, responde y genera oportunidades mientras tú duermes, descansas o te dedicas a lo importante.</p>
-        </div>
-
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <h3>Optimización de costes</h3>
-          <p>Automatizar resulta más rentable que expandir el equipo. Reduces errores, aceleras procesos y eliminas tareas improductivas.</p>
-        </div>
-
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          </div>
-          <h3>Decisiones con datos</h3>
-          <p>La IA analiza la información de tu empresa y te entrega conclusiones claras. Toma decisiones informadas, no por intuición.</p>
-        </div>
-
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          </div>
-          <h3>Escalabilidad sin límites</h3>
-          <p>Atiende a 10 o a 10.000 clientes con la misma calidad. Crece sin que la operativa se convierta en un cuello de botella.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ POR QUÉ NOSOTROS (comparativa) ============ -->
-  <section class="section why-us page-section" data-page="nosotros">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">// Comparativa</div>
-        <h2 class="section-title">Hacerlo a mano <span class="text-gradient-alt">vs</span> Motex</h2>
-        <p class="section-subtitle">La diferencia entre seguir esclavizado a las tareas repetitivas o liberar el verdadero potencial de tu empresa.</p>
-      </div>
-
-      <div class="comparison">
-        <div class="comparison-col comparison-manual reveal">
-          <h3>Operativa tradicional</h3>
-          <ul>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Errores humanos recurrentes</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Operativa solo en horario laboral</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Tiempo perdido en tareas repetitivas</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Procesos aislados y sin conexión</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Dependencia de personas disponibles</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Crecer requiere ampliar equipo</li>
-          </ul>
-        </div>
-
-        <div class="comparison-col comparison-ai reveal">
-          <div class="comparison-badge">MOTEX</div>
-          <h3>Operativa automatizada</h3>
-          <ul>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Resultados consistentes y precisos</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Funcionamiento ininterrumpido 24/7</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tareas repetitivas totalmente automáticas</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Ecosistema de herramientas conectadas</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Independencia operativa total</li>
-            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Escalabilidad sin incrementar costes</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PRECIOS ============ -->
-  <section class="section pricing" id="precios">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">// Presupuesto inteligente</div>
-        <h2 class="section-title">Precios competitivos, claros y <span class="text-gradient">pensados para PYMEs</span></h2>
-        <p class="section-subtitle">Hemos creado una propuesta de entrada muy agresiva para que una empresa pequeña pueda probar automatización real sin asumir presupuestos enormes desde el primer día.</p>
-      </div>
-
-      <div class="pricing-plans-grid reveal">
-        <article class="pricing-mini-card">
-          <span class="pricing-mini-tag">Inicio</span>
-          <h3>Bot web esencial</h3>
-          <p>FAQ inteligente, captación de leads y derivación a contacto.</p>
-          <strong>Desde 149&nbsp;€ setup</strong>
-          <small>+ 39&nbsp;€/mes mantenimiento</small>
-        </article>
-        <article class="pricing-mini-card pricing-mini-card-hot">
-          <span class="pricing-mini-tag">Más pedido</span>
-          <h3>Bot comercial + reservas</h3>
-          <p>Responde dudas, cualifica clientes y ayuda a cerrar citas o solicitudes.</p>
-          <strong>Desde 249&nbsp;€ setup</strong>
-          <small>+ 59&nbsp;€/mes mantenimiento</small>
-        </article>
-        <article class="pricing-mini-card">
-          <span class="pricing-mini-tag">Automatización</span>
-          <h3>Flujos con n8n + IA</h3>
-          <p>Correo, formularios, CRM, informes, presupuestos o documentos.</p>
-          <strong>Desde 349&nbsp;€ setup</strong>
-          <small>+ 89&nbsp;€/mes mantenimiento</small>
-        </article>
-      </div>
-
-      <div class="pricing-hero reveal">
-        <div class="pricing-hero-glow"></div>
-        <div class="pricing-hero-content">
-          <div class="pricing-hero-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <h3>MotexBot te calcula un presupuesto aproximado</h3>
-          <p class="pricing-hero-desc">Responde 4 preguntas y el bot te dará una estimación orientativa de setup y mantenimiento mensual. Después, si encaja, lo revisamos contigo y te damos un precio cerrado.</p>
-
-          <div class="pricing-features-horizontal">
-            <div class="pf-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Estimación en 1 minuto</span></div>
-            <div class="pf-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Precios de entrada bajos</span></div>
-            <div class="pf-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Sin permanencia obligatoria</span></div>
-            <div class="pf-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Soporte incluido</span></div>
-            <div class="pf-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Cumplimiento RGPD</span></div>
-            <div class="pf-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Atención en español</span></div>
-          </div>
-
-          <div class="pricing-hero-ctas">
-            <button type="button" class="btn btn-primary btn-large" data-start-budget-bot>
-              Abrir presupuesto inteligente
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button type="button" class="btn btn-secondary btn-large" data-open-contact-form data-contact-topic="presupuesto">
-              Enviar solicitud clásica por email
-            </button>
-          </div>
-          <p class="pricing-note">La estimación del bot es orientativa. El precio final depende de integraciones, volumen, canales y complejidad.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FAQs ============ -->
-  <section class="section faqs" id="faqs">
-    <div class="container container-narrow">
-      <div class="section-header">
-        <div class="section-badge">// FAQs</div>
-        <h2 class="section-title">Respuestas a lo que <span class="text-gradient">nos preguntan</span></h2>
-        <p class="section-subtitle">Las dudas más frecuentes, resueltas con claridad. Si tienes otra consulta, escríbenos y te respondemos en menos de 24 horas.</p>
-      </div>
-
-      <div class="faqs-list">
-        <details class="faq-item reveal">
-          <summary>
-            <span>¿Qué procesos de mi negocio se pueden automatizar?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <p>Prácticamente cualquier tarea repetitiva: responder correos, atender clientes, agendar citas, generar presupuestos, publicar en redes sociales o crear informes. Si es una actividad que se repite en tu semana y consume tiempo, es candidata a ser automatizada.</p>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>
-            <span>¿Necesito conocimientos técnicos para implantar estas soluciones?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <p>En absoluto. Nosotros gestionamos toda la parte técnica y te entregamos una solución funcional. Además, incluimos formación a tu equipo en lenguaje claro para que saquéis el máximo partido desde el primer día.</p>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>
-            <span>¿Con qué plataformas de IA trabajáis?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <p>Con las tecnologías líderes del mercado: <strong>Claude</strong> (Anthropic), <strong>ChatGPT</strong> (OpenAI) y <strong>Copilot</strong> (Microsoft). Para la orquestación de flujos utilizamos n8n, Make y Zapier. Seleccionamos siempre la herramienta más adecuada según las necesidades de cada proyecto.</p>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>
-            <span>¿Cuál es el plazo de implantación?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <p>El plazo habitual oscila entre 1 y 4 semanas desde la primera reunión, dependiendo de la complejidad. Automatizaciones sencillas pueden estar operativas en cuestión de días.</p>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>
-            <span>¿Los cursos son presenciales u online?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <p>Nuestros programas abiertos se imparten online en directo con grabaciones disponibles para revisión. Para empresas ofrecemos también formación presencial <em>in-company</em> en toda España.</p>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>
-            <span>¿Cómo protegéis los datos de mi empresa?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <p>Cumplimos íntegramente el RGPD y utilizamos proveedores con servidores en Europa siempre que es viable. Tus datos nunca se emplean para entrenar modelos públicos de IA. La privacidad y la seguridad son prioridades innegociables.</p>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>
-            <span>¿Qué pasa si no estoy satisfecho con el servicio?</span>
-            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <p>No aplicamos cláusulas de permanencia. El mantenimiento mensual puedes interrumpirlo en cualquier momento. Las automatizaciones desarrolladas siguen siendo propiedad de tu empresa.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CTA FINAL ============ -->
-  <section class="section cta-final" id="contacto">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-glow"></div>
-        <div class="cta-content">
-          <div class="cta-badge">
-            <span class="hero-badge-dot"></span>
-            Respuesta garantizada en 24 horas
-          </div>
-          <h2 class="cta-title">Empieza a <span class="text-gradient">transformar tu empresa</span> hoy</h2>
-          <p class="cta-subtitle">MotexBot te hace unas preguntas rápidas, estima el presupuesto y, si encaja, puedes mandarnos el resumen por email o seguir por Telegram. Sin formularios interminables.</p>
-          <div class="cta-buttons">
-            <button type="button" class="btn btn-primary btn-large" data-open-contact data-contact-topic="consulta">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><polyline points="12 15 12 3"/><polyline points="9 6 12 3 15 6"/></svg>
-              Abrir diagnóstico inteligente
-            </button>
-            <a href="https://t.me/MotexBot" class="btn btn-telegram btn-large" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.231-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-              Telegram · @MotexBot
-            </a>
-            <a href="mailto:contacto@aimotex.com?subject=Consulta%20Motex" class="btn btn-secondary btn-large">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              Escribir un email
-            </a>
-          </div>
-          <p class="cta-footnote">También puedes escribirnos directamente a <a href="mailto:contacto@aimotex.com" class="cta-email">contacto@aimotex.com</a> · Telegram <a href="https://t.me/MotexBot" class="cta-email" target="_blank" rel="noopener">@MotexBot</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand">
-          <a href="#" class="nav-logo nav-logo-large">
+        <div>
+          <a href="index.html" class="nav-logo nav-logo-large" aria-label="Motex - Inicio">
             <span class="logo-ai-prefix">ai</span><span class="logo-text-main">MOTEX</span>
           </a>
-          <p class="footer-tagline">Automatización con inteligencia artificial y formación para PYMEs y autónomos en España.</p>
-          <p class="footer-email">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <p class="footer-tagline">Automatización, formación y agentes inteligentes para empresas que quieren trabajar mejor, responder antes y ahorrar horas cada semana.</p>
+          <div class="footer-email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
             <a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a>
-          </p>
-          <p class="footer-email">
+          </div>
+          <div class="footer-email">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.231-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
             <a href="https://t.me/MotexBot" target="_blank" rel="noopener">@MotexBot</a>
-          </p>
+          </div>
         </div>
-
         <div class="footer-columns">
           <div class="footer-col">
-            <h4>Servicios</h4>
-            <a href="#servicios">Automatizaciones</a>
-            <a href="#cursos">Cursos</a>
-            <a href="#proceso">Metodología</a>
-            <a href="#precios">Precios</a>
+            <h4>Web</h4>
+            <a href="servicios/">Servicios</a>
+            <a href="automatizaciones/">Automatizaciones</a>
+            <a href="cursos/">Cursos</a>
           </div>
-
           <div class="footer-col">
             <h4>Empresa</h4>
-            <a href="#nosotros">Quiénes somos</a>
-            <a href="#faqs">FAQs</a>
-            <a href="mailto:contacto@aimotex.com">Contacto</a>
+            <a href="nosotros/">Nosotros</a>
+            <a href="contacto/">Contacto</a>
+            <button type="button" class="footer-link-button" data-budget-start>Presupuesto rápido</button>
           </div>
-
           <div class="footer-col">
-            <h4>Legal</h4>
-            <a href="#">Aviso legal</a>
-            <a href="#">Privacidad</a>
-            <a href="#">Cookies</a>
+            <h4>Contacto</h4>
+            <a href="https://t.me/MotexBot" target="_blank" rel="noopener">Telegram</a>
+            <a href="mailto:contacto@aimotex.com">Email</a>
+            <a href="sitemap.xml">Sitemap</a>
           </div>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>© 2026 Motex. Hecho en España.</p>
-        <div class="footer-socials">
-          <a href="https://t.me/MotexBot" target="_blank" rel="noopener" aria-label="Telegram">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.231-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          </a>
-          <a href="mailto:contacto@aimotex.com" aria-label="Email">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </a>
-        </div>
+        <p>Automatiza tu empresa con inteligencia práctica.</p>
       </div>
     </div>
   </footer>
 
-  <!-- ============ MODAL DE CHECKOUT (pago + datos empresa) ============ -->
-  <div class="modal" id="checkoutModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
-    <div class="modal-backdrop" data-close-modal></div>
-    <div class="modal-dialog modal-dialog-wide" role="document">
-      <button type="button" class="modal-close" aria-label="Cerrar" data-close-modal>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-
-      <div class="modal-grid">
-        <!-- Columna izquierda: resumen de compra -->
-        <aside class="modal-summary">
-          <div class="summary-badge">Tu pedido</div>
-          <h3 class="summary-course-name" id="summaryCourseName">Curso</h3>
-          <p class="summary-course-desc" id="summaryCourseDesc">Formación en directo, certificación incluida.</p>
-
-          <div class="summary-line">
-            <span>Precio del curso</span>
-            <span id="summaryCoursePrice">—</span>
-          </div>
-          <div class="summary-line summary-line-muted">
-            <span>IVA (incluido)</span>
-            <span>21%</span>
-          </div>
-          <div class="summary-line summary-total">
-            <span>Total</span>
-            <span id="summaryTotal">—</span>
-          </div>
-
-          <ul class="summary-benefits">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Acceso inmediato a la plataforma</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Grabaciones disponibles</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Certificación al finalizar</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Factura con IVA</li>
-          </ul>
-
-          <div class="summary-secure">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Pago 100% seguro y encriptado
-          </div>
-        </aside>
-
-        <!-- Columna derecha: formulario -->
-        <div class="modal-body">
-          <div class="modal-stepper">
-            <div class="step-item active" data-step-indicator="1">
-              <span class="step-num">1</span>
-              <span class="step-label">Datos</span>
-            </div>
-            <div class="step-bar"></div>
-            <div class="step-item" data-step-indicator="2">
-              <span class="step-num">2</span>
-              <span class="step-label">Empresa</span>
-            </div>
-            <div class="step-bar"></div>
-            <div class="step-item" data-step-indicator="3">
-              <span class="step-num">3</span>
-              <span class="step-label">Pago</span>
-            </div>
-          </div>
-
-          <form class="modal-form" id="checkoutForm" action="https://formsubmit.co/contacto@aimotex.com" method="POST" novalidate>
-            <!-- FormSubmit anti-spam + redirección -->
-            <input type="hidden" name="_subject" value="Nueva inscripción a curso — Motex">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_next" id="formNext" value="">
-            <input type="hidden" name="Curso" id="hiddenCourse" value="">
-            <input type="hidden" name="Precio" id="hiddenPrice" value="">
-            <input type="hidden" name="Metodo_de_pago" id="hiddenPayment" value="">
-
-            <!-- PASO 1: Datos personales -->
-            <div class="form-step active" data-step="1">
-              <h2 id="checkoutTitle" class="modal-title">Completa tu inscripción</h2>
-              <p class="modal-subtitle">Empecemos por tus datos de contacto. Tardarás menos de 2 minutos.</p>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="fldNombre">Nombre <span class="req">*</span></label>
-                  <input type="text" id="fldNombre" name="Nombre" required autocomplete="given-name" placeholder="Ej. María">
-                </div>
-                <div class="form-group">
-                  <label for="fldApellidos">Apellidos <span class="req">*</span></label>
-                  <input type="text" id="fldApellidos" name="Apellidos" required autocomplete="family-name" placeholder="Ej. García López">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="fldEmail">Correo electrónico <span class="req">*</span></label>
-                <input type="email" id="fldEmail" name="Email" required autocomplete="email" placeholder="tunombre@empresa.com">
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="fldTelefono">Teléfono <span class="req">*</span></label>
-                  <input type="tel" id="fldTelefono" name="Telefono" required autocomplete="tel" placeholder="+34 600 000 000" pattern="[0-9+\s]{9,20}">
-                </div>
-                <div class="form-group">
-                  <label for="fldPais">País</label>
-                  <select id="fldPais" name="Pais">
-                    <option value="España" selected>España</option>
-                    <option value="Portugal">Portugal</option>
-                    <option value="Andorra">Andorra</option>
-                    <option value="México">México</option>
-                    <option value="Argentina">Argentina</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="Chile">Chile</option>
-                    <option value="Otro">Otro</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-nav">
-                <span class="form-nav-spacer"></span>
-                <button type="button" class="btn btn-primary" data-next-step>
-                  Continuar
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- PASO 2: Empresa -->
-            <div class="form-step" data-step="2">
-              <h2 class="modal-title">Cuéntanos sobre tu empresa</h2>
-              <p class="modal-subtitle">Esta información nos ayuda a adaptar el contenido a tu caso y a facturar correctamente.</p>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="fldEmpresa">Nombre de la empresa <span class="req">*</span></label>
-                  <input type="text" id="fldEmpresa" name="Empresa" required autocomplete="organization" placeholder="Ej. Panadería La Tahona S.L.">
-                </div>
-                <div class="form-group">
-                  <label for="fldCIF">CIF / NIF</label>
-                  <input type="text" id="fldCIF" name="CIF" placeholder="Ej. B12345678" autocomplete="off">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="fldCargo">Tu cargo</label>
-                <input type="text" id="fldCargo" name="Cargo" placeholder="Ej. CEO, Gerente, Responsable de marketing..." autocomplete="organization-title">
-              </div>
-
-              <div class="form-group">
-                <label>Tamaño de la empresa <span class="req">*</span></label>
-                <div class="radio-pills" role="radiogroup" aria-label="Tamaño de la empresa">
-                  <label class="radio-pill">
-                    <input type="radio" name="Tamano_empresa" value="Autónomo / 1 persona" required>
-                    <span>Autónomo · solo yo</span>
-                  </label>
-                  <label class="radio-pill">
-                    <input type="radio" name="Tamano_empresa" value="2-10 empleados">
-                    <span>2 – 10 personas</span>
-                  </label>
-                  <label class="radio-pill">
-                    <input type="radio" name="Tamano_empresa" value="11-50 empleados">
-                    <span>11 – 50 personas</span>
-                  </label>
-                  <label class="radio-pill">
-                    <input type="radio" name="Tamano_empresa" value="51-250 empleados">
-                    <span>51 – 250 personas</span>
-                  </label>
-                  <label class="radio-pill">
-                    <input type="radio" name="Tamano_empresa" value="Más de 250">
-                    <span>Más de 250</span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="fldSector">Sector de actividad <span class="req">*</span></label>
-                  <select id="fldSector" name="Sector" required>
-                    <option value="">Selecciona un sector...</option>
-                    <option>Comercio y retail</option>
-                    <option>Hostelería y restauración</option>
-                    <option>Servicios profesionales (consultoría, legal, finanzas)</option>
-                    <option>Salud y bienestar</option>
-                    <option>Educación y formación</option>
-                    <option>Tecnología e IT</option>
-                    <option>Marketing y comunicación</option>
-                    <option>Inmobiliario</option>
-                    <option>Industria y manufactura</option>
-                    <option>Construcción</option>
-                    <option>Logística y transporte</option>
-                    <option>Agroalimentario</option>
-                    <option>Cultura, arte y entretenimiento</option>
-                    <option>ONG y tercer sector</option>
-                    <option>Otro</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="fldFacturacion">Facturación anual aprox.</label>
-                  <select id="fldFacturacion" name="Facturacion">
-                    <option value="">Prefiero no decir</option>
-                    <option>Menos de 100 k €</option>
-                    <option>100 k – 500 k €</option>
-                    <option>500 k – 2 M €</option>
-                    <option>2 M – 10 M €</option>
-                    <option>Más de 10 M €</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="fldPublico">Público objetivo de tu empresa <span class="req">*</span></label>
-                <textarea id="fldPublico" name="Publico_objetivo" required rows="3" placeholder="Ej. Pequeños comercios locales en Madrid, particulares de 30-55 años con interés en salud..."></textarea>
-                <span class="form-hint">Descríbenos brevemente a quién vendes o prestas servicio.</span>
-              </div>
-
-              <div class="form-group">
-                <label for="fldObjetivo">¿Qué esperas conseguir con el curso? <span class="optional">(opcional)</span></label>
-                <textarea id="fldObjetivo" name="Objetivo" rows="2" placeholder="Ej. Automatizar mi atención al cliente, ahorrar horas de correo..."></textarea>
-              </div>
-
-              <div class="form-nav">
-                <button type="button" class="btn btn-secondary" data-prev-step>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                  Atrás
-                </button>
-                <button type="button" class="btn btn-primary" data-next-step>
-                  Continuar al pago
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- PASO 3: Pago -->
-            <div class="form-step" data-step="3">
-              <h2 class="modal-title">Elige tu método de pago</h2>
-              <p class="modal-subtitle">Pago único, 100% seguro. Factura con IVA enviada automáticamente tras la compra.</p>
-
-              <div class="payment-options" role="radiogroup" aria-label="Método de pago">
-                <label class="payment-option">
-                  <input type="radio" name="payment_method" value="card" required checked>
-                  <div class="payment-option-content">
-                    <div class="payment-option-icon payment-option-icon-card">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-                    </div>
-                    <div class="payment-option-text">
-                      <strong>Tarjeta de crédito o débito</strong>
-                      <span>Visa, Mastercard, American Express</span>
-                    </div>
-                    <span class="payment-option-check">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                    </span>
-                  </div>
-                </label>
-
-                <label class="payment-option">
-                  <input type="radio" name="payment_method" value="apple_pay">
-                  <div class="payment-option-content">
-                    <div class="payment-option-icon payment-option-icon-apple">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-                    </div>
-                    <div class="payment-option-text">
-                      <strong>Apple Pay</strong>
-                      <span>Paga con Touch ID o Face ID</span>
-                    </div>
-                    <span class="payment-option-check">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                    </span>
-                  </div>
-                </label>
-
-                <label class="payment-option">
-                  <input type="radio" name="payment_method" value="google_pay">
-                  <div class="payment-option-content">
-                    <div class="payment-option-icon payment-option-icon-google">
-                      <svg viewBox="0 0 32 32" width="28" height="28"><path fill="#4285F4" d="M15.2 16.3v2.7h3.8c-.2 1-.8 1.8-1.6 2.4l2.6 2c1.5-1.4 2.4-3.5 2.4-6 0-.6-.1-1.1-.2-1.6h-7z"/><path fill="#34A853" d="M10.8 18.8l-.6.5-2.1 1.6c1.3 2.6 4 4.4 7.1 4.4 2.1 0 3.9-.7 5.2-1.9l-2.6-2c-.7.5-1.6.8-2.6.8-2 0-3.7-1.3-4.3-3.1l-.1-.3z"/><path fill="#FBBC04" d="M8.1 12.1c-.5 1-.8 2.2-.8 3.4s.3 2.4.8 3.4l2.7-2.1c-.1-.4-.2-.8-.2-1.3s.1-.9.2-1.3l-2.7-2.1z"/><path fill="#EA4335" d="M15.2 11.6c1.2 0 2.2.4 3 1.2l2.3-2.3c-1.4-1.3-3.2-2.1-5.3-2.1-3.1 0-5.8 1.8-7.1 4.4l2.7 2.1c.6-1.9 2.3-3.3 4.4-3.3z"/></svg>
-                    </div>
-                    <div class="payment-option-text">
-                      <strong>Google Pay</strong>
-                      <span>Paga con tu cuenta de Google</span>
-                    </div>
-                    <span class="payment-option-check">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                    </span>
-                  </div>
-                </label>
-
-                <label class="payment-option">
-                  <input type="radio" name="payment_method" value="paypal">
-                  <div class="payment-option-content">
-                    <div class="payment-option-icon payment-option-icon-paypal">
-                      <svg viewBox="0 0 24 24" width="26" height="26"><path fill="#003087" d="M8.1 4.5h5.5c2.5 0 4.2 1.2 3.7 3.8-.5 2.8-2.3 4.2-5.1 4.2h-1.5c-.4 0-.6.2-.7.5l-.6 3.1h-3L7.7 4.7c.1-.1.2-.2.4-.2z"/><path fill="#009CDE" d="M9.6 7.1h4.3c2.3 0 3.9 1.1 3.4 3.5-.5 2.5-2.1 3.6-4.7 3.6h-1.3c-.4 0-.6.2-.6.5l-.7 3.3h-2.8l.9-5.2 1.5-5.7z"/></svg>
-                    </div>
-                    <div class="payment-option-text">
-                      <strong>PayPal</strong>
-                      <span>Paga con tu cuenta PayPal</span>
-                    </div>
-                    <span class="payment-option-check">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                    </span>
-                  </div>
-                </label>
-
-                <label class="payment-option">
-                  <input type="radio" name="payment_method" value="transfer">
-                  <div class="payment-option-content">
-                    <div class="payment-option-icon payment-option-icon-transfer">
-                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h18M3 15h18M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
-                    </div>
-                    <div class="payment-option-text">
-                      <strong>Transferencia bancaria</strong>
-                      <span>Te enviamos los datos por email</span>
-                    </div>
-                    <span class="payment-option-check">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                    </span>
-                  </div>
-                </label>
-              </div>
-
-              <label class="checkbox-field">
-                <input type="checkbox" name="Acepta_terminos" required>
-                <span>Acepto la <a href="#" target="_blank">política de privacidad</a> y los <a href="#" target="_blank">términos de compra</a>. <span class="req">*</span></span>
-              </label>
-
-              <label class="checkbox-field">
-                <input type="checkbox" name="Quiere_newsletter" value="Sí">
-                <span>Quiero recibir novedades, casos prácticos y descuentos por email. <span class="optional">(opcional)</span></span>
-              </label>
-
-              <div class="form-nav">
-                <button type="button" class="btn btn-secondary" data-prev-step>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                  Atrás
-                </button>
-                <button type="submit" class="btn btn-primary btn-pay">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  <span id="payBtnLabel">Pagar ahora</span>
-                </button>
-              </div>
-
-              <p class="modal-disclaimer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                Tu información va cifrada. Los pagos se procesan a través de pasarelas certificadas PCI-DSS.
-              </p>
-            </div>
-
-            <!-- PASO 4: Confirmación (se muestra solo si se redirige desde FormSubmit con _next) -->
-            <div class="form-step form-step-success" data-step="4">
-              <div class="success-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              </div>
-              <h2 class="modal-title">¡Solicitud recibida!</h2>
-              <p class="modal-subtitle">Hemos recibido tus datos. En los próximos minutos te enviamos por email las instrucciones finales del pago y toda la información del curso.</p>
-              <p class="modal-subtitle" style="margin-top: 0.5rem;">Si no lo ves, revisa tu carpeta de <strong>spam</strong>.</p>
-              <button type="button" class="btn btn-primary" data-close-modal style="margin-top: 1.5rem;">Entendido</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ MODAL DE CONTACTO (consultas / info / presupuesto) ============ -->
-  <div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-    <div class="modal-backdrop" data-close-modal></div>
-    <div class="modal-dialog" role="document">
-      <button type="button" class="modal-close" aria-label="Cerrar" data-close-modal>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-
-      <div class="modal-body">
-        <div class="modal-header-simple">
-          <div class="modal-kicker" id="contactKicker">Consulta gratuita</div>
-          <h2 id="contactTitle" class="modal-title">Cuéntanos tu caso</h2>
-          <p class="modal-subtitle">Te respondemos en menos de 24 horas hábiles. Sin compromiso.</p>
-        </div>
-
-        <form class="modal-form" id="contactForm" action="https://formsubmit.co/contacto@aimotex.com" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="Nueva consulta desde motex · aimotex.com">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" id="contactFormNext" value="">
-          <input type="hidden" name="Tipo_consulta" id="hiddenTopic" value="general">
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="cNombre">Nombre <span class="req">*</span></label>
-              <input type="text" id="cNombre" name="Nombre" required autocomplete="given-name" placeholder="Ej. María">
-            </div>
-            <div class="form-group">
-              <label for="cApellidos">Apellidos <span class="req">*</span></label>
-              <input type="text" id="cApellidos" name="Apellidos" required autocomplete="family-name" placeholder="Ej. García López">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="cEmail">Email <span class="req">*</span></label>
-              <input type="email" id="cEmail" name="Email" required autocomplete="email" placeholder="tunombre@empresa.com">
-            </div>
-            <div class="form-group">
-              <label for="cTelefono">Teléfono <span class="optional">(opcional)</span></label>
-              <input type="tel" id="cTelefono" name="Telefono" autocomplete="tel" placeholder="+34 600 000 000">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="cEmpresa">Empresa <span class="req">*</span></label>
-              <input type="text" id="cEmpresa" name="Empresa" required autocomplete="organization" placeholder="Nombre de tu empresa">
-            </div>
-            <div class="form-group">
-              <label for="cCargo">Tu cargo <span class="optional">(opcional)</span></label>
-              <input type="text" id="cCargo" name="Cargo" autocomplete="organization-title" placeholder="Ej. CEO, Gerente...">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Tamaño de la empresa <span class="req">*</span></label>
-            <div class="radio-pills" role="radiogroup">
-              <label class="radio-pill">
-                <input type="radio" name="Tamano_empresa" value="Autónomo / 1 persona" required>
-                <span>Autónomo</span>
-              </label>
-              <label class="radio-pill">
-                <input type="radio" name="Tamano_empresa" value="2-10 empleados">
-                <span>2 – 10</span>
-              </label>
-              <label class="radio-pill">
-                <input type="radio" name="Tamano_empresa" value="11-50 empleados">
-                <span>11 – 50</span>
-              </label>
-              <label class="radio-pill">
-                <input type="radio" name="Tamano_empresa" value="51-250 empleados">
-                <span>51 – 250</span>
-              </label>
-              <label class="radio-pill">
-                <input type="radio" name="Tamano_empresa" value="Más de 250">
-                <span>+250</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="cSector">Sector de actividad <span class="req">*</span></label>
-            <select id="cSector" name="Sector" required>
-              <option value="">Selecciona un sector...</option>
-              <option>Comercio y retail</option>
-              <option>Hostelería y restauración</option>
-              <option>Servicios profesionales (consultoría, legal, finanzas)</option>
-              <option>Salud y bienestar</option>
-              <option>Educación y formación</option>
-              <option>Tecnología e IT</option>
-              <option>Marketing y comunicación</option>
-              <option>Inmobiliario</option>
-              <option>Industria y manufactura</option>
-              <option>Construcción</option>
-              <option>Logística y transporte</option>
-              <option>Agroalimentario</option>
-              <option>Cultura, arte y entretenimiento</option>
-              <option>ONG y tercer sector</option>
-              <option>Otro</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="cPublico">Público objetivo de tu empresa <span class="req">*</span></label>
-            <textarea id="cPublico" name="Publico_objetivo" required rows="2" placeholder="Ej. Pequeños comercios, particulares 30-55 años..."></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="cMensaje">Cuéntanos en qué podemos ayudarte <span class="req">*</span></label>
-            <textarea id="cMensaje" name="Mensaje" required rows="4" placeholder="Describe brevemente tu caso, qué te interesa de Motex o qué problema quieres resolver..."></textarea>
-          </div>
-
-          <label class="checkbox-field">
-            <input type="checkbox" name="Acepta_privacidad" required>
-            <span>Acepto la <a href="#" target="_blank">política de privacidad</a>. <span class="req">*</span></span>
-          </label>
-
-          <button type="submit" class="btn btn-primary btn-large btn-block">
-            Enviar consulta
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-
-          <p class="modal-disclaimer">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Tus datos cumplen el RGPD. No te enviaremos spam.
-          </p>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ============ ENVÍO OCULTO DE RESUMEN DEL CHAT ============ -->
   <iframe name="chatQuoteFrame" class="visually-hidden" title="Envío de presupuesto Motex"></iframe>
   <form id="chatQuoteForm" class="visually-hidden" action="https://formsubmit.co/contacto@aimotex.com" method="POST" target="chatQuoteFrame" aria-hidden="true">
-    <input type="hidden" name="_subject" value="Nuevo presupuesto estimado desde MotexBot">
     <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="Origen" value="Chatbot presupuesto inteligente">
-    <input type="hidden" name="Nombre" id="chatQuoteName" value="">
-    <input type="hidden" name="Email" id="chatQuoteEmail" value="">
-    <input type="hidden" name="Telefono" id="chatQuotePhone" value="">
-    <input type="hidden" name="Empresa" id="chatQuoteCompany" value="">
-    <input type="hidden" name="Tipo_proyecto" id="chatQuoteProject" value="">
-    <input type="hidden" name="Presupuesto_estimado" id="chatQuoteEstimate" value="">
-    <input type="hidden" name="Mantenimiento_estimado" id="chatQuoteMonthly" value="">
-    <input type="hidden" name="Resumen_chat" id="chatQuoteSummary" value="">
-    <input type="hidden" name="Acepta_contacto" value="Sí, solicitado desde el chatbot">
+    <input type="hidden" name="_subject" value="Nuevo presupuesto estimado desde MotexBot">
+    <input type="hidden" name="Resumen" id="chatQuoteSummary">
+    <input type="hidden" name="Estimacion_setup" id="chatQuoteSetup">
+    <input type="hidden" name="Estimacion_mensual" id="chatQuoteMonthly">
+    <input type="hidden" name="Origen" value="MotexBot web">
   </form>
 
-  <!-- ============ CHATBOT FLOTANTE ============ -->
-  <div class="chatbot" id="chatbot" aria-live="polite">
-    <button class="chatbot-fab" id="chatbotFab" aria-label="Abrir chat" aria-expanded="false">
-      <svg class="chatbot-fab-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      <svg class="chatbot-fab-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      <span class="chatbot-fab-pulse" aria-hidden="true"></span>
+  <div class="chatbot" id="chatbot">
+    <button class="chatbot-fab" id="chatbotFab" aria-label="Abrir MotexBot" aria-expanded="false">
+      <span class="chatbot-fab-pulse"></span>
+      <svg class="chatbot-fab-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+      <svg class="chatbot-fab-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
 
-    <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-labelledby="chatbotTitle" aria-hidden="true">
-      <header class="chatbot-header">
+    <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+      <div class="chatbot-header">
         <div class="chatbot-avatar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="4"/><path d="M2 14h2M20 14h2"/><path d="M9 14h.01M15 14h.01"/></svg>
           <span class="chatbot-avatar-dot"></span>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
         </div>
         <div class="chatbot-header-text">
           <h4 id="chatbotTitle">MotexBot · presupuesto inteligente</h4>
-          <span class="chatbot-status"><span class="chatbot-status-dot"></span>En línea · presupuesto · diagnóstico · cursos</span>
+          <span class="chatbot-status"><span class="chatbot-status-dot"></span> Online · respuesta instantánea</span>
         </div>
         <button class="chatbot-close" id="chatbotClose" aria-label="Cerrar chat">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
-      </header>
+      </div>
 
       <div class="chatbot-messages" id="chatbotMessages"></div>
-
       <div class="chatbot-quick-replies" id="chatbotQuickReplies"></div>
 
-      <form class="chatbot-input" id="chatbotForm" autocomplete="off">
-        <input type="text" id="chatbotInput" placeholder="Escribe tu pregunta..." aria-label="Mensaje" maxlength="500" />
+      <form class="chatbot-input" id="chatbotForm">
+        <input id="chatbotInput" type="text" placeholder="Escribe aquí tu respuesta..." autocomplete="off" />
         <button type="submit" aria-label="Enviar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
         </button>
       </form>
 
