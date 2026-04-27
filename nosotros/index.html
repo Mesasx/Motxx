@@ -14,12 +14,12 @@
     <a href="/automatizaciones/" data-nav="automatizaciones">Automatizaciones</a>
     <a href="/nosotros/" data-nav="nosotros">Nosotros</a>
   </div>
-  <button type="button" class="nav-cta" data-savings-start>Calcular ahorro</button>
+  <div class="nav-actions"><button type="button" class="nav-cta nav-cta-secondary" data-savings-start>Calcular ahorro</button><button type="button" class="nav-cta" data-budget-start>Presupuesto rápido</button></div>
   <button class="nav-toggle" aria-label="Abrir menú" id="navToggle"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="/">Inicio</a><a href="/cursos/">Cursos</a><a href="/servicios/">Servicios</a><a href="/automatizaciones/">Automatizaciones</a><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a>
-  <button type="button" class="mobile-cta" data-savings-start>Calcular ahorro</button>
+  <button type="button" class="mobile-cta" data-budget-start>Presupuesto rápido</button><button type="button" class="mobile-cta mobile-cta-soft" data-savings-start>Calcular ahorro</button>
 </div>
 <main>
 <section class="page-hero"><div class="container narrow"><div class="breadcrumb"><a href="/">Inicio</a><span>/</span><strong>Nosotros</strong></div><div class="eyebrow">Sobre Motex</div><h1>Un proyecto joven, técnico y con muchas ganas</h1><p>Motex nace para acercar la inteligencia artificial y la automatización a empresas reales. Participamos perfiles con formación en ingeniería informática y desarrollo de aplicaciones web y multimedia.</p></div></section>
@@ -65,15 +65,33 @@
     <button class="modal-close" type="button" data-close-payment aria-label="Cerrar pago">×</button>
     <div class="payment-kicker">Inscripción al curso</div>
     <h2 id="paymentTitle">Curso Motex</h2>
-    <p id="paymentText">Elige método de pago. Esta pantalla está preparada visualmente; para cobros reales hay que conectar Stripe, PayPal Checkout o tu pasarela bancaria.</p>
+    <p id="paymentText">Elige método de pago. Elige método de pago. Si ya has conectado los enlaces de cobro, te llevaremos directamente a la pasarela correspondiente.</p>
     <div class="payment-summary"><span id="paymentCourse">Curso</span><strong id="paymentPrice">197 €</strong></div>
     <label class="payment-label">Código de invitación / amigo <input type="text" placeholder="Ej. AMIGO-MARIA" /></label>
-    <div class="payment-methods" role="list">
-      <button type="button">Tarjeta</button><button type="button">PayPal</button><button type="button">Apple Pay</button><button type="button">Google Pay</button><button type="button">Bizum</button><button type="button">Transferencia</button>
+    <div class="payment-methods" role="list" aria-label="Métodos de pago disponibles">
+      <button type="button" data-pay-method="card">💳 Tarjeta</button>
+      <button type="button" data-pay-method="paypal">🅿️ PayPal</button>
+      <button type="button" data-pay-method="apple"> Apple Pay</button>
+      <button type="button" data-pay-method="google">G Pay</button>
+      <button type="button" data-pay-method="bizum">Bizum</button>
+      <button type="button" data-pay-method="transfer">Transferencia</button>
     </div>
-    <button class="btn btn-primary btn-full" type="button" id="paymentContinue">Continuar inscripción</button>
-    <p class="payment-small" id="paymentStatus">Pago seguro pendiente de conectar a pasarela real.</p>
+    <button class="btn btn-primary btn-full" type="button" id="paymentContinue">Continuar al pago</button>
+    <p class="payment-small" id="paymentStatus">Elige un método. Para cobrar de verdad, conecta tus enlaces reales de Stripe/PayPal/Bizum en script.js.</p>
   </div>
 </div>
-<button class="floating-chat" type="button" data-savings-start aria-label="Abrir calculadora de ahorro">💬</button>
+
+<div class="chat-modal" id="budgetBot" aria-hidden="true">
+  <div class="chat-shell budget-shell" role="dialog" aria-modal="true" aria-label="MotexBot presupuesto rápido">
+    <div class="chat-header"><div class="chat-avatar budget-avatar">⌁</div><div><strong>MotexBot · presupuesto rápido</strong><span>Te hago unas preguntas y genero una estimación de automatización</span></div><button class="modal-close" type="button" data-close-budget aria-label="Cerrar presupuesto">×</button></div>
+    <div class="chat-body" id="budgetBody"></div>
+    <div class="chat-quick" id="budgetQuick"></div>
+    <form class="chat-input-row" id="budgetForm"><input id="budgetInput" autocomplete="off" placeholder="Ej. quiero automatizar correos, reservas y facturas…"/><button type="submit">Enviar</button></form>
+    <div class="chat-note">Presupuesto orientativo. El precio cerrado se confirma revisando tus herramientas, volumen y proceso real.</div>
+  </div>
+</div>
+<div class="floating-actions" aria-label="Accesos rápidos MotexBot">
+  <button class="floating-chat" type="button" data-budget-start aria-label="Abrir presupuesto rápido">💬<span>Presupuesto</span></button>
+  <button class="floating-mini" type="button" data-savings-start aria-label="Calcular ahorro">€</button>
+</div>
 <script src="/script.js"></script></body></html>
