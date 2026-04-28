@@ -41,3 +41,10 @@ La ventana de pago ya está preparada. Para cobrar de verdad, abre `script.js` y
 - `transfer`: puede quedarse como `mailto:` con instrucciones.
 
 Sin esos enlaces, la web no puede cobrar dinero real porque no debe inventarse una cuenta PayPal/Stripe.
+
+
+## Páginas de cursos añadidas
+
+- `/cursos/iniciacion/`: programa de iniciación desde cero.
+- `/cursos/premium/`: IA + automatización con n8n.
+- `/cursos/empresas/`: formación in-company a medida.

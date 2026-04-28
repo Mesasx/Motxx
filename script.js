@@ -186,4 +186,35 @@
   // Cierre con escape y click fuera.
   document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeBudget(); closeSavings(); payment?.classList.remove('open'); promo?.classList.remove('open'); } });
   [budget, chat, payment, promo].forEach(modal=>modal?.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open'); }));
+
+  // Widgets de prompts: copiar al portapapeles con feedback visual.
+  $$('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.getAttribute('data-copy') || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = 'Copiado';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 1400);
+      } catch (e) {
+        btn.textContent = 'Selecciona y copia';
+        setTimeout(() => { btn.textContent = 'Copiar'; }, 1600);
+      }
+    });
+  });
+
+  // ===== Automatizaciones: selector interactivo =====
+  const autoButtons = $$('[data-auto-target]');
+  const autoPanels = $$('[data-auto-panel]');
+  if (autoButtons.length && autoPanels.length) {
+    autoButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-auto-target');
+        autoButtons.forEach(b => b.classList.toggle('active', b === btn));
+        autoPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-auto-panel') === id));
+      });
+    });
+  }
+
+
 })();
