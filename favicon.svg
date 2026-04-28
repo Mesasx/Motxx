@@ -1,8 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Motex">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d8ff"/><stop offset=".55" stop-color="#1677ff"/><stop offset="1" stop-color="#7c4dff"/></linearGradient></defs>
-<rect width="128" height="128" rx="28" fill="#050914"/>
-<circle cx="100" cy="28" r="10" fill="#00d8ff" opacity=".8"/>
-<text x="14" y="49" font-size="16" font-weight="800" font-family="Arial, sans-serif" fill="#00d8ff">ai</text>
-<text x="14" y="87" font-size="36" font-weight="900" font-family="Arial Black, Arial, sans-serif" fill="#edf5ff">M</text>
-<path d="M54 86V42h12l15 18 15-18h12v44H96V61L81 79 66 61v25H54z" fill="url(#g)"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111d"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18d6c8"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="108" height="108" rx="28" fill="url(#bg)"/>
+  <path d="M28 88V40h12.5L64 67.5 87.5 40H100v48H87.5V59.5L66.5 84h-5L40.5 59.5V88H28z" fill="#f4f7fb"/>
+  <path d="M29 94h70" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="98" cy="32" r="6" fill="url(#accent)"/>
 </svg>

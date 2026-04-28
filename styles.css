@@ -135,3 +135,86 @@
   .build-steps > div{grid-template-columns:44px minmax(0,1fr);}
   .course-detail-hero{padding-top:70px;}
 }
+
+
+/* ===== Revisión visual estricta · Motex 2026 =====
+   Veredicto: la base funcionaba, pero la paleta anterior era demasiado "neón" y generaba una sensación
+   más gaming que empresa de automatización. Se mantiene energía y movimiento, pero se pasa a una identidad
+   más premium: navy profundo, teal limpio, azul producto y acentos violetas muy controlados. */
+:root{
+  --bg:#05080d;
+  --panel:#0b1320;
+  --panel2:#101a2b;
+  --text:#f4f7fb;
+  --muted:#9fb0c7;
+  --line:#213044;
+  --cyan:#18d6c8;
+  --blue:#3b82f6;
+  --pink:#8b5cf6;
+  --purple:#4f46e5;
+  --green:#34d399;
+  --shadow:0 24px 80px rgba(0,0,0,.44);
+}
+body{
+  background:
+    radial-gradient(circle at 14% 8%,rgba(24,214,200,.11),transparent 28%),
+    radial-gradient(circle at 86% 10%,rgba(59,130,246,.10),transparent 30%),
+    linear-gradient(180deg,#05080d 0%,#070b13 48%,#05080d 100%);
+}
+.nav{
+  background:rgba(5,8,13,.88);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.logo-ai-prefix{color:var(--cyan);opacity:.76}.nav-logo,.footer-logo{letter-spacing:.01em}.logo-text-main{letter-spacing:.025em}
+.nav-cta,.btn-primary{
+  background:linear-gradient(135deg,#18d6c8 0%,#3b82f6 58%,#6366f1 100%);
+  box-shadow:0 14px 38px rgba(59,130,246,.24);
+}
+.btn-primary:hover,.nav-cta:hover{filter:saturate(1.05) brightness(1.06)}
+.eyebrow,.section-badge,.promo-kicker,.payment-kicker{
+  border-color:rgba(24,214,200,.28);
+  background:rgba(24,214,200,.075);
+  color:#2ee9dc;
+}
+.hero,.page-hero,.course-detail-hero,.auto-hero{
+  background:
+    radial-gradient(circle at 15% 15%,rgba(24,214,200,.16),transparent 34%),
+    radial-gradient(circle at 86% 14%,rgba(59,130,246,.11),transparent 32%),
+    linear-gradient(135deg,rgba(7,17,29,.98),rgba(8,12,24,.98));
+}
+.hero-panel,.calculator-preview,.info-card,.price-card,.course-card,.service-accordion,.mini-card,.contact-card,
+.learning-terminal,.automation-board,.company-map,.timeline-card,.prompt-formula,.before-after-widget,.workflow-widget,.company-widget,.final-cta,
+.auto-flow-card,.auto-inbox-widget,.calendar-automation,.document-machine,.report-widget,.team-board,.automation-lab,
+.department-card,.case-card,.roi-panel,.premium-flow-card{
+  background:linear-gradient(145deg,rgba(13,23,38,.92),rgba(7,12,22,.94));
+  border-color:rgba(255,255,255,.10);
+}
+.motion-card:before{
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(24,214,200,.13),transparent 42%);
+}
+.motion-card:hover{
+  border-color:rgba(24,214,200,.36)!important;
+  box-shadow:0 28px 90px rgba(24,214,200,.08),0 18px 70px rgba(0,0,0,.48);
+}
+.price-card.featured,.course-card.featured{border-color:rgba(99,102,241,.42);box-shadow:0 0 0 1px rgba(99,102,241,.16),var(--shadow)}
+.tag{background:linear-gradient(135deg,#6366f1,#3b82f6)}
+.banner-card{background:linear-gradient(135deg,rgba(24,214,200,.11),rgba(59,130,246,.08));border-color:rgba(24,214,200,.22)}
+.floating-chat{background:linear-gradient(135deg,#18d6c8,#3b82f6);box-shadow:0 18px 48px rgba(24,214,200,.20)}
+.floating-mini{background:#18d6c8;color:#031018}
+
+/* Render corregido del panel del programa premium */
+.course-detail-hero .premium-flow-card{padding:24px;min-height:auto;align-self:center;overflow:hidden}
+.premium-flow-top{display:flex;justify-content:space-between;gap:16px;margin-bottom:18px;color:var(--muted);font-weight:800}
+.premium-flow-top span{color:var(--cyan);font:800 .8rem JetBrains Mono,monospace;text-transform:uppercase;letter-spacing:.08em}
+.premium-flow-path{display:grid;gap:10px;position:relative}
+.premium-step{display:grid;grid-template-columns:42px 1fr;gap:10px 14px;align-items:center;padding:14px 16px;border:1px solid rgba(255,255,255,.10);border-radius:18px;background:rgba(255,255,255,.045)}
+.premium-step span{grid-row:1 / span 2;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(24,214,200,.09);border:1px solid rgba(24,214,200,.20);color:var(--cyan);font:800 .78rem JetBrains Mono,monospace}
+.premium-step strong{line-height:1.15}.premium-step small{color:var(--muted);line-height:1.2}.premium-step.active{border-color:rgba(24,214,200,.34);background:rgba(24,214,200,.08)}.premium-step.final{border-color:rgba(52,211,153,.28);background:rgba(52,211,153,.07)}
+.premium-flow-path i{width:2px;height:18px;background:linear-gradient(var(--cyan),var(--blue));justify-self:center;border-radius:999px;box-shadow:none}
+.course-detail-hero .automation-board{display:none}
+
+/* Ajustes de Automatizaciones */
+.auto-hero-copy h1{max-width:680px;font-size:clamp(2.9rem,6vw,5.6rem);letter-spacing:-.06em;line-height:.92}
+.auto-builder-grid{grid-template-columns:minmax(0,1fr) minmax(360px,.78fr);gap:34px;align-items:start}
+.build-steps{gap:14px}.build-steps > div{display:grid!important;grid-template-columns:54px minmax(0,1fr)!important;gap:8px 16px!important;align-items:start!important;padding:18px!important}.build-steps > div > span{grid-column:1!important;grid-row:1 / span 2!important}.build-steps > div > h3,.build-steps > div > p{grid-column:2!important}.build-steps > div > h3{margin:0 0 2px!important;line-height:1.2!important}.build-steps > div > p{margin:0!important;line-height:1.5!important;max-width:none!important;white-space:normal!important;word-break:normal!important;overflow-wrap:normal!important}.automation-lab{position:sticky;top:96px}.lab-pipeline div{line-height:1.25!important;white-space:normal!important}
+@media(max-width:980px){.auto-builder-grid{grid-template-columns:1fr}.automation-lab{position:relative;top:auto}.premium-flow-card{margin-top:8px}}
