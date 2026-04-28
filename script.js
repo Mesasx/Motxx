@@ -25,8 +25,12 @@
   });
   const revealObs = 'IntersectionObserver' in window ? new IntersectionObserver(entries=>{
     entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); revealObs.unobserve(entry.target); } });
-  },{threshold:.12}) : null;
-  $$('.section,.course-card,.info-card,.service-accordion,.price-card,.hero-panel,.banner-card').forEach(el=>{el.classList.add('reveal'); revealObs?.observe(el);});
+  },{threshold:.10, rootMargin:'0px 0px -6% 0px'}) : null;
+  $$('.section,.course-card,.info-card,.service-accordion,.price-card,.hero-panel,.banner-card').forEach(el=>el.classList.add('reveal'));
+  $$('.reveal,.reveal-on-scroll').forEach(el=>{
+    if(revealObs) revealObs.observe(el);
+    else el.classList.add('is-visible');
+  });
 
   // Línea de automatización animada añadida al hero si existe.
   const heroPanel = $('.hero-panel');

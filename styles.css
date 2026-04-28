@@ -74,3 +74,64 @@
 @keyframes autoMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}@keyframes livePulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.45);opacity:.62}}
 @media(max-width:980px){.auto-hero-grid,.automation-playground,.auto-panel,.auto-builder-grid,.roi-panel{grid-template-columns:1fr}.department-grid,.case-grid,.roi-numbers,.command-metrics{grid-template-columns:1fr 1fr}.automation-lab{position:relative;top:auto}.auto-stage{min-height:auto}}
 @media(max-width:640px){.department-grid,.case-grid,.roi-numbers,.command-metrics,.team-board{grid-template-columns:1fr}.auto-selector button:hover,.auto-selector button.active{transform:none}.auto-stage{padding:18px}.auto-hero{padding:72px 0 52px}}
+
+
+/* === Correcciones finales UX: héroes de cursos visibles y pasos de automatización compactos === */
+.reveal-on-scroll{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+.reveal-on-scroll.is-visible{opacity:1;transform:none;}
+.course-detail-hero .hero-copy,
+.course-detail-hero .learning-terminal,
+.course-detail-hero .automation-board,
+.course-detail-hero .company-map{
+  min-height:0;
+}
+.course-detail-hero .hero-copy.reveal,
+.course-detail-hero .learning-terminal.reveal,
+.course-detail-hero .automation-board.reveal,
+.course-detail-hero .company-map.reveal{
+  opacity:1;
+  transform:none;
+}
+.course-detail-hero{
+  min-height:auto;
+  display:flex;
+  align-items:center;
+}
+.course-detail-hero .breadcrumb{
+  margin-bottom:18px;
+}
+.course-detail-hero h1{
+  max-width:950px;
+}
+.auto-hero h1{
+  max-width:760px;
+  font-size:clamp(3.5rem,7vw,6.4rem);
+  letter-spacing:-.07em;
+  line-height:.9;
+}
+.auto-hero-copy p{
+  max-width:720px;
+}
+.build-steps > div{
+  display:grid;
+  grid-template-columns:54px minmax(0,1fr);
+  grid-template-rows:auto auto;
+  align-items:start;
+  gap:4px 14px;
+}
+.build-steps > div > span{
+  grid-column:1;
+  grid-row:1 / span 2;
+}
+.build-steps > div > h3,
+.build-steps > div > p{
+  grid-column:2;
+}
+.build-steps > div > h3{margin:0 0 2px;}
+.build-steps > div > p{margin:0;line-height:1.55;max-width:680px;}
+.automation-lab .lab-pipeline div{line-height:1.25;}
+@media(max-width:760px){
+  .auto-hero h1{font-size:clamp(2.8rem,14vw,4.4rem);}
+  .build-steps > div{grid-template-columns:44px minmax(0,1fr);}
+  .course-detail-hero{padding-top:70px;}
+}
