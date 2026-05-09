@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "appName": "StudyFlow",
+  "today": "Today",
+  "schedule": "Schedule",
+  "routines": "Routines",
+  "settings": "Settings",
+  "login": "Sign in",
+  "signup": "Sign up",
+  "logout": "Sign out",
+  "onboardingTitle": "Smart profile",
+  "onboardingStudent": "Student",
+  "onboardingProfessional": "Professional",
+  "onboardingMixed": "Study and work",
+  "onboardingSave": "Save context",
+  "tutor": "Tutor",
+  "tutorAi": "AI tutor"
+}

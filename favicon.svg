@@ -1,16 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Motex">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#07111d"/>
-      <stop offset="1" stop-color="#0f172a"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#18d6c8"/>
-      <stop offset="1" stop-color="#3b82f6"/>
-    </linearGradient>
-  </defs>
-  <rect x="10" y="10" width="108" height="108" rx="28" fill="url(#bg)"/>
-  <path d="M28 88V40h12.5L64 67.5 87.5 40H100v48H87.5V59.5L66.5 84h-5L40.5 59.5V88H28z" fill="#f4f7fb"/>
-  <path d="M29 94h70" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
-  <circle cx="98" cy="32" r="6" fill="url(#accent)"/>
+  <rect width="128" height="128" rx="18" fill="#FAF9F5"/>
+  <rect x="10" y="10" width="108" height="108" rx="10" fill="#F2EFE8" stroke="#C9C0AE"/>
+  <text x="38" y="74" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#0F5257">Mot</text>
+  <text x="88" y="74" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="34" font-style="italic" font-weight="500" fill="#0F5257">ex</text>
+  <path d="M38 88h52" stroke="#0F5257" stroke-width="3" stroke-linecap="round"/>
 </svg>

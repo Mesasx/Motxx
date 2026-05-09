@@ -1,102 +1,89 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cursos de IA y automatización | Motex</title><meta name="description" content="Cursos personalizados de IA y automatización con mentorías semanales, práctica real y plataforma adaptada a cada cliente."/><meta name="robots" content="index, follow, max-image-preview:large"/>
-<link rel="canonical" href="https://aimotex.com/cursos/"/><meta property="og:title" content="Cursos de IA y automatización | Motex"/><meta property="og:description" content="Cursos personalizados de IA y automatización con mentorías semanales, práctica real y plataforma adaptada a cada cliente."/><meta property="og:type" content="website"/><meta property="og:url" content="https://aimotex.com/cursos/"/><meta property="og:site_name" content="Motex"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/styles.css"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Motex","url":"https://aimotex.com/","email":"contacto@aimotex.com","sameAs":["https://t.me/MotexBot"]}</script>
-</head><body data-active="cursos">
-<nav class="nav" id="nav">
-  <a href="/" class="nav-logo" aria-label="Motex - Inicio"><span class="logo-ai-prefix">ai</span><span class="logo-text-main">MOTEX</span></a>
-  <div class="nav-links">
-    <a href="/" data-nav="inicio">Inicio</a>
-    <a href="/cursos/" data-nav="cursos">Cursos</a>
-    <a href="/servicios/" data-nav="servicios">Servicios</a>
-    <a href="/automatizaciones/" data-nav="automatizaciones">Automatizaciones</a>
-    <a href="/nosotros/" data-nav="nosotros">Nosotros</a>
-  </div>
-  <div class="nav-actions"><button type="button" class="nav-cta nav-cta-secondary" data-savings-start>Calcular ahorro</button><button type="button" class="nav-cta" data-budget-start>Presupuesto rápido</button></div>
-  <button class="nav-toggle" aria-label="Abrir menú" id="navToggle"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/">Inicio</a><a href="/cursos/">Cursos</a><a href="/servicios/">Servicios</a><a href="/automatizaciones/">Automatizaciones</a><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a>
-  <button type="button" class="mobile-cta" data-budget-start>Presupuesto rápido</button><button type="button" class="mobile-cta mobile-cta-soft" data-savings-start>Calcular ahorro</button>
-</div>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cursos de IA y automatización | Motex</title>
+  <meta name="description" content="Cursos Motex de IA, automatización con n8n y formación in-company."/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <link rel="canonical" href="https://aimotex.com/cursos/"/>
+  <meta property="og:title" content="Cursos de IA y automatización | Motex"/>
+  <meta property="og:description" content="Cursos Motex de IA, automatización con n8n y formación in-company."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://aimotex.com/cursos/"/>
+  <meta property="og:site_name" content="Motex"/>
+  <meta property="og:locale" content="es_ES"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body data-active="cursos">
+<header class="site-header">
+  <nav class="site-nav container" aria-label="Navegación principal">
+    <a class="brand" href="/" aria-label="Motex inicio">Mot<span class="logo-ex">ex</span></a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <div class="nav-menu" id="navMenu">
+      <a href="/" data-nav="inicio">Inicio</a>
+      <a href="/servicios/" data-nav="servicios">Servicios</a>
+      <a href="/automatizaciones/" data-nav="automatizaciones">Automatizaciones</a>
+      <a href="/casos/" data-nav="casos">Casos</a>
+      <a href="/precios/" data-nav="precios">Precios</a>
+      <a href="/nosotros/" data-nav="nosotros">Nosotros</a>
+      <a href="/contacto/" data-nav="contacto">Contacto</a>
+      <a class="btn btn-primary nav-diagnosis" href="/contacto/#diagnostico">Diagnóstico gratuito</a>
+    </div>
+  </nav>
+</header>
 <main>
-<section class="page-hero"><div class="container narrow"><div class="breadcrumb"><a href="/">Inicio</a><span>/</span><strong>Cursos</strong></div><div class="eyebrow">Cursos Motex</div><h1>Cursos para convertir la inteligencia artificial en un empleado digital más</h1><p>Formación personalizada, mentorías semanales y práctica guiada. Aprendes a ahorrar trabajo real, no solo a usar herramientas de moda.</p><div class="hero-actions"><a href="#programas" class="btn btn-primary">Ver programas</a><button class="btn btn-secondary" data-savings-start>Calcular ahorro antes</button></div></div></section>
-<section class="section" id="programas"><div class="container"><div class="section-header"><div class="section-badge">// Programas</div><h2>Formación única, práctica y personalizada</h2><p>Sesiones a tu ritmo, ejercicios aplicados, preguntas y mentoría semanal reservada.</p></div><div class="course-grid">
-  <article class="course-card" id="programa-pymes"><div class="course-level">Nivel iniciación · 20 horas</div><div class="course-icon">🚀</div><h3>IA para PYMEs y autónomos</h3><p>Aprende a usar la IA para redactar, responder, resumir, organizar tareas y ahorrar horas sin conocimientos técnicos previos.</p><ul><li>Plataforma personalizada</li><li>Mentoría semanal</li><li>Plantillas para correo, ventas y atención al cliente</li></ul><div class="price"><strong>197 €</strong><span>Pago único</span></div><div class="card-actions"><a href="/cursos/iniciacion/" class="btn btn-secondary">Ver programa</a><button data-payment data-course="IA para PYMEs y autónomos" data-price="197 €" class="btn btn-primary">Inscribirme</button></div><div class="program-panel" id="program-pymes"><h4>Programa</h4><ol><li>Primeros pasos con ChatGPT, Claude y Copilot.</li><li>Prompts útiles para emails, ventas, atención al cliente y gestión.</li><li>Cómo crear documentos, resúmenes, propuestas e informes.</li><li>IA como asistente de agenda, tareas y seguimiento.</li><li>Mentoría semanal y casos de tu negocio.</li></ol></div></article>
-  <article class="course-card featured" id="programa-premium"><div class="tag">Más demandado</div><div class="course-level">Premium · 45 horas</div><div class="course-icon">⚡</div><h3>Automatiza tu negocio con n8n</h3><p>Construye flujos reales para leads, correos, reservas, informes, documentos y avisos conectados con tus herramientas.</p><ul><li>n8n + agentes IA</li><li>Automatizaciones especializadas</li><li>Casos aplicados a tu empresa</li></ul><div class="price"><em>597 €</em><strong>397 €</strong><span>Oferta lanzamiento</span></div><div class="card-actions"><a href="/cursos/premium/" class="btn btn-secondary">Ver programa</a><button data-payment data-course="Automatiza tu negocio con n8n" data-price="397 €" class="btn btn-primary">Reservar plaza</button></div><div class="program-panel" id="program-premium"><h4>Programa</h4><ol><li>Mapa de procesos repetitivos y oportunidades.</li><li>Automatizaciones con n8n: correos, formularios, hojas de cálculo y CRM.</li><li>Agentes IA para clasificar, responder y tomar decisiones guiadas.</li><li>Flujos para leads, reservas, facturas, informes y avisos.</li><li>Proyecto final aplicado a tu empresa + mentoría semanal.</li></ol></div></article>
-  <article class="course-card" id="programa-empresas"><div class="course-level">Empresas · desde 60 horas</div><div class="course-icon">🏢</div><h3>Formación in-company</h3><p>Programa a medida para equipos. Creamos una plataforma formativa adaptada a vuestro sector, procesos y herramientas internas.</p><ul><li>Online o presencial</li><li>Rutas por departamento</li><li>Mentorías y ejercicios reales</li></ul><div class="price"><strong>Desde 690 €</strong><span>Según equipo y horas</span></div><div class="card-actions"><a href="/cursos/empresas/" class="btn btn-secondary">Ver programa</a><button data-payment data-course="Formación in-company" data-price="Desde 690 €" class="btn btn-primary">Pedir propuesta</button></div><div class="program-panel" id="program-empresas"><h4>Programa</h4><ol><li>Diagnóstico por departamentos.</li><li>Formación adaptada a administración, ventas, soporte, dirección y operaciones.</li><li>Protocolos internos para usar IA de forma segura y productiva.</li><li>Automatizaciones internas y documentación del equipo.</li><li>Plan de adopción, seguimiento y mentorías.</li></ol></div></article>
+<section class="page-hero"><div class="container narrow reveal"><p class="eyebrow">Cursos Motex</p><h1>Formación para convertir la inteligencia artificial en trabajo útil.</h1><p>Formación personalizada, mentorías semanales y práctica guiada.</p></div></section>
+<section class="section"><div class="container"><div class="card-grid three">
+  <article class="card reveal"><p class="eyebrow">Nivel iniciación · 20 horas</p><h2>IA para PYMEs y autónomos</h2><p>Aprende a usar la IA para redactar, responder, resumir, organizar tareas y ahorrar horas sin conocimientos técnicos previos.</p><p class="price-note">197 €</p><a class="btn btn-secondary" href="/cursos/iniciacion/">Ver programa</a></article>
+  <article class="card featured reveal"><p class="eyebrow">Premium · 45 horas</p><h2>Automatiza tu negocio con n8n</h2><p>Construye flujos reales para leads, correos, reservas, informes, documentos y avisos conectados con tus herramientas.</p><p class="price-note">397 €</p><a class="btn btn-primary" href="/cursos/premium/">Ver programa</a></article>
+  <article class="card reveal"><p class="eyebrow">Empresas · desde 60 horas</p><h2>Formación in-company</h2><p>Programa a medida para equipos. Creamos una plataforma formativa adaptada a vuestro sector, procesos y herramientas internas.</p><p class="price-note">Desde 690 €</p><a class="btn btn-secondary" href="/cursos/empresas/">Ver programa</a></article>
 </div></div></section>
-<section class="section"><div class="container"><div class="section-header"><div class="section-badge">// Metodología</div><h2>Flexible, personalizada y con mentoría semanal</h2><p>Diagnóstico del nivel, ruta personalizada, práctica real y acompañamiento. El objetivo es que la IA haga trabajo útil en tu empresa.</p></div><div class="step-grid"><div><span>01</span><h3>Diagnóstico</h3><p>Vemos qué sabes, qué herramientas usas y qué tareas quieres mejorar.</p></div><div><span>02</span><h3>Ruta personalizada</h3><p>Adaptamos contenido a autónomos, PYMEs, equipos comerciales o administración.</p></div><div><span>03</span><h3>Práctica real</h3><p>Prompts, documentos, automatizaciones y casos reales.</p></div><div><span>04</span><h3>Mentoría semanal</h3><p>Una sesión semanal para resolver dudas y avanzar acompañado.</p></div></div></div></section>
+<section class="section section-alt"><div class="container"><div class="section-heading reveal"><h2>Metodología</h2></div><div class="process-grid"><article class="process-step reveal"><span>01</span><h3>Diagnóstico</h3><p>Vemos qué sabes, qué herramientas usas y qué tareas quieres mejorar.</p></article><article class="process-step reveal"><span>02</span><h3>Ruta personalizada</h3><p>Adaptamos contenido a autónomos, PYMEs, equipos comerciales o administración.</p></article><article class="process-step reveal"><span>03</span><h3>Práctica real</h3><p>Prompts, documentos, automatizaciones y casos reales.</p></article><article class="process-step reveal"><span>04</span><h3>Mentoría semanal</h3><p>Una sesión semanal para resolver dudas y avanzar acompañado.</p></article></div></div></section>
 </main>
-<footer class="footer">
+<footer class="site-footer">
   <div class="container footer-grid">
-    <div>
-      <a href="/" class="footer-logo"><span class="logo-ai-prefix">ai</span><span class="logo-text-main">MOTEX</span></a>
-      <p>Automatización, formación y agentes inteligentes para empresas que quieren trabajar mejor, responder antes y ahorrar horas cada semana.</p>
-      <p class="footer-contact">✉ <a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a></p>
-      <p class="footer-contact">✈ <a href="https://t.me/MotexBot" target="_blank" rel="noopener">@MotexBot</a></p>
-    </div>
-    <div><h4>Web</h4><a href="/cursos/">Cursos</a><a href="/servicios/">Servicios</a><a href="/automatizaciones/">Automatizaciones</a></div>
-    <div><h4>Empresa</h4><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a><button type="button" class="footer-button" data-savings-start>Calcular ahorro</button></div>
-    <div><h4>Contacto</h4><a href="https://t.me/MotexBot" target="_blank" rel="noopener">Telegram</a><a href="mailto:contacto@aimotex.com">Email</a><a href="/sitemap.xml">Sitemap</a></div>
+    <section class="footer-brand" aria-label="Motex">
+      <a class="footer-logo" href="/" aria-label="Motex inicio">Mot<span class="logo-ex">ex</span></a>
+      <p>Motex es un equipo español de tres socios especializado en automatización con IA y n8n para empresas.</p>
+      <p>España. Trabajamos en remoto desde Castilla-La Mancha. No hay oficina física.</p>
+      <p><a href="tel:+34696508348">+34 696 50 83 48</a><br><a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a></p>
+    </section>
+    <section>
+      <h2>Servicios</h2>
+      <a href="/automatizaciones/">Automatizaciones</a>
+      <a href="/precios/#auditoria">Auditoría</a>
+      <a href="/cursos/">Cursos</a>
+      <a href="/casos/">Casos</a>
+      <a href="/precios/">Precios</a>
+    </section>
+    <section>
+      <h2>Empresa</h2>
+      <a href="/nosotros/">Nosotros</a>
+      <a href="/contacto/">Contacto</a>
+      <a href="/aviso-legal/">Aviso legal</a>
+      <a href="/politica-de-privacidad/">Privacidad</a>
+      <a href="/politica-de-cookies/">Cookies</a>
+    </section>
   </div>
-  <div class="container footer-bottom"><span>© 2026 Motex. Hecho en España.</span><span>Automatiza tu empresa con inteligencia práctica.</span></div>
+  <div class="container footer-bottom">© 2026 Motex · Hecho en España · Datos alojados en Europa (RGPD)</div>
 </footer>
-
-<div class="promo-modal" id="promoModal" aria-hidden="true">
-  <div class="promo-card">
-    <button class="modal-close" type="button" data-close-promo aria-label="Cerrar promoción">×</button>
-    <div class="promo-kicker">Promoción de lanzamiento</div>
-    <h2>Invita a un amigo y desbloquead 2 clases premium gratis</h2>
-    <p>Si te inscribes al grupo de principiantes e invitas a una persona que también pague el curso, ambos recibís gratis las dos primeras clases del programa premium.</p>
-    <div class="promo-actions"><a href="/cursos/#programa-pymes" class="btn btn-primary">Ver curso principiante</a><button type="button" class="btn btn-secondary" data-close-promo>Ahora no</button></div>
+<div class="cookie-banner" id="cookieBanner" hidden>
+  <div>
+    <strong>Cookies</strong>
+    <p>Usamos cookies técnicas necesarias. La analítica solo se activará si das tu consentimiento.</p>
+  </div>
+  <div class="cookie-actions">
+    <button class="btn btn-secondary" type="button" data-cookie-reject>Solo técnicas</button>
+    <button class="btn btn-primary" type="button" data-cookie-accept>Aceptar analítica</button>
   </div>
 </div>
-
-<div class="chat-modal" id="savingsBot" aria-hidden="true">
-  <div class="chat-shell" role="dialog" aria-modal="true" aria-label="MotexBot calculadora de ahorro">
-    <div class="chat-header"><div class="chat-avatar">↯</div><div><strong>MotexBot · calculadora de ahorro</strong><span>Estimación orientativa basada en horas, coste laboral y automatización posible</span></div><button class="modal-close" type="button" data-close-chat aria-label="Cerrar bot">×</button></div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-quick" id="chatQuick"></div>
-    <form class="chat-input-row" id="chatForm"><input id="chatInput" autocomplete="off" placeholder="Escribe tu respuesta…"/><button type="submit">Enviar</button></form>
-    <div class="chat-note">Base por defecto: coste laboral medio de 26,51 €/hora efectiva. Puedes introducir tu coste real cuando quieras.</div>
-  </div>
-</div>
-
-<div class="payment-modal" id="paymentModal" aria-hidden="true">
-  <div class="payment-card" role="dialog" aria-modal="true" aria-label="Ventana de pago">
-    <button class="modal-close" type="button" data-close-payment aria-label="Cerrar pago">×</button>
-    <div class="payment-kicker">Inscripción al curso</div>
-    <h2 id="paymentTitle">Curso Motex</h2>
-    <p id="paymentText">Elige método de pago. Elige método de pago. Si ya has conectado los enlaces de cobro, te llevaremos directamente a la pasarela correspondiente.</p>
-    <div class="payment-summary"><span id="paymentCourse">Curso</span><strong id="paymentPrice">197 €</strong></div>
-    <label class="payment-label">Código de invitación / amigo <input type="text" placeholder="Ej. AMIGO-MARIA" /></label>
-    <div class="payment-methods" role="list" aria-label="Métodos de pago disponibles">
-      <button type="button" data-pay-method="card">💳 Tarjeta</button>
-      <button type="button" data-pay-method="paypal">🅿️ PayPal</button>
-      <button type="button" data-pay-method="apple"> Apple Pay</button>
-      <button type="button" data-pay-method="google">G Pay</button>
-      <button type="button" data-pay-method="bizum">Bizum</button>
-      <button type="button" data-pay-method="transfer">Transferencia</button>
-    </div>
-    <button class="btn btn-primary btn-full" type="button" id="paymentContinue">Continuar al pago</button>
-    <p class="payment-small" id="paymentStatus">Elige un método. Para cobrar de verdad, conecta tus enlaces reales de Stripe/PayPal/Bizum en script.js.</p>
-  </div>
-</div>
-
-<div class="chat-modal" id="budgetBot" aria-hidden="true">
-  <div class="chat-shell budget-shell" role="dialog" aria-modal="true" aria-label="MotexBot presupuesto rápido">
-    <div class="chat-header"><div class="chat-avatar budget-avatar">⌁</div><div><strong>MotexBot · presupuesto rápido</strong><span>Te hago unas preguntas y genero una estimación de automatización</span></div><button class="modal-close" type="button" data-close-budget aria-label="Cerrar presupuesto">×</button></div>
-    <div class="chat-body" id="budgetBody"></div>
-    <div class="chat-quick" id="budgetQuick"></div>
-    <form class="chat-input-row" id="budgetForm"><input id="budgetInput" autocomplete="off" placeholder="Ej. quiero automatizar correos, reservas y facturas…"/><button type="submit">Enviar</button></form>
-    <div class="chat-note">Presupuesto orientativo. El precio cerrado se confirma revisando tus herramientas, volumen y proceso real.</div>
-  </div>
-</div>
-<div class="floating-actions" aria-label="Accesos rápidos MotexBot">
-  <button class="floating-chat" type="button" data-budget-start aria-label="Abrir presupuesto rápido">💬<span>Presupuesto</span></button>
-  <button class="floating-mini" type="button" data-savings-start aria-label="Calcular ahorro">€</button>
-</div>
-<script src="/script.js"></script></body></html>
+<script src="/script.js"></script>
+</body>
+</html>

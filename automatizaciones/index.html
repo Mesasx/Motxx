@@ -1,230 +1,95 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Automatizaciones con IA, n8n y agentes inteligentes | Motex</title><meta name="description" content="Automatizaciones con IA para empresas: atención al cliente, correo, reservas, facturación, informes, CRM, WhatsApp, calendarios y flujos internos conectados."/><meta name="robots" content="index, follow, max-image-preview:large"/>
-<link rel="canonical" href="https://aimotex.com/automatizaciones/"/><meta property="og:title" content="Automatizaciones con IA y n8n | Motex"/><meta property="og:description" content="Diseñamos sistemas automatizados que conectan IA, n8n, email, CRM, WhatsApp, calendarios, hojas de cálculo y herramientas internas."/><meta property="og:type" content="website"/><meta property="og:url" content="https://aimotex.com/automatizaciones/"/><meta property="og:site_name" content="Motex"/><meta property="og:locale" content="es_ES"/><meta name="twitter:card" content="summary_large_image"/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/styles.css"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Automatizaciones con IA para empresas","provider":{"@type":"Organization","name":"Motex","url":"https://aimotex.com/","email":"contacto@aimotex.com"},"areaServed":"ES","serviceType":"Automatización de procesos, agentes de IA, n8n, chatbots, CRM y sistemas internos"}</script>
-</head><body data-active="automatizaciones">
-<nav class="nav" id="nav">
-  <a href="/" class="nav-logo" aria-label="Motex - Inicio"><span class="logo-ai-prefix">ai</span><span class="logo-text-main">MOTEX</span></a>
-  <div class="nav-links">
-    <a href="/" data-nav="inicio">Inicio</a>
-    <a href="/cursos/" data-nav="cursos">Cursos</a>
-    <a href="/servicios/" data-nav="servicios">Servicios</a>
-    <a href="/automatizaciones/" data-nav="automatizaciones">Automatizaciones</a>
-    <a href="/nosotros/" data-nav="nosotros">Nosotros</a>
-  </div>
-  <div class="nav-actions"><button type="button" class="nav-cta nav-cta-secondary" data-savings-start>Calcular ahorro</button><button type="button" class="nav-cta" data-budget-start>Presupuesto rápido</button></div>
-  <button class="nav-toggle" aria-label="Abrir menú" id="navToggle"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/">Inicio</a><a href="/cursos/">Cursos</a><a href="/servicios/">Servicios</a><a href="/automatizaciones/">Automatizaciones</a><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a>
-  <button type="button" class="mobile-cta" data-budget-start>Presupuesto rápido</button><button type="button" class="mobile-cta mobile-cta-soft" data-savings-start>Calcular ahorro</button>
-</div>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Automatizaciones a medida con IA y n8n | Motex</title>
+  <meta name="description" content="Automatizaciones a medida con IA y n8n para atención, correo, agenda, presupuestos, informes y procesos internos."/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <link rel="canonical" href="https://aimotex.com/automatizaciones/"/>
+  <meta property="og:title" content="Automatizaciones a medida con IA y n8n | Motex"/>
+  <meta property="og:description" content="Automatizaciones a medida con IA y n8n para atención, correo, agenda, presupuestos, informes y procesos internos."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://aimotex.com/automatizaciones/"/>
+  <meta property="og:site_name" content="Motex"/>
+  <meta property="og:locale" content="es_ES"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body data-active="automatizaciones">
+<header class="site-header">
+  <nav class="site-nav container" aria-label="Navegación principal">
+    <a class="brand" href="/" aria-label="Motex inicio">Mot<span class="logo-ex">ex</span></a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <div class="nav-menu" id="navMenu">
+      <a href="/" data-nav="inicio">Inicio</a>
+      <a href="/servicios/" data-nav="servicios">Servicios</a>
+      <a href="/automatizaciones/" data-nav="automatizaciones">Automatizaciones</a>
+      <a href="/casos/" data-nav="casos">Casos</a>
+      <a href="/precios/" data-nav="precios">Precios</a>
+      <a href="/nosotros/" data-nav="nosotros">Nosotros</a>
+      <a href="/contacto/" data-nav="contacto">Contacto</a>
+      <a class="btn btn-primary nav-diagnosis" href="/contacto/#diagnostico">Diagnóstico gratuito</a>
+    </div>
+  </nav>
+</header>
 <main>
-  <section class="auto-hero">
-    <div class="container auto-hero-grid">
-      <div class="auto-hero-copy reveal-on-scroll">
-        <div class="breadcrumb"><a href="/">Inicio</a><span>/</span><strong>Automatizaciones</strong></div>
-        <div class="eyebrow">Automatización real, no teoría</div>
-        <h1>Automatiza tareas. Gana tiempo.</h1>
-        <p>Creamos flujos conectados que responden clientes, ordenan información, generan documentos, crean tareas y avisan a tu equipo automáticamente.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" data-budget-start>Calcular presupuesto</button>
-          <button class="btn btn-secondary" data-savings-start>Ver cuánto ahorro</button>
-        </div>
-        <div class="auto-proof">
-          <span>⚡ n8n + IA</span><span>📩 Email</span><span>📅 Calendarios</span><span>📊 Sheets/CRM</span><span>💬 Telegram/WhatsApp*</span>
-        </div>
-        <small class="auto-small">*Integraciones sujetas a permisos, APIs y herramientas disponibles en cada empresa.</small>
-      </div>
-      <div class="auto-command-center motion-card reveal-on-scroll">
-        <div class="command-top"><span class="dot live"></span><strong>Motex Automation Core</strong><em>flujo activo</em></div>
-        <div class="command-screen">
-          <div class="command-line"><span>Entrada</span><strong>Nuevo lead desde la web</strong></div>
-          <i></i>
-          <div class="command-line"><span>IA</span><strong>Clasifica intención y urgencia</strong></div>
-          <i></i>
-          <div class="command-line"><span>Acción</span><strong>Crea tarea + envía respuesta + avisa al equipo</strong></div>
-          <i></i>
-          <div class="command-line success"><span>Resultado</span><strong>Cliente atendido en segundos</strong></div>
-        </div>
-        <div class="command-metrics"><div><span>Tiempo manual</span><strong>18 min</strong></div><div><span>Con flujo Motex</span><strong>42 s</strong></div><div><span>Estado</span><strong>Automatizado</strong></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="auto-ticker-section" aria-label="Ejemplos de sistemas conectados">
-    <div class="auto-ticker"><span>Cliente pregunta por WhatsApp</span><i></i><span>IA recoge datos</span><i></i><span>CRM actualizado</span><i></i><span>Presupuesto generado</span><i></i><span>Recordatorio creado</span><i></i><span>Equipo avisado</span></div>
-  </section>
-
-  <section class="section auto-playground-section">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <div class="section-badge">Elige un sistema</div>
-        <h2>Automatizaciones que se entienden rápido porque parecen casos reales</h2>
-        <p class="section-subtitle">Pulsa cada bloque y verás cómo sería el flujo dentro de una empresa. Todo se puede adaptar a tus herramientas, volumen y forma de trabajar.</p>
-      </div>
-      <div class="automation-playground reveal-on-scroll">
-        <div class="auto-selector" role="tablist" aria-label="Tipos de automatización">
-          <button class="active" type="button" data-auto-target="clientes">Atención y leads</button>
-          <button type="button" data-auto-target="correo">Correo inteligente</button>
-          <button type="button" data-auto-target="agenda">Reservas y agenda</button>
-          <button type="button" data-auto-target="facturas">Facturas y presupuestos</button>
-          <button type="button" data-auto-target="informes">Informes automáticos</button>
-          <button type="button" data-auto-target="equipo">Equipo interno</button>
-        </div>
-        <div class="auto-stage">
-          <article class="auto-panel active" data-auto-panel="clientes">
-            <div class="auto-panel-copy"><span>01 · Atención y leads</span><h3>Un cliente escribe. La IA pregunta, filtra y prepara la oportunidad.</h3><p>Ideal para negocios que reciben dudas repetidas, formularios, mensajes de Telegram, WhatsApp, web o emails. El sistema identifica si el cliente necesita precio, cita, soporte o información.</p><ul><li>Responde preguntas frecuentes con el tono de tu empresa.</li><li>Pide datos que falten: nombre, servicio, urgencia, presupuesto, ciudad.</li><li>Clasifica el lead como frío, templado o caliente.</li><li>Avisa al equipo solo cuando merece intervención humana.</li></ul></div>
-            <div class="auto-flow-card"><div class="flow-chip">Web / Telegram</div><i></i><div class="flow-chip">Agente IA</div><i></i><div class="flow-chip">CRM + tarea</div><i></i><div class="flow-chip good">Respuesta enviada</div></div>
-          </article>
-          <article class="auto-panel" data-auto-panel="correo">
-            <div class="auto-panel-copy"><span>02 · Correo inteligente</span><h3>Tu bandeja deja de ser una lista infinita y pasa a ser un sistema de decisiones.</h3><p>La IA analiza cada correo, resume, clasifica, detecta urgencias y propone respuestas. Puede separar clientes, facturas, proveedores, spam, incidencias o oportunidades.</p><ul><li>Etiqueta correos automáticamente por prioridad.</li><li>Genera borradores con tu estilo y datos de contexto.</li><li>Crea recordatorios si nadie responde.</li><li>Extrae datos y los guarda en Sheets, Notion o CRM.</li></ul></div>
-            <div class="auto-inbox-widget"><div class="mail-row hot">URGENTE · Cliente pide presupuesto</div><div class="mail-row">Factura recibida · guardar y avisar</div><div class="mail-row">Proveedor · resumir condiciones</div><div class="mail-row done">Respuesta sugerida lista</div></div>
-          </article>
-          <article class="auto-panel" data-auto-panel="agenda">
-            <div class="auto-panel-copy"><span>03 · Reservas y agenda</span><h3>La IA confirma citas, recuerda horarios y reduce ausencias.</h3><p>Funciona para academias, clínicas, asesorías, estética, talleres, consultores, inmobiliarias o cualquier empresa que dependa de citas y seguimiento.</p><ul><li>Consulta disponibilidad en calendario.</li><li>Propone horarios y confirma automáticamente.</li><li>Envía recordatorios antes de la cita.</li><li>Gestiona cancelaciones, cambios y listas de espera.</li></ul></div>
-            <div class="calendar-automation"><div>09:30 <strong>Confirmada</strong></div><div>11:00 <strong>Recordatorio enviado</strong></div><div>12:30 <strong>Hueco liberado</strong></div><div>13:00 <strong>Lista de espera avisada</strong></div></div>
-          </article>
-          <article class="auto-panel" data-auto-panel="facturas">
-            <div class="auto-panel-copy"><span>04 · Presupuestos, facturas y cobros</span><h3>Del “te mando el presupuesto luego” al documento generado en minutos.</h3><p>El sistema recoge datos, calcula precios orientativos, genera presupuestos, crea PDFs, registra el estado y recuerda cobros pendientes.</p><ul><li>Formulario inteligente para recoger necesidades.</li><li>Presupuesto preliminar según reglas de negocio.</li><li>PDF automático con marca, condiciones y desglose.</li><li>Seguimiento si el cliente no responde.</li></ul></div>
-            <div class="document-machine"><div class="doc-sheet"><span>Cliente</span><strong>PYME · automatización correo</strong></div><div class="doc-sheet"><span>Importe</span><strong>1.250 € + mantenimiento</strong></div><div class="doc-sheet final"><span>PDF</span><strong>Presupuesto enviado</strong></div></div>
-          </article>
-          <article class="auto-panel" data-auto-panel="informes">
-            <div class="auto-panel-copy"><span>05 · Informes automáticos</span><h3>La empresa recibe cada semana un resumen claro sin perseguir datos.</h3><p>Conectamos hojas de cálculo, CRM, formularios, ventas, tareas o incidencias para generar informes con conclusiones, alertas y recomendaciones.</p><ul><li>Resumen semanal de ventas, leads y tareas.</li><li>Detección de patrones: retrasos, cuellos de botella, oportunidades.</li><li>Envío automático por email o Telegram.</li><li>Dashboard interno para consultar evolución.</li></ul></div>
-            <div class="report-widget"><div class="bar" style="--w:84%"><span>Leads</span></div><div class="bar" style="--w:62%"><span>Ventas</span></div><div class="bar" style="--w:48%"><span>Incidencias</span></div><p>Conclusión IA: “Aumentan leads, pero baja conversión. Revisar seguimiento en 24 h.”</p></div>
-          </article>
-          <article class="auto-panel" data-auto-panel="equipo">
-            <div class="auto-panel-copy"><span>06 · Equipo interno</span><h3>Menos tareas sueltas, más procesos claros.</h3><p>Automatizamos avisos, asignación de tareas, documentación interna, onboarding, seguimiento de proyectos y recordatorios operativos.</p><ul><li>Cuando entra un cliente, se crea carpeta, tarea y checklist.</li><li>La IA resume reuniones y reparte acciones.</li><li>Se actualiza el estado del proyecto automáticamente.</li><li>Dirección recibe un resumen sin pedirlo.</li></ul></div>
-            <div class="team-board"><div><b>Nuevo cliente</b><span>Checklist creado</span></div><div><b>Reunión</b><span>Resumen + tareas</span></div><div><b>Proyecto</b><span>Estado actualizado</span></div><div><b>Dirección</b><span>Informe enviado</span></div></div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section auto-departments-section">
-    <div class="container">
-      <div class="section-header reveal-on-scroll"><div class="section-badge">Por departamentos</div><h2>Automatizar no es sustituir personas. Es quitarles trabajo repetitivo.</h2><p class="section-subtitle">La IA se convierte en una capa que conecta herramientas y ayuda a cada área a trabajar con menos fricción.</p></div>
-      <div class="department-grid">
-        <article class="department-card motion-card reveal-on-scroll"><span>Ventas</span><h3>Seguimiento de oportunidades</h3><p>Leads nuevos, recordatorios, emails de seguimiento, clasificación de interés, avisos de oportunidades calientes.</p><button data-budget-start>Automatizar ventas</button></article>
-        <article class="department-card motion-card reveal-on-scroll"><span>Administración</span><h3>Documentos y control</h3><p>Facturas, presupuestos, cobros pendientes, generación de PDFs, archivo automático y alertas internas.</p><button data-budget-start>Automatizar administración</button></article>
-        <article class="department-card motion-card reveal-on-scroll"><span>Atención</span><h3>Respuestas 24/7</h3><p>Bots en web o Telegram, preguntas frecuentes, recogida de datos, derivación a humanos y registro de conversaciones.</p><button data-budget-start>Automatizar atención</button></article>
-        <article class="department-card motion-card reveal-on-scroll"><span>Dirección</span><h3>Informes para decidir</h3><p>Resumen semanal, métricas clave, alertas de desviaciones, conclusiones de IA y propuestas de mejora.</p><button data-budget-start>Automatizar informes</button></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section auto-builder-section">
-    <div class="container split-grid auto-builder-grid">
-      <div class="reveal-on-scroll">
-        <div class="section-badge">Cómo lo construimos</div>
-        <h2>De una tarea repetitiva a un sistema funcionando</h2>
-        <p class="section-subtitle">Nuestro proceso está pensado para empresas que no quieren complicarse con tecnología. Tú explicas cómo trabajas; nosotros lo convertimos en flujo.</p>
-        <div class="build-steps">
-          <div><span>01</span><h3>Mapeamos el proceso</h3><p>Qué entra, quién lo revisa, dónde se guarda, qué respuesta se da y qué pasa después.</p></div>
-          <div><span>02</span><h3>Diseñamos reglas + IA</h3><p>Definimos cuándo decide la IA, cuándo pregunta más datos y cuándo avisa a una persona.</p></div>
-          <div><span>03</span><h3>Conectamos herramientas</h3><p>Email, formularios, calendarios, hojas, CRM, Telegram, web, bases de datos o APIs.</p></div>
-          <div><span>04</span><h3>Probamos con casos reales</h3><p>Usamos ejemplos de tu empresa para ajustar respuestas, errores y excepciones.</p></div>
-          <div><span>05</span><h3>Entregamos y acompañamos</h3><p>Dejamos documentación, formación básica y mantenimiento si quieres escalar.</p></div>
-        </div>
-      </div>
-      <div class="automation-lab motion-card reveal-on-scroll">
-        <div class="lab-top"><strong>Constructor Motex</strong><span>simulación</span></div>
-        <div class="lab-pipeline"><div>Formulario</div><i></i><div>IA entiende</div><i></i><div>CRM</div><i></i><div>Email</div><i></i><div>Dashboard</div></div>
-        <div class="lab-output"><span>Salida generada</span><p>“Lead cualificado, presupuesto preliminar creado, tarea asignada a ventas y recordatorio programado en 48 horas.”</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section auto-cases-section">
-    <div class="container">
-      <div class="section-header reveal-on-scroll"><div class="section-badge">Ideas concretas</div><h2>Automatizaciones que podemos montar como punto de partida</h2><p class="section-subtitle">Estos ejemplos no son el límite. Son una forma rápida de imaginar lo que podríamos crear para tu empresa.</p></div>
-      <div class="case-grid">
-        <article class="case-card motion-card reveal-on-scroll"><h3>Bot de presupuesto inteligente</h3><p>Pregunta al cliente, entiende su necesidad, calcula rango orientativo y manda el resumen al equipo.</p><ul><li>Web + email + Telegram</li><li>Ideal para servicios</li><li>Reduce consultas poco claras</li></ul></article>
-        <article class="case-card motion-card reveal-on-scroll"><h3>Gestor automático de correos</h3><p>Lee correos, resume, etiqueta, prioriza y crea borradores para responder más rápido.</p><ul><li>Gmail/Outlook</li><li>IA + reglas</li><li>Seguimiento automático</li></ul></article>
-        <article class="case-card motion-card reveal-on-scroll"><h3>Agenda con recordatorios IA</h3><p>Confirma citas, recuerda horarios, gestiona cambios y recupera huecos libres.</p><ul><li>Google Calendar</li><li>Mensajes automáticos</li><li>Menos ausencias</li></ul></article>
-        <article class="case-card motion-card reveal-on-scroll"><h3>Informe semanal de dirección</h3><p>Recoge datos de ventas, tareas y clientes para generar conclusiones accionables.</p><ul><li>Sheets/CRM</li><li>Resumen IA</li><li>Envío programado</li></ul></article>
-        <article class="case-card motion-card reveal-on-scroll"><h3>Onboarding automático</h3><p>Cuando entra un cliente, crea carpeta, checklist, documentos iniciales y tareas internas.</p><ul><li>Drive/Notion</li><li>Tareas por equipo</li><li>Menos errores</li></ul></article>
-        <article class="case-card motion-card reveal-on-scroll"><h3>Content engine</h3><p>Convierte ideas o noticias del negocio en posts, emails, guiones y calendario editorial.</p><ul><li>IA generativa</li><li>Revisión humana</li><li>Publicación organizada</li></ul></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section auto-roi-section">
-    <div class="container roi-panel motion-card reveal-on-scroll">
-      <div>
-        <div class="section-badge">Impacto económico</div>
-        <h2>La automatización se entiende mejor cuando ves las horas que recuperas</h2>
-        <p>Si 5 personas pierden 4 horas semanales en tareas repetitivas, son unas 86 horas al mes. Con un coste laboral medio de 26,51 €/hora, hablamos de más de 2.200 € mensuales de tiempo bloqueado. Nuestro bot lo calcula para tu caso.</p>
-      </div>
-      <div class="roi-numbers"><div><span>Ejemplo</span><strong>86 h/mes</strong><small>tiempo repetitivo</small></div><div><span>Coste aproximado</span><strong>2.279 €</strong><small>antes de automatizar</small></div><div><span>Objetivo</span><strong>40-70%</strong><small>recuperable según proceso</small></div></div>
-      <div class="roi-actions"><button class="btn btn-primary" data-savings-start>Calcular mi ahorro</button><button class="btn btn-secondary" data-budget-start>Pedir presupuesto</button></div>
-    </div>
-  </section>
-
-  <section class="section final-cta-section"><div class="container final-cta reveal-on-scroll"><div><span class="section-badge">Siguiente paso</span><h2>Cuéntale a MotexBot qué quieres automatizar y te dará una estimación inicial.</h2><p>No necesitas saber de IA, n8n ni APIs. Solo dinos qué tarea te quita tiempo y qué herramientas usas.</p></div><div class="final-actions"><button class="btn btn-primary" data-budget-start>Presupuesto rápido</button><button class="btn btn-secondary" data-savings-start>Calcular ahorro</button></div></div></section>
+<section class="page-hero">
+  <div class="container narrow reveal"><p class="eyebrow">Automatizaciones</p><h1>Automatizaciones a medida con IA y n8n.</h1><p>Diseñamos sistemas que conectan tus herramientas, deciden con IA y dejan a tu equipo lo que de verdad aporta.</p><div class="hero-actions"><a class="btn btn-primary" href="/contacto/#diagnostico">Pedir auditoría — 290 €</a><a class="btn btn-ghost" href="/precios/">Ver precios</a></div></div>
+</section>
+<section class="section"><div class="container"><div class="section-heading reveal"><h2>Seis bloques de servicio</h2></div><div class="card-grid two service-details"><article class="service-detail card reveal" id="atencion-leads"><div class="icon-badge"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><h3>Atención y leads</h3><dl><dt>Problema</dt><dd>Mensajes, formularios y consultas llegan por varios canales y se mezclan con trabajo manual.</dd><dt>Solución</dt><dd>Sistema a medida con n8n + IA, conectado a vuestras herramientas.</dd><dt>Ejemplo</dt><dd>Lead web → clasificación IA → CRM + email + aviso al equipo</dd></dl><p class="price-note">Desde 890 €</p></article><article class="service-detail card reveal" id="correo-inteligente"><div class="icon-badge"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></div><h3>Correo inteligente</h3><dl><dt>Problema</dt><dd>Correos urgentes mezclados con facturas, proveedores y promociones.</dd><dt>Solución</dt><dd>Sistema a medida con n8n + IA, conectado a vuestras herramientas.</dd><dt>Ejemplo</dt><dd>Email entrante → extracción IA → fila en Sheets</dd></dl><p class="price-note">Desde 390 €</p></article><article class="service-detail card reveal" id="reservas-agenda"><div class="icon-badge"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path></svg></div><h3>Reservas y agenda</h3><dl><dt>Problema</dt><dd>Las citas cambian, se olvidan o dependen de una persona concreta.</dd><dt>Solución</dt><dd>Sistema a medida con n8n + IA, conectado a vuestras herramientas.</dd><dt>Ejemplo</dt><dd>Confirmaciones, recordatorios y listas de espera conectadas a calendario</dd></dl><p class="price-note">Desde 890 €</p></article><article class="service-detail card reveal" id="presupuestos-facturas"><div class="icon-badge"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg></div><h3>Presupuestos y facturas</h3><dl><dt>Problema</dt><dd>La información comercial y administrativa se copia entre documentos y herramientas.</dd><dt>Solución</dt><dd>Sistema a medida con n8n + IA, conectado a vuestras herramientas.</dd><dt>Ejemplo</dt><dd>Captura · cualificación · presupuesto PDF · seguimiento automático · informe</dd></dl><p class="price-note">Desde 1.890 €</p></article><article class="service-detail card reveal" id="informes-automaticos"><div class="icon-badge"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 16v-5"></path><path d="M12 16V8"></path><path d="M17 16v-2"></path></svg></div><h3>Informes automáticos</h3><dl><dt>Problema</dt><dd>Los datos existen, pero dirección los revisa tarde o en demasiados sitios.</dd><dt>Solución</dt><dd>Sistema a medida con n8n + IA, conectado a vuestras herramientas.</dd><dt>Ejemplo</dt><dd>Resumen semanal, alertas y dashboards conectados a hojas, CRM o herramientas internas</dd></dl><p class="price-note">Desde 890 €</p></article><article class="service-detail card reveal" id="procesos-internos"><div class="icon-badge"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"></rect><rect x="15" y="15" width="6" height="6" rx="1"></rect><path d="M9 6h4a3 3 0 0 1 3 3v6"></path><path d="M6 9v6a3 3 0 0 0 3 3h6"></path></svg></div><h3>Procesos internos</h3><dl><dt>Problema</dt><dd>Onboarding, checklists y tareas internas dependen de memoria y seguimiento manual.</dd><dt>Solución</dt><dd>Sistema a medida con n8n + IA, conectado a vuestras herramientas.</dd><dt>Ejemplo</dt><dd>Carpetas, tareas, avisos y documentación interna creadas automáticamente</dd></dl><p class="price-note">Desde 1.890 €</p></article></div></div></section>
+<section class="section section-alt"><div class="container"><div class="section-heading reveal"><h2>Cómo lo construimos</h2></div><div class="process-grid five"><article class="process-step reveal"><span>01</span><h3>Mapeamos.</h3><p>Qué entra, quién lo revisa, dónde se guarda, qué respuesta se da y qué pasa después.</p></article><article class="process-step reveal"><span>02</span><h3>Diseñamos.</h3><p>Definimos cuándo decide la IA, cuándo pregunta más datos y cuándo avisa a una persona.</p></article><article class="process-step reveal"><span>03</span><h3>Conectamos.</h3><p>Email, formularios, calendarios, hojas, CRM, Telegram, web, bases de datos o APIs.</p></article><article class="process-step reveal"><span>04</span><h3>Probamos.</h3><p>Usamos ejemplos de tu empresa para ajustar respuestas, errores y excepciones.</p></article><article class="process-step reveal"><span>05</span><h3>Entregamos.</h3><p>Dejamos documentación, formación básica y mantenimiento si quieres escalar.</p></article></div></div></section>
+<section class="section"><div class="container"><div class="section-heading reveal"><h2>Stack típico</h2><p>Herramientas reales con las que trabajamos.</p></div><div class="tool-grid reveal"><span>n8n</span><span>Microsoft 365</span><span>Google Workspace</span><span>Notion</span><span>Holded</span><span>Factorial</span><span>Telegram</span><span>WhatsApp Business API</span><span>Sheets</span></div></div></section>
+<section class="section section-cta">
+  <div class="container center narrow reveal">
+    <h2>Empieza con un diagnóstico gratuito.</h2>
+    <p>45 minutos. Te decimos qué automatizar primero y cuánto te ahorraría. Sin compromiso.</p>
+    <a class="btn btn-primary" href="/contacto/#diagnostico">Reservar llamada</a>
+  </div>
+</section>
 </main>
-<footer class="footer">
+<footer class="site-footer">
   <div class="container footer-grid">
-    <div>
-      <a href="/" class="footer-logo"><span class="logo-ai-prefix">ai</span><span class="logo-text-main">MOTEX</span></a>
-      <p>Automatización, formación y agentes inteligentes para empresas que quieren trabajar mejor, responder antes y ahorrar horas cada semana.</p>
-      <p class="footer-contact">✉ <a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a></p>
-      <p class="footer-contact">✈ <a href="https://t.me/MotexBot" target="_blank" rel="noopener">@MotexBot</a></p>
-    </div>
-    <div><h4>Web</h4><a href="/cursos/">Cursos</a><a href="/servicios/">Servicios</a><a href="/automatizaciones/">Automatizaciones</a></div>
-    <div><h4>Empresa</h4><a href="/nosotros/">Nosotros</a><a href="/contacto/">Contacto</a><button type="button" class="footer-button" data-savings-start>Calcular ahorro</button></div>
-    <div><h4>Contacto</h4><a href="https://t.me/MotexBot" target="_blank" rel="noopener">Telegram</a><a href="mailto:contacto@aimotex.com">Email</a><a href="/sitemap.xml">Sitemap</a></div>
+    <section class="footer-brand" aria-label="Motex">
+      <a class="footer-logo" href="/" aria-label="Motex inicio">Mot<span class="logo-ex">ex</span></a>
+      <p>Motex es un equipo español de tres socios especializado en automatización con IA y n8n para empresas.</p>
+      <p>España. Trabajamos en remoto desde Castilla-La Mancha. No hay oficina física.</p>
+      <p><a href="tel:+34696508348">+34 696 50 83 48</a><br><a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a></p>
+    </section>
+    <section>
+      <h2>Servicios</h2>
+      <a href="/automatizaciones/">Automatizaciones</a>
+      <a href="/precios/#auditoria">Auditoría</a>
+      <a href="/cursos/">Cursos</a>
+      <a href="/casos/">Casos</a>
+      <a href="/precios/">Precios</a>
+    </section>
+    <section>
+      <h2>Empresa</h2>
+      <a href="/nosotros/">Nosotros</a>
+      <a href="/contacto/">Contacto</a>
+      <a href="/aviso-legal/">Aviso legal</a>
+      <a href="/politica-de-privacidad/">Privacidad</a>
+      <a href="/politica-de-cookies/">Cookies</a>
+    </section>
   </div>
-  <div class="container footer-bottom"><span>© 2026 Motex. Hecho en España.</span><span>Automatiza tu empresa con inteligencia práctica.</span></div>
+  <div class="container footer-bottom">© 2026 Motex · Hecho en España · Datos alojados en Europa (RGPD)</div>
 </footer>
-
-<div class="promo-modal" id="promoModal" aria-hidden="true">
-  <div class="promo-card">
-    <button class="modal-close" type="button" data-close-promo aria-label="Cerrar promoción">×</button>
-    <div class="promo-kicker">Promoción de lanzamiento</div>
-    <h2>Invita a un amigo y desbloquead 2 clases premium gratis</h2>
-    <p>Si te inscribes al grupo de principiantes e invitas a una persona que también pague el curso, ambos recibís gratis las dos primeras clases del programa premium.</p>
-    <div class="promo-actions"><a href="/cursos/iniciacion/" class="btn btn-primary">Ver curso principiante</a><button type="button" class="btn btn-secondary" data-close-promo>Ahora no</button></div>
+<div class="cookie-banner" id="cookieBanner" hidden>
+  <div>
+    <strong>Cookies</strong>
+    <p>Usamos cookies técnicas necesarias. La analítica solo se activará si das tu consentimiento.</p>
+  </div>
+  <div class="cookie-actions">
+    <button class="btn btn-secondary" type="button" data-cookie-reject>Solo técnicas</button>
+    <button class="btn btn-primary" type="button" data-cookie-accept>Aceptar analítica</button>
   </div>
 </div>
-
-<div class="chat-modal" id="savingsBot" aria-hidden="true">
-  <div class="chat-shell" role="dialog" aria-modal="true" aria-label="MotexBot calculadora de ahorro">
-    <div class="chat-header"><div class="chat-avatar">↯</div><div><strong>MotexBot · calculadora de ahorro</strong><span>Estimación orientativa basada en horas, coste laboral y automatización posible</span></div><button class="modal-close" type="button" data-close-chat aria-label="Cerrar bot">×</button></div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-quick" id="chatQuick"></div>
-    <form class="chat-input-row" id="chatForm"><input id="chatInput" autocomplete="off" placeholder="Escribe tu respuesta…"/><button type="submit">Enviar</button></form>
-    <div class="chat-note">Base por defecto: coste laboral medio de 26,51 €/hora efectiva. Puedes introducir tu coste real cuando quieras.</div>
-  </div>
-</div>
-
-<div class="payment-modal" id="paymentModal" aria-hidden="true">
-  <div class="payment-card" role="dialog" aria-modal="true" aria-label="Ventana de pago">
-    <button class="modal-close" type="button" data-close-payment aria-label="Cerrar pago">×</button>
-    <div class="payment-kicker">Inscripción al curso</div>
-    <h2 id="paymentTitle">Curso Motex</h2>
-    <p id="paymentText">Elige método de pago. Si ya has conectado los enlaces de cobro, te llevaremos directamente a la pasarela correspondiente.</p>
-    <div class="payment-summary"><span id="paymentCourse">Curso</span><strong id="paymentPrice">197 €</strong></div>
-    <label class="payment-label">Código de invitación / amigo <input type="text" placeholder="Ej. AMIGO-MARIA" /></label>
-    <div class="payment-methods" role="list" aria-label="Métodos de pago disponibles">
-      <button type="button" data-pay-method="card">💳 Tarjeta</button><button type="button" data-pay-method="paypal">🅿️ PayPal</button><button type="button" data-pay-method="apple"> Apple Pay</button><button type="button" data-pay-method="google">G Pay</button><button type="button" data-pay-method="bizum">Bizum</button><button type="button" data-pay-method="transfer">Transferencia</button>
-    </div>
-    <button class="btn btn-primary btn-full" type="button" id="paymentContinue">Continuar al pago</button>
-    <p class="payment-small" id="paymentStatus">Elige un método. Para cobrar de verdad, conecta tus enlaces reales de Stripe/PayPal/Bizum en script.js.</p>
-  </div>
-</div>
-
-<div class="chat-modal" id="budgetBot" aria-hidden="true">
-  <div class="chat-shell budget-shell" role="dialog" aria-modal="true" aria-label="MotexBot presupuesto rápido">
-    <div class="chat-header"><div class="chat-avatar budget-avatar">⌁</div><div><strong>MotexBot · presupuesto rápido</strong><span>Te hago unas preguntas y genero una estimación de automatización</span></div><button class="modal-close" type="button" data-close-budget aria-label="Cerrar presupuesto">×</button></div>
-    <div class="chat-body" id="budgetBody"></div>
-    <div class="chat-quick" id="budgetQuick"></div>
-    <form class="chat-input-row" id="budgetForm"><input id="budgetInput" autocomplete="off" placeholder="Ej. quiero automatizar correos, reservas y facturas…"/><button type="submit">Enviar</button></form>
-    <div class="chat-note">Presupuesto orientativo. El precio cerrado se confirma revisando tus herramientas, volumen y proceso real.</div>
-  </div>
-</div>
-<div class="floating-actions" aria-label="Accesos rápidos MotexBot"><button class="floating-chat" type="button" data-budget-start aria-label="Abrir presupuesto rápido">💬<span>Presupuesto</span></button><button class="floating-mini" type="button" data-savings-start aria-label="Calcular ahorro">€</button></div>
-<script src="/script.js"></script></body></html>
+<script src="/script.js"></script>
+</body>
+</html>

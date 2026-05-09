@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter analyze *)",
+      "Read(//home/mesas/desarrollo/**)",
+      "Read(//usr/**)",
+      "Bash(flutter sdk-path *)",
+      "Bash(xargs readlink -f)",
+      "Bash(xargs dirname)",
+      "Bash(grep -n \"class RadioGroup\\\\|RadioGroup\" /home/mesas/flutter/flutter/packages/flutter/lib/src/material/radio.dart 2>/dev/null | head -20; find /home/mesas/flutter -name \"radio_group.dart\" 2>/dev/null | head -5)",
+      "Read(//home/mesas/flutter/flutter/packages/flutter/lib/src/material/**)",
+      "Read(//home/mesas/flutter/**)"
+    ]
+  }
+}
