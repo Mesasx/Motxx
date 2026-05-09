@@ -8,10 +8,7 @@
 - `aviso-legal/index.html`
 - `politica-de-privacidad/index.html`
 - `politica-de-cookies/index.html`
-- `assets/team/pedro.jpg`
-- `assets/team/alba.jpg`
-- `assets/team/juan.jpg`
-- `assets/casos/inminer-plan-thumb.png`
+- `assets/casos/ingenieria-plan-thumb.png`
 
 ## Archivos modificados
 - `index.html`
@@ -28,13 +25,14 @@
 - `sitemap.xml`
 - `favicon.svg`
 
-## Placeholders pendientes
-- `[PEDRO: confirmar — autónomos / comunidad de bienes / SL]`
-- `[Apellido]` para Alba y Juan
-- `[LinkedIn URL]` para Pedro, Alba y Juan
-
-## Imágenes placeholder esperadas
+## Archivos retirados
+- Asset anterior del caso (renombrado para mantener anonimizado el caso)
 - `assets/team/pedro.jpg`
 - `assets/team/alba.jpg`
 - `assets/team/juan.jpg`
-- `assets/casos/inminer-plan-thumb.png`
+
+## Placeholders pendientes
+- `[PEDRO: confirmar — autónomos / comunidad de bienes / SL]`
+
+## Imágenes placeholder esperadas
+- `assets/casos/ingenieria-plan-thumb.png`

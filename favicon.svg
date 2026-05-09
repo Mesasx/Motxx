@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Motex">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ex">
   <rect width="128" height="128" rx="18" fill="#FAF9F5"/>
   <rect x="10" y="10" width="108" height="108" rx="10" fill="#F2EFE8" stroke="#C9C0AE"/>
-  <text x="38" y="74" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#0F5257">Mot</text>
-  <text x="88" y="74" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="34" font-style="italic" font-weight="500" fill="#0F5257">ex</text>
+  <text x="64" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="46" font-style="italic" font-weight="700" fill="#0F5257">ex</text>
   <path d="M38 88h52" stroke="#0F5257" stroke-width="3" stroke-linecap="round"/>
 </svg>

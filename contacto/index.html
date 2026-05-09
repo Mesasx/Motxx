@@ -39,8 +39,33 @@
   </nav>
 </header>
 <main>
-<section class="page-hero"><div class="container narrow reveal"><p class="eyebrow">Contacto</p><h1>Cuéntanos qué quieres automatizar.</h1><p>Una llamada de 45 minutos (gratis). Te decimos qué automatizar primero y cuánto ahorrarías.</p></div></section>
-<section class="section" id="diagnostico"><div class="container split-two"><form class="card contact-form reveal" data-mailto-form data-mailto="contacto@aimotex.com"><h2>Formulario</h2><label>Nombre<input name="nombre" required autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Empresa<input name="empresa" autocomplete="organization"></label><label>Qué quieres automatizar<textarea name="mensaje" rows="6" required></textarea></label><button class="btn btn-primary" type="submit">Enviar solicitud</button><p class="form-note">Este formulario abre un email prellenado a contacto@aimotex.com.</p></form><aside class="contact-panel reveal"><h2>Datos</h2><p><strong>Teléfono</strong><br><a href="tel:+34696508348">+34 696 50 83 48</a></p><p><strong>Email</strong><br><a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a></p><p><strong>Telegram</strong><br><a href="https://t.me/MotexBot" target="_blank" rel="noopener">@MotexBot</a></p><p><strong>Ubicación</strong><br>España. Trabajamos en remoto desde Castilla-La Mancha. No hay oficina física.</p></aside></div></section>
+<section class="page-hero"><div class="container narrow reveal"><p class="eyebrow">Diagnóstico automatizado</p><h1>Cuéntanos qué quieres automatizar.</h1><p>El bot te hace las preguntas clave y prepara un resumen ordenado para que la primera llamada empiece con contexto real.</p></div></section>
+<section class="section" id="diagnostico">
+  <div class="container contact-bot-layout">
+    <article class="consulting-bot reveal" data-contact-bot>
+      <div class="bot-topbar">
+        <div><span class="bot-dot"></span><strong>MotexBot diagnóstico</strong></div>
+        <span data-bot-progress>Pregunta 1 de 9</span>
+      </div>
+      <div class="bot-messages" data-bot-messages aria-live="polite"></div>
+      <div class="bot-quick" data-bot-quick></div>
+      <form class="bot-input-row" data-bot-form>
+        <label class="sr-only" for="botInput">Respuesta</label>
+        <input id="botInput" data-bot-input autocomplete="off" placeholder="Escribe tu respuesta..."/>
+        <button class="btn btn-primary" type="submit">Responder</button>
+      </form>
+      <p class="form-note">Al terminar, se genera un email estructurado para contacto@aimotex.com con el resumen de la consultoría inicial.</p>
+    </article>
+    <aside class="contact-panel contact-panel-modern reveal">
+      <p class="eyebrow">Contacto directo</p>
+      <h2>También puedes hablar con nosotros.</h2>
+      <p><strong>Teléfono</strong><br><a href="tel:+34696508348">+34 696 50 83 48</a></p>
+      <p><strong>Email</strong><br><a href="mailto:contacto@aimotex.com">contacto@aimotex.com</a></p>
+      <p><strong>Telegram</strong><br><a href="https://t.me/MotexBot" target="_blank" rel="noopener">@MotexBot</a></p>
+      <p><strong>Ubicación</strong><br>España. Trabajamos en remoto desde Castilla-La Mancha. No hay oficina física.</p>
+    </aside>
+  </div>
+</section>
 </main>
 <footer class="site-footer">
   <div class="container footer-grid">
