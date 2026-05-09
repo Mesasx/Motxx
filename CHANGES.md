@@ -5,6 +5,7 @@
 - `precios/index.html`
 - `casos/index.html`
 - `casos/ingenieria-industrial/index.html`
+- `casos/ingenieria-industrial/plan-de-accion/index.html`
 - `aviso-legal/index.html`
 - `politica-de-privacidad/index.html`
 - `politica-de-cookies/index.html`

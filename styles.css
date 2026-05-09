@@ -571,6 +571,36 @@ tr:last-child td {
   font-size: 0.88rem;
 }
 
+.case-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  margin-top: 20px;
+}
+
+.plan-preview-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(28px, 4vw, 46px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(135deg, rgba(216, 228, 227, 0.72), rgba(255, 255, 255, 0.86)),
+    var(--bg-elevated);
+  box-shadow: var(--shadow-soft);
+}
+
+.plan-preview-card h2 {
+  margin-bottom: 10px;
+}
+
+.plan-preview-card p {
+  max-width: 700px;
+  color: var(--text-secondary);
+}
+
 .honest-block {
   background: var(--accent-soft);
   border: 1px solid var(--border-strong);
@@ -1102,6 +1132,11 @@ textarea {
   .process-grid,
   .process-grid.five {
     grid-template-columns: 1fr;
+  }
+
+  .plan-preview-card {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .process-step {

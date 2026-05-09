@@ -73,7 +73,7 @@
         label: 'Empresa',
         text: 'Para empezar: ¿quién sois? Nombre de empresa si quieres ponerlo, sector y tamaño aproximado.',
         quick: ['Prefiero no poner nombre', 'Industrial', 'Servicios profesionales', 'Comercio o retail'],
-        placeholder: 'Ej. ingeniería técnica, 8 personas, Castilla-La Mancha',
+        placeholder: 'Ej. ingeniería técnica, 8 personas, España',
       },
       {
         key: 'procesos',
