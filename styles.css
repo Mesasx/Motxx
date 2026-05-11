@@ -613,6 +613,9 @@ tr:last-child td {
 }
 
 .case-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   background: var(--bg-surface);
