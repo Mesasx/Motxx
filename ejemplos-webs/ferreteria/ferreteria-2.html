@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ferretería Modelo · Tono cálido tradicional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FDF6ED;--surface:#F5EAD8;--text:#3D1C02;--sub:#7A5C3A;--muted:#B8975A;
+  --accent:#E8821A;--accent2:#FDF0DC;--border:#E0C99A;
+  --r:6px;--trans:230ms ease-out;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;font-size:1rem;line-height:1.65;color:var(--text);background:var(--bg)}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.2;font-weight:700}
+h1{font-size:clamp(2.6rem,5vw,3.8rem)}
+h2{font-size:clamp(1.8rem,3vw,2.4rem)}
+h3{font-size:1.25rem}
+a{color:inherit;text-decoration:none}
+p{margin-bottom:.9rem}
+.container{width:min(1120px,calc(100% - 48px));margin-inline:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--r);font-size:.95rem;font-weight:600;border:2px solid transparent;cursor:pointer;transition:background var(--trans),transform var(--trans)}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#C06010}
+.btn-warm{background:transparent;color:var(--bg);border-color:rgba(255,255,255,.6)}
+.btn-warm:hover{background:rgba(255,255,255,.12)}
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(253,246,237,.95);backdrop-filter:blur(14px);border-bottom:2px solid var(--border)}
+.nav-inner{display:flex;align-items:center;height:72px;gap:28px}
+.brand{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--text)}
+.brand em{color:var(--accent);font-style:normal}
+.nav-links{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--sub)}
+.nav-links a:hover{color:var(--accent)}
+/* HERO */
+.hero{min-height:88vh;display:flex;align-items:center;background:linear-gradient(150deg,#3D1C02 0%,#7B4F2E 55%,#E8821A 100%);color:#fff;position:relative;overflow:hidden;padding:80px 0}
+.hero-deco{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:520px;height:520px;border-radius:50%;border:60px solid rgba(255,255,255,.04)}
+.hero-content{position:relative;z-index:1;max-width:640px}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;opacity:.7;display:block;margin-bottom:18px;font-weight:600}
+.hero h1{margin-bottom:22px}
+.hero p{font-size:1.12rem;opacity:.88;margin-bottom:32px;max-width:520px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+/* SECTIONS */
+section.sec{padding:clamp(60px,8vw,100px) 0}
+.section-alt{background:var(--surface)}
+.sec-header{max-width:620px;margin:0 auto 48px;text-align:center}
+.sec-header .eyebrow{color:var(--accent);margin-bottom:10px}
+.sec-header p{color:var(--sub)}
+/* ABOUT */
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about-visual{background:linear-gradient(145deg,var(--surface),var(--accent2));border-radius:16px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:2px solid var(--border)}
+.about-visual svg{opacity:.25}
+.about-body .eyebrow{color:var(--accent);margin-bottom:10px}
+.about-body h2{margin-bottom:18px}
+.about-body p{color:var(--sub)}
+.pillar-list{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.pillar-list li{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;color:var(--sub)}
+.pillar-list li::before{content:'✦';color:var(--accent);flex-shrink:0;margin-top:2px}
+/* CATEGORIES */
+.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.cat-card{background:var(--bg);border:2px solid var(--border);border-radius:12px;padding:32px 24px;transition:border-color var(--trans),transform var(--trans)}
+.cat-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.cat-icon{font-size:2.2rem;margin-bottom:14px}
+.cat-card h3{margin-bottom:10px;font-family:'Playfair Display',serif}
+.cat-card p{font-size:.875rem;color:var(--sub);margin:0}
+/* HOURS */
+.info-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.hours-box{background:var(--bg);border:2px solid var(--border);border-radius:12px;padding:32px}
+.hours-box h3{font-family:'Playfair Display',serif;margin-bottom:20px}
+.day-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem}
+.day-row:last-child{border-bottom:0}
+.day-row span:first-child{color:var(--sub)}
+.day-row span:last-child{font-weight:600;color:var(--text)}
+.map-box{background:var(--accent2);border:2px solid var(--border);border-radius:12px;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--sub)}
+.address-row{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+.address-item{font-size:.875rem;color:var(--sub);display:flex;gap:8px}
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:40px}
+.contact-aside h3{font-family:'Playfair Display',serif;margin-bottom:18px}
+.contact-item{padding:14px 0;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--sub)}
+.contact-item:last-child{border-bottom:0}
+.contact-item a{color:var(--accent)}
+.form-wrap{background:var(--surface);border:2px solid var(--border);border-radius:12px;padding:34px}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:.83rem;font-weight:600;margin-bottom:6px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em}
+.fg input,.fg textarea{width:100%;border:2px solid var(--border);border-radius:var(--r);padding:11px 14px;font:inherit;background:var(--bg);color:var(--text)}
+.fg input:focus,.fg textarea:focus{outline:none;border-color:var(--accent)}
+.fg textarea{resize:vertical;min-height:100px}
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.7);padding:52px 0 28px}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;margin-bottom:36px}
+.foot-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:14px;display:block}
+.foot-logo em{color:#FCC06A;font-style:normal}
+.foot-col h4{color:rgba(255,255,255,.4);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;font-family:'Inter',sans-serif}
+.foot-col a{display:block;color:rgba(255,255,255,.65);font-size:.875rem;margin-bottom:8px}
+.foot-col a:hover{color:#FCC06A}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;font-size:.82rem;text-align:center}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:900px){
+  .about-wrap,.info-wrap,.contact-wrap,.foot-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .cat-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="#">Ferretería <em>Modelo</em></a>
+    <div class="nav-links">
+      <a href="#sobre">Nuestra historia</a>
+      <a href="#categorias">Productos</a>
+      <a href="#horarios">Horarios</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn btn-primary" href="tel:+34900111222" style="padding:10px 20px;font-size:.85rem">📞 Llamar</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-deco" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Ferretería · Suministros · Asesoramiento</span>
+      <h1>El oficio se nota en el detalle.</h1>
+      <p>Tres generaciones atendiendo a profesionales y particulares. Encontrarás la herramienta que buscas y quien te explique cómo usarla.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#categorias">Explorar productos</a>
+        <a class="btn btn-warm" href="tel:+34900111222">📞 900 111 222</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="sobre">
+  <div class="container">
+    <div class="about-wrap reveal">
+      <div class="about-visual">
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#E8821A" stroke-width="1"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <div class="about-body">
+        <span class="eyebrow">Nuestra historia</span>
+        <h2>Desde 1954, el mismo trato de siempre.</h2>
+        <p>Manuel García abrió esta ferretería con una simple convicción: nadie debería irse sin encontrar lo que necesita. Hoy, tres generaciones después, mantenemos esa promesa.</p>
+        <ul class="pillar-list">
+          <li>Más de 12.000 referencias en stock permanente.</li>
+          <li>Asesoramiento técnico sin compromiso de compra.</li>
+          <li>Pedidos especiales en 24–48 horas para profesionales.</li>
+          <li>Servicio de corte y preparación de materiales.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec section-alt" id="categorias">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Lo que encontrarás</span>
+      <h2>Todo lo que necesitas, ordenado.</h2>
+      <p>Desde el clavo más pequeño hasta el compresor más potente. Cuatro grandes áreas que cubren cualquier proyecto.</p>
+    </div>
+    <div class="cat-grid reveal">
+      <div class="cat-card">
+        <div class="cat-icon">🔨</div>
+        <h3>Herramientas y maquinaria</h3>
+        <p>Manuales y eléctricas de las mejores marcas: Bosch, DeWalt, Makita, Stanley. Alquiler disponible para proyectos puntuales.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🔩</div>
+        <h3>Fontanería y calefacción</h3>
+        <p>Tuberías, conexiones, griferías, calderas y sistemas de calefacción. Atendemos tanto a instaladores como a particulares.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🔌</div>
+        <h3>Material eléctrico</h3>
+        <p>Cableado, mecanismos, cuadros eléctricos, iluminación LED. Asesoramiento en normativa y certificaciones.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🌱</div>
+        <h3>Jardín y exterior</h3>
+        <p>Riego, herramientas de poda, semillas, sustrato, macetas y mobiliario de exterior. Temporada primavera–verano ampliada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="horarios">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Estamos aquí</span>
+      <h2>Horarios y cómo llegarnos.</h2>
+    </div>
+    <div class="info-wrap reveal">
+      <div class="hours-box">
+        <h3>Horario de la tienda</h3>
+        <div class="day-row"><span>Lunes – Viernes</span><span>08:30–14:00 · 16:00–19:30</span></div>
+        <div class="day-row"><span>Sábado</span><span>09:00–14:00</span></div>
+        <div class="day-row"><span>Domingo y festivos</span><span>Cerrado</span></div>
+        <div class="address-row">
+          <div class="address-item">📍 Calle de las Herramientas, 14 · 28001 Madrid</div>
+          <div class="address-item">📞 <a href="tel:+34900111222" style="color:var(--accent)">900 111 222</a></div>
+          <div class="address-item">✉️ <a href="mailto:info@ferreteria-modelo.es" style="color:var(--accent)">info@ferreteria-modelo.es</a></div>
+        </div>
+      </div>
+      <div class="map-box">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <p style="font-size:.9rem;text-align:center;margin:0">Calle de las Herramientas, 14<br>28001 Madrid</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec section-alt" id="contacto">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Escríbenos</span>
+      <h2>Estamos a tu disposición.</h2>
+    </div>
+    <div class="contact-wrap reveal">
+      <div class="contact-aside">
+        <h3>Contacto directo</h3>
+        <div class="contact-item">📞 <a href="tel:+34900111222">900 111 222</a> · Lun–Vie 8:30–19:30</div>
+        <div class="contact-item">✉️ <a href="mailto:info@ferreteria-modelo.es">info@ferreteria-modelo.es</a></div>
+        <div class="contact-item">💬 <a href="https://wa.me/34900111222">WhatsApp</a> para consultas rápidas</div>
+        <div class="contact-item">📍 Calle de las Herramientas, 14 · Madrid</div>
+      </div>
+      <div class="form-wrap">
+        <form onsubmit="event.preventDefault();alert('Mensaje recibido. Te contactaremos en breve. Gracias.')">
+          <div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre" required/></div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com" required/></div>
+          <div class="fg"><label>Mensaje</label><textarea placeholder="¿En qué podemos ayudarte?"></textarea></div>
+          <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <span class="foot-logo">Ferretería <em>Modelo</em></span>
+        <p style="font-size:.875rem">Tres generaciones de servicio. Herramientas, fontanería, electricidad y jardín en el corazón de Madrid.</p>
+      </div>
+      <div class="foot-col"><h4>Secciones</h4><a href="#categorias">Herramientas</a><a href="#categorias">Fontanería</a><a href="#categorias">Electricidad</a><a href="#categorias">Jardín</a></div>
+      <div class="foot-col"><h4>La tienda</h4><a href="#sobre">Historia</a><a href="#horarios">Horarios</a><a href="#contacto">Contacto</a></div>
+    </div>
+    <div class="foot-bottom">© 2026 Ferretería Modelo · 28001 Madrid · <a href="mailto:info@ferreteria-modelo.es" style="color:rgba(255,255,255,.45)">info@ferreteria-modelo.es</a></div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');obs.unobserve(el.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight*.95)el.classList.add('vis');else obs.observe(el)});
+</script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller Rueda — Mecánica & Chapa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#CC0000;
+  --red-dark:#A80000;
+  --red-bright:#FF2020;
+  --black:#000000;
+  --dark:#0D0D0D;
+  --dark-2:#1A1A1A;
+  --dark-3:#242424;
+  --white:#FFFFFF;
+  --gray:#888888;
+  --gray-light:#CCCCCC;
+  --border:#333333;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--red);border-bottom:3px solid var(--red-dark)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:0.05em;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--black)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--black);color:var(--white)!important;padding:8px 18px;border-radius:3px;font-size:.75rem!important}
+.nav-cta:hover{background:var(--dark-2)!important}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--black);display:flex;align-items:center;padding-top:60px;position:relative;overflow:hidden}
+.hero-bg-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Anton',sans-serif;font-size:clamp(8rem,20vw,18rem);color:rgba(204,0,0,.06);white-space:nowrap;pointer-events:none;letter-spacing:-.02em;user-select:none}
+.hero-content{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+.hero-label{display:inline-block;background:var(--red);color:var(--white);font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;margin-bottom:24px}
+.hero h1{font-family:'Anton',sans-serif;font-size:clamp(3.5rem,7vw,6.5rem);line-height:.95;letter-spacing:.01em;text-transform:uppercase;color:var(--white)}
+.hero h1 em{font-style:normal;color:var(--red);display:block}
+.hero-sub{margin-top:24px;font-size:1.05rem;color:var(--gray-light);max-width:420px;line-height:1.7}
+.hero-actions{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.btn-red{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:var(--white);padding:14px 28px;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.btn-red:hover{background:var(--red-dark)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--white);border:2px solid var(--border);padding:12px 26px;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+.hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.hero-visual-cell{background:var(--dark-2);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px solid var(--border)}
+.hero-visual-cell:first-child{grid-column:span 2;aspect-ratio:2/1;background:var(--red);border-color:var(--red)}
+.hero-visual-cell .icon{font-size:2rem}
+.hero-visual-cell .label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-light)}
+.hero-visual-cell:first-child .label{color:rgba(255,255,255,.9);font-size:.85rem}
+.hero-visual-cell:first-child .icon{font-size:2.5rem}
+
+/* TICKER */
+.ticker-wrap{background:var(--red);padding:12px 0;overflow:hidden;border-top:3px solid var(--red-dark);border-bottom:3px solid var(--red-dark)}
+.ticker-track{display:flex;white-space:nowrap;animation:ticker 22s linear infinite}
+.ticker-item{font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;padding:0 32px;color:var(--white);display:inline-flex;align-items:center;gap:16px}
+.ticker-dot{width:8px;height:8px;background:rgba(255,255,255,.5);border-radius:50%;display:inline-block}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* STATS */
+.stats{background:var(--dark-2);border-bottom:3px solid var(--border)}
+.stats-grid{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);divide-x:1px solid var(--border)}
+.stat-item{padding:40px 32px;text-align:center;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Anton',sans-serif;font-size:3.5rem;color:var(--red);line-height:1}
+.stat-label{font-size:.75rem;color:var(--gray);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+
+/* SERVICES */
+.services{background:var(--black);padding:80px 0}
+.section-header{max-width:1200px;margin:0 auto;padding:0 24px;margin-bottom:48px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+.section-tag{display:inline-block;border:1px solid var(--red);color:var(--red);font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:4px 12px;margin-bottom:12px}
+.section-title{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,5vw,4rem);text-transform:uppercase;line-height:1;color:var(--white)}
+.section-sub{color:var(--gray);font-size:.95rem;max-width:400px;line-height:1.6}
+.services-grid{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.service-card{background:var(--dark-2);padding:36px 28px;border-top:3px solid transparent;transition:border-color .25s,background .25s;cursor:default}
+.service-card:hover{border-color:var(--red);background:var(--dark-3)}
+.service-card.featured{background:var(--red);border-color:var(--red-dark)}
+.service-num{font-family:'Anton',sans-serif;font-size:3rem;color:var(--border);line-height:1;margin-bottom:16px;transition:color .25s}
+.service-card:hover .service-num{color:rgba(204,0,0,.4)}
+.service-card.featured .service-num{color:rgba(0,0,0,.25)}
+.service-card h3{font-family:'Anton',sans-serif;font-size:1.4rem;text-transform:uppercase;letter-spacing:.04em;color:var(--white);margin-bottom:10px}
+.service-card.featured h3{color:var(--white)}
+.service-card p{font-size:.85rem;color:var(--gray-light);line-height:1.65}
+.service-card.featured p{color:rgba(255,255,255,.85)}
+.service-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
+.service-tag{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;background:rgba(255,255,255,.08);color:var(--gray-light)}
+.service-card.featured .service-tag{background:rgba(0,0,0,.2);color:rgba(255,255,255,.8)}
+
+/* PROCESS */
+.process{background:var(--dark-2);padding:80px 0;border-top:3px solid var(--border);border-bottom:3px solid var(--border)}
+.process-grid{max-width:1200px;margin:48px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.process-step{padding:36px 28px;border-right:1px solid var(--border);position:relative}
+.process-step:last-child{border-right:none}
+.step-num{font-family:'Anton',sans-serif;font-size:4rem;color:var(--red);line-height:1;margin-bottom:16px}
+.process-step h3{font-family:'Anton',sans-serif;font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;color:var(--white);margin-bottom:10px}
+.process-step p{font-size:.85rem;color:var(--gray);line-height:1.65}
+
+/* TEAM */
+.team{background:var(--black);padding:80px 0}
+.team-grid{max-width:1200px;margin:48px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.team-card{background:var(--dark-2);overflow:hidden;border-top:3px solid var(--border);transition:border-color .25s}
+.team-card:hover{border-color:var(--red)}
+.team-photo{height:200px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:var(--dark-3)}
+.team-info{padding:20px}
+.team-info h3{font-family:'Anton',sans-serif;font-size:1.1rem;text-transform:uppercase;color:var(--white)}
+.team-role{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:4px}
+.team-spec{font-size:.82rem;color:var(--gray);margin-top:8px;line-height:1.5}
+
+/* REVIEWS */
+.reviews{background:var(--dark-2);padding:80px 0;border-top:3px solid var(--border)}
+.reviews-grid{max-width:1200px;margin:48px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.review-card{background:var(--dark-3);padding:32px 28px;border-left:4px solid transparent;transition:border-color .25s}
+.review-card:hover{border-color:var(--red)}
+.review-stars{color:var(--red);font-size:1.1rem;letter-spacing:2px;margin-bottom:16px}
+.review-text{font-size:.9rem;color:var(--gray-light);line-height:1.7;font-style:italic}
+.review-text::before{content:'"';font-family:'Anton',sans-serif;font-size:2rem;color:var(--red);line-height:1;display:block;margin-bottom:8px}
+.review-author{margin-top:16px;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--white)}
+.review-vehicle{font-size:.72rem;color:var(--gray);margin-top:2px}
+
+/* HOURS + MAP */
+.info{background:var(--black);padding:80px 0;border-top:3px solid var(--border)}
+.info-grid{max-width:1200px;margin:48px auto 0;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.info-block h3{font-family:'Anton',sans-serif;font-size:1.8rem;text-transform:uppercase;color:var(--white);margin-bottom:28px}
+.hours-table{width:100%;border-collapse:collapse}
+.hours-table tr{border-bottom:1px solid var(--border)}
+.hours-table td{padding:10px 0;font-size:.88rem;color:var(--gray-light)}
+.hours-table td:last-child{text-align:right;color:var(--white);font-weight:600}
+.hours-table tr.today td{color:var(--red)}
+.map-placeholder{background:var(--dark-2);border:1px solid var(--border);border-radius:3px;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--gray)}
+.map-placeholder .map-pin{font-size:2.5rem}
+.map-address{font-size:.88rem;color:var(--gray-light);margin-top:12px;line-height:1.6}
+.map-address strong{color:var(--white);display:block;font-size:1rem;margin-bottom:4px}
+
+/* BOOKING CTA */
+.booking{background:var(--red);padding:80px 0}
+.booking-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
+.booking-text h2{font-family:'Anton',sans-serif;font-size:clamp(2rem,4vw,3.5rem);text-transform:uppercase;color:var(--white);line-height:1}
+.booking-text p{color:rgba(255,255,255,.8);margin-top:12px;font-size:1rem}
+.booking-actions{display:flex;flex-direction:column;gap:10px}
+.btn-black{display:inline-flex;align-items:center;gap:8px;background:var(--black);color:var(--white);padding:14px 28px;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s}
+.btn-black:hover{background:var(--dark-2)}
+.btn-white-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.5);padding:12px 26px;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:border-color .2s}
+.btn-white-outline:hover{border-color:var(--white)}
+
+/* FOOTER */
+footer{background:var(--dark-2);border-top:3px solid var(--border);padding:40px 24px;text-align:center}
+.footer-logo{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:.05em;color:var(--white);margin-bottom:8px}
+.footer-logo span{color:var(--red)}
+.footer-meta{font-size:.78rem;color:var(--gray);line-height:2}
+.footer-links{display:flex;gap:24px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+.footer-links a{font-size:.78rem;color:var(--gray);text-decoration:none;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.footer-links a:hover{color:var(--red)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-content{grid-template-columns:1fr;gap:48px}
+  .hero-visual{display:none}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:1fr}
+  .process-grid{grid-template-columns:repeat(2,1fr)}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .reviews-grid{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:1fr}
+  .booking-inner{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">TALLER<span>RUEDA</span></a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="#opiniones">Opiniones</a></li>
+      <li><a href="#horarios">Horarios</a></li>
+      <li><a href="#cita" class="nav-cta">Pedir cita</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-text">TALLER</div>
+  <div class="hero-content">
+    <div>
+      <span class="hero-label">Desde 1998 · Coslada, Madrid</span>
+      <h1>Tu coche<em>en buenas manos.</em></h1>
+      <p class="hero-sub">Mecánica rápida, chapa y pintura y revisiones pre-ITV. Presupuesto sin compromiso en menos de 24 horas.</p>
+      <div class="hero-actions">
+        <a href="#cita" class="btn-red">📅 Pedir cita</a>
+        <a href="tel:+34910000000" class="btn-outline">📞 Llamar ahora</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-cell">
+        <span class="icon">🔧</span>
+        <span class="label">Mecánica rápida</span>
+      </div>
+      <div class="hero-visual-cell">
+        <span class="icon">🚗</span>
+        <span class="label">Chapa & Pintura</span>
+      </div>
+      <div class="hero-visual-cell">
+        <span class="icon">🛞</span>
+        <span class="label">Neumáticos</span>
+      </div>
+      <div class="hero-visual-cell">
+        <span class="icon">📋</span>
+        <span class="label">Pre-ITV</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>MECÁNICA GENERAL</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CHAPA Y PINTURA</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>PRE-ITV</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>NEUMÁTICOS</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CLIMATIZACIÓN</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>FRENOS</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>ELECTRÓNICA</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>MECÁNICA GENERAL</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CHAPA Y PINTURA</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>PRE-ITV</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>NEUMÁTICOS</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CLIMATIZACIÓN</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>FRENOS</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>ELECTRÓNICA</span>
+  </div>
+</div>
+
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-num">26+</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">8K+</div>
+      <div class="stat-label">Vehículos reparados</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">4.9</div>
+      <div class="stat-label">Valoración Google</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">24h</div>
+      <div class="stat-label">Presupuesto máximo</div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicios">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-tag">Servicios</span>
+      <h2 class="section-title">Lo que hacemos,<br>y lo hacemos bien.</h2>
+    </div>
+    <p class="section-sub">Toda la mecánica que necesita tu vehículo. Sin sorpresas en el presupuesto.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card featured reveal">
+      <div class="service-num">01</div>
+      <h3>Mecánica General</h3>
+      <p>Cambio de aceite, distribución, embrague, frenos, amortiguadores y todo lo que mantiene tu coche en marcha.</p>
+      <div class="service-tags">
+        <span class="service-tag">Aceite</span>
+        <span class="service-tag">Distribución</span>
+        <span class="service-tag">Frenos</span>
+        <span class="service-tag">Embrague</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <h3>Chapa & Pintura</h3>
+      <p>Reparación de abolladuras, rayones y golpes. Acabados profesionales con pintura en cabina de temperatura controlada.</p>
+      <div class="service-tags">
+        <span class="service-tag">Abolladuras</span>
+        <span class="service-tag">Cabina</span>
+        <span class="service-tag">Pulido</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <h3>Pre-ITV</h3>
+      <p>Revisión completa antes de pasar la ITV. Detectamos y corregimos cualquier defecto para que pases a la primera.</p>
+      <div class="service-tags">
+        <span class="service-tag">Revisión</span>
+        <span class="service-tag">Informe</span>
+        <span class="service-tag">Garantía</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <h3>Neumáticos</h3>
+      <p>Venta, montaje y equilibrado de todas las marcas. Revisión de presión y estado del estado del sistema.</p>
+      <div class="service-tags">
+        <span class="service-tag">Montaje</span>
+        <span class="service-tag">Equilibrado</span>
+        <span class="service-tag">Alineación</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <h3>Climatización</h3>
+      <p>Recarga de gas, revisión del compresor y limpieza del sistema de aire acondicionado y calefacción.</p>
+      <div class="service-tags">
+        <span class="service-tag">Gas</span>
+        <span class="service-tag">Filtro</span>
+        <span class="service-tag">Compresor</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">06</div>
+      <h3>Electrónica</h3>
+      <p>Diagnóstico con escáner OBD, revisión de batería, alternador y todo el sistema eléctrico del vehículo.</p>
+      <div class="service-tags">
+        <span class="service-tag">Diagnóstico</span>
+        <span class="service-tag">Batería</span>
+        <span class="service-tag">OBD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-tag">Cómo funciona</span>
+      <h2 class="section-title">Fácil. Rápido.<br>Sin complicaciones.</h2>
+    </div>
+  </div>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <h3>Pide cita</h3>
+      <p>Por teléfono, WhatsApp o el formulario online. Te confirmamos disponibilidad en menos de 1 hora.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">02</div>
+      <h3>Diagnóstico</h3>
+      <p>Revisamos tu vehículo y te enviamos presupuesto detallado. Sin letra pequeña, sin sorpresas.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">03</div>
+      <h3>Reparación</h3>
+      <p>Trabajamos con repuestos de calidad. Te avisamos en cuanto esté listo.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">04</div>
+      <h3>Recógelo</h3>
+      <p>Garantía escrita en todas las reparaciones. Si algo falla, lo arreglamos sin coste.</p>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="equipo">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-tag">El equipo</span>
+      <h2 class="section-title">Profesionales<br>de verdad.</h2>
+    </div>
+    <p class="section-sub">Más de 60 años de experiencia acumulada entre todo el equipo.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-photo">👨‍🔧</div>
+      <div class="team-info">
+        <h3>Ricardo Rueda</h3>
+        <div class="team-role">Fundador & Jefe de taller</div>
+        <div class="team-spec">26 años en mecánica general. Especialista en motores diésel y gasolina.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">👩‍🔧</div>
+      <div class="team-info">
+        <h3>Carmen Rueda</h3>
+        <div class="team-role">Especialista en chapa</div>
+        <div class="team-spec">15 años en carrocería y pintura. Formada en Alemania en técnicas de acabado.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">👨‍🔬</div>
+      <div class="team-info">
+        <h3>Álvaro Sanz</h3>
+        <div class="team-role">Técnico electrónico</div>
+        <div class="team-spec">Diagnóstico avanzado, electrónica del automóvil y vehículos híbridos.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">🧑‍🔧</div>
+      <div class="team-info">
+        <h3>Marcos Gil</h3>
+        <div class="team-role">Mecánico & ITV</div>
+        <div class="team-spec">Especialista en pre-ITV y revisiones de mantenimiento. 100% de tasa de aprobado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="opiniones">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-tag">Opiniones</span>
+      <h2 class="section-title">Lo que dicen<br>nuestros clientes.</h2>
+    </div>
+    <p class="section-sub">4.9 ★ de media en Google · Más de 340 reseñas</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Llevé mi coche con un problema que otro taller no supo diagnosticar. En Taller Rueda lo resolvieron en un día y el precio fue muy razonable. Volvería sin dudarlo.</p>
+      <div class="review-author">Diego M.</div>
+      <div class="review-vehicle">Ford Focus 2019</div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Pasé la pre-ITV y encontraron tres cosas que corregir. Las arreglaron el mismo día y pasé la ITV sin problema. Profesionales de verdad.</p>
+      <div class="review-author">Sonia P.</div>
+      <div class="review-vehicle">Toyota Corolla 2017</div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Me golpearon el coche en el parking. La reparación de chapa quedó impecable, imposible distinguir dónde estaba el golpe. Precio justo y rápido.</p>
+      <div class="review-author">Andrés L.</div>
+      <div class="review-vehicle">Seat León 2021</div>
+    </div>
+  </div>
+</section>
+
+<section class="info" id="horarios">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-tag">Dónde estamos</span>
+      <h2 class="section-title">Encuéntranos<br>y pide cita.</h2>
+    </div>
+  </div>
+  <div class="info-grid">
+    <div class="info-block reveal">
+      <h3>Horario</h3>
+      <table class="hours-table">
+        <tr class="today"><td>Lunes – Viernes</td><td>8:00 – 19:00</td></tr>
+        <tr><td>Sábado</td><td>9:00 – 14:00</td></tr>
+        <tr><td>Domingo</td><td>Cerrado</td></tr>
+      </table>
+      <div style="margin-top:24px;font-size:.83rem;color:var(--gray);">
+        ⚡ Urgencias mecánicas — contacta por WhatsApp fuera de horario
+      </div>
+    </div>
+    <div class="info-block reveal">
+      <h3>Ubicación</h3>
+      <div class="map-placeholder">
+        <span class="map-pin">📍</span>
+        <span style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;">Coslada, Madrid</span>
+      </div>
+      <div class="map-address">
+        <strong>Calle del Metal, 14</strong>
+        28820 Coslada, Madrid<br>
+        <a href="tel:+34910000000" style="color:var(--red);font-weight:700;text-decoration:none;">📞 910 000 000</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="cita">
+  <div class="booking-inner">
+    <div class="booking-text reveal">
+      <h2>¿Tu coche necesita atención?</h2>
+      <p>Pide cita ahora. Presupuesto gratuito en menos de 24 horas.</p>
+    </div>
+    <div class="booking-actions reveal">
+      <a href="https://wa.me/34910000000?text=Hola%2C%20quiero%20pedir%20cita%20en%20Taller%20Rueda" class="btn-black" target="_blank">💬 WhatsApp</a>
+      <a href="tel:+34910000000" class="btn-white-outline">📞 Llamar</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">TALLER<span>RUEDA</span></div>
+  <nav class="footer-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#opiniones">Opiniones</a>
+    <a href="#horarios">Horarios</a>
+    <a href="#cita">Cita previa</a>
+  </nav>
+  <div class="footer-meta">
+    Calle del Metal, 14 · 28820 Coslada, Madrid · 910 000 000<br>
+    © 2026 Taller Rueda. Todos los derechos reservados.
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
