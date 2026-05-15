@@ -1264,6 +1264,10 @@ textarea {
   color: var(--text-secondary);
 }
 
+.case-delivery .btn {
+  margin-top: 18px;
+}
+
 .roadmap {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
