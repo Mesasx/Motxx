@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Botanical Garden Modelo · Modern minimalist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--surface:#F2F8F4;--text:#1B3A2D;--sub:#4A7060;--muted:#8AAF99;
+  --accent:#2D6A4F;--accent-l:#52B788;--accent2:#E8F5ED;--border:#D0E8D8;
+  --r:6px;--trans:220ms ease-out;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;font-size:1rem;line-height:1.7;color:var(--text);background:var(--bg)}
+h1,h2,h3{font-family:'DM Serif Display',Georgia,serif;line-height:1.18;font-weight:400}
+h1{font-size:clamp(2.8rem,5.5vw,4.2rem)}
+h2{font-size:clamp(2rem,3.5vw,2.8rem)}
+h3{font-size:1.35rem}
+a{color:inherit;text-decoration:none}
+p{margin-bottom:.9rem}
+.container{width:min(1120px,calc(100% - 48px));margin-inline:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;font-size:.9rem;font-weight:600;border:2px solid transparent;cursor:pointer;transition:background var(--trans),transform var(--trans),box-shadow var(--trans)}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#1F4F3A;box-shadow:0 8px 28px rgba(45,106,79,.25)}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;height:72px;gap:28px}
+.brand{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--text)}
+.brand em{color:var(--accent);font-style:italic}
+.nav-links{display:flex;gap:24px;margin-left:auto;align-items:center}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--sub)}
+.nav-links a:hover{color:var(--accent)}
+/* HERO */
+.hero{min-height:88vh;display:flex;align-items:flex-end;background:linear-gradient(170deg,#1B3A2D 0%,#2D6A4F 60%,#52B788 100%);color:#fff;padding:60px 0 clamp(60px,8vw,100px);position:relative;overflow:hidden}
+.hero-circles{position:absolute;right:-160px;top:-80px;width:700px;height:700px;border-radius:50%;border:1px solid rgba(255,255,255,.08)}
+.hero-circles::after{content:'';position:absolute;inset:60px;border-radius:50%;border:1px solid rgba(255,255,255,.06)}
+.hero-content{position:relative;z-index:1;max-width:680px}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;opacity:.65;display:block;margin-bottom:18px;font-weight:600}
+.hero h1{margin-bottom:22px}
+.hero p{font-size:1.12rem;opacity:.85;max-width:520px;margin-bottom:34px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+/* FEATURES ROW */
+.features-row{background:var(--accent);display:flex;justify-content:space-around;flex-wrap:wrap;padding:20px}
+.feat-item{color:rgba(255,255,255,.9);text-align:center;padding:10px 24px;font-size:.88rem}
+.feat-item strong{display:block;font-size:1.1rem;font-family:'DM Serif Display',serif;margin-bottom:2px}
+/* SECTIONS */
+section.sec{padding:clamp(64px,8vw,110px) 0}
+.sec-alt{background:var(--surface)}
+.sec-header{max-width:660px;margin:0 auto 52px;text-align:center}
+.sec-header .eyebrow{color:var(--accent);margin-bottom:10px}
+.sec-header p{color:var(--sub)}
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about-img{border-radius:20px;background:linear-gradient(145deg,var(--accent2),var(--surface));aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);overflow:hidden;position:relative}
+.about-img-decor{position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(82,183,136,.15);top:20%;left:15%}
+.about-img svg{position:relative;z-index:1}
+.about-text h2{margin-bottom:18px}
+.about-text p{color:var(--sub)}
+.tag-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.tag{background:var(--accent2);color:var(--accent);border:1px solid var(--border);padding:6px 14px;border-radius:999px;font-size:.8rem;font-weight:600}
+/* COLLECTIONS */
+.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.col-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:transform var(--trans),box-shadow var(--trans)}
+.col-card:hover{transform:translateY(-4px);box-shadow:0 14px 44px rgba(45,106,79,.12)}
+.col-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem}
+.col-body{padding:20px}
+.col-body h3{font-size:1.1rem;margin-bottom:8px}
+.col-body p{font-size:.875rem;color:var(--sub);margin:0}
+/* EVENTS */
+.events-list{display:flex;flex-direction:column;gap:14px}
+.event-item{display:grid;grid-template-columns:100px 1fr;gap:20px;align-items:center;padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--bg);transition:border-color var(--trans)}
+.event-item:hover{border-color:var(--accent-l)}
+.event-date{text-align:center;background:var(--accent2);border-radius:8px;padding:14px}
+.event-date .day{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent);line-height:1}
+.event-date .month{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--sub);font-weight:600}
+.event-body h3{font-size:1.05rem;margin-bottom:6px}
+.event-body p{font-size:.875rem;color:var(--sub);margin:0}
+/* RATES */
+.rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rate-card{border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;transition:border-color var(--trans),transform var(--trans)}
+.rate-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.rate-card.featured{border-color:var(--accent);background:var(--accent2)}
+.rate-price{font-family:'DM Serif Display',serif;font-size:2.8rem;color:var(--accent);display:block;margin:14px 0 8px}
+.rate-card h3{margin-bottom:6px}
+.rate-card p{font-size:.85rem;color:var(--sub);margin:0}
+/* HOURS + MAP */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.hours-box{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:32px}
+.hour-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem}
+.hour-row:last-child{border-bottom:0}
+.hour-row span:first-child{color:var(--sub)}
+.hour-row span:last-child{font-weight:600}
+.map-box{border:1px solid var(--border);border-radius:14px;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:4/3;color:var(--sub)}
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:36px}
+.contact-aside p{color:var(--sub)}
+.contact-links{margin-top:22px;display:flex;flex-direction:column;gap:8px}
+.contact-link{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--sub)}
+.contact-link:last-child{border-bottom:0}
+.contact-link a{color:var(--accent)}
+.form-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:32px}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--sub);text-transform:uppercase;letter-spacing:.06em}
+.fg input,.fg textarea{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;font:inherit;background:var(--bg);color:var(--text)}
+.fg input:focus,.fg textarea:focus{outline:none;border-color:var(--accent)}
+.fg textarea{resize:vertical;min-height:100px}
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.7);padding:52px 0 28px}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;margin-bottom:36px}
+.foot-brand-logo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:#fff;display:block;margin-bottom:14px}
+.foot-brand-logo em{color:#74C69D;font-style:italic}
+.foot-col h4{color:rgba(255,255,255,.4);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.foot-col a{display:block;color:rgba(255,255,255,.6);font-size:.875rem;margin-bottom:8px}
+.foot-col a:hover{color:#74C69D}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:.82rem;text-align:center}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:900px){.about-grid,.info-grid,.contact-grid,.foot-grid{grid-template-columns:1fr}.col-grid,.rates-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.nav-links{display:none}.col-grid,.rates-grid{grid-template-columns:1fr}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+  <link rel="alternate" hreflang="es" href="https://aimotex.com/ejemplos-webs/jardin-botanico/jardin-1.html" />
+  <link rel="alternate" hreflang="en" href="https://aimotex.com/en/ejemplos-webs/jardin-botanico/jardin-1.html" />
+</head>
+<body>
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="#">Botanical Garden <em>Modelo</em></a>
+    <div class="nav-links">
+      <a href="#sobre">The garden</a>
+      <a href="#colecciones">Collections</a>
+      <a href="#eventos">Visits</a>
+      <a href="#tarifas">Prices</a>
+      <a href="#contacto">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-circles" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Madrid · 3,000+ species · Guided tours all year</span>
+      <h1>A green refuge in the heart of the city.</h1>
+      <p>More than 12 hectares of living nature. Unique botanical collections, guided tours, educational events and a space to connect with plants.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#tarifas">View prices</a>
+        <a class="btn btn-ghost" href="#eventos">Upcoming visits</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="features-row">
+  <div class="feat-item"><strong>+3.000</strong>catalogued species</div>
+  <div class="feat-item"><strong>12 ha</strong>of garden</div>
+  <div class="feat-item"><strong>All year</strong>guided tours</div>
+  <div class="feat-item"><strong>Groups</strong>and schools</div>
+</div>
+
+<section class="sec" id="sobre">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-img">
+        <div class="about-img-decor"></div>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="1"><path d="M12 22V12"/><path d="M12 12C12 12 6 8 6 3a6 6 0 0 1 12 0c0 5-6 9-6 9z"/><path d="M12 12c0 0-6-4-6-9M12 12c0 0 6-4 6-9"/></svg>
+      </div>
+      <div class="about-text">
+        <span class="eyebrow" style="color:var(--accent);margin-bottom:12px;display:block">About the garden</span>
+        <h2>Science, beauty and life on every path.</h2>
+        <p style="color:var(--sub)">The Model Botanical Garden was founded in 1892 to study, conserve and share the planet’s flora. Today it hosts more than 3,000 species organized into themed collections that reflect the diversity of the plant kingdom.</p>
+        <p style="color:var(--sub)">Our gardens are a living laboratory, a peaceful space and an educational resource for schools, universities and plant lovers.</p>
+        <div class="tag-list">
+          <span class="tag">Conservation</span>
+          <span class="tag">Research</span>
+          <span class="tag">Education</span>
+          <span class="tag">Accessible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="colecciones">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Our collections</span>
+      <h2>Twelve plant worlds, one garden.</h2>
+      <p>Organized by geographic origin, botanical family and ecosystem, our collections offer a journey through the planet’s diversity.</p>
+    </div>
+    <div class="col-grid reveal">
+      <div class="col-card">
+        <div class="col-img" style="background:#E8F5ED">🌵</div>
+        <div class="col-body"><h3>Xerophytic plants</h3><p>Cacti and succulents from arid environments around the world. More than 400 species.</p></div>
+      </div>
+      <div class="col-card">
+        <div class="col-img" style="background:#F0FFF4">🌿</div>
+        <div class="col-body"><h3>Mediterranean flora</h3><p>Vegetation typical of our climate: aromatic plants, scrubland and holm oak woods.</p></div>
+      </div>
+      <div class="col-card">
+        <div class="col-img" style="background:#E8F5ED">🌺</div>
+        <div class="col-body"><h3>Tropical plants</h3><p>The greenhouse houses 600 species from tropical and subtropical zones.</p></div>
+      </div>
+      <div class="col-card">
+        <div class="col-img" style="background:#F0FFF4">🍂</div>
+        <div class="col-body"><h3>Historic trees</h3><p>Centuries-old trees, some over 300 years old. A living heritage.</p></div>
+      </div>
+      <div class="col-card">
+        <div class="col-img" style="background:#E8F5ED">🌾</div>
+        <div class="col-body"><h3>Ethnobotanical garden</h3><p>Plants used for medicine, food and industry throughout history.</p></div>
+      </div>
+      <div class="col-card">
+        <div class="col-img" style="background:#F0FFF4">🦋</div>
+        <div class="col-body"><h3>Pollinator garden</h3><p>Designed to attract bees, butterflies and other beneficial insects.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="eventos">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Agenda</span>
+      <h2>Guided tours and upcoming events.</h2>
+      <p>Every month we organize activities for all ages. School groups, families and botany enthusiasts.</p>
+    </div>
+    <div class="events-list reveal">
+      <div class="event-item">
+        <div class="event-date"><div class="day">14</div><div class="month">Jun</div></div>
+        <div class="event-body"><h3>Guided tour: medicinal plants</h3><p>Tour of the ethnobotanical garden with our resident botanist. 90 minutes. Limited places.</p></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="day">21</div><div class="month">Jun</div></div>
+        <div class="event-body"><h3>Botanical night · Summer solstice</h3><p>Special night visit observing nocturnal plants. Adult event.</p></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="day">05</div><div class="month">Jul</div></div>
+        <div class="event-body"><h3>Children’s workshop: the world of seeds</h3><p>Educational activity for children aged 6 to 12. Includes a planting kit to take home.</p></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="day">12</div><div class="month">Jul</div></div>
+        <div class="event-body"><h3>Guided tour: tropical flora</h3><p>Tour of the tropical greenhouse. 60 minutes. Every Saturday at 11:00 and 17:00.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="tarifas">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Prices</span>
+      <h2>Admission prices.</h2>
+    </div>
+    <div class="rates-grid reveal">
+      <div class="rate-card">
+        <h3>General admission</h3>
+        <span class="rate-price">8 €</span>
+        <p>Adults. Free access to all gardens and permanent exhibitions.</p>
+      </div>
+      <div class="rate-card featured">
+        <h3>Reduced admission</h3>
+        <span class="rate-price">5 €</span>
+        <p>Students, people over 65 and people with disabilities. Proof required at the ticket office.</p>
+      </div>
+      <div class="rate-card">
+        <h3>Children up to 12</h3>
+        <span class="rate-price">Free</span>
+        <p>Free admission for children under 12 accompanied by an adult.</p>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--sub);margin-top:24px;font-size:.9rem">Guided tours: check availability and price by activity. Groups and schools: special rates.</p>
+  </div>
+</section>
+
+<section class="sec" id="horarios">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Plan your visit</span>
+      <h2>Hours and how to get there.</h2>
+    </div>
+    <div class="info-grid reveal">
+      <div class="hours-box">
+        <h3 style="font-family:'DM Serif Display',serif;margin-bottom:18px">Opening hours</h3>
+        <div class="hour-row"><span>Tuesday-Sunday</span><span>10:00 – 20:00</span></div>
+        <div class="hour-row"><span>Winter season</span><span>10:00 – 18:00</span></div>
+        <div class="hour-row"><span>Monday</span><span>Closed</span></div>
+        <div class="hour-row"><span>Ticket office</span><span>Closes 1h earlier</span></div>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:.875rem;color:var(--sub)">📍 Paseo del Botanical Garden, 2 · 28014 Madrid</div>
+          <div style="font-size:.875rem;color:var(--sub)">📞 <a href="tel:+34900222333" style="color:var(--accent)">900 222 333</a></div>
+          <div style="font-size:.875rem;color:var(--sub)">✉️ <a href="mailto:info@jardinmodelo.es" style="color:var(--accent)">info@jardinmodelo.es</a></div>
+        </div>
+      </div>
+      <div class="map-box">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <p style="font-size:.875rem;text-align:center;margin:0">Paseo del Botanical Garden, 2<br>28014 Madrid</p>
+        <p style="font-size:.82rem;color:var(--muted);margin:0">Metro: Banco de España (L2)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="contacto">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Have a question?</h2>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-aside">
+        <p>For group bookings, private guided tours or educational information, write to us or call us.</p>
+        <div class="contact-links">
+          <div class="contact-link">📞 <a href="tel:+34900222333">900 222 333</a> · Tue-Sun 10:00–20:00</div>
+          <div class="contact-link">✉️ <a href="mailto:info@jardinmodelo.es">info@jardinmodelo.es</a></div>
+          <div class="contact-link">🏫 Groups and schools: <a href="mailto:grupos@jardinmodelo.es">grupos@jardinmodelo.es</a></div>
+        </div>
+      </div>
+      <div class="form-box">
+        <form onsubmit="event.preventDefault();alert('Consulta enviada. Te responderemos pronto.')">
+          <div class="fg"><label>Name</label><input type="text" placeholder="Tu nombre" required/></div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com" required/></div>
+          <div class="fg"><label>Message</label><textarea placeholder="¿En qué podemos ayudarte?"></textarea></div>
+          <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;border-radius:var(--r)">Send inquiry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <span class="foot-brand-logo">Botanical Garden <em>Modelo</em></span>
+        <p style="font-size:.875rem">A space for science and nature since 1892. Madrid.</p>
+      </div>
+      <div class="foot-col"><h4>The garden</h4><a href="#sobre">Story</a><a href="#colecciones">Collections</a><a href="#eventos">Agenda</a></div>
+      <div class="foot-col"><h4>Visit</h4><a href="#tarifas">Prices</a><a href="#horarios">Hours</a><a href="#contacto">Contact</a></div>
+    </div>
+    <div class="foot-bottom">© 2026 Botanical Garden Modelo · 28014 Madrid · <a href="mailto:info@jardinmodelo.es" style="color:rgba(255,255,255,.4)">info@jardinmodelo.es</a></div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');obs.unobserve(el.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight*.95)el.classList.add('vis');else obs.observe(el)});
+</script>
+</body>
+</html>

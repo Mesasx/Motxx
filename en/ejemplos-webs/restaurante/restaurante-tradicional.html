@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meson La Encina · Traditional restaurant</title>
+<meta name="description" content="Plantilla para restaurante tradicional con carta QR, alérgenos, horarios, teléfono, email, reservas y valoraciones visibles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#fffaf2;--cream:#f6ead9;--ink:#2c211c;--muted:#745f53;--line:#dfcab0;
+  --wine:#7a2e20;--green:#425d47;--gold:#d6a94a;--white:#fff;--shadow:0 18px 50px rgba(72,38,22,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;line-height:1.6;color:var(--ink);background:var(--paper)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{line-height:1.12;margin:0 0 .8rem;font-weight:800;letter-spacing:0}
+h1{font-size:3.25rem;max-width:760px}
+h2{font-size:2rem}
+h3{font-size:1.05rem}
+p{margin:0 0 1rem}
+.container{width:min(1120px,calc(100% - 40px));margin-inline:auto}
+.skip{position:absolute;left:-999px;top:auto}
+.skip:focus{left:16px;top:16px;background:var(--white);padding:10px 12px;border:2px solid var(--wine);z-index:100}
+.topline{background:var(--wine);color:#fff;font-size:.92rem}
+.topline .container{display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:40px;flex-wrap:wrap}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,250,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-inner{height:72px;display:flex;align-items:center;gap:22px}
+.brand{font-weight:800;font-size:1.25rem;color:var(--wine)}
+.links{margin-left:auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.links a{font-size:.9rem;font-weight:700;color:var(--muted)}
+.links a:hover{color:var(--wine)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;padding:12px 18px;border-radius:999px;font-weight:800;font-size:.92rem;line-height:1.1;transition:transform .18s ease,background .18s ease,border-color .18s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--wine);color:#fff}
+.btn-primary:hover{background:#5f241a}
+.btn-ghost{border-color:var(--line);background:var(--white);color:var(--wine)}
+.btn-gold{background:var(--gold);color:#25190f}
+.hero{position:relative;min-height:calc(88vh - 112px);display:flex;align-items:end;color:#fff;background:linear-gradient(180deg,rgba(44,33,28,.08),rgba(44,33,28,.82)),url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=82') center/cover no-repeat}
+.hero-content{padding:96px 0 54px}
+.eyebrow{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:#f4d58a;margin-bottom:12px}
+.hero p{max-width:650px;font-size:1.12rem;color:rgba(255,255,255,.9)}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.rating-strip{background:var(--white);box-shadow:var(--shadow)}
+.rating-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.rating-item{background:var(--white);padding:18px}
+.rating-item strong{display:block;color:var(--wine);font-size:1.35rem;line-height:1}
+.rating-item span{font-size:.85rem;color:var(--muted)}
+section{padding:72px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.section-head p{max-width:560px;color:var(--muted)}
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:start}
+.story{font-size:1.04rem;color:var(--muted)}
+.feature-list{display:grid;gap:10px}
+.feature{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.feature strong{color:var(--wine)}
+.menu-section{background:var(--cream);border-block:1px solid var(--line)}
+.menu-layout{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start}
+.dish-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.dish{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:18px}
+.dish-top{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:8px}
+.price{font-weight:800;color:var(--wine);white-space:nowrap}
+.ingredients{font-size:.91rem;color:var(--muted)}
+.allergens{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.allergens span{background:#f4eadb;border:1px solid var(--line);border-radius:999px;padding:4px 8px;font-size:.76rem;font-weight:700;color:#5d4a3f}
+.qr-box{position:sticky;top:96px;background:var(--green);color:#fff;border-radius:8px;padding:22px;text-align:center}
+.qr-box img{width:156px;height:156px;margin:14px auto;background:#fff;padding:8px;border-radius:6px}
+.qr-box p{color:rgba(255,255,255,.82);font-size:.9rem}
+.note{margin-top:16px;color:var(--muted);font-size:.9rem}
+.reviews{background:var(--cream);border-block:1px solid var(--line)}
+.review-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.review{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:20px}
+.stars{color:#b37a19;font-weight:800;letter-spacing:.04em;margin-bottom:8px}
+.review p{color:var(--muted)}
+.review small{font-weight:800;color:var(--wine)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:24px}
+.hours{display:grid;gap:10px;margin-top:12px}
+.hours div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.contact-lines{display:grid;gap:10px;color:var(--muted)}
+.contact-lines a{color:var(--wine);font-weight:800}
+.reserve{background:var(--wine);color:#fff}
+.reserve .container{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.reserve p{color:rgba(255,255,255,.84);max-width:650px}
+footer{background:#241915;color:rgba(255,255,255,.72);padding:36px 0}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px}
+footer a{display:block;margin-bottom:6px;color:#f0c56c}
+.footer-note{margin-top:8px}
+.bottom{border-top:1px solid rgba(255,255,255,.16);padding-top:18px;margin-top:24px;font-size:.86rem}
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:860px){
+  h1{font-size:2.35rem}.links{display:none}.rating-grid,.dish-grid,.review-grid,.info-grid,.split,.footer-grid,.reserve .container{grid-template-columns:1fr}.menu-layout{grid-template-columns:1fr}.qr-box{position:static}.section-head{display:block}.hero{min-height:70vh}
+}
+@media(max-width:560px){
+  .container{width:min(100% - 28px,1120px)}.topline .container{padding:8px 0}.rating-item{padding:14px}.feature{grid-template-columns:1fr}section{padding:54px 0}.hero-content{padding:78px 0 40px}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Mesón La Encina",
+  "servesCuisine":"Cocina tradicional española",
+  "address":"Calle Mayr, 18, 28013 Madrid",
+  "telephone":"+34 910 222 418",
+  "email":"reservas@mesonlaencina.es",
+  "menu":"https://aimotex.com/en/ejemplos-webs/restaurante/restaurante-tradicional.html#carta",
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":"1248"}
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+  <link rel="alternate" hreflang="es" href="https://aimotex.com/ejemplos-webs/restaurante/restaurante-tradicional.html" />
+  <link rel="alternate" hreflang="en" href="https://aimotex.com/en/ejemplos-webs/restaurante/restaurante-tradicional.html" />
+</head>
+<body>
+<a class="skip" href="#carta">Skip to menu</a>
+<div class="topline">
+  <div class="container">
+    <span>Open today: 13:00-16:30 y 20:30-23:30</span>
+    <span><a href="tel:+34910222418">+34&nbsp;910&nbsp;222&nbsp;418</a> · <a href="mailto:reservas@mesonlaencina.es">reservas@mesonlaencina.es</a></span>
+  </div>
+</div>
+<nav class="nav" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a class="brand" href="#">Mesón La Encina</a>
+    <div class="links">
+      <a href="#sobre">About us</a>
+      <a href="#carta">Menu</a>
+      <a href="#valoraciones">Reviews</a>
+      <a href="#horarios">Hours</a>
+      <a href="#contacto">Contact</a>
+      <a class="btn btn-primary" href="tel:+34910222418">Call</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-content reveal">
+    <span class="eyebrow">Restaurante tradicional · Madrid centro</span>
+    <h1>Classic cooking, quiet tables and market produce.</h1>
+    <p>A tavern for uncomplicated eating: stews, roasts, sharing plates and homemade desserts. All key information is one tap away: menu, allergens, phone, hours and reviews.</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="#carta">View menu y QR</a>
+      <a class="btn btn-primary" href="mailto:reservas@mesonlaencina.es?subject=Reserva%20Mes%C3%B3n%20La%20Encina">Book a table</a>
+      <a class="btn btn-ghost" href="#valoraciones">View reviews</a>
+    </div>
+  </div>
+</header>
+
+<aside class="rating-strip" aria-label="Resumen de valoraciones">
+  <div class="container rating-grid">
+    <div class="rating-item"><strong>4,6/5</strong><span>Tripadvisor · 1,248 reviews</span></div>
+    <div class="rating-item"><strong>4,7/5</strong><span>Google · 2,180 reviews</span></div>
+    <div class="rating-item"><strong>32 years</strong><span>of traditional cooking</span></div>
+    <div class="rating-item"><strong>9 min</strong><span>walk from Plaza Mayor</span></div>
+  </div>
+</aside>
+
+<main>
+<section id="sobre">
+  <div class="container split reveal">
+    <div>
+      <span class="eyebrow">Who we are</span>
+      <h2>A family restaurant for eating the old-fashioned way.</h2>
+      <p class="story">La Encina keeps a recognizable menu for locals, families and visitors who want clear dishes and good service. The website focuses on quick questions: what to eat, how much it costs, which allergens each dish contains and how to book.</p>
+      <p class="story">The tone is friendly and classic, with large buttons and visible details so any audience can call, check the menu or find opening hours easily.</p>
+    </div>
+    <div class="feature-list">
+      <div class="feature"><strong>Especialidad</strong><span>Madrid stew, tripe, roast meats and sharing plates.</span></div>
+      <div class="feature"><strong>Services</strong><span>Dining room, terrace, phone bookings and group menus.</span></div>
+      <div class="feature"><strong>Accesibilidad</strong><span>QR menu, allergens by dish and visible phone number throughout the site.</span></div>
+      <div class="feature"><strong>Reviews</strong><span>Highlighted Tripadvisor and Google block before the menu.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="carta">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Digital menu</span>
+        <h2>Main dishes with ingredients and allergens.</h2>
+      </div>
+      <p>The structure is ready to keep the menu updated and link the table QR directly to this section.</p>
+    </div>
+    <div class="menu-layout">
+      <div class="dish-grid reveal">
+        <article class="dish">
+          <div class="dish-top"><h3>Iberian ham croquettes</h3><span class="price">12,50 €</span></div>
+          <p class="ingredients">Ingredients: Iberian ham, milk, wheat flour, egg, breadcrumbs and nutmeg.</p>
+          <div class="allergens"><span>Gluten</span><span>Egg</span><span>Dairy</span></div>
+        </article>
+        <article class="dish">
+          <div class="dish-top"><h3>Full Madrid stew</h3><span class="price">21,00 €</span></div>
+          <p class="ingredients">Ingredients: garbanzo, morcillo, gallina, chorizo, tocino, verduras y fideo fino.</p>
+          <div class="allergens"><span>Gluten</span><span>Sulfites</span></div>
+        </article>
+        <article class="dish">
+          <div class="dish-top"><h3>Madrid-style tripe</h3><span class="price">16,50 €</span></div>
+          <p class="ingredients">Ingredients: tripe, snout, trotter, chorizo, blood sausage, paprika, tomato and bay leaf.</p>
+          <div class="allergens"><span>Gluten</span><span>Sulfites</span></div>
+        </article>
+        <article class="dish">
+          <div class="dish-top"><h3>Bacalao confitado</h3><span class="price">22,00 €</span></div>
+          <p class="ingredients">Ingredients: bacalao, patata panadera, pimiento asado, ajo, aceite de oliva y perejil.</p>
+          <div class="allergens"><span>Fish</span></div>
+        </article>
+        <article class="dish">
+          <div class="dish-top"><h3>Entrecot de vaca madurada</h3><span class="price">26,00 €</span></div>
+          <p class="ingredients">Ingredients: entrecot, patata, pimiento verde, sal en escamas y aceite de oliva.</p>
+          <div class="allergens"><span>No declared allergens</span></div>
+        </article>
+        <article class="dish">
+          <div class="dish-top"><h3>Tarta de queso al horno</h3><span class="price">7,00 €</span></div>
+          <p class="ingredients">Ingredients: cream cheese, cream, egg, sugar and biscuit base.</p>
+          <div class="allergens"><span>Gluten</span><span>Egg</span><span>Dairy</span></div>
+        </article>
+      </div>
+      <aside class="qr-box reveal" aria-label="QR code de la carta">
+        <h3>QR menu</h3>
+        <img alt="QR code para abrir la carta del Mesón La Encina" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=8&data=https%3A%2F%2Faimotex.com%2Fejemplos-webs%2Frestaurante%2Frestaurante-tradicional.html%23carta">
+        <p>Scan it from the table to open the updated menu with ingredients and allergens.</p>
+        <a class="btn btn-gold" href="#contacto">Book o consultar</a>
+      </aside>
+    </div>
+    <p class="note">Allergen information is indicative for the template. In a real restaurant it must be validated with the kitchen and suppliers. Cross-contamination may occur.</p>
+  </div>
+</section>
+
+<section class="reviews" id="valoraciones">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Reviews</span>
+        <h2>Social proof, high and clear.</h2>
+      </div>
+      <p>The block is designed for businesses where Tripadvisor and Google matter before booking.</p>
+    </div>
+    <div class="review-grid reveal">
+      <article class="review"><div class="stars">★★★★★</div><p>"Real homemade food, generous portions and friendly service. The stew is worth the visit."</p><small>Maria L. · Tripadvisor</small></article>
+      <article class="review"><div class="stars">★★★★★</div><p>"We went with family and everything was easy: clear menu, good prices and allergens indicated."</p><small>Javier P. · Google</small></article>
+      <article class="review"><div class="stars">★★★★☆</div><p>"Classic tavern, well located and with fast service. Booking on weekends is a good idea."</p><small>Ana R. · Tripadvisor</small></article>
+    </div>
+  </div>
+</section>
+
+<section id="horarios">
+  <div class="container info-grid reveal">
+    <article class="panel">
+      <span class="eyebrow">Hours</span>
+      <h2>When to come.</h2>
+      <div class="hours">
+        <div><span>Monday</span><strong>Closed</strong></div>
+        <div><span>Tuesday to Thursday</span><strong>13:00-16:30 · 20:30-23:30</strong></div>
+        <div><span>Friday and Saturday</span><strong>13:00-17:00 · 20:30-00:00</strong></div>
+        <div><span>Sunday</span><strong>13:00-17:00</strong></div>
+      </div>
+    </article>
+    <article class="panel" id="contacto">
+      <span class="eyebrow">Contact</span>
+      <h2>Bookings and location.</h2>
+      <div class="contact-lines">
+        <p><strong>Address:</strong> Calle Mayr, 18 · 28013 Madrid</p>
+        <p><strong>Phone:</strong> <a href="tel:+34910222418">+34&nbsp;910&nbsp;222&nbsp;418</a></p>
+        <p><strong>Email:</strong> <a href="mailto:reservas@mesonlaencina.es">reservas@mesonlaencina.es</a></p>
+        <p><strong>Bookings:</strong> phone, email or website form.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="reserve">
+  <div class="container reveal">
+    <div>
+      <span class="eyebrow">Easy booking</span>
+      <h2>Eating with us today?</h2>
+      <p>For groups of more than eight people, allergies or fixed menus, write before coming and we will prepare it.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="tel:+34910222418">Call</a>
+      <a class="btn btn-ghost" href="mailto:reservas@mesonlaencina.es?subject=Reserva%20Mes%C3%B3n%20La%20Encina">Send email</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div><strong>Mesón La Encina</strong><p class="footer-note">Example template for a traditional restaurant.</p></div>
+      <div><a href="#carta">Menu</a><a href="#valoraciones">Reviews</a><a href="#horarios">Hours</a></div>
+      <div><a href="tel:+34910222418">+34&nbsp;910&nbsp;222&nbsp;418</a><a href="mailto:reservas@mesonlaencina.es">reservas@mesonlaencina.es</a></div>
+    </div>
+    <div class="bottom">© 2026 Mesón La Encina · Example data for website template.</div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('vis');obs.unobserve(entry.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*.9)el.classList.add('vis');else obs.observe(el)});
+</script>
+</body>
+</html>

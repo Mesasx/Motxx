@@ -137,6 +137,25 @@ button {
   color: var(--accent);
 }
 
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 2px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.language-switch a {
+  color: var(--text-muted);
+}
+
+.language-switch a.active,
+.language-switch a:hover {
+  color: var(--accent);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1473,6 +1492,10 @@ textarea {
 
   .nav-diagnosis {
     margin-top: 10px;
+  }
+
+  .language-switch {
+    padding: 12px 0 2px;
   }
 
   .card-grid,

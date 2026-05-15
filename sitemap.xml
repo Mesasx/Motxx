@@ -3,6 +3,7 @@
   <url><loc>https://aimotex.com/</loc><priority>1.0</priority></url>
   <url><loc>https://aimotex.com/servicios/</loc><priority>0.9</priority></url>
   <url><loc>https://aimotex.com/automatizaciones/</loc><priority>0.9</priority></url>
+  <url><loc>https://aimotex.com/webs/</loc><priority>0.85</priority></url>
   <url><loc>https://aimotex.com/casos/</loc><priority>0.85</priority></url>
   <url><loc>https://aimotex.com/casos/ingenieria-industrial/</loc><priority>0.85</priority></url>
   <url><loc>https://aimotex.com/casos/ingenieria-industrial/plan-de-accion/</loc><priority>0.75</priority></url>
@@ -16,4 +17,21 @@
   <url><loc>https://aimotex.com/aviso-legal/</loc><priority>0.3</priority></url>
   <url><loc>https://aimotex.com/politica-de-privacidad/</loc><priority>0.3</priority></url>
   <url><loc>https://aimotex.com/politica-de-cookies/</loc><priority>0.3</priority></url>
+  <url><loc>https://aimotex.com/en/</loc><priority>1.0</priority></url>
+  <url><loc>https://aimotex.com/en/servicios/</loc><priority>0.9</priority></url>
+  <url><loc>https://aimotex.com/en/automatizaciones/</loc><priority>0.9</priority></url>
+  <url><loc>https://aimotex.com/en/webs/</loc><priority>0.85</priority></url>
+  <url><loc>https://aimotex.com/en/casos/</loc><priority>0.85</priority></url>
+  <url><loc>https://aimotex.com/en/casos/ingenieria-industrial/</loc><priority>0.85</priority></url>
+  <url><loc>https://aimotex.com/en/casos/ingenieria-industrial/plan-de-accion/</loc><priority>0.75</priority></url>
+  <url><loc>https://aimotex.com/en/precios/</loc><priority>0.9</priority></url>
+  <url><loc>https://aimotex.com/en/nosotros/</loc><priority>0.8</priority></url>
+  <url><loc>https://aimotex.com/en/contacto/</loc><priority>0.8</priority></url>
+  <url><loc>https://aimotex.com/en/cursos/</loc><priority>0.65</priority></url>
+  <url><loc>https://aimotex.com/en/cursos/iniciacion/</loc><priority>0.6</priority></url>
+  <url><loc>https://aimotex.com/en/cursos/premium/</loc><priority>0.6</priority></url>
+  <url><loc>https://aimotex.com/en/cursos/empresas/</loc><priority>0.6</priority></url>
+  <url><loc>https://aimotex.com/en/aviso-legal/</loc><priority>0.3</priority></url>
+  <url><loc>https://aimotex.com/en/politica-de-privacidad/</loc><priority>0.3</priority></url>
+  <url><loc>https://aimotex.com/en/politica-de-cookies/</loc><priority>0.3</priority></url>
 </urlset>

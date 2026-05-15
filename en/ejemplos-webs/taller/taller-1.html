@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Auto repair shop Modelo · Modern industrial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#141414;--surface:#1E1E1E;--card:#252525;
+  --text:#F0F0F0;--sub:#A0A0A0;--muted:#666;
+  --accent:#FF5722;--accent2:#2A1A14;--border:#333;
+  --r:4px;--trans:200ms ease-out;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',system-ui,sans-serif;font-size:1rem;line-height:1.6;color:var(--text);background:var(--bg)}
+h1,h2,h3{font-family:'Barlow Condensed',sans-serif;line-height:1.05;text-transform:uppercase;letter-spacing:.02em}
+h1{font-size:clamp(3.5rem,7vw,6rem);font-weight:800}
+h2{font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:800}
+h3{font-size:1.5rem;font-weight:700}
+a{color:inherit;text-decoration:none}
+p{margin-bottom:.9rem}
+.container{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:0;font-size:.875rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border:2px solid transparent;cursor:pointer;transition:background var(--trans),transform var(--trans)}
+.btn:hover{transform:translateY(-2px)}
+.btn-orange{background:var(--accent);color:#fff}
+.btn-orange:hover{background:#E04010}
+.btn-outline{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn-outline:hover{background:var(--accent2)}
+.btn-white{background:#fff;color:var(--bg)}
+.btn-white:hover{background:#E0E0E0}
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(20,20,20,.97);backdrop-filter:blur(14px);border-bottom:2px solid var(--accent)}
+.nav-inner{display:flex;align-items:center;height:70px;gap:28px}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--text)}
+.brand em{color:var(--accent);font-style:normal}
+.nav-links{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav-links a{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--sub)}
+.nav-links a:hover{color:var(--accent)}
+/* HERO */
+.hero{min-height:90vh;display:flex;align-items:flex-end;background:var(--bg);padding:60px 0 clamp(60px,8vw,100px);position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 58px,rgba(255,87,34,.03) 58px,rgba(255,87,34,.03) 59px),repeating-linear-gradient(90deg,transparent,transparent 58px,rgba(255,87,34,.03) 58px,rgba(255,87,34,.03) 59px)}
+.hero-accent-bar{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);display:block;margin-bottom:16px;font-weight:700}
+.hero h1{margin-bottom:24px;color:var(--text)}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero p{font-size:1.08rem;color:var(--sub);max-width:560px;margin-bottom:32px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.hero-certs{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.cert{border:1px solid var(--border);padding:7px 14px;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--sub)}
+/* STATS */
+.stats-strip{background:var(--accent);padding:20px 0}
+.stats-inner{display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap}
+.stat{text-align:center;color:#fff}
+.stat strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:800;line-height:1}
+.stat span{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;opacity:.8;font-weight:700}
+/* SECTIONS */
+section.sec{padding:clamp(60px,8vw,100px) 0}
+.sec-alt{background:var(--surface)}
+.sec-hd{max-width:660px;margin:0 auto 48px;text-align:center}
+.sec-hd p{color:var(--sub);font-size:.95rem;text-transform:none;letter-spacing:0}
+/* SERVICES */
+.services-list{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.sv{background:var(--card);padding:36px 28px;border-left:3px solid transparent;transition:border-color var(--trans),background var(--trans)}
+.sv:hover{border-color:var(--accent);background:#2C2C2C}
+.sv-num{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;color:rgba(255,87,34,.15);line-height:1;margin-bottom:12px;font-weight:800}
+.sv h3{margin-bottom:12px;font-size:1.2rem}
+.sv p{font-size:.875rem;color:var(--sub);margin:0}
+/* ABOUT */
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--surface)}
+.about-left{padding:clamp(40px,5vw,64px);background:var(--accent)}
+.about-left h2{color:#fff;margin-bottom:18px}
+.about-left p{color:rgba(255,255,255,.85)}
+.about-left .feat{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+.feat-row{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.9);font-size:.9rem}
+.feat-row::before{content:'';display:block;width:6px;height:6px;background:#fff;flex-shrink:0}
+.about-right{padding:clamp(40px,5vw,64px);display:flex;flex-direction:column;justify-content:center;gap:20px}
+.ks{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border)}
+.ks:last-child{border-bottom:0}
+.ks-num{font-family:'Barlow Condensed',sans-serif;font-size:2rem;color:var(--accent);font-weight:800;flex-shrink:0;line-height:1;width:40px}
+.ks-body h3{font-size:1rem;margin-bottom:6px;font-family:'Barlow',sans-serif;font-weight:700;text-transform:none;letter-spacing:0}
+.ks-body p{font-size:.875rem;color:var(--sub);margin:0}
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.team-card{background:var(--card);border:1px solid var(--border);padding:28px;transition:border-color var(--trans)}
+.team-card:hover{border-color:var(--accent)}
+.team-initial{width:52px;height:52px;border-radius:0;background:var(--accent);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.team-card h3{font-size:1rem;font-family:'Barlow',sans-serif;font-weight:700;text-transform:none;letter-spacing:0;margin-bottom:4px}
+.team-role{font-size:.82rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.team-card p{font-size:.875rem;color:var(--sub);margin:0}
+/* REVIEWS */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px}
+.stars{color:var(--accent);font-size:1.1rem;margin-bottom:12px}
+.review-card p{font-size:.9rem;color:var(--sub);margin-bottom:14px}
+.review-author{font-size:.8rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+/* APPOINTMENT + HOURS */
+.appt-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bg)}
+.appt-panel{padding:clamp(40px,5vw,64px);border-right:1px solid var(--border)}
+.appt-panel:last-child{border-right:0}
+.appt-panel h2{margin-bottom:20px}
+.appt-panel p{color:var(--sub);margin-bottom:24px}
+.h-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem}
+.h-row:last-child{border-bottom:0}
+.h-row span:first-child{color:var(--sub)}
+.h-row span:last-child{font-weight:700;color:var(--accent)}
+.contact-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.cl{font-size:.9rem;color:var(--sub)}
+.cl a{color:var(--accent)}
+/* CONTACT */
+.contact-hero{background:var(--accent);padding:clamp(40px,6vw,80px) 0;text-align:center}
+.contact-hero h2{color:#fff;margin-bottom:14px}
+.contact-hero p{color:rgba(255,255,255,.85);max-width:540px;margin:0 auto 28px}
+.contact-hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* FOOTER */
+footer{background:#0A0A0A;padding:48px 0 24px;border-top:2px solid var(--accent)}
+.foot-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;margin-bottom:32px}
+.foot-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:800;text-transform:uppercase;color:var(--text);display:block;margin-bottom:12px}
+.foot-logo em{color:var(--accent);font-style:normal}
+.foot-col h4{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+.foot-col a{display:block;color:var(--sub);font-size:.875rem;margin-bottom:7px}
+.foot-col a:hover{color:var(--accent)}
+.foot-bottom{border-top:1px solid var(--border);padding-top:18px;font-size:.8rem;text-align:center;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:980px){.about-split,.appt-wrap,.foot-inner{grid-template-columns:1fr}.about-left{order:2}.services-list,.team-grid,.reviews-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.nav-links{display:none}.services-list,.team-grid,.reviews-grid{grid-template-columns:1fr}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+  <link rel="alternate" hreflang="es" href="https://aimotex.com/ejemplos-webs/taller/taller-1.html" />
+  <link rel="alternate" hreflang="en" href="https://aimotex.com/en/ejemplos-webs/taller/taller-1.html" />
+</head>
+<body>
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="#">Workshop <em>Modelo</em></a>
+    <div class="nav-links">
+      <a href="#servicios">Services</a>
+      <a href="#nosotros">About us</a>
+      <a href="#cita">Book appointment</a>
+      <a href="#contacto">Contact</a>
+      <a class="btn btn-orange" href="tel:+34900444555" style="padding:9px 18px;font-size:.75rem">📞 Call</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-accent-bar" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Madrid · Since 1995 · Mechanics · Bodywork · Pre-ITV</span>
+      <h1>Your car in expert <em>hands.</em></h1>
+      <p>More than 25 years repairing cars in Madrid. General mechanics, bodywork and paint, pre-ITV, tires and servicing. No surprises in the quote.</p>
+      <div class="hero-actions">
+        <a class="btn btn-orange" href="#cita">Book appointment</a>
+        <a class="btn btn-white" href="#servicios">View services</a>
+      </div>
+      <div class="hero-certs">
+        <span class="cert">Authorized workshop</span>
+        <span class="cert">ITV certified</span>
+        <span class="cert">2-year guarantee</span>
+        <span class="cert">Free quote</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat"><strong>25+</strong><span>Years of experience</span></div>
+      <div class="stat"><strong>4.8★</strong><span>Average rating</span></div>
+      <div class="stat"><strong>+8.000</strong><span>Vehicles serviced</span></div>
+      <div class="stat"><strong>24h</strong><span>Quote</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="sec" id="servicios">
+  <div class="container">
+    <div class="sec-hd reveal">
+      <span class="eyebrow" style="color:var(--accent);font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;display:block;margin-bottom:10px;font-weight:700">What we do</span>
+      <h2>Complete services</h2>
+      <p>From oil changes to bodywork repair. Everything in one trusted workshop.</p>
+    </div>
+    <div class="services-list reveal">
+      <div class="sv"><div class="sv-num">01</div><h3>General mechanics</h3><p>Servicing, brakes, clutch, timing belt, engine. Latest-generation electronic diagnosis.</p></div>
+      <div class="sv"><div class="sv-num">02</div><h3>Bodywork and paint</h3><p>Dent, scratch and impact repair. Paint matched exactly to the original color.</p></div>
+      <div class="sv"><div class="sv-num">03</div><h3>Pre-ITV</h3><p>Complete review before the ITV inspection. We detect and fix what would not pass.</p></div>
+      <div class="sv"><div class="sv-num">04</div><h3>Tires</h3><p>Replacement, balancing and alignment. All brands. Seasonal tires and all sizes.</p></div>
+      <div class="sv"><div class="sv-num">05</div><h3>Vehicle electrical systems</h3><p>Electrical faults, battery, alternator, starter and injection and engine management systems.</p></div>
+      <div class="sv"><div class="sv-num">06</div><h3>Air conditioning</h3><p>Gas recharge, circuit repair, part replacement. Guaranteed comfort.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="about-split reveal" id="nosotros">
+  <div class="about-left">
+    <h2>25 years of craft</h2>
+    <p>Workshop Modelo was founded by Jesus Martinez in 1995 with two clear ideas: no-surprise quotes and work done well. Today his five-mechanic team keeps the same philosophy.</p>
+    <div class="feat">
+      <div class="feat-row">Electronic diagnosis with current equipment</div>
+      <div class="feat-row">Quote before starting, always in writing</div>
+      <div class="feat-row">2-year guarantee on parts and labor</div>
+      <div class="feat-row">Replacement vehicle available</div>
+      <div class="feat-row">Pickup and delivery at your home (Madrid area)</div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="ks">
+      <div class="ks-num">01</div>
+      <div class="ks-body"><h3>No-obligation quote</h3><p>We tell you exactly what it will cost before touching a wrench. No surprises.</p></div>
+    </div>
+    <div class="ks">
+      <div class="ks-num">02</div>
+      <div class="ks-body"><h3>Electronic diagnosis</h3><p>We use the latest OBD diagnostic technology to detect any fault.</p></div>
+    </div>
+    <div class="ks">
+      <div class="ks-num">03</div>
+      <div class="ks-body"><h3>2-year guarantee</h3><p>All repairs have a two-year guarantee on parts and labor.</p></div>
+    </div>
+  </div>
+</div>
+
+<section class="sec" id="equipo">
+  <div class="container">
+    <div class="sec-hd reveal">
+      <span class="eyebrow" style="color:var(--accent);font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;display:block;margin-bottom:10px;font-weight:700">The team</span>
+      <h2>Experienced mechanics</h2>
+      <p>Five specialists with more than 80 years of combined experience in mechanics and bodywork.</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card"><div class="team-initial">J</div><h3>Jesús Martínez</h3><div class="team-role">Founder and workshop manager</div><p>25 years of experience. Specialist in diagnostics and engine mechanics.</p></div>
+      <div class="team-card"><div class="team-initial">A</div><h3>Álvaro Pérez</h3><div class="team-role">Mechanic</div><p>15 years of experience. Expert in injection and air conditioning systems.</p></div>
+      <div class="team-card"><div class="team-initial">M</div><h3>María García</h3><div class="team-role">Bodywork and paint</div><p>12 years of experience. Specialist in body repair and perfect paintwork.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="opiniones">
+  <div class="container">
+    <div class="sec-hd reveal">
+      <h2>What customers say</h2>
+      <p>More than 8,000 vehicles serviced. Average rating 4.8 out of 5.</p>
+    </div>
+    <div class="reviews-grid reveal">
+      <div class="review-card"><div class="stars">★★★★★</div><p>"I brought the car in with a strange noise and had it ready within 24 hours. Exact quote, no surprises. I will definitely come back."</p><div class="review-author">— Carlos M.</div></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p>"The best workshop in the area. They did the pre-ITV, fixed only what was needed and I passed first time. Very professional."</p><div class="review-author">— Ana R.</div></div>
+      <div class="review-card"><div class="stars">★★★★☆</div><p>"They have looked after my car for 10 years. They have never overcharged me and always explain what they will do and why."</p><div class="review-author">— David L.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="cita" style="padding-block:0">
+  <div class="appt-wrap reveal">
+    <div class="appt-panel">
+      <h2>Book appointment</h2>
+      <p>Fill out the form and we will confirm availability within 2 hours during opening hours.</p>
+      <form onsubmit="event.preventDefault();alert('Cita solicitada. Te contactamos pronto para confirmar.')">
+        <div style="margin-bottom:14px">
+          <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:6px">Name</label>
+          <input type="text" placeholder="Tu nombre" style="width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:11px 14px;font:inherit;font-size:.9rem" required/>
+        </div>
+        <div style="margin-bottom:14px">
+          <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:6px">Phone</label>
+          <input type="tel" placeholder="+34 600 000 000" style="width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:11px 14px;font:inherit;font-size:.9rem"/>
+        </div>
+        <div style="margin-bottom:14px">
+          <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:6px">Service</label>
+          <select style="width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:11px 14px;font:inherit;font-size:.9rem;cursor:pointer">
+            <option>General mechanics</option>
+            <option>Bodywork and paint</option>
+            <option>Pre-ITV</option>
+            <option>Tires</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom:18px">
+          <label style="display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:6px">Comment</label>
+          <textarea placeholder="Describe brevemente el problema" style="width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:11px 14px;font:inherit;font-size:.9rem;resize:vertical;min-height:90px"></textarea>
+        </div>
+        <button class="btn btn-orange" type="submit" style="width:100%;justify-content:center">Request appointment</button>
+      </form>
+    </div>
+    <div class="appt-panel">
+      <h2>Hours</h2>
+      <div class="h-row"><span>Monday – Friday</span><span>08:00 – 18:00</span></div>
+      <div class="h-row"><span>Saturday</span><span>09:00 – 13:00</span></div>
+      <div class="h-row"><span>Sunday</span><span>Closed</span></div>
+      <div class="h-row"><span>Emergencies</span><span>Call the workshop</span></div>
+      <div class="contact-list">
+        <div class="cl">📍 Calle del Motor, 48 · 28034 Madrid</div>
+        <div class="cl">📞 <a href="tel:+34900444555">900 444 555</a></div>
+        <div class="cl">✉️ <a href="mailto:citas@tallermodelo.es">citas@tallermodelo.es</a></div>
+        <div class="cl">💬 <a href="https://wa.me/34900444555">WhatsApp for emergencies</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-hero" id="contacto">
+  <div class="container">
+    <h2>Breakdown or question?</h2>
+    <p>Call or write to us. We provide a no-obligation quote within 24 hours for any type of repair.</p>
+    <div class="contact-hero-actions">
+      <a class="btn btn-white" href="tel:+34900444555">📞 900 444 555</a>
+      <a class="btn btn-outline" href="https://wa.me/34900444555" style="color:#fff;border-color:rgba(255,255,255,.5)">💬 WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div>
+        <span class="foot-logo">Workshop <em>Modelo</em></span>
+        <p style="font-size:.875rem;color:var(--sub)">Your trusted workshop in Madrid since 1995.</p>
+      </div>
+      <div class="foot-col"><h4>Services</h4><a href="#servicios">Mechanics</a><a href="#servicios">Bodywork</a><a href="#servicios">Pre-ITV</a><a href="#servicios">Tires</a></div>
+      <div class="foot-col"><h4>Workshop</h4><a href="#nosotros">About us</a><a href="#cita">Book appointment</a><a href="#contacto">Contact</a></div>
+    </div>
+    <div class="foot-bottom">© 2026 Auto repair shop Modelo · Calle del Motor, 48 · 28034 Madrid</div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');obs.unobserve(el.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight*.95)el.classList.add('vis');else obs.observe(el)});
+</script>
+</body>
+</html>

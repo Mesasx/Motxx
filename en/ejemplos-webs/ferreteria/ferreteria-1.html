@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Model Hardware Store · Tools and supplies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--surface:#F7F9FC;--text:#0A2540;--sub:#4A5568;--muted:#94A3B8;
+  --accent:#1565C0;--accent2:#E8F1FF;--border:#E2E8F0;
+  --r:8px;--trans:220ms ease-out;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;font-size:1rem;line-height:1.6;color:var(--text);background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{line-height:1.15;font-weight:700}
+h1{font-size:clamp(2.4rem,5vw,3.6rem)}
+h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+h3{font-size:1.2rem}
+p{margin-bottom:1rem}
+.container{width:min(1140px,calc(100% - 48px));margin-inline:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:var(--r);font-size:.9375rem;font-weight:600;border:2px solid transparent;transition:background var(--trans),transform var(--trans),border-color var(--trans);cursor:pointer}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#0D4E9A;border-color:#0D4E9A}
+.btn-outline{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn-outline:hover{background:var(--accent2)}
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;height:70px;gap:24px}
+.brand{font-size:1.3rem;font-weight:800;color:var(--text);letter-spacing:-.02em}
+.brand span{color:var(--accent)}
+.nav-links{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--sub)}
+.nav-links a:hover{color:var(--accent)}
+/* HERO */
+.hero{min-height:86vh;display:flex;align-items:center;background:linear-gradient(135deg,var(--text) 0%,var(--accent) 100%);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-content{position:relative;z-index:1;max-width:680px}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;opacity:.7;display:block;margin-bottom:16px;font-weight:600}
+.hero h1{margin-bottom:20px}
+.hero p{font-size:1.15rem;opacity:.85;max-width:540px;margin-bottom:32px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 14px;font-size:.825rem;color:rgba(255,255,255,.9);margin-bottom:24px}
+/* SECTIONS */
+section{padding:clamp(64px,8vw,110px) 0}
+.section-alt{background:var(--surface)}
+.section-header{text-align:center;max-width:680px;margin:0 auto 52px}
+.section-header .eyebrow{color:var(--accent)}
+.section-header h2{margin-bottom:14px}
+.section-header p{color:var(--sub)}
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+.about-img{border-radius:16px;overflow:hidden;background:linear-gradient(145deg,#C8D8EF,#E8F1FF);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}
+.about-img svg{opacity:.25}
+.about-content .eyebrow{color:var(--accent);margin-bottom:12px}
+.about-stats{display:flex;gap:24px;margin-top:28px}
+.about-stat strong{display:block;font-size:1.75rem;font-weight:800;color:var(--accent)}
+.about-stat span{font-size:.85rem;color:var(--sub)}
+/* CATEGORIES */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.cat-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px 20px;text-align:center;transition:transform var(--trans),border-color var(--trans),box-shadow var(--trans)}
+.cat-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 40px rgba(21,101,192,.1)}
+.cat-icon{width:52px;height:52px;border-radius:12px;background:var(--accent2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.cat-card h3{font-size:1rem;margin-bottom:8px}
+.cat-card p{font-size:.875rem;color:var(--sub);margin:0}
+/* SCHEDULE + MAP */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.hours-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:32px}
+.hours-table{width:100%;border-collapse:collapse;margin-top:14px}
+.hours-table td{padding:10px 0;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--sub)}
+.hours-table td:last-child{text-align:right;font-weight:600;color:var(--text)}
+.hours-table tr:last-child td{border-bottom:0}
+.map-placeholder{border-radius:12px;overflow:hidden;background:linear-gradient(145deg,#EEF2F7,#DCE6F5);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);color:var(--sub);gap:10px}
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start}
+.contact-info h3{margin-bottom:16px}
+.contact-detail{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);font-size:.925rem;color:var(--sub)}
+.contact-detail:last-child{border-bottom:0}
+.contact-detail strong{color:var(--text);margin-right:4px}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--text)}
+.form-group input,.form-group textarea{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;font:inherit;font-size:.9rem;background:var(--bg);color:var(--text);transition:border-color var(--trans)}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:110px}
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.75);padding:48px 0 28px}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;margin-bottom:36px}
+.footer-brand .logo{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:14px;display:block}
+.footer-brand .logo span{color:#93C5FD}
+.footer-col h4{color:#fff;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.footer-col a{display:block;color:rgba(255,255,255,.65);font-size:.875rem;margin-bottom:8px}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:.82rem;text-align:center}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease-out,transform .55s ease-out}
+.reveal.vis{opacity:1;transform:none}
+/* RESPONSIVE */
+@media(max-width:900px){
+  .about-grid,.info-grid,.contact-grid,.footer-inner{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:580px){
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hero-actions .btn{flex:1}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+  <link rel="alternate" hreflang="es" href="https://aimotex.com/ejemplos-webs/ferreteria/ferreteria-1.html" />
+  <link rel="alternate" hreflang="en" href="https://aimotex.com/en/ejemplos-webs/ferreteria/ferreteria-1.html" />
+</head>
+<body>
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="#">Hardware store <span>Modelo</span></a>
+    <div class="nav-links">
+      <a href="#sobre">About us</a>
+      <a href="#categorias">Products</a>
+      <a href="#horarios">Hours</a>
+      <a href="#contacto">Contact</a>
+      <a class="btn btn-primary" href="tel:+34900111222" style="padding:10px 20px">Call</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Open today · Mon-Fri 8:30–19:00
+      </span>
+      <span class="eyebrow">Tools · Plumbing · Electrical · Garden</span>
+      <h1>Everything your project needs.</h1>
+      <p>Supplying tools, materials and advice to local professionals and individuals since 1987.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#categorias">View products</a>
+        <a class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.5)" href="#contacto">Contact</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-img">
+        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <div class="about-content">
+        <span class="eyebrow">About us</span>
+        <h2>More than 35 years serving the community.</h2>
+        <p style="color:var(--sub)">We are a traditional neighborhood hardware store. We started as a small family shop and now carry more than 12,000 references, from professional tools to gardening supplies.</p>
+        <p style="color:var(--sub)">What sets us apart is not just the range, but the service. Here you are helped by people who know the trade.</p>
+        <div class="about-stats">
+          <div class="about-stat"><strong>+35</strong><span>Years of experience</span></div>
+          <div class="about-stat"><strong>12K</strong><span>References</span></div>
+          <div class="about-stat"><strong>4</strong><span>Specialists</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt" id="categorias">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Our products</span>
+      <h2>Four areas, all under one roof.</h2>
+      <p>Permanent stock from the most valued brands. If we do not have it, we order it within 24-48 h.</p>
+    </div>
+    <div class="cat-grid reveal">
+      <div class="cat-card">
+        <div class="cat-icon">🔧</div>
+        <h3>Tools</h3>
+        <p>Manual, electric and pneumatic tools. Bosch, DeWalt, Makita and more.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🚿</div>
+        <h3>Plumbing</h3>
+        <p>Pipes, shut-off valves, taps, heating and sanitary ware.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">💡</div>
+        <h3>Electrical</h3>
+        <p>Cable, sockets, electrical panels, LED lighting and home automation.</p>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🌿</div>
+        <h3>Garden</h3>
+        <p>Hoses, watering cans, pots, seeds, fertilizers and pruning tools.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="horarios">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Visit us</span>
+      <h2>Hours and how to get there.</h2>
+    </div>
+    <div class="info-grid reveal">
+      <div class="hours-card">
+        <h3>Opening hours</h3>
+        <table class="hours-table">
+          <tr><td>Monday – Friday</td><td>08:30 – 14:00 · 16:00 – 19:30</td></tr>
+          <tr><td>Saturday</td><td>09:00 – 14:00</td></tr>
+          <tr><td>Sunday</td><td>Closed</td></tr>
+          <tr><td>Holidays</td><td>Ask us</td></tr>
+        </table>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
+          <div class="contact-detail" style="border:none;padding:0"><strong>📍</strong> Calle de las Herramientas, 14 · 28001 Madrid</div>
+          <div class="contact-detail" style="border:none;padding:0"><strong>📞</strong> <a href="tel:+34900111222" style="color:var(--accent)">900 111 222</a></div>
+          <div class="contact-detail" style="border:none;padding:0"><strong>✉️</strong> <a href="mailto:info@ferreteria-modelo.es" style="color:var(--accent)">info@ferreteria-modelo.es</a></div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <p style="margin:0;font-size:.9rem">Calle de las Herramientas, 14<br>28001 Madrid</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt" id="contacto">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Have a question?</h2>
+      <p>Write to us and we will reply within 24 business hours.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <h3>Other ways to contact us</h3>
+        <div class="contact-detail"><strong>📞</strong><span><a href="tel:+34900111222" style="color:var(--accent)">900 111 222</a> · Mon-Fri de 8:30 a 19:30</span></div>
+        <div class="contact-detail"><strong>✉️</strong><span><a href="mailto:info@ferreteria-modelo.es" style="color:var(--accent)">info@ferreteria-modelo.es</a></span></div>
+        <div class="contact-detail"><strong>💬</strong><span><a href="https://wa.me/34900111222" style="color:var(--accent)">WhatsApp</a> for quick questions</span></div>
+        <div class="contact-detail"><strong>📍</strong><span>Calle de las Herramientas, 14 · 28001 Madrid</span></div>
+      </div>
+      <div class="form-card">
+        <form onsubmit="event.preventDefault();alert('Message enviado. Gracias, te contactaremos pronto.')">
+          <div class="form-group"><label>Name</label><input type="text" placeholder="Tu nombre" required/></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="tu@email.com" required/></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="¿En qué podemos ayudarte?"></textarea></div>
+          <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Hardware store <span>Modelo</span></span>
+        <p style="font-size:.875rem">Your trusted hardware store since 1987. Tools, plumbing, electrical and garden.</p>
+        <p style="font-size:.85rem;margin-top:12px">📞 <a href="tel:+34900111222" style="color:#93C5FD">900 111 222</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="#categorias">Tools</a>
+        <a href="#categorias">Plumbing</a>
+        <a href="#categorias">Electrical</a>
+        <a href="#categorias">Garden</a>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <a href="#sobre">About us</a>
+        <a href="#horarios">Hours</a>
+        <a href="#contacto">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Hardware store Modelo · Calle de las Herramientas, 14 · 28001 Madrid · <a href="mailto:info@ferreteria-modelo.es" style="color:rgba(255,255,255,.5)">info@ferreteria-modelo.es</a></div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');obs.unobserve(el.target)}})},{threshold:.12,rootMargin:'0px 0px -5% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight*.95)el.classList.add('vis');else obs.observe(el)});
+</script>
+</body>
+</html>

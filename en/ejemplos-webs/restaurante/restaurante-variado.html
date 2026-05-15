@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mesa Abierta · Varied restaurant</title>
+<meta name="description" content="Plantilla para restaurante con carta variada: QR, alérgenos, productos, horarios, teléfono, correo, reservas y valoraciones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fbfaf6;--surface:#fff;--ink:#172331;--muted:#667386;--line:#dde3e5;
+  --navy:#17324d;--tomato:#e4563a;--teal:#2f7d71;--yellow:#f0be45;--sky:#e6f2f4;
+  --shadow:0 18px 52px rgba(23,50,77,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-weight:900;line-height:1.08;letter-spacing:0;margin:0 0 .8rem}
+h1{font-size:3.25rem;max-width:800px}
+h2{font-size:2rem}
+h3{font-size:1.04rem}
+p{margin:0 0 1rem}
+.container{width:min(1140px,calc(100% - 40px));margin-inline:auto}
+.notice{background:var(--yellow);color:#261a06;font-size:.9rem;font-weight:800}
+.notice .container{min-height:40px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,250,246,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{height:72px;display:flex;align-items:center;gap:20px}
+.brand{font-size:1.25rem;font-weight:900;color:var(--navy)}
+.brand span{color:var(--tomato)}
+.links{display:flex;gap:18px;align-items:center;margin-left:auto;flex-wrap:wrap}
+.links a{font-size:.9rem;color:var(--muted);font-weight:800}
+.links a:hover{color:var(--tomato)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:999px;padding:12px 18px;font-weight:900;font-size:.9rem;line-height:1.1;transition:transform .18s ease,background .18s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--tomato);color:#fff}
+.btn-primary:hover{background:#c8442e}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-light{background:#fff;color:var(--navy);border-color:var(--line)}
+.hero{min-height:calc(86vh - 112px);display:flex;align-items:end;color:#fff;background:linear-gradient(180deg,rgba(23,50,77,.08),rgba(23,50,77,.86)),url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1800&q=82') center/cover no-repeat}
+.hero-inner{padding:96px 0 52px}
+.eyebrow{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:900;color:var(--yellow);margin-bottom:13px}
+.hero p{font-size:1.12rem;color:rgba(255,255,255,.88);max-width:690px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.summary{background:#fff;box-shadow:var(--shadow)}
+.summary-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line)}
+.summary-item{background:#fff;padding:16px}
+.summary-item strong{display:block;color:var(--navy);font-size:1.2rem;line-height:1}
+.summary-item span{font-size:.82rem;color:var(--muted)}
+section{padding:74px 0}
+.about{display:grid;grid-template-columns:.95fr 1.05fr;gap:42px;align-items:start}
+.about p{color:var(--muted);font-size:1.05rem}
+.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.service{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px}
+.service strong{display:block;color:var(--tomato);margin-bottom:6px}
+.service span{color:var(--muted);font-size:.9rem}
+.menu{background:var(--sky);border-block:1px solid var(--line)}
+.head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.head p{max-width:580px;color:var(--muted)}
+.menu-layout{display:grid;grid-template-columns:1fr 300px;gap:26px;align-items:start}
+.category{margin-bottom:22px}
+.category-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.category-title span{background:var(--tomato);color:#fff;border-radius:999px;padding:4px 9px;font-size:.76rem;font-weight:900}
+.dish-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.dish{background:#fff;border:1px solid var(--line);border-radius:8px;padding:17px}
+.dish-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+.price{font-weight:900;color:var(--tomato);white-space:nowrap}
+.ingredients{font-size:.9rem;color:var(--muted)}
+.allergens{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.allergens span{background:#f7faf9;border:1px solid var(--line);border-radius:999px;padding:4px 8px;font-size:.74rem;font-weight:800;color:var(--teal)}
+.qr{position:sticky;top:96px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:22px;box-shadow:var(--shadow)}
+.qr img{width:166px;height:166px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px;margin:14px 0}
+.qr p{font-size:.9rem;color:var(--muted)}
+.legend{display:grid;gap:7px;margin-top:14px}
+.legend span{font-size:.82rem;color:var(--muted)}
+.reviews{background:var(--navy);color:#fff}
+.reviews .head p{color:rgba(255,255,255,.72)}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.review{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);border-radius:8px;padding:20px}
+.stars{color:var(--yellow);font-weight:900;margin-bottom:8px}
+.review p{color:rgba(255,255,255,.78)}
+.review small{color:#fff;font-weight:900}
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px}
+.hours{display:grid;gap:10px;margin-top:12px}
+.hours div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.contact a{color:var(--tomato);font-weight:900}
+.map{min-height:220px;background:linear-gradient(135deg,var(--sky),#fff);border:1px dashed #b7c4c8;border-radius:8px;display:grid;place-items:center;text-align:center;color:var(--muted);padding:24px}
+.map-wrap{margin-top:24px}
+.cta{background:var(--tomato);color:#fff;padding:56px 0}
+.cta .container{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+.cta p{max-width:680px;color:rgba(255,255,255,.84)}
+footer{background:#101a24;color:rgba(255,255,255,.72);padding:38px 0}
+.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:24px}
+footer a{display:block;color:#f0be45;margin-bottom:6px}
+.footer-note{margin-top:8px}
+.bottom{border-top:1px solid rgba(255,255,255,.14);margin-top:22px;padding-top:18px;font-size:.86rem}
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+.reveal.vis{opacity:1;transform:none}
+@media(max-width:920px){
+  h1{font-size:2.35rem}h2{font-size:1.78rem}.links{display:none}.summary-grid,.about,.service-grid,.menu-layout,.dish-grid,.review-grid,.visit,.footer-grid,.cta .container{grid-template-columns:1fr}.qr{position:static}.head{display:block}.hero{min-height:70vh}
+}
+@media(max-width:560px){.container{width:min(100% - 28px,1140px)}section{padding:56px 0}.hero-inner{padding:78px 0 42px}.summary-item{padding:14px}.hours div{display:block}.notice .container{padding:8px 0}.price{white-space:normal}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Mesa Abierta",
+  "servesCuisine":"Mediterránea, hamburguesas, arroces, desayunos y opciones vegetarianas",
+  "address":"Avenida de la Ciudad, 72, 28030 Madrid",
+  "telephone":"+34 910 730 115",
+  "email":"reservas@mesaabierta.es",
+  "menu":"https://aimotex.com/en/ejemplos-webs/restaurante/restaurante-variado.html#carta",
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.5","reviewCount":"2310"}
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+  <link rel="alternate" hreflang="es" href="https://aimotex.com/ejemplos-webs/restaurante/restaurante-variado.html" />
+  <link rel="alternate" hreflang="en" href="https://aimotex.com/en/ejemplos-webs/restaurante/restaurante-variado.html" />
+</head>
+<body>
+<div class="notice">
+  <div class="container">
+    <span>Weekday lunch menu · EUR 13.90</span>
+    <span><a href="tel:+34910730115">+34&nbsp;910&nbsp;730&nbsp;115</a> · kitchen open until 23:30</span>
+  </div>
+</div>
+<nav class="nav" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a class="brand" href="#">Mesa<span>Abierta</span></a>
+    <div class="links">
+      <a href="#sobre">About us</a>
+      <a href="#carta">Menu</a>
+      <a href="#valoraciones">Reviews</a>
+      <a href="#horarios">Hours</a>
+      <a href="#contacto">Contact</a>
+      <a class="btn btn-primary" href="tel:+34910730115">Call</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-inner reveal">
+    <span class="eyebrow">Varied restaurant · for everyone</span>
+    <h1>Breakfast, weekday menu, tapas, rice dishes and uncomplicated dinners.</h1>
+    <p>A clear template for restaurants with lots of variety: organized categories, menu with ingredients, visible allergens, table QR, wide hours and quick contact.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#carta">View full menu</a>
+      <a class="btn btn-light" href="#valoraciones">Reviews</a>
+      <a class="btn btn-navy" href="mailto:reservas@mesaabierta.es?subject=Reserva%20Mesa%20Abierta">Book</a>
+    </div>
+  </div>
+</header>
+
+<aside class="summary" aria-label="Info rápida">
+  <div class="container summary-grid">
+    <div class="summary-item"><strong>4,5/5</strong><span>Tripadvisor · 2,310 reviews</span></div>
+    <div class="summary-item"><strong>4,6/5</strong><span>Google · 3,804 reviews</span></div>
+    <div class="summary-item"><strong>8:30-23:30</strong><span>wide opening hours</span></div>
+    <div class="summary-item"><strong>QR</strong><span>menu and allergens</span></div>
+    <div class="summary-item"><strong>Take away</strong><span>takeaway orders</span></div>
+  </div>
+</aside>
+
+<main>
+<section id="sobre">
+  <div class="container about reveal">
+    <div>
+      <span class="eyebrow">What we do</span>
+      <h2>A website for when the menu has many options.</h2>
+      <p>Mesa Abierta serves different audiences: breakfast customers, families with children, weekday lunch workers, informal dinners and customers with dietary restrictions.</p>
+      <p>The priority is making everything easy to find: categories, prices, ingredients, allergens, phone, hours and reviews.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service"><strong>Breakfast</strong><span>Toast, coffee, pastries and healthy options.</span></div>
+      <div class="service"><strong>Lunch</strong><span>Weekday menu, rice dishes and Mediterranean plates.</span></div>
+      <div class="service"><strong>Dinner</strong><span>Tapas, burgers, salads and sharing plates.</span></div>
+      <div class="service"><strong>Families</strong><span>Children’s menu, high chairs and non-spicy dishes.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="carta">
+  <div class="container">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Menu QR</span>
+        <h2>Varied menu with ingredients and allergens.</h2>
+      </div>
+      <p>The menu is divided by eating moments so it is easy to maintain and easy to browse on mobile.</p>
+    </div>
+    <div class="menu-layout">
+      <div class="reveal">
+        <div class="category">
+          <div class="category-title"><span>01</span><h3>Breakfast and starters</h3></div>
+          <div class="dish-grid">
+            <article class="dish">
+              <div class="dish-head"><h3>Tostada de aguacate y huevo</h3><span class="price">8,50 €</span></div>
+              <p class="ingredients">Ingredients: sourdough bread, avocado, poached egg, tomato, arugula and seeds.</p>
+              <div class="allergens"><span>Gluten</span><span>Egg</span><span>Sesame</span></div>
+            </article>
+            <article class="dish">
+              <div class="dish-head"><h3>Bravas Mesa Abierta</h3><span class="price">7,90 €</span></div>
+              <p class="ingredients">Ingredients: potato, mild brava sauce, aioli, paprika and parsley.</p>
+              <div class="allergens"><span>Egg</span><span>Sulfites</span></div>
+            </article>
+          </div>
+        </div>
+        <div class="category">
+          <div class="category-title"><span>02</span><h3>Main dishes</h3></div>
+          <div class="dish-grid">
+            <article class="dish">
+              <div class="dish-head"><h3>Arroz meloso de verduras</h3><span class="price">15,50 €</span></div>
+              <p class="ingredients">Ingredients: rice, artichoke, green beans, mushrooms, vegetable stock, saffron and optional aioli.</p>
+              <div class="allergens"><span>Celery</span><span>Optional egg</span></div>
+            </article>
+            <article class="dish">
+              <div class="dish-head"><h3>Burger de ternera</h3><span class="price">14,90 €</span></div>
+              <p class="ingredients">Ingredients: pan brioche, ternera, queso cheddar, tomate, lechuga, cebolla y salsa de la casa.</p>
+              <div class="allergens"><span>Gluten</span><span>Egg</span><span>Dairy</span><span>Mustard</span></div>
+            </article>
+            <article class="dish">
+              <div class="dish-head"><h3>Mediterranean salad</h3><span class="price">12,50 €</span></div>
+              <p class="ingredients">Ingredients: mezcla verde, tomate, pepino, aceituna, queso feta, garbanzo y vinagreta.</p>
+              <div class="allergens"><span>Dairy</span><span>Sulfites</span></div>
+            </article>
+            <article class="dish">
+              <div class="dish-head"><h3>Grilled salmon</h3><span class="price">18,50 €</span></div>
+              <p class="ingredients">Ingredients: salmon, baby potatoes, asparagus, lemon, olive oil and yogurt sauce.</p>
+              <div class="allergens"><span>Fish</span><span>Dairy</span></div>
+            </article>
+          </div>
+        </div>
+        <div class="category">
+          <div class="category-title"><span>03</span><h3>Desserts and drinks</h3></div>
+          <div class="dish-grid">
+            <article class="dish">
+              <div class="dish-head"><h3>Brownie templado</h3><span class="price">6,80 €</span></div>
+              <p class="ingredients">Ingredients: chocolate, nuez, mantequilla, harina, huevo y helado de vainilla.</p>
+              <div class="allergens"><span>Gluten</span><span>Egg</span><span>Dairy</span><span>Tree nuts</span></div>
+            </article>
+            <article class="dish">
+              <div class="dish-head"><h3>Fruta de temporada</h3><span class="price">5,50 €</span></div>
+              <p class="ingredients">Ingredients: fruta fresca cortada al momento, lima y hierbabuena.</p>
+              <div class="allergens"><span>No declared allergens</span></div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <aside class="qr reveal" aria-label="QR code de la carta">
+        <span class="eyebrow">QR code</span>
+        <h3>Menu on mobile</h3>
+        <img alt="QR code para abrir la carta de Mesa Abierta" src="https://api.qrserver.com/v1/create-qr-code/?size=188x188&margin=8&data=https%3A%2F%2Faimotex.com%2Fejemplos-webs%2Frestaurante%2Frestaurante-variado.html%23carta">
+        <p>Scan to view menu, ingredients and allergens. Updateable without changing the printed QR.</p>
+        <a class="btn btn-primary" href="tel:+34910730115">Ask us</a>
+        <div class="legend">
+          <span>Allergens must be checked by the kitchen.</span>
+          <span>Cross-contamination may occur.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="valoraciones">
+  <div class="container">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Reviews</span>
+        <h2>Visible reviews for customers comparing before coming.</h2>
+      </div>
+      <p>In varied restaurants, ratings help show this is a safe option for groups with different tastes.</p>
+    </div>
+    <div class="review-grid reveal">
+      <article class="review"><div class="stars">★★★★★</div><p>"We went with children and grandparents. Everyone found something on the menu and the service was very attentive."</p><small>Laura G. · Tripadvisor</small></article>
+      <article class="review"><div class="stars">★★★★☆</div><p>"Very convenient for weekday lunch. Fast menu, clear dishes and good value for money."</p><small>Mateo R. · Google</small></article>
+      <article class="review"><div class="stars">★★★★★</div><p>"I liked seeing allergens before ordering. The QR works fast and everything is organized."</p><small>Nuria C. · Tripadvisor</small></article>
+    </div>
+  </div>
+</section>
+
+<section id="horarios">
+  <div class="container visit reveal">
+    <article class="panel">
+      <span class="eyebrow">Hours</span>
+      <h2>Open almost all day.</h2>
+      <div class="hours">
+        <div><span>Monday to Thursday</span><strong>08:30-23:30</strong></div>
+        <div><span>Friday</span><strong>08:30-00:30</strong></div>
+        <div><span>Saturday</span><strong>10:00-00:30</strong></div>
+        <div><span>Sunday</span><strong>10:00-18:00</strong></div>
+      </div>
+    </article>
+    <article class="panel contact" id="contacto">
+      <span class="eyebrow">Contact</span>
+      <h2>Restaurant details.</h2>
+      <p><strong>Address:</strong> Avenida de la Ciudad, 72 · 28030 Madrid</p>
+      <p><strong>Phone:</strong> <a href="tel:+34910730115">+34&nbsp;910&nbsp;730&nbsp;115</a></p>
+      <p><strong>Email:</strong> <a href="mailto:reservas@mesaabierta.es">reservas@mesaabierta.es</a></p>
+      <p><strong>Orders:</strong> pickup and group orders.</p>
+    </article>
+  </div>
+  <div class="container map-wrap">
+    <div class="map reveal">Simple location map<br>Avenida de la Ciudad, 72 · 28030 Madrid</div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container reveal">
+    <div>
+      <span class="eyebrow">Bookings and orders</span>
+      <h2>Table, weekday menu or pickup order?</h2>
+      <p>The website concentrates the main actions so any customer quickly reaches the phone, email or menu.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-navy" href="tel:+34910730115">Call</a>
+      <a class="btn btn-light" href="mailto:reservas@mesaabierta.es?subject=Reserva%20Mesa%20Abierta">Send email</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div><strong>Mesa Abierta</strong><p class="footer-note">Example template for a varied-menu restaurant.</p></div>
+      <div><a href="#sobre">About us</a><a href="#carta">Menu</a><a href="#valoraciones">Reviews</a></div>
+      <div><a href="tel:+34910730115">+34&nbsp;910&nbsp;730&nbsp;115</a><a href="mailto:reservas@mesaabierta.es">reservas@mesaabierta.es</a></div>
+    </div>
+    <div class="bottom">© 2026 Mesa Abierta · Example data for website template.</div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('vis');obs.unobserve(entry.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*.9)el.classList.add('vis');else obs.observe(el)});
+</script>
+</body>
+</html>
