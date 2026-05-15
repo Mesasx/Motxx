@@ -120,6 +120,20 @@
     });
   });
 
+  $$('[data-workflow-showcase]').forEach((showcase) => {
+    const tabs = $$('[data-workflow-tab]', showcase);
+    const panels = $$('[data-workflow-panel]', showcase);
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+        panels.forEach((panel) => {
+          panel.hidden = panel.id !== tab.getAttribute('aria-controls');
+        });
+      });
+    });
+  });
+
   const botRoot = $('[data-contact-bot]');
   if (botRoot) {
     const isEnglish = document.documentElement.lang === 'en';
@@ -140,7 +154,7 @@
       heading: 'AUTOMATED MOTEX DIAGNOSIS',
       consent: 'GDPR consent: Yes.',
       origin: 'Source: conversational bot at aimotex.com/en/contacto/',
-      final: 'I have prepared an organized summary so Pedro, Alba and Juan can start with context.',
+      final: 'I have prepared an organized summary so Pedro can start with context.',
       send: 'Send summary to Motex',
       restart: 'Start again',
       intro: 'Let’s start the diagnosis. I will ask a few questions, but the right ones.',
@@ -153,7 +167,7 @@
       heading: 'DIAGNÓSTICO AUTOMATIZADO MOTEX',
       consent: 'Consentimiento RGPD: Sí.',
       origin: 'Origen: bot conversacional de aimotex.com/contacto/',
-      final: 'He preparado un resumen ordenado para que Pedro, Alba y Juan empiecen con contexto.',
+      final: 'He preparado un resumen ordenado para que Pedro empiece con contexto.',
       send: 'Enviar resumen a Motex',
       restart: 'Empezar de nuevo',
       intro: 'Arrancamos diagnóstico. Te haré pocas preguntas, pero bien elegidas.',

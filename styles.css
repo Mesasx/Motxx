@@ -509,6 +509,333 @@ button {
   color: var(--text-secondary);
 }
 
+.automation-hero {
+  background:
+    linear-gradient(120deg, rgba(216, 228, 227, 0.64), transparent 42%),
+    var(--bg-base);
+}
+
+.automation-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.hero-proof span,
+.tag-row span,
+.workflow-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--accent);
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.automation-blueprint {
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px),
+    rgba(255, 255, 255, 0.82);
+  background-size: 34px 34px;
+  box-shadow: 0 24px 70px rgba(15, 82, 87, 0.09);
+  padding: 22px;
+}
+
+.blueprint-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
+  margin-bottom: 20px;
+}
+
+.blueprint-header span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 6px rgba(77, 124, 95, 0.13);
+}
+
+.blueprint-flow,
+.node-flow {
+  display: grid;
+  gap: 12px;
+  position: relative;
+}
+
+.blueprint-flow span,
+.node-flow span {
+  position: relative;
+  display: block;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-card);
+  background: var(--bg-elevated);
+  padding: 12px 14px;
+  color: var(--text-primary);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+.blueprint-flow span::after,
+.node-flow span::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  bottom: -13px;
+  width: 1px;
+  height: 13px;
+  background: var(--border-strong);
+}
+
+.blueprint-flow span:last-child::after,
+.node-flow span:last-child::after {
+  display: none;
+}
+
+.blueprint-panel {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  color: var(--text-secondary);
+}
+
+.blueprint-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.automation-problem-list {
+  display: grid;
+  gap: 14px;
+}
+
+.automation-problem-card {
+  scroll-margin-top: 100px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.automation-problem-card[open] {
+  border-color: var(--border-strong);
+  box-shadow: 0 16px 48px rgba(26, 26, 26, 0.05);
+}
+
+.automation-problem-card summary {
+  cursor: pointer;
+  padding: 26px;
+  list-style: none;
+}
+
+.automation-problem-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.automation-problem-card summary::after {
+  content: "+";
+  float: right;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1;
+  margin-left: 18px;
+}
+
+.automation-problem-card[open] summary::after {
+  content: "-";
+}
+
+.automation-problem-card summary p,
+.automation-detail-grid p,
+.tool-category-grid p,
+.workflow-panel p,
+.control-grid span {
+  color: var(--text-secondary);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.automation-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.automation-detail-grid > div {
+  padding: 24px 26px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.automation-detail-grid > div:nth-child(2n) {
+  border-right: 0;
+}
+
+.automation-detail-grid > div:nth-last-child(-n + 1) {
+  border-bottom: 0;
+}
+
+.automation-detail-grid h4,
+.tool-category-grid h3,
+.control-grid span::before {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 0.84rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.automation-detail-grid ol {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--text-secondary);
+}
+
+.automation-detail-grid li + li {
+  margin-top: 6px;
+}
+
+.workflow-showcase {
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-subtle);
+}
+
+.workflow-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+  overflow-x: auto;
+}
+
+.workflow-tabs button {
+  border: 0;
+  border-right: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 16px 20px;
+  white-space: nowrap;
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+.workflow-tabs button[aria-selected="true"] {
+  background: var(--bg-elevated);
+  color: var(--accent);
+}
+
+.workflow-panel {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr 0.9fr;
+  gap: 28px;
+  padding: 32px;
+  align-items: center;
+}
+
+.workflow-panel[hidden] {
+  display: none;
+}
+
+.node-flow {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px),
+    var(--bg-base);
+  background-size: 30px 30px;
+}
+
+.automation-flow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.automation-flow article {
+  padding: 22px;
+  border-right: 1px solid var(--border);
+  min-height: 230px;
+}
+
+.automation-flow article:last-child {
+  border-right: 0;
+}
+
+.automation-flow span {
+  display: block;
+  color: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.automation-flow p {
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
+}
+
+.tool-category-grid,
+.control-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.tool-category-grid article,
+.control-grid span {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--bg-elevated);
+  padding: 20px;
+}
+
+.control-grid span {
+  display: block;
+}
+
+.control-grid span::before {
+  content: "Control";
+  display: block;
+  margin-bottom: 8px;
+}
+
 .table-wrap {
   overflow: auto;
   border: 1px solid var(--border);
@@ -1508,6 +1835,11 @@ textarea {
   .case-list,
   .contact-bot-layout,
   .case-hero-grid,
+  .automation-hero-grid,
+  .workflow-panel,
+  .automation-flow,
+  .tool-category-grid,
+  .control-grid,
   .diagnostic-grid,
   .future-case-grid,
   .roadmap,
@@ -1528,6 +1860,16 @@ textarea {
   .process-step {
     border-right: 0;
     border-bottom: 1px solid var(--border);
+  }
+
+  .automation-flow article {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .automation-flow article:last-child {
+    border-bottom: 0;
   }
 
   .process-step:last-child {
@@ -1658,8 +2000,41 @@ textarea {
   }
 
   .service-detail dl,
-  .data-list {
+  .data-list,
+  .automation-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .automation-blueprint {
+    display: none;
+  }
+
+  .automation-detail-grid > div {
+    border-right: 0;
+  }
+
+  .automation-detail-grid > div:nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .automation-detail-grid > div:last-child {
+    border-bottom: 0;
+  }
+
+  .workflow-tabs {
+    display: grid;
+  }
+
+  .workflow-tabs button {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .workflow-panel,
+  .automation-problem-card summary,
+  .automation-detail-grid > div {
+    padding: 22px;
   }
 
   .card {
