@@ -340,5 +340,6 @@ footer{background:var(--text);color:rgba(255,255,255,.7);padding:52px 0 28px}
 const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');obs.unobserve(el.target)}})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight*.95)el.classList.add('vis');else obs.observe(el)});
 </script>
+<script src="/analytics.js"></script>
 </body>
 </html>
