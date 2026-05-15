@@ -300,5 +300,6 @@ footer a{display:block;margin-bottom:6px;color:#f0c56c}
 const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('vis');obs.unobserve(entry.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*.9)el.classList.add('vis');else obs.observe(el)});
 </script>
+<script src="/analytics.js"></script>
 </body>
 </html>
