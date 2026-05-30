@@ -2557,3 +2557,128 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 :root {
   --logo-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 18V6l7 8 7-8v12' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 78% no-repeat;
 }
+
+/* ============================================================
+   REDISEÑO 2026 · subpáginas (cascada global)
+   Eleva .page-hero / .section-cta y el ritmo general. El texto
+   permanece oscuro sobre fondo claro: sin problemas de contraste.
+   ============================================================ */
+
+/* Cabeceras de subpágina con malla de gradiente y orbe flotante */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(96px, 12vw, 150px) 0 clamp(56px, 7vw, 88px);
+  background:
+    radial-gradient(46vw 40vw at 88% -20%, rgba(24, 168, 155, 0.12), transparent 60%),
+    radial-gradient(40vw 36vw at -8% 0%, rgba(110, 139, 255, 0.10), transparent 58%),
+    var(--bg-base);
+  border-bottom: 1px solid var(--border);
+}
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(rgba(15, 82, 87, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 82, 87, 0.04) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 0%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(70% 70% at 50% 0%, #000 20%, transparent 100%);
+}
+.page-hero::after {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  top: -150px;
+  right: -80px;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(24, 168, 155, 0.28), transparent 70%);
+  filter: blur(60px);
+  animation: floaty 11s var(--ease) infinite;
+}
+.page-hero > .container { position: relative; z-index: 1; }
+.page-hero h1 { font-size: var(--fs-display); }
+.page-hero h1::after {
+  content: "";
+  display: block;
+  width: 92px;
+  height: 4px;
+  margin-top: 22px;
+  border-radius: 4px;
+  background: var(--grad-vivid);
+}
+.page-hero .hero-actions { margin-top: 30px; }
+
+/* La automation-hero conserva su fondo propio: anulamos los extras */
+.automation-hero { background:
+    linear-gradient(120deg, rgba(216, 228, 227, 0.64), transparent 42%),
+    radial-gradient(46vw 40vw at 92% -20%, rgba(24, 168, 155, 0.12), transparent 60%),
+    var(--bg-base); }
+.automation-hero::after { display: none; }
+.automation-hero h1::after { display: none; }
+
+/* Hero de caso: mismo lenguaje de orbe + grid */
+.case-hero { position: relative; overflow: hidden; }
+.case-hero::after {
+  content: "";
+  position: absolute;
+  width: 340px; height: 340px;
+  top: -150px; right: -70px;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(110, 139, 255, 0.22), transparent 70%);
+  filter: blur(60px);
+  animation: floaty 12s var(--ease) infinite reverse;
+}
+.case-hero > .container { position: relative; z-index: 1; }
+
+/* Realce de tablas (precios, etc.) */
+.table-wrap {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-subtle);
+}
+tbody tr { transition: background var(--transition); }
+tbody tr:hover { background: var(--accent-soft); }
+
+/* FAQ items con más presencia */
+.faq-item summary { transition: color var(--transition); }
+.faq-item summary:hover { color: var(--accent); }
+
+/* CTA clara: hairline de gradiente arriba */
+.section-cta:not(.cta-ink) {
+  position: relative;
+  background:
+    radial-gradient(60vw 30vw at 50% 0%, rgba(24, 168, 155, 0.08), transparent 60%),
+    var(--bg-surface);
+}
+.section-cta:not(.cta-ink)::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, 80%);
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: var(--grad-vivid);
+}
+
+/* Pills de prueba en heroes (hero-proof) con gradiente sutil */
+.hero-proof span {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--border-strong);
+}
+
+/* Realce de la cabecera "trust-block" del RGPD */
+.trust-block { background:
+    linear-gradient(135deg, rgba(220, 234, 231, 0.5), var(--bg-elevated) 60%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero::after,
+  .case-hero::after { animation: none; }
+}

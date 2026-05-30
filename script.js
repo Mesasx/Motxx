@@ -426,10 +426,27 @@
      ============================================================ */
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Header "stuck", barra de progreso de lectura y botón "volver arriba"
+  // Header "stuck", barra de progreso de lectura y botón "volver arriba".
+  // Se crean dinámicamente si la página no los trae, así toda la web
+  // (todas las subpáginas) recibe la misma capa de pulido sin tocar su HTML.
   const header = $('.site-header');
-  const readProgress = $('#readProgress');
-  const toTop = $('#toTop');
+  let readProgress = $('#readProgress');
+  if (header && !readProgress) {
+    readProgress = document.createElement('div');
+    readProgress.id = 'readProgress';
+    readProgress.className = 'read-progress';
+    header.appendChild(readProgress);
+  }
+  let toTop = $('#toTop');
+  if (!toTop) {
+    toTop = document.createElement('button');
+    toTop.id = 'toTop';
+    toTop.type = 'button';
+    toTop.className = 'to-top';
+    toTop.setAttribute('aria-label', currentLang === 'en' ? 'Back to top' : 'Volver arriba');
+    toTop.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    document.body.appendChild(toTop);
+  }
   if (header || toTop) {
     const onScroll = () => {
       const y = window.scrollY || window.pageYOffset;
