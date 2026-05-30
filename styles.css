@@ -2682,3 +2682,245 @@ tbody tr:hover { background: var(--accent-soft); }
   .page-hero::after,
   .case-hero::after { animation: none; }
 }
+
+/* ============================================================
+   REDISEÑO 2026 · TEMA OSCURO DEFINITIVO  (capa final, gana en cascada)
+   Claro sobre oscuro en toda la web. Corrige supuestos del tema claro
+   original (superficies blancas, glass claro, icono del logo) y pule
+   componentes para un acabado más profesional, limpio y atractivo.
+   ============================================================ */
+
+/* ---- Base / selección / scrollbar ---- */
+html { background: var(--bg-base); }
+body {
+  background:
+    radial-gradient(52vw 44vw at 6% -10%, rgba(33, 199, 182, 0.10), transparent 60%),
+    radial-gradient(46vw 40vw at 100% 0%, rgba(124, 151, 255, 0.08), transparent 58%),
+    var(--bg-base);
+  background-attachment: fixed;
+}
+::selection { background: rgba(33, 199, 182, 0.32); color: #fff; }
+* { scrollbar-color: rgba(255,255,255,0.18) transparent; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#139184, #46D7E0); border-radius: 20px; border: 3px solid var(--bg-base); }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+
+/* ---- Header: glass oscuro ---- */
+.site-header {
+  background: rgba(8, 15, 12, 0.66);
+  -webkit-backdrop-filter: saturate(150%) blur(16px);
+  backdrop-filter: saturate(150%) blur(16px);
+  border-bottom: 1px solid transparent;
+}
+.site-header.is-stuck {
+  background: rgba(8, 15, 12, 0.82);
+  border-bottom-color: var(--border);
+  box-shadow: 0 14px 40px -28px rgba(0, 0, 0, 0.9);
+}
+
+/* ---- Logo: SOLO wordmark "motex" (sin icono cuadrado) ---- */
+.brand,
+.footer-logo {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+.brand::before { content: none !important; }   /* elimina el cuadradito */
+.logo-ex {
+  font-style: italic;
+  font-weight: 700;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.read-progress { background: var(--grad-vivid); box-shadow: 0 0 12px rgba(70, 215, 224, 0.7); }
+
+/* ---- Botones ---- */
+.btn-primary { color: #04130F; }                 /* texto oscuro sobre teal vivo */
+.btn-secondary { background: var(--bg-elevated); border-color: var(--border-strong); color: var(--text-primary); }
+.btn-secondary:hover { border-color: var(--accent); }
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+}
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--accent); }
+.web-price-banner .btn-cta-inv { background: #04130F; color: var(--accent-hover); border-color: #04130F; }
+.web-price-banner .btn-cta-inv:hover { background: #02100C; }
+
+/* ---- Eyebrows tipo pill (oscuro) ---- */
+.eyebrow,
+.hero-eyebrow {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border);
+  color: var(--accent-hover);
+}
+
+/* ---- Tarjetas y superficies elevadas ---- */
+.card,
+.diagnostic-card,
+.future-case,
+.web-card,
+.team-row,
+.trust-block,
+.consulting-bot,
+.workflow-showcase,
+.automation-flow,
+.roadmap,
+.case-status-card,
+.case-delivery,
+.tool-grid span,
+.tool-category-grid article,
+.control-grid span,
+.table-wrap,
+.contact-panel-modern,
+.honest-block,
+.plan-preview-card {
+  background: var(--bg-elevated);
+  border-color: var(--border);
+}
+.featured { background: linear-gradient(180deg, rgba(33,199,182,0.12), var(--bg-elevated) 72%); border-color: rgba(33,199,182,0.4); }
+.card:hover { box-shadow: var(--shadow-soft); border-color: var(--border-strong); }
+.icon-badge { background: var(--accent-soft); color: var(--accent-hover); box-shadow: inset 0 0 0 1px rgba(33,199,182,0.18); }
+
+/* ---- Stats genéricos + arreglo "Caso real" (números partidos) ---- */
+.stats-grid { gap: 16px; }
+.stat {
+  border: 1px solid var(--border);
+  border-top: 2px solid transparent;
+  border-image: var(--grad-vivid) 1;
+  border-radius: var(--radius-card);
+  background: var(--bg-elevated);
+  padding: 24px 22px;
+  box-shadow: var(--shadow-subtle);
+}
+.stat strong {
+  white-space: nowrap;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.case-highlight { gap: 52px; align-items: center; }
+.case-highlight .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* ---- Heroes oscuros (todo el sitio ya es oscuro) ---- */
+.page-hero {
+  background:
+    radial-gradient(48vw 42vw at 86% -22%, rgba(33, 199, 182, 0.16), transparent 60%),
+    radial-gradient(42vw 38vw at -10% 0%, rgba(124, 151, 255, 0.12), transparent 58%),
+    var(--bg-base);
+  border-bottom: 1px solid var(--border);
+}
+.page-hero::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+.automation-hero { background:
+    radial-gradient(46vw 40vw at 90% -20%, rgba(33, 199, 182, 0.16), transparent 60%),
+    var(--bg-surface); }
+.case-hero { background:
+    radial-gradient(48vw 42vw at 84% -20%, rgba(124, 151, 255, 0.16), transparent 60%),
+    var(--bg-base); }
+
+/* Home hero: ya inmersivo; reforzamos contraste */
+.home-hero { background: var(--grad-ink); }
+.home-hero .hero-mark { color: var(--text-primary); }
+
+/* ---- Flujo / blueprint: rejilla clara sobre oscuro ---- */
+.automation-blueprint,
+.node-flow {
+  background:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+    var(--bg-elevated);
+  border-color: var(--border-strong);
+}
+.bot-messages {
+  background:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    var(--bg-base);
+  background-blend-mode: normal;
+}
+.bot-bubble { background: var(--bg-elevated); border-color: var(--border); }
+.bot-bubble.user { background: var(--accent); color: #04130F; border-color: var(--accent); }
+.bot-quick button { background: var(--bg-elevated); border-color: var(--border-strong); color: var(--accent-hover); }
+.bot-topbar { background: linear-gradient(90deg, var(--bg-surface), rgba(33,199,182,0.12)); }
+.hero-proof span,
+.tag-row span,
+.workflow-label { background: rgba(255,255,255,0.05); border-color: var(--border-strong); color: var(--accent-hover); }
+.workflow-tabs { background: var(--bg-surface); }
+.workflow-tabs button[aria-selected="true"] { background: var(--bg-elevated); color: var(--accent-hover); }
+
+/* ---- Tablas ---- */
+th { background: var(--bg-surface); color: var(--text-secondary); }
+tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+/* ---- Cinta de integraciones ---- */
+.marquee { background: var(--bg-surface); }
+
+/* ---- Cookie / legal / mock ---- */
+.cookie-banner { background: var(--bg-elevated); border-color: var(--border-strong); }
+.legal-review { background: rgba(224, 162, 74, 0.1); border-color: var(--warning); color: var(--text-primary); }
+.browser-bar { background: #0A130F; border-bottom-color: rgba(255,255,255,0.06); }
+.browser-url { background: #050A08; color: var(--text-muted); border-color: var(--border); }
+
+/* ---- CTA inmersiva clara→oscura ---- */
+.section-cta:not(.cta-ink) {
+  background:
+    radial-gradient(60vw 32vw at 50% 0%, rgba(33, 199, 182, 0.12), transparent 60%),
+    var(--bg-surface);
+}
+
+/* ---- Foco accesible visible sobre oscuro ---- */
+:focus-visible { outline: 2px solid var(--accent-hover); outline-offset: 3px; }
+
+/* ---- Footer ---- */
+.site-footer { background: var(--bg-ink); border-top-color: var(--border); }
+
+@media (max-width: 620px) {
+  .case-highlight .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ============================================================
+   LOGO · wordmark "motex" (como la segunda captura)
+   Minúsculas, peso fuerte, "ex" en cursiva con degradado.
+   Sin icono. Aplica en cabecera, footer y marca grande del hero.
+   ============================================================ */
+.brand,
+.footer-logo {
+  text-transform: lowercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.brand .logo-ex,
+.footer-logo .logo-ex {
+  font-style: italic;
+  letter-spacing: -0.02em;
+  margin-left: 0.01em;
+}
+.footer-logo { font-size: 1.55rem; }
+
+/* Marca grande del hero, también en minúsculas para coherencia */
+.home-hero .hero-mark {
+  text-transform: lowercase;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+.home-hero .hero-mark .logo-ex {
+  font-style: italic;
+  -webkit-text-fill-color: transparent;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
