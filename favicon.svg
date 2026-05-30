@@ -1,6 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ex">
-  <rect width="128" height="128" rx="18" fill="#FAF9F5"/>
-  <rect x="10" y="10" width="108" height="108" rx="10" fill="#F2EFE8" stroke="#C9C0AE"/>
-  <text x="64" y="78" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="46" font-style="italic" font-weight="700" fill="#0F5257">ex</text>
-  <path d="M38 88h52" stroke="#0F5257" stroke-width="3" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Motex">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0F5257"/>
+      <stop offset="0.5" stop-color="#18A89B"/>
+      <stop offset="1" stop-color="#6E8BFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="26" fill="#07140F"/>
+  <rect x="8" y="8" width="112" height="112" rx="20" fill="none" stroke="url(#g)" stroke-width="2" opacity="0.55"/>
+  <!-- M de flujo -->
+  <path d="M28 92 V40 L52 70 L76 40" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="28" cy="40" r="5" fill="#38BDC8"/>
+  <circle cx="76" cy="40" r="5" fill="#6E8BFF"/>
+  <!-- ex en cursiva -->
+  <text x="74" y="94" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-style="italic" font-weight="700" fill="url(#g)">ex</text>
 </svg>
