@@ -418,4 +418,171 @@
       }
     });
   });
+
+  /* ============================================================
+     Rediseño 2026 · interacciones globales + home
+     Todo va protegido: si el elemento no existe, no hace nada,
+     así estas mejoras conviven con el resto de páginas.
+     ============================================================ */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header "stuck", barra de progreso de lectura y botón "volver arriba"
+  const header = $('.site-header');
+  const readProgress = $('#readProgress');
+  const toTop = $('#toTop');
+  if (header || toTop) {
+    const onScroll = () => {
+      const y = window.scrollY || window.pageYOffset;
+      header?.classList.toggle('is-stuck', y > 8);
+      if (readProgress) {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        readProgress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+      }
+      toTop?.classList.toggle('show', y > 680);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  toTop?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  // Cinta de integraciones (se duplica para bucle continuo)
+  const marqueeRow = $('#marqueeRow');
+  if (marqueeRow) {
+    const tools = ['n8n', 'OpenAI', 'Slack', 'HubSpot', 'Notion', 'Gmail', 'Stripe', 'Make', 'Airtable', 'Google Sheets', 'Microsoft 365', 'Telegram', 'WhatsApp', 'Shopify'];
+    const frag = document.createDocumentFragment();
+    tools.concat(tools).forEach((name) => {
+      const span = document.createElement('span');
+      span.innerHTML = '<i></i>' + name;
+      frag.appendChild(span);
+    });
+    marqueeRow.appendChild(frag);
+  }
+
+  // Contadores animados (impacto)
+  const counters = $$('[data-count]');
+  if (counters.length) {
+    const animateCount = (el) => {
+      const target = parseFloat(el.getAttribute('data-count')) || 0;
+      const suffix = el.getAttribute('data-suffix') || '';
+      if (reduceMotion) { el.textContent = target + suffix; return; }
+      const dur = 1400;
+      const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      const cio = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { animateCount(entry.target); cio.unobserve(entry.target); }
+        });
+      }, { threshold: 0.6 });
+      counters.forEach((el) => cio.observe(el));
+    } else {
+      counters.forEach(animateCount);
+    }
+  }
+
+  // Diagrama de flujo automatizado (SVG generado)
+  const flowEdges = $('#flowEdges');
+  const flowNodes = $('#flowNodes');
+  if (flowEdges && flowNodes) {
+    const SVGNS = 'http://www.w3.org/2000/svg';
+    const W = 1000, NW = 188, NH = 74;
+    const nodes = [
+      { id: 'trigger', label: 'Disparador', sub: 'Email · Formulario · API', color: '#38BDC8', x: 8, y: 50 },
+      { id: 'collect', label: 'Recopilar datos', sub: 'CRM · Hojas · Docs', color: '#9DB3AA', x: 31, y: 24 },
+      { id: 'ai', label: 'Procesar con IA', sub: 'Clasifica y decide', color: '#6E8BFF', x: 31, y: 76 },
+      { id: 'logic', label: 'Lógica de negocio', sub: 'Reglas y condiciones', color: '#9DB3AA', x: 56, y: 50 },
+      { id: 'action', label: 'Ejecutar acciones', sub: 'Crear · Enviar · Actualizar', color: '#9DB3AA', x: 80, y: 28 },
+      { id: 'notify', label: 'Notificar equipo', sub: 'Slack · Email · Panel', color: '#0F5257', x: 80, y: 72 },
+    ];
+    const edges = [['trigger', 'collect'], ['trigger', 'ai'], ['collect', 'logic'], ['ai', 'logic'], ['logic', 'action'], ['logic', 'notify']];
+    const byId = {};
+    nodes.forEach((n) => { byId[n.id] = n; });
+    const cx = (n) => (n.x / 100) * W;
+    const cy = (n) => (n.y / 100) * 520;
+    const make = (name, attrs) => {
+      const el = document.createElementNS(SVGNS, name);
+      Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+      return el;
+    };
+    edges.forEach((e, i) => {
+      const a = byId[e[0]], b = byId[e[1]];
+      const sx = cx(a) + NW / 2, ex = cx(b) - NW / 2, mx = (sx + ex) / 2;
+      const d = `M ${sx} ${cy(a)} C ${mx} ${cy(a)}, ${mx} ${cy(b)}, ${ex} ${cy(b)}`;
+      flowEdges.appendChild(make('path', { class: 'flow-edge', d }));
+      flowEdges.appendChild(make('path', { class: 'flow-edge-live', d }));
+      if (!reduceMotion) {
+        const dot = make('circle', { r: '4.5', class: 'flow-dot' });
+        const am = make('animateMotion', { dur: '3.2s', begin: (i * 0.5) + 's', repeatCount: 'indefinite', path: d });
+        dot.appendChild(am);
+        flowEdges.appendChild(dot);
+      }
+    });
+    nodes.forEach((n) => {
+      const g = make('g', { class: 'flow-node', transform: `translate(${cx(n) - NW / 2}, ${cy(n) - NH / 2})` });
+      g.appendChild(make('rect', { width: NW, height: NH, rx: '14', stroke: n.color }));
+      g.appendChild(make('circle', { cx: '22', cy: NH / 2, r: '7', fill: n.color, filter: 'url(#flowSoft)' }));
+      g.appendChild(make('circle', { cx: '22', cy: NH / 2, r: '3', fill: '#fff' }));
+      const t1 = make('text', { class: 'ttl', x: '40', y: NH / 2 - 6 }); t1.textContent = n.label; g.appendChild(t1);
+      const t2 = make('text', { class: 'sub', x: '40', y: NH / 2 + 14 }); t2.textContent = n.sub; g.appendChild(t2);
+      flowNodes.appendChild(g);
+    });
+  }
+
+  // Red de partículas del hero
+  const heroCanvas = $('#heroCanvas');
+  if (heroCanvas && heroCanvas.getContext) {
+    const ctx = heroCanvas.getContext('2d');
+    let w, h, dpr, raf, points = [];
+    const mouse = { x: -9999, y: -9999 };
+    const palette = ['#18A89B', '#38BDC8', '#6E8BFF'];
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = heroCanvas.getBoundingClientRect();
+      w = r.width; h = r.height;
+      heroCanvas.width = w * dpr; heroCanvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(64, Math.floor((w * h) / 17000));
+      points = [];
+      for (let i = 0; i < count; i++) {
+        points.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.32, vy: (Math.random() - 0.5) * 0.32, r: Math.random() * 1.7 + 1, c: palette[(Math.random() * palette.length) | 0] });
+      }
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of points) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        const dx = mouse.x - p.x, dy = mouse.y - p.y, dm = Math.hypot(dx, dy);
+        if (dm < 150) { p.x += dx * 0.0014 * (1 - dm / 150); p.y += dy * 0.0014 * (1 - dm / 150); }
+      }
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const a = points[i], b = points[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < 124) { ctx.globalAlpha = (1 - d / 124) * 0.45; ctx.strokeStyle = a.c; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+        }
+      }
+      ctx.globalAlpha = 1;
+      for (const p of points) { ctx.beginPath(); ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 8; ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); }
+      ctx.shadowBlur = 0;
+      raf = requestAnimationFrame(draw);
+    };
+    resize();
+    draw();
+    if (reduceMotion) cancelAnimationFrame(raf);
+    window.addEventListener('resize', resize);
+    if (!reduceMotion) {
+      window.addEventListener('mousemove', (e) => { const r = heroCanvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+      window.addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
+    }
+  }
 })();
