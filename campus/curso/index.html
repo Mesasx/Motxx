@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Curso | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="canonical" href="https://aimotex.com/campus/curso/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body data-active="campus">
+<header class="site-header">
+  <nav class="site-nav container" id="campusNav" aria-label="Navegación del campus">
+    <a class="brand" href="/campus/" aria-label="Motex Campus inicio">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+    <div class="nav-menu" id="navMenu" style="display:flex">
+      <a href="/campus/">Mi panel</a>
+      <a href="/cursos/">Cursos</a>
+      <a href="#" data-auth="in" data-action="logout" hidden>Cerrar sesión</a>
+    </div>
+  </nav>
+</header>
+<main class="section" style="padding-top:90px">
+  <div class="container">
+    <a href="/campus/" style="color:var(--text-secondary);font-size:var(--fs-small)">← Volver al panel</a>
+    <div id="courseHead" style="margin:14px 0 30px">
+      <p class="eyebrow" id="courseLevel"></p>
+      <h1 id="courseTitle" style="font-size:1.9rem">Cargando…</h1>
+      <p id="courseDesc" style="color:var(--text-secondary)"></p>
+    </div>
+
+    <div class="split-two" style="display:grid;grid-template-columns:1.3fr 0.7fr;gap:30px;align-items:start">
+      <div id="stage"></div>
+      <aside>
+        <h2 style="font-size:1.15rem;margin-bottom:14px">Temario</h2>
+        <ul class="lesson-list" id="lessonList"></ul>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<div class="pay-cta-bar" id="payBar" hidden>
+  <p><strong id="payBarText">Desbloquea el curso completo.</strong></p>
+  <a class="btn btn-primary" id="payBarBtn" href="#">Pagar ahora</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  if (!MC.configured) {
+    document.getElementById("stage").innerHTML = '<div class="locked-panel">' + MC.notConfiguredMessage() + "</div>";
+    return;
+  }
+  var session = await MC.requireAuth();
+  if (!session) return;
+
+  var slug = MC.qs("slug") || "iniciacion";
+
+  var cRes = await MC.client.from("courses").select("*").eq("slug", slug).maybeSingle();
+  var course = cRes.data;
+  if (!course) { document.getElementById("courseTitle").textContent = "Curso no encontrado"; return; }
+
+  document.getElementById("courseLevel").textContent = course.subtitle || course.level || "";
+  document.getElementById("courseTitle").textContent = course.title;
+  document.getElementById("courseDesc").textContent = course.description || "";
+
+  // ¿El alumno tiene acceso al curso completo?
+  var enr = await MC.client.from("enrollments").select("status").eq("course_id", course.id).eq("status", "active").maybeSingle();
+  var staff = await MC.isStaff();
+  var owned = !!enr.data || staff;
+
+  // Temario (metadatos de todas las clases, con candados).
+  var catRes = await MC.client.from("lessons_catalog").select("*").eq("course_id", course.id).order("sort_order");
+  var catalog = catRes.data || [];
+
+  var listEl = document.getElementById("lessonList");
+  var currentId = MC.qs("lesson");
+
+  function lessonAccessible(l) { return owned || l.is_free; }
+
+  // Si no hay clase seleccionada, abrimos la primera accesible.
+  if (!currentId) {
+    var firstOpen = catalog.find(lessonAccessible) || catalog[0];
+    currentId = firstOpen ? firstOpen.id : null;
+  }
+
+  listEl.innerHTML = catalog.map(function (l, i) {
+    var open = lessonAccessible(l);
+    var tag = open
+      ? (l.is_free && !owned ? '<span class="tag free">Gratis</span>' : "")
+      : '<span class="tag locked">🔒</span>';
+    var attrs = open ? ' data-id="' + l.id + '"' : "";
+    return (
+      '<li class="lesson-item' + (open ? "" : " locked") + (l.id === currentId ? " active" : "") + '"' + attrs + ' style="cursor:' + (open ? "pointer" : "default") + '">' +
+        '<span class="idx">' + (i + 1) + "</span>" +
+        '<span class="body"><h3>' + l.title + "</h3><p>" + (l.summary || "") + (l.duration_min ? " · " + l.duration_min + " min" : "") + "</p></span>" +
+        tag +
+      "</li>"
+    );
+  }).join("");
+
+  async function openLesson(id) {
+    var stage = document.getElementById("stage");
+    var meta = catalog.find(function (l) { return l.id === id; });
+    if (!meta) return;
+
+    if (!lessonAccessible(meta)) { renderLocked(); return; }
+
+    // El contenido completo solo llega si RLS lo permite (clase gratis o curso comprado).
+    var lRes = await MC.client.from("lessons").select("*").eq("id", id).maybeSingle();
+    var lesson = lRes.data;
+    if (!lesson) { renderLocked(); return; }
+
+    var player = lesson.video_url
+      ? '<div class="player"><iframe src="' + lesson.video_url + '" allowfullscreen></iframe></div>'
+      : '<div class="player"><div style="display:grid;place-items:center;height:100%;color:var(--text-muted)">Vídeo de la clase (pendiente de subir)</div></div>';
+
+    stage.innerHTML =
+      player +
+      '<h2 style="margin-top:22px">' + lesson.title + "</h2>" +
+      '<p style="color:var(--text-secondary)">' + (lesson.content || lesson.summary || "") + "</p>";
+
+    listEl.querySelectorAll(".lesson-item").forEach(function (el) {
+      el.classList.toggle("active", el.getAttribute("data-id") === id);
+    });
+  }
+
+  function renderLocked() {
+    document.getElementById("stage").innerHTML =
+      '<div class="locked-panel">' +
+        '<p class="campus-badge">Contenido bloqueado</p>' +
+        '<h2 style="margin:14px 0 8px">Compra el curso para ver esta clase</h2>' +
+        '<p style="color:var(--text-secondary);max-width:480px;margin:0 auto 22px">Tienes acceso gratuito a la primera clase. Desbloquea el resto del temario con un único pago.</p>' +
+        '<a class="btn btn-primary" href="/campus/pago/?slug=' + slug + '">Pagar ' + MC.formatPrice(course.price_cents, course.currency) + "</a>" +
+      "</div>";
+  }
+
+  listEl.addEventListener("click", function (e) {
+    var li = e.target.closest(".lesson-item[data-id]");
+    if (li) openLesson(li.getAttribute("data-id"));
+  });
+
+  if (currentId) openLesson(currentId); else renderLocked();
+
+  // Barra de pago persistente mientras no haya comprado el curso.
+  if (!owned) {
+    var bar = document.getElementById("payBar");
+    document.getElementById("payBarText").textContent =
+      "Desbloquea «" + course.title + "» — " + MC.formatPrice(course.price_cents, course.currency);
+    document.getElementById("payBarBtn").href = "/campus/pago/?slug=" + slug;
+    bar.hidden = false;
+  }
+})();
+</script>
+</body>
+</html>

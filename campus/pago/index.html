@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pago | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="canonical" href="https://aimotex.com/campus/pago/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body data-active="campus">
+<header class="site-header">
+  <nav class="site-nav container" id="campusNav" aria-label="Navegación del campus">
+    <a class="brand" href="/campus/" aria-label="Motex Campus inicio">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+    <div class="nav-menu" id="navMenu" style="display:flex">
+      <a href="/campus/">Mi panel</a>
+      <a href="#" data-auth="in" data-action="logout" hidden>Cerrar sesión</a>
+    </div>
+  </nav>
+</header>
+<main class="section" style="padding-top:90px">
+  <div class="container">
+    <a href="/campus/" style="color:var(--text-secondary);font-size:var(--fs-small)">← Volver al panel</a>
+    <div style="margin:14px 0 26px">
+      <p class="eyebrow">Pago seguro</p>
+      <h1 id="payTitle" style="font-size:1.8rem">Finaliza tu compra</h1>
+    </div>
+
+    <div class="form-msg ok" id="successMsg" hidden>
+      ¡Pago recibido! Estamos activando tu acceso. <a href="#" id="goCourse">Ir al curso</a>.
+    </div>
+    <div class="form-msg error" id="errMsg" hidden></div>
+
+    <div class="pay-grid" id="payGrid">
+      <div>
+        <h2 style="font-size:1.2rem;margin-bottom:6px">Método de pago</h2>
+        <p style="color:var(--text-secondary);font-size:var(--fs-small);margin-bottom:6px">Elige cómo quieres pagar. El cobro se procesa de forma segura por nuestro proveedor de pagos.</p>
+        <div class="pay-methods" id="methods">
+          <label class="pay-method selected">
+            <input type="radio" name="method" value="card" checked/>
+            <span><span class="label">Tarjeta de crédito o débito</span><br><span class="desc">Visa, Mastercard, American Express</span></span>
+          </label>
+          <label class="pay-method">
+            <input type="radio" name="method" value="apple_pay"/>
+            <span><span class="label">Apple Pay</span><br><span class="desc">Paga con Touch ID o Face ID</span></span>
+          </label>
+          <label class="pay-method">
+            <input type="radio" name="method" value="paypal"/>
+            <span><span class="label">PayPal</span><br><span class="desc">Paga con tu cuenta de PayPal</span></span>
+          </label>
+        </div>
+        <button class="btn btn-primary full" id="payBtn">Pagar <span id="payAmount"></span></button>
+        <p class="secure-note">🔒 Conexión cifrada. Motex no almacena los datos de tu tarjeta; los gestiona el proveedor de pagos (Stripe).</p>
+      </div>
+
+      <div class="summary-card">
+        <h2 style="font-size:1.1rem;margin-bottom:10px">Resumen</h2>
+        <div class="line"><span id="sumTitle">Curso</span><span id="sumLevel" style="color:var(--text-muted)"></span></div>
+        <div class="line"><span>Subtotal</span><span id="sumSubtotal"></span></div>
+        <div class="line total"><span>Total</span><span id="sumTotal"></span></div>
+        <p style="color:var(--text-muted);font-size:0.8rem;margin-top:14px">Pago único. Acceso inmediato y de por vida al curso tras la confirmación.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  var errMsg = document.getElementById("errMsg");
+  function showError(t) { errMsg.textContent = t; errMsg.hidden = false; }
+
+  if (!MC.configured) { showError(MC.notConfiguredMessage()); document.getElementById("payGrid").style.display = "none"; return; }
+
+  var session = await MC.requireAuth();
+  if (!session) return;
+
+  var slug = MC.qs("slug") || "iniciacion";
+  var cRes = await MC.client.from("courses").select("*").eq("slug", slug).maybeSingle();
+  var course = cRes.data;
+  if (!course) { showError("Curso no encontrado."); return; }
+
+  var price = MC.formatPrice(course.price_cents, course.currency);
+  document.getElementById("payTitle").textContent = "Comprar: " + course.title;
+  document.getElementById("sumTitle").textContent = course.title;
+  document.getElementById("sumLevel").textContent = course.level || "";
+  document.getElementById("sumSubtotal").textContent = price;
+  document.getElementById("sumTotal").textContent = price;
+  document.getElementById("payAmount").textContent = price;
+  document.getElementById("goCourse").href = "/campus/curso/?slug=" + slug;
+
+  // Si ya tiene acceso, no tiene sentido pagar otra vez.
+  var enr = await MC.client.from("enrollments").select("status").eq("course_id", course.id).eq("status", "active").maybeSingle();
+  if (enr.data) {
+    document.getElementById("payGrid").style.display = "none";
+    document.getElementById("successMsg").innerHTML = "Ya tienes acceso a este curso. <a href='/campus/curso/?slug=" + slug + "'>Ir al curso</a>.";
+    document.getElementById("successMsg").hidden = false;
+    return;
+  }
+
+  // Vuelta desde el proveedor de pago.
+  if (MC.qs("success")) {
+    document.getElementById("payGrid").style.display = "none";
+    document.getElementById("successMsg").hidden = false;
+    return;
+  }
+  if (MC.qs("canceled")) showError("El pago se canceló. Puedes intentarlo de nuevo cuando quieras.");
+
+  // Selección visual del método.
+  var methods = document.getElementById("methods");
+  methods.addEventListener("change", function () {
+    methods.querySelectorAll(".pay-method").forEach(function (m) {
+      m.classList.toggle("selected", m.querySelector("input").checked);
+    });
+  });
+
+  document.getElementById("payBtn").addEventListener("click", async function () {
+    errMsg.hidden = true;
+    var method = methods.querySelector('input[name="method"]:checked').value;
+    var btn = this;
+    btn.disabled = true; btn.textContent = "Redirigiendo al pago…";
+
+    try {
+      // Funcion de servidor (Supabase Edge Function) que crea la sesion de
+      // pago en Stripe y devuelve la URL de checkout.
+      var r = await MC.client.functions.invoke("create-checkout", {
+        body: {
+          course_id: course.id,
+          slug: slug,
+          method: method,
+          success_url: (MC.config.SITE_URL || location.origin) + "/campus/pago/?slug=" + slug + "&success=1",
+          cancel_url: (MC.config.SITE_URL || location.origin) + "/campus/pago/?slug=" + slug + "&canceled=1"
+        }
+      });
+      if (r.error) throw new Error(r.error.message || "No se pudo iniciar el pago.");
+      if (r.data && r.data.url) { location.href = r.data.url; return; }
+      throw new Error("El proveedor de pago no devolvió una URL válida.");
+    } catch (err) {
+      showError(
+        (err.message || "No se pudo iniciar el pago.") +
+        " Si el problema persiste, asegúrate de haber desplegado la función de pago (ver /campus/README.md)."
+      );
+      btn.disabled = false; btn.innerHTML = "Pagar <span>" + price + "</span>";
+    }
+  });
+})();
+</script>
+</body>
+</html>

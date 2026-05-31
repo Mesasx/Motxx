@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motex Campus | Formación en IA</title>
+  <meta name="description" content="Motex Campus: la plataforma de formación en IA y automatización de Motex. Regístrate, accede a tu primera clase gratis y compra los cursos que quieras."/>
+  <meta name="robots" content="noindex, follow"/>
+  <link rel="canonical" href="https://aimotex.com/campus/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body data-active="campus">
+<header class="site-header">
+  <nav class="site-nav container" id="campusNav" aria-label="Navegación del campus">
+    <a class="brand" href="/campus/" aria-label="Motex Campus inicio">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <div class="nav-menu" id="navMenu">
+      <a href="/cursos/">Cursos</a>
+      <a href="/" >Web Motex</a>
+      <a href="/campus/curso/?slug=iniciacion" data-auth="in" hidden>Mis clases</a>
+      <a href="/campus/acceder/" data-auth="out" hidden>Acceder</a>
+      <a class="btn btn-primary" href="/campus/registro/" data-auth="out" hidden>Crear cuenta</a>
+      <a href="#" data-auth="in" data-action="logout" hidden>Cerrar sesión</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <section class="campus-hero">
+    <div class="container">
+      <div class="greeting-row reveal">
+        <div>
+          <p class="eyebrow">Motex Campus</p>
+          <h1 id="heroTitle">Tu espacio de formación en IA.</h1>
+          <p class="sub" id="heroSub" style="color:var(--text-secondary);max-width:640px">Regístrate gratis, empieza por la primera clase del curso de iniciación y desbloquea el resto cuando quieras.</p>
+        </div>
+      </div>
+      <div id="guestCta" class="actions reveal" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px" hidden>
+        <a class="btn btn-primary" href="/campus/registro/">Crear cuenta</a>
+        <a class="btn btn-secondary" href="/campus/acceder/">Iniciar sesión</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:24px">
+    <div class="container">
+      <div class="section-heading reveal" style="text-align:left;margin-bottom:24px">
+        <h2>Cursos disponibles</h2>
+        <p style="color:var(--text-secondary)">Tres programas. Paga solo los que quieras; el acceso es inmediato tras el pago.</p>
+      </div>
+      <div class="card-grid three" id="coursesGrid">
+        <p style="color:var(--text-muted)">Cargando cursos…</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="pay-cta-bar" id="payBar" hidden>
+  <p><strong>Desbloquea todos los cursos.</strong> Has probado la primera clase gratis: paga para acceder al contenido completo.</p>
+  <a class="btn btn-primary" id="payBarBtn" href="/campus/pago/?slug=iniciacion">Pagar ahora</a>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-bottom">© 2026 Motex Campus · Hecho en España · Datos alojados en Europa (RGPD)</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  var grid = document.getElementById("coursesGrid");
+
+  if (!MC.configured) {
+    grid.innerHTML = '<p style="color:var(--warning)">' + MC.notConfiguredMessage() + "</p>";
+    return;
+  }
+
+  var session = await MC.getSession();
+  var profile = session ? await MC.getProfile() : null;
+  var owned = {};
+  if (session) (await MC.getEnrollments()).forEach(function (e) { owned[e.course_id] = true; });
+
+  // Saludo y CTA de invitado
+  if (profile) {
+    document.getElementById("heroTitle").textContent = "Hola, " + (profile.first_name || profile.username) + ".";
+    document.getElementById("heroSub").textContent = "Continúa donde lo dejaste o desbloquea un nuevo curso.";
+  } else {
+    document.getElementById("guestCta").hidden = false;
+  }
+
+  // Cursos
+  var res = await MC.client.from("courses").select("*").eq("active", true).order("sort_order");
+  var courses = res.data || [];
+  var anyOwned = false;
+
+  grid.innerHTML = courses.map(function (c) {
+    var isOwned = !!owned[c.id];
+    if (isOwned) anyOwned = true;
+    var featured = c.slug === "premium" ? " featured" : "";
+    var cta = isOwned
+      ? '<a class="btn btn-primary full" href="/campus/curso/?slug=' + c.slug + '">Ir al curso</a>'
+      : '<a class="btn btn-secondary full" href="/campus/curso/?slug=' + c.slug + '">Ver temario</a>' +
+        '<a class="btn btn-primary full" href="' + (session ? "/campus/pago/?slug=" + c.slug : "/campus/registro/") + '">Pagar ' + MC.formatPrice(c.price_cents, c.currency) + '</a>';
+    var status = isOwned ? '<span class="owned">✓ Comprado</span>' : '<span class="price-tag">' + MC.formatPrice(c.price_cents, c.currency) + "</span>";
+    return (
+      '<article class="card course-card reveal' + featured + '">' +
+        '<p class="eyebrow">' + (c.subtitle || c.level || "") + "</p>" +
+        "<h2 style=\"font-size:1.3rem\">" + c.title + "</h2>" +
+        "<p style=\"color:var(--text-secondary)\">" + (c.description || "") + "</p>" +
+        '<div class="meta">' + status + "</div>" +
+        '<div class="actions">' + cta + "</div>" +
+      "</article>"
+    );
+  }).join("");
+
+  // Barra de pago persistente: visible para usuarios registrados que aun
+  // no han comprado ningun curso.
+  if (session && !anyOwned) document.getElementById("payBar").hidden = false;
+})();
+</script>
+</body>
+</html>

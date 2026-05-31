@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verifica tu cuenta | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="canonical" href="https://aimotex.com/campus/verificar/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body data-active="campus">
+<header class="site-header">
+  <nav class="site-nav container" id="campusNav" aria-label="Navegación del campus">
+    <a class="brand" href="/campus/" aria-label="Motex Campus inicio">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+    <div class="nav-menu" id="navMenu" style="display:flex">
+      <a href="/cursos/">Cursos</a>
+      <a href="/">Web Motex</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="auth-wrap">
+    <div class="auth-card reveal" style="text-align:center">
+      <div id="pendingView">
+        <p class="eyebrow">Casi listo</p>
+        <h1>Verifica tu correo</h1>
+        <p class="sub" id="pendingText">Te hemos enviado un correo con un enlace de verificación. Ábrelo para activar tu cuenta y acceder al campus.</p>
+        <div class="form-msg ok" id="resendOk" hidden>Correo reenviado. Revisa tu bandeja de entrada y la carpeta de spam.</div>
+        <div class="form-msg error" id="resendErr" hidden></div>
+        <button class="btn btn-secondary full" id="resendBtn" type="button" hidden>Reenviar correo de verificación</button>
+        <p class="auth-alt">¿Ya lo has verificado? <a href="/campus/acceder/">Iniciar sesión</a></p>
+      </div>
+      <div id="confirmedView" hidden>
+        <p class="eyebrow">Cuenta verificada</p>
+        <h1>¡Bienvenido al campus!</h1>
+        <p class="sub">Tu cuenta está activa. Ya puedes acceder a tu primera clase gratuita y a todos los cursos.</p>
+        <a class="btn btn-primary full" href="/campus/">Entrar al campus</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  var email = MC.qs("email");
+  if (email) document.getElementById("pendingText").textContent =
+    "Te hemos enviado un correo a " + email + " con un enlace de verificación. Ábrelo para activar tu cuenta.";
+
+  // Si Supabase ya ha establecido sesión (enlace abierto), el correo está
+  // confirmado: mostramos la pantalla de bienvenida.
+  if (MC.configured) {
+    var session = await MC.getSession();
+    if (session && (session.user.email_confirmed_at || session.user.confirmed_at)) {
+      document.getElementById("pendingView").hidden = true;
+      document.getElementById("confirmedView").hidden = false;
+      return;
+    }
+  }
+  if (MC.qs("confirmed")) {
+    document.getElementById("pendingView").hidden = true;
+    document.getElementById("confirmedView").hidden = false;
+    return;
+  }
+
+  // Reenvío del correo de verificación.
+  var resendBtn = document.getElementById("resendBtn");
+  if (email && MC.configured) {
+    resendBtn.hidden = false;
+    resendBtn.addEventListener("click", async function () {
+      resendBtn.disabled = true; resendBtn.textContent = "Enviando…";
+      var r = await MC.client.auth.resend({ type: "signup", email: email,
+        options: { emailRedirectTo: (MC.config.SITE_URL || location.origin) + "/campus/verificar/?confirmed=1" } });
+      if (r.error) {
+        document.getElementById("resendErr").textContent = r.error.message;
+        document.getElementById("resendErr").hidden = false;
+      } else {
+        document.getElementById("resendOk").hidden = false;
+      }
+      resendBtn.disabled = false; resendBtn.textContent = "Reenviar correo de verificación";
+    });
+  }
+})();
+</script>
+</body>
+</html>
