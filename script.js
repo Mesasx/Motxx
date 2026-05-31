@@ -680,4 +680,176 @@
       window.addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
     }
   }
+
+  /* ============================================================
+     Diagramas navegables (flowboard): construye el SVG desde datos
+     y permite arrastrar (pan) y hacer zoom (rueda / pellizco / botones).
+     Cada [data-flowboard] declara su diagrama en un <script type="application/json">.
+     ============================================================ */
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const svgEl = (name, attrs) => {
+    const el = document.createElementNS(SVGNS, name);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  };
+
+  const buildFlowboard = (board) => {
+    const dataTag = board.querySelector('script[type="application/json"]');
+    if (!dataTag) return;
+    let data;
+    try { data = JSON.parse(dataTag.textContent); } catch (e) { return; }
+
+    const W = data.width || 2200;
+    const H = data.height || 1200;
+    const grid = document.createElement('div');
+    grid.className = 'flowboard-grid';
+    const viewport = document.createElement('div');
+    viewport.className = 'flowboard-viewport';
+
+    const svg = svgEl('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}` });
+    const defs = svgEl('defs', {});
+    const grad = svgEl('linearGradient', { id: 'fbGrad', x1: '0', y1: '0', x2: '1', y2: '0' });
+    grad.appendChild(svgEl('stop', { offset: '0', 'stop-color': '#18A89B' }));
+    grad.appendChild(svgEl('stop', { offset: '0.5', 'stop-color': '#46D7E0' }));
+    grad.appendChild(svgEl('stop', { offset: '1', 'stop-color': '#7C97FF' }));
+    defs.appendChild(grad);
+    const soft = svgEl('filter', { id: 'fbSoft', x: '-40%', y: '-40%', width: '180%', height: '180%' });
+    soft.appendChild(svgEl('feGaussianBlur', { stdDeviation: '4', result: 'b' }));
+    const merge = svgEl('feMerge', {});
+    merge.appendChild(svgEl('feMergeNode', { in: 'b' }));
+    merge.appendChild(svgEl('feMergeNode', { in: 'SourceGraphic' }));
+    soft.appendChild(merge);
+    defs.appendChild(soft);
+    svg.appendChild(defs);
+
+    const NW = 188, NH = 70;
+    const byId = {};
+    (data.nodes || []).forEach((n) => { byId[n.id] = n; });
+    const cx = (n) => n.x + NW / 2;
+    const cy = (n) => n.y + NH / 2;
+
+    // Lanes (grupos)
+    (data.lanes || []).forEach((l) => {
+      const g = svgEl('g', { class: 'fb-lane' });
+      g.appendChild(svgEl('rect', { x: l.x, y: l.y, width: l.w, height: l.h, rx: '16' }));
+      const t = svgEl('text', { class: 'lane-t', x: l.x + 18, y: l.y + 28 }); t.textContent = l.title; g.appendChild(t);
+      if (l.desc) { const d = svgEl('text', { class: 'lane-d', x: l.x + 18, y: l.y + 46 }); d.textContent = l.desc; g.appendChild(d); }
+      svg.appendChild(g);
+    });
+
+    // Nota (caja de "cómo funciona")
+    if (data.note) {
+      const nb = data.note;
+      const g = svgEl('g', { class: 'fb-note' });
+      g.appendChild(svgEl('rect', { x: nb.x, y: nb.y, width: nb.w, height: nb.h, rx: '14' }));
+      const t = svgEl('text', { class: 't', x: nb.x + 22, y: nb.y + 34 }); t.setAttribute('font-size', '18'); t.textContent = nb.title; g.appendChild(t);
+      (nb.lines || []).forEach((ln, i) => {
+        const p = svgEl('text', { class: 'p', x: nb.x + 22, y: nb.y + 62 + i * 22 }); p.setAttribute('font-size', '13'); p.textContent = ln; g.appendChild(p);
+      });
+      svg.appendChild(g);
+    }
+
+    // Edges + dots
+    (data.edges || []).forEach((e, i) => {
+      const a = byId[e[0]], b = byId[e[1]];
+      if (!a || !b) return;
+      const sx = a.x + NW, sy = cy(a), ex = b.x, ey = cy(b);
+      const mx = (sx + ex) / 2;
+      const d = `M ${sx} ${sy} C ${mx} ${sy}, ${mx} ${ey}, ${ex} ${ey}`;
+      svg.appendChild(svgEl('path', { class: 'fb-edge', d }));
+      svg.appendChild(svgEl('path', { class: 'fb-edge-live', d }));
+      if (!reduceMotion) {
+        const dot = svgEl('circle', { r: '4.5', class: 'fb-dot' });
+        dot.appendChild(svgEl('animateMotion', { dur: '3.4s', begin: (i * 0.3) + 's', repeatCount: 'indefinite', path: d }));
+        svg.appendChild(dot);
+      }
+    });
+
+    // Nodes
+    (data.nodes || []).forEach((n) => {
+      const g = svgEl('g', { class: 'fb-node', transform: `translate(${n.x}, ${n.y})` });
+      g.appendChild(svgEl('rect', { width: NW, height: NH, rx: '14', stroke: n.color || '#46D7E0' }));
+      g.appendChild(svgEl('circle', { cx: '24', cy: NH / 2, r: '7', fill: n.color || '#46D7E0', filter: 'url(#fbSoft)' }));
+      g.appendChild(svgEl('circle', { cx: '24', cy: NH / 2, r: '3', fill: '#0E1B15' }));
+      const t = svgEl('text', { class: 'nt', x: '44', y: NH / 2 - 4 }); t.textContent = n.label; g.appendChild(t);
+      if (n.sub) { const s = svgEl('text', { class: 'ns', x: '44', y: NH / 2 + 14 }); s.textContent = n.sub; g.appendChild(s); }
+      svg.appendChild(g);
+    });
+
+    viewport.appendChild(svg);
+    board.appendChild(grid);
+    board.appendChild(viewport);
+
+    // --- Pan & zoom ---
+    let scale = 1, tx = 0, ty = 0, minS = 0.3, maxS = 2.2;
+    const apply = () => { viewport.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; };
+    const fit = () => {
+      const r = board.getBoundingClientRect();
+      scale = Math.min(r.width / W, r.height / H) * 0.96;
+      scale = Math.max(minS, Math.min(maxS, scale));
+      tx = (r.width - W * scale) / 2;
+      ty = (r.height - H * scale) / 2;
+      apply();
+    };
+
+    const zoomAt = (factor, px, py) => {
+      const r = board.getBoundingClientRect();
+      const cxp = (px ?? r.width / 2);
+      const cyp = (py ?? r.height / 2);
+      const ns = Math.max(minS, Math.min(maxS, scale * factor));
+      // mantener el punto bajo el cursor
+      tx = cxp - (cxp - tx) * (ns / scale);
+      ty = cyp - (cyp - ty) * (ns / scale);
+      scale = ns;
+      apply();
+    };
+
+    board.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const r = board.getBoundingClientRect();
+      zoomAt(e.deltaY < 0 ? 1.12 : 0.89, e.clientX - r.left, e.clientY - r.top);
+    }, { passive: false });
+
+    // arrastre (ratón y táctil) con Pointer Events
+    let dragging = false, lastX = 0, lastY = 0, pointers = new Map(), pinchDist = 0;
+    board.addEventListener('pointerdown', (e) => {
+      board.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) { dragging = true; lastX = e.clientX; lastY = e.clientY; board.classList.add('dragging'); }
+      else if (pointers.size === 2) { const p = [...pointers.values()]; pinchDist = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y); }
+    });
+    board.addEventListener('pointermove', (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 2) {
+        const p = [...pointers.values()];
+        const dist = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
+        if (pinchDist) {
+          const r = board.getBoundingClientRect();
+          zoomAt(dist / pinchDist, (p[0].x + p[1].x) / 2 - r.left, (p[0].y + p[1].y) / 2 - r.top);
+        }
+        pinchDist = dist;
+      } else if (dragging) {
+        tx += e.clientX - lastX; ty += e.clientY - lastY;
+        lastX = e.clientX; lastY = e.clientY; apply();
+      }
+    });
+    const endPointer = (e) => {
+      pointers.delete(e.pointerId);
+      if (pointers.size < 2) pinchDist = 0;
+      if (pointers.size === 0) { dragging = false; board.classList.remove('dragging'); }
+    };
+    board.addEventListener('pointerup', endPointer);
+    board.addEventListener('pointercancel', endPointer);
+
+    // controles
+    board.querySelector('[data-fb="in"]')?.addEventListener('click', () => zoomAt(1.25));
+    board.querySelector('[data-fb="out"]')?.addEventListener('click', () => zoomAt(0.8));
+    board.querySelector('[data-fb="fit"]')?.addEventListener('click', fit);
+
+    fit();
+    window.addEventListener('resize', fit);
+  };
+
+  $$('[data-flowboard]').forEach(buildFlowboard);
 })();
