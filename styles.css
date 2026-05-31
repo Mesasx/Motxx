@@ -3335,3 +3335,182 @@ html.menu-open body { overflow: hidden; }
   .nav-menu,
   .nav-menu.open { transform: translate(-50%, -50%); }
 }
+
+/* ============================================================
+   HEADER v5 · alineación definitiva + logo unificado (capa final)
+   - Los 3 grupos (menú / logo / acciones) centrados verticalmente.
+   - Logo SIEMPRE centrado en la barra y con el MISMO estilo que el
+     wordmark del hero (imagen de marca): "mot" claro + "ex" degradado.
+   ============================================================ */
+
+/* Barra como flex robusto: toggle izq · acciones der · logo centrado absoluto */
+.site-nav {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  min-height: 76px;
+  height: 76px;
+}
+.site-nav .nav-toggle { order: -1; justify-self: auto; margin: 0; }
+.site-nav .nav-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Logo centrado exacto (horizontal y vertical) en la barra */
+.site-nav .brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;          /* nada de baseline: evita el desnivel */
+  gap: 0;
+  line-height: 1;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+  color: #FFFFFF;               /* "mot" en blanco, como la imagen de marca */
+  white-space: nowrap;
+}
+.site-nav .brand .logo-ex {
+  font-style: italic;
+  font-weight: 700;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 0.02em;
+}
+
+/* Footer: mismo wordmark coherente */
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  color: #FFFFFF;
+  text-transform: lowercase;
+  font-weight: 700;
+}
+
+/* Las banderas y el CTA, perfectamente centrados con el resto */
+.nav-actions .language-switch,
+.nav-actions .nav-diagnosis { align-self: center; }
+
+/* En móvil, la barra un poco más baja pero misma lógica */
+@media (max-width: 620px) {
+  .site-nav { min-height: 64px; height: 64px; }
+  .site-nav .brand { font-size: 1.35rem; }
+  .nav-actions .nav-diagnosis { display: none; }   /* el CTA ya está dentro del menú */
+}
+
+/* ============================================================
+   DIAGRAMA NAVEGABLE (pan + zoom) · "flow board"
+   Lienzo grande tipo editor de automatizaciones por el que el usuario
+   puede arrastrar y hacer zoom. Reutilizable en cualquier página.
+   ============================================================ */
+.flowboard {
+  position: relative;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(60vw 50vw at 30% -10%, rgba(33,199,182,0.06), transparent 60%),
+    var(--bg-elevated);
+  box-shadow: var(--shadow-soft);
+  height: clamp(440px, 62vh, 680px);
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+}
+.flowboard.dragging { cursor: grabbing; }
+.flowboard-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+.flowboard-viewport {
+  position: absolute;
+  top: 0; left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.flowboard svg { display: block; overflow: visible; }
+
+/* Controles flotantes */
+.flowboard-controls {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 5;
+}
+.flowboard-controls button {
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: rgba(11, 22, 17, 0.9);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.flowboard-controls button:hover { border-color: var(--accent); background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+.flowboard-hint {
+  position: absolute;
+  left: 16px; bottom: 16px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(11, 22, 17, 0.82);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+.flowboard-hint svg { width: 15px; height: 15px; color: var(--accent-3); }
+
+/* Anotación (caja amarilla del ejemplo, en versión Motex/oscura) */
+.fb-note rect { fill: rgba(33,199,182,0.07); stroke: rgba(33,199,182,0.35); }
+.fb-note .t { fill: var(--text-primary); font-family: var(--font-heading); font-weight: 600; }
+.fb-note .p { fill: var(--text-secondary); font-family: var(--font-body); }
+
+/* Grupos/lanes */
+.fb-lane rect { fill: rgba(255,255,255,0.018); stroke: var(--border); stroke-dasharray: 5 6; }
+.fb-lane .lane-t { fill: var(--accent-hover); font-family: var(--font-heading); font-weight: 600; font-size: 15px; }
+.fb-lane .lane-d { fill: var(--text-muted); font-family: var(--font-body); font-size: 11px; }
+
+/* Nodos */
+.fb-node rect { fill: #0E1B15; stroke-width: 1.6; }
+.fb-node .icon-c { }
+.fb-node .nt { fill: var(--text-primary); font-family: var(--font-heading); font-weight: 600; font-size: 13.5px; }
+.fb-node .ns { fill: var(--text-muted); font-family: var(--font-body); font-size: 10.5px; }
+
+/* Conexiones */
+.fb-edge { fill: none; stroke: var(--border-strong); stroke-width: 2; }
+.fb-edge-live { fill: none; stroke: url(#fbGrad); stroke-width: 2.4; stroke-dasharray: 7 11; stroke-linecap: round; animation: dashmove 16s linear infinite; }
+.fb-dot { fill: #fff; filter: drop-shadow(0 0 5px var(--accent-3)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fb-edge-live { animation: none; }
+}
