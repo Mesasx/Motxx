@@ -110,6 +110,62 @@
     link.addEventListener('click', () => setStoredLanguage(link.dataset.langChoice));
   });
 
+  // --- Reestructurar el menú (aplica a todas las páginas) ---
+  // Quitar Webs / Precios / Contacto del menú, bajar "Servicios" al final
+  // y añadir un acceso de contacto discreto. Las páginas siguen existiendo
+  // y enlazadas desde otras secciones (p. ej. Webs y Precios desde Servicios).
+  const contactPath = currentLang === 'en' ? '/en/contacto/' : currentLang === 'fr' ? '/fr/contacto/' : '/contacto/';
+  const endsWithSeg = (a, seg) =>
+    (a.getAttribute('href') || '').replace(/[#?].*$/, '').replace(/\/$/, '').endsWith(seg);
+  if (navMenu) {
+    $$('a:not(.btn)', navMenu).forEach((a) => {
+      if (endsWithSeg(a, '/webs') || endsWithSeg(a, '/precios') || endsWithSeg(a, '/contacto')) a.remove();
+    });
+    const servicios = $$('a:not(.btn)', navMenu).find((a) => endsWithSeg(a, '/servicios'));
+    const diag = navMenu.querySelector('.nav-diagnosis');
+    if (servicios) {
+      if (diag) navMenu.insertBefore(servicios, diag); else navMenu.appendChild(servicios);
+    }
+    const contactLabel = {
+      es: 'Prefieres escribirnos? Contáctanos',
+      en: 'Prefer to write? Contact us',
+      fr: 'Préférez-vous écrire ? Contactez-nous',
+    };
+    const contactLink = document.createElement('a');
+    contactLink.className = 'nav-contact-link';
+    contactLink.href = contactPath;
+    contactLink.innerHTML = `${contactLabel[currentLang] || contactLabel.es} <span aria-hidden="true">→</span>`;
+    navMenu.appendChild(contactLink);
+  }
+
+  // --- Mini-notificación de contacto (aparece desde la derecha al abrir el menú) ---
+  const WA = '34683567360';
+  const EMAIL = 'pedro@aimotex.com';
+  const toastTxt = {
+    es: { t: '¿Hablamos?', d: 'Escríbenos y te respondemos en menos de 24 h.', wa: 'WhatsApp', email: 'Email', close: 'Cerrar' },
+    en: { t: "Let's talk", d: 'Write to us — we reply within 24 h.', wa: 'WhatsApp', email: 'Email', close: 'Close' },
+    fr: { t: 'Discutons', d: 'Écrivez-nous — réponse sous 24 h.', wa: 'WhatsApp', email: 'Email', close: 'Fermer' },
+  };
+  const tt = toastTxt[currentLang] || toastTxt.es;
+  let contactToast = null;
+  const ensureToast = () => {
+    if (contactToast) return contactToast;
+    contactToast = document.createElement('aside');
+    contactToast.className = 'contact-toast';
+    contactToast.setAttribute('aria-label', tt.t);
+    contactToast.innerHTML =
+      `<button class="contact-toast-x" type="button" aria-label="${tt.close}">×</button>` +
+      `<span class="contact-toast-icon" aria-hidden="true">` +
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2z"/></svg></span>` +
+      `<strong>${tt.t}</strong><p>${tt.d}</p>` +
+      `<div class="contact-toast-actions">` +
+      `<a class="btn btn-primary" href="https://wa.me/${WA}" target="_blank" rel="noopener">${tt.wa}</a>` +
+      `<a class="btn btn-ghost" href="mailto:${EMAIL}">${tt.email}</a></div>`;
+    document.body.appendChild(contactToast);
+    contactToast.querySelector('.contact-toast-x').addEventListener('click', () => contactToast.classList.remove('show'));
+    return contactToast;
+  };
+
   // Menú desplegable centrado. Lo movemos (junto a su backdrop) al <body>
   // para que NO herede el contexto de apilamiento de la barra fija: así el
   // panel queda por encima del velo y es clicable y nítido.
@@ -130,8 +186,12 @@
         document.body.appendChild(backdrop);
       }
       requestAnimationFrame(() => backdrop.classList.add('open'));
-    } else if (backdrop) {
-      backdrop.classList.remove('open');
+      // Notificación de contacto deslizándose desde la derecha
+      const toast = ensureToast();
+      setTimeout(() => toast.classList.add('show'), 280);
+    } else {
+      if (backdrop) backdrop.classList.remove('open');
+      contactToast?.classList.remove('show');
     }
   };
   navToggle?.addEventListener('click', () => {
