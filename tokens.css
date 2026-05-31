@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap");
+
 :root {
   /* ============================================================
      Motex · sistema de diseño (rediseño 2026 — TEMA OSCURO)
@@ -44,6 +46,7 @@
   --error:   #E06B6B;
 
   /* Tipografía */
+  --font-logo: "Playfair Display", "Times New Roman", Georgia, serif;
   --font-heading: "Space Grotesk", "GT Sectra", "Tiempos Headline", "Source Serif Pro", Georgia, serif;
   --font-body: "Inter", "Söhne", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
