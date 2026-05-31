@@ -3539,3 +3539,26 @@ html.menu-open body { overflow: hidden; }
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+
+/* ============================================================
+   LOGO · tipografía serif de marca (Playfair Display)
+   Capa final: aplica la fuente del logo a cabecera, footer y al
+   wordmark grande del inicio. "mot" claro + "ex" cursiva degradada.
+   ============================================================ */
+.brand,
+.footer-logo,
+.site-nav .brand,
+.home-hero .hero-mark,
+.home-hero .hero-mark .mot,
+.home-hero .hero-mark .logo-ex,
+.brand .logo-ex,
+.footer-logo .logo-ex {
+  font-family: var(--font-logo) !important;
+}
+/* La serif luce mejor con menos tracking negativo */
+.site-nav .brand { letter-spacing: -0.01em; }
+.home-hero .hero-mark { letter-spacing: -0.01em; }
+/* La cursiva de Playfair ya es preciosa: la usamos para "ex" */
+.brand .logo-ex,
+.footer-logo .logo-ex,
+.home-hero .hero-mark .logo-ex { font-style: italic; font-weight: 700; }
