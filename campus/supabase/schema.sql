@@ -140,6 +140,17 @@ drop policy if exists "courses_write_staff" on public.courses;
 create policy "courses_write_staff" on public.courses
   for all using (public.is_campus_staff()) with check (public.is_campus_staff());
 
+-- Tabla de matriculas (se define antes porque la politica de
+-- 'lessons' la referencia; las politicas se anaden en la seccion 4).
+create table if not exists public.enrollments (
+  id         uuid primary key default uuid_generate_v4(),
+  user_id    uuid not null references auth.users(id) on delete cascade,
+  course_id  uuid not null references public.courses(id) on delete cascade,
+  status     text not null default 'active' check (status in ('active','pending','refunded')),
+  created_at timestamptz not null default now(),
+  unique (user_id, course_id)
+);
+
 -- ============================================================
 -- 3. CLASES / LECCIONES
 -- ============================================================
