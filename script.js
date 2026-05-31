@@ -116,6 +116,7 @@
     navMenu?.classList.toggle('open', open);
     navToggle?.setAttribute('aria-expanded', String(open));
     if (open) {
+      header?.classList.remove('header-hidden');   // la barra siempre visible con el menú abierto
       if (!backdrop) {
         backdrop = document.createElement('div');
         backdrop.className = 'nav-backdrop';
@@ -512,6 +513,7 @@
     document.body.appendChild(toTop);
   }
   if (header || toTop) {
+    let lastY = window.scrollY || window.pageYOffset;
     const onScroll = () => {
       const y = window.scrollY || window.pageYOffset;
       header?.classList.toggle('is-stuck', y > 8);
@@ -520,6 +522,12 @@
         readProgress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
       }
       toTop?.classList.toggle('show', y > 680);
+      // Auto-ocultar la barra al bajar; mostrarla al subir (no si el menú está abierto).
+      if (header && !navMenu?.classList.contains('open')) {
+        if (y > lastY + 4 && y > 140) header.classList.add('header-hidden');
+        else if (y < lastY - 4) header.classList.remove('header-hidden');
+      }
+      lastY = y;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
