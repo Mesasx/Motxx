@@ -110,13 +110,19 @@
     link.addEventListener('click', () => setStoredLanguage(link.dataset.langChoice));
   });
 
-  // Menú desplegable con backdrop
+  // Menú desplegable centrado. Lo movemos (junto a su backdrop) al <body>
+  // para que NO herede el contexto de apilamiento de la barra fija: así el
+  // panel queda por encima del velo y es clicable y nítido.
   let backdrop = null;
+  if (navMenu && navMenu.parentElement !== document.body) {
+    document.body.appendChild(navMenu);
+  }
   const setMenu = (open) => {
     navMenu?.classList.toggle('open', open);
     navToggle?.setAttribute('aria-expanded', String(open));
+    document.documentElement.classList.toggle('menu-open', open);
     if (open) {
-      header?.classList.remove('header-hidden');   // la barra siempre visible con el menú abierto
+      header?.classList.remove('header-hidden');
       if (!backdrop) {
         backdrop = document.createElement('div');
         backdrop.className = 'nav-backdrop';
