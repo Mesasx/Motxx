@@ -3277,3 +3277,61 @@ tbody tr:hover { background: rgba(255,255,255,0.03); }
   .site-header { transition: background .35s, border-color .35s; }
   .site-header.header-hidden { transform: none; }   /* no animar ocultado */
 }
+
+/* ============================================================
+   CORRECCIÓN HEADER v4 · menú modal centrado (capa final)
+   Arregla el bug de apilamiento: el menú vive ya en <body>, así que
+   lo presentamos como modal centrado, OPACO y por encima del velo.
+   ============================================================ */
+
+/* Velo a pantalla completa, por debajo del panel */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(4, 8, 6, 0.72);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+/* Panel del menú: centrado, opaco y por encima del velo */
+.nav-menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  width: min(420px, calc(100vw - 40px));
+  max-height: min(80vh, 640px);
+  overflow-y: auto;
+  transform: translate(-50%, -46%) scale(0.98);
+  transform-origin: center;
+  z-index: 1001;                          /* SIEMPRE sobre el velo */
+  background: #0B1611;                     /* 100% opaco: nada borroso */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 40px 90px -28px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+.nav-menu.open {
+  transform: translate(-50%, -50%) scale(1);
+}
+.nav-menu a:not(.btn) {
+  font-size: 1.05rem;
+  padding: 14px 16px;
+  color: var(--text-primary);
+}
+.nav-menu a:not(.btn):hover,
+.nav-menu a.active { background: rgba(255, 255, 255, 0.07); }
+
+/* Bloquear el scroll del fondo mientras el menú está abierto */
+html.menu-open,
+html.menu-open body { overflow: hidden; }
+
+/* El botón hamburguesa se queda fijo arriba-izquierda como cerrar (X) */
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu { transition: opacity var(--transition); }
+  .nav-menu,
+  .nav-menu.open { transform: translate(-50%, -50%); }
+}
