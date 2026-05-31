@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crear cuenta | Motex Campus</title>
+  <meta name="description" content="Crea tu cuenta en Motex Campus y empieza a formarte en IA."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="canonical" href="https://aimotex.com/campus/registro/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body data-active="campus">
+<header class="site-header">
+  <nav class="site-nav container" id="campusNav" aria-label="Navegación del campus">
+    <a class="brand" href="/campus/" aria-label="Motex Campus inicio">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+    <div class="nav-menu" id="navMenu" style="display:flex">
+      <a href="/cursos/">Cursos</a>
+      <a href="/">Web Motex</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="auth-wrap">
+    <div class="auth-card wide reveal">
+      <p class="eyebrow">Motex Campus</p>
+      <h1>Crear una cuenta</h1>
+      <p class="sub">El registro es libre y gratuito. Tras verificar tu correo tendrás acceso al campus.</p>
+
+      <div class="steps">
+        <div class="step active" data-step="1">1 · Tus datos</div>
+        <div class="step" data-step="2">2 · Tu acceso</div>
+      </div>
+
+      <div class="form-msg error" id="msg" hidden></div>
+      <div class="form-msg ok" id="okMsg" hidden></div>
+
+      <form id="regForm" novalidate>
+        <!-- Paso 1: datos personales -->
+        <div class="step-panel" data-panel="1">
+          <div class="field-row">
+            <div class="field">
+              <label for="first_name">Nombre</label>
+              <input type="text" id="first_name" autocomplete="given-name" required/>
+            </div>
+            <div class="field">
+              <label for="last_name">Apellidos</label>
+              <input type="text" id="last_name" autocomplete="family-name" required/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="address">Dirección</label>
+            <input type="text" id="address" autocomplete="street-address" placeholder="Calle, número…"/>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="city">Ciudad</label>
+              <input type="text" id="city" autocomplete="address-level2"/>
+            </div>
+            <div class="field">
+              <label for="postal_code">Código postal</label>
+              <input type="text" id="postal_code" autocomplete="postal-code" inputmode="numeric"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="country">País</label>
+              <select id="country">
+                <option value="España" selected>España</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Francia">Francia</option>
+                <option value="México">México</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Chile">Chile</option>
+                <option value="Perú">Perú</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="phone">Teléfono</label>
+              <input type="tel" id="phone" autocomplete="tel" placeholder="Opcional"/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="gender">Sexo</label>
+            <select id="gender">
+              <option value="">Prefiero no decirlo</option>
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <button class="btn btn-primary full" type="button" id="nextBtn">Continuar</button>
+        </div>
+
+        <!-- Paso 2: usuario, correo y contraseña -->
+        <div class="step-panel" data-panel="2" hidden>
+          <div class="field">
+            <label for="username">Nombre de usuario</label>
+            <input type="text" id="username" autocomplete="username" required/>
+            <p class="hint">Con él podrás iniciar sesión. Debe ser único.</p>
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" autocomplete="email" required/>
+            <p class="hint">Te enviaremos un enlace para verificar la cuenta.</p>
+          </div>
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" autocomplete="new-password" required/>
+            <ul class="pw-rules" id="pwRules">
+              <li data-rule="length">Mínimo 8 caracteres</li>
+              <li data-rule="upper">Una letra mayúscula</li>
+              <li data-rule="lower">Una letra minúscula</li>
+              <li data-rule="symbol">Un símbolo (por ejemplo _ . ! @)</li>
+            </ul>
+          </div>
+          <div class="field">
+            <label for="password2">Repetir contraseña</label>
+            <input type="password" id="password2" autocomplete="new-password" required/>
+          </div>
+          <div style="display:flex;gap:12px">
+            <button class="btn btn-secondary" type="button" id="backBtn">Atrás</button>
+            <button class="btn btn-primary full" type="submit" id="submitBtn">Crear cuenta</button>
+          </div>
+        </div>
+      </form>
+
+      <p class="auth-alt">¿Ya tienes cuenta? <a href="/campus/acceder/">Iniciar sesión</a></p>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(function () {
+  var form = document.getElementById("regForm");
+  var msg = document.getElementById("msg");
+  var okMsg = document.getElementById("okMsg");
+  var pwInput = document.getElementById("password");
+  var rules = document.getElementById("pwRules");
+
+  function showError(t) { msg.textContent = t; msg.hidden = false; okMsg.hidden = true; window.scrollTo(0,0); }
+  function clearError() { msg.hidden = true; }
+
+  if (!MC.configured) showError(MC.notConfiguredMessage());
+
+  // Validacion visual de la contraseña en tiempo real.
+  pwInput.addEventListener("input", function () {
+    var c = MC.passwordChecks(pwInput.value);
+    Object.keys(c).forEach(function (k) {
+      var li = rules.querySelector('[data-rule="' + k + '"]');
+      if (li) li.classList.toggle("ok", c[k]);
+    });
+  });
+
+  // Navegacion entre pasos.
+  function goStep(n) {
+    document.querySelectorAll(".step-panel").forEach(function (p) {
+      p.hidden = p.getAttribute("data-panel") !== String(n);
+    });
+    document.querySelectorAll(".steps .step").forEach(function (s) {
+      s.classList.toggle("active", s.getAttribute("data-step") === String(n));
+    });
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", function () {
+    clearError();
+    var fn = document.getElementById("first_name").value.trim();
+    var ln = document.getElementById("last_name").value.trim();
+    if (!fn || !ln) { showError("Indica al menos tu nombre y apellidos."); return; }
+    goStep(2);
+  });
+  document.getElementById("backBtn").addEventListener("click", function () { goStep(1); });
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    clearError();
+    if (!MC.configured) { showError(MC.notConfiguredMessage()); return; }
+
+    var username = document.getElementById("username").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var pw = pwInput.value;
+    var pw2 = document.getElementById("password2").value;
+
+    if (!username) { showError("Elige un nombre de usuario."); return; }
+    if (!email) { showError("Indica un correo electrónico válido."); return; }
+    if (!MC.passwordValid(pw)) { showError("La contraseña no cumple los requisitos de seguridad."); return; }
+    if (pw !== pw2) { showError("Las contraseñas no coinciden."); return; }
+
+    var btn = document.getElementById("submitBtn");
+    btn.disabled = true; btn.textContent = "Creando…";
+
+    try {
+      // Comprobamos que el nombre de usuario no esté ya en uso.
+      var exists = await MC.client.rpc("campus_email_for_username", { p_username: username });
+      if (exists.data) throw new Error("Ese nombre de usuario ya está en uso. Elige otro.");
+
+      var meta = {
+        campus_username: username,
+        first_name: document.getElementById("first_name").value.trim(),
+        last_name: document.getElementById("last_name").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        city: document.getElementById("city").value.trim(),
+        country: document.getElementById("country").value,
+        postal_code: document.getElementById("postal_code").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        gender: document.getElementById("gender").value
+      };
+
+      var res = await MC.client.auth.signUp({
+        email: email,
+        password: pw,
+        options: {
+          data: meta,
+          emailRedirectTo: (MC.config.SITE_URL || location.origin) + "/campus/verificar/?confirmed=1"
+        }
+      });
+      if (res.error) {
+        if (/already registered/i.test(res.error.message)) throw new Error("Ya existe una cuenta con ese correo.");
+        throw new Error(res.error.message);
+      }
+
+      location.href = "/campus/verificar/?email=" + encodeURIComponent(email);
+    } catch (err) {
+      showError(err.message || "No se ha podido crear la cuenta.");
+      btn.disabled = false; btn.textContent = "Crear cuenta";
+    }
+  });
+})();
+</script>
+</body>
+</html>

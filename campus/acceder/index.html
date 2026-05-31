@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar sesión | Motex Campus</title>
+  <meta name="description" content="Accede a tu cuenta de Motex Campus."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="canonical" href="https://aimotex.com/campus/acceder/"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body data-active="campus">
+<header class="site-header">
+  <nav class="site-nav container" id="campusNav" aria-label="Navegación del campus">
+    <a class="brand" href="/campus/" aria-label="Motex Campus inicio">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+    <div class="nav-menu" id="navMenu" style="display:flex">
+      <a href="/cursos/">Cursos</a>
+      <a href="/">Web Motex</a>
+    </div>
+  </nav>
+</header>
+<main>
+  <div class="auth-wrap">
+    <div class="auth-card reveal">
+      <p class="eyebrow">Motex Campus</p>
+      <h1>Iniciar sesión</h1>
+      <p class="sub">Accede con tu usuario o tu correo electrónico.</p>
+
+      <div class="form-msg error" id="msg" hidden></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="identifier">Usuario o correo</label>
+          <input type="text" id="identifier" name="identifier" autocomplete="username" required/>
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required/>
+        </div>
+        <button class="btn btn-primary full" type="submit" id="submitBtn">Entrar</button>
+      </form>
+
+      <p class="auth-alt">¿No tienes cuenta? <a href="/campus/registro/">Crear una cuenta</a></p>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(function () {
+  var form = document.getElementById("loginForm");
+  var msg = document.getElementById("msg");
+  var btn = document.getElementById("submitBtn");
+
+  function showError(text) { msg.textContent = text; msg.hidden = false; }
+
+  if (!MC.configured) showError(MC.notConfiguredMessage());
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    msg.hidden = true;
+    if (!MC.configured) { showError(MC.notConfiguredMessage()); return; }
+
+    var identifier = document.getElementById("identifier").value.trim();
+    var password = document.getElementById("password").value;
+    if (!identifier || !password) { showError("Rellena usuario y contraseña."); return; }
+
+    btn.disabled = true; btn.textContent = "Entrando…";
+
+    try {
+      var email = identifier;
+      // Si no parece un email, lo tratamos como nombre de usuario.
+      if (identifier.indexOf("@") === -1) {
+        var r = await MC.client.rpc("campus_email_for_username", { p_username: identifier });
+        if (r.error || !r.data) throw new Error("No existe ningún usuario con ese nombre.");
+        email = r.data;
+      }
+
+      var res = await MC.client.auth.signInWithPassword({ email: email, password: password });
+      if (res.error) {
+        if (/email not confirmed/i.test(res.error.message)) {
+          location.href = "/campus/verificar/?pending=1";
+          return;
+        }
+        throw new Error("Usuario o contraseña incorrectos.");
+      }
+
+      var next = MC.qs("next") || "/campus/";
+      location.href = next;
+    } catch (err) {
+      showError(err.message || "No se ha podido iniciar sesión.");
+      btn.disabled = false; btn.textContent = "Entrar";
+    }
+  });
+})();
+</script>
+</body>
+</html>
