@@ -7,7 +7,7 @@
    las politicas RLS definidas en supabase/schema.sql.
    ============================================================ */
 window.MOTEX_CAMPUS_CONFIG = {
-  SUPABASE_URL: "https://YOUR-PROJECT.supabase.co",
-  SUPABASE_ANON_KEY: "YOUR-ANON-KEY",
+  SUPABASE_URL: "https://mfsvzqzuiqtbwmdmdghj.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_AocsuIeHlW9uCjkOmz9JLA_pIM-7EaC",
   SITE_URL: "https://aimotex.com"
 };
