@@ -3,7 +3,8 @@
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
-  const currentLang = document.documentElement.lang === 'en' ? 'en' : 'es';
+  const docLang = document.documentElement.lang;
+  const currentLang = docLang === 'en' ? 'en' : docLang === 'fr' ? 'fr' : 'es';
   const langKey = 'motex_language';
 
   const getStoredLanguage = () => {
@@ -22,33 +23,37 @@
     }
   };
 
+  // Rutas multi-idioma: ES en raíz, EN en /en/, FR en /fr/.
   const localizedPath = (targetLang) => {
-    const { pathname, search, hash } = window.location;
-    const cleanPath = pathname.replace(/\/{2,}/g, '/');
+    const { search, hash } = window.location;
+    const cleanPath = window.location.pathname.replace(/\/{2,}/g, '/');
+    // Quita cualquier prefijo de idioma actual para quedarnos con la ruta "neutra".
+    let base = cleanPath.replace(/^\/(en|fr)(?=\/|$)/, '');
+    if (base === '') base = '/';
+
     let targetPath;
-
-    if (targetLang === 'en') {
-      if (cleanPath === '/en' || cleanPath.startsWith('/en/')) {
-        targetPath = cleanPath === '/en' ? '/en/' : cleanPath;
-      } else {
-        targetPath = cleanPath === '/' ? '/en/' : `/en${cleanPath}`;
-      }
+    if (targetLang === 'es') {
+      targetPath = base;
     } else {
-      targetPath = cleanPath === '/en' || cleanPath === '/en/' ? '/' : cleanPath.replace(/^\/en(?=\/)/, '');
+      // /en o /fr
+      targetPath = base === '/' ? `/${targetLang}/` : `/${targetLang}${base}`;
     }
-
     return `${targetPath}${search}${hash}`;
   };
 
-  const shouldRedirectToEnglish = () => {
-    if (currentLang !== 'es' || getStoredLanguage()) return false;
+  // Redirección automática según el idioma del navegador (solo desde ES y sin elección previa).
+  const shouldRedirectTo = () => {
+    if (currentLang !== 'es' || getStoredLanguage()) return null;
     const preferred = (navigator.languages?.[0] || navigator.language || '').toLowerCase();
-    return preferred.startsWith('en');
+    if (preferred.startsWith('en')) return 'en';
+    if (preferred.startsWith('fr')) return 'fr';
+    return null;
   };
 
-  if (shouldRedirectToEnglish()) {
-    setStoredLanguage('en');
-    window.location.replace(localizedPath('en'));
+  const autoLang = shouldRedirectTo();
+  if (autoLang) {
+    setStoredLanguage(autoLang);
+    window.location.replace(localizedPath(autoLang));
     return;
   }
 
@@ -59,25 +64,74 @@
 
   const navToggle = $('#navToggle');
   const navMenu = $('#navMenu');
-  if (navMenu) {
-    const languageSwitch = document.createElement('div');
-    languageSwitch.className = 'language-switch';
-    languageSwitch.setAttribute('aria-label', currentLang === 'en' ? 'Language selector' : 'Selector de idioma');
-    languageSwitch.innerHTML = `
-      <a href="${localizedPath('es')}" hreflang="es" data-lang-choice="es" class="${currentLang === 'es' ? 'active' : ''}">ES</a>
-      <span aria-hidden="true">|</span>
-      <a href="${localizedPath('en')}" hreflang="en" data-lang-choice="en" class="${currentLang === 'en' ? 'active' : ''}">EN</a>
-    `;
-    navMenu.appendChild(languageSwitch);
+  const siteNav = $('.site-nav');
+  const brand = $('.site-nav .brand');
+
+  // Selector de idioma con banderas (ES / EN / FR).
+  const langLabel = { es: 'Selector de idioma', en: 'Language selector', fr: 'Sélecteur de langue' };
+  const langs = [
+    { code: 'es', flag: '🇪🇸', label: 'Español' },
+    { code: 'en', flag: '🇬🇧', label: 'English' },
+    { code: 'fr', flag: '🇫🇷', label: 'Français' },
+  ];
+  const buildLanguageSwitch = () => {
+    const sw = document.createElement('div');
+    sw.className = 'language-switch';
+    sw.setAttribute('role', 'group');
+    sw.setAttribute('aria-label', langLabel[currentLang] || langLabel.es);
+    sw.innerHTML = langs.map((l) => (
+      `<a href="${localizedPath(l.code)}" hreflang="${l.code}" data-lang-choice="${l.code}" ` +
+      `title="${l.label}" aria-label="${l.label}" class="${currentLang === l.code ? 'active' : ''}">` +
+      `<span class="flag" aria-hidden="true">${l.flag}</span></a>`
+    )).join('');
+    return sw;
+  };
+
+  // Header v2: el CTA "Diagnóstico" y el selector de idioma van a la derecha,
+  // fuera del menú desplegable. Reorganizamos sin tocar el HTML de cada página.
+  if (siteNav && navMenu && brand) {
+    const actions = document.createElement('div');
+    actions.className = 'nav-actions';
+    const cta = navMenu.querySelector('.nav-diagnosis');
+    // Clonamos el CTA para tener uno visible en la barra y otro dentro del menú.
+    if (cta) {
+      const ctaTop = cta.cloneNode(true);
+      ctaTop.classList.add('nav-cta-top');
+      actions.appendChild(ctaTop);
+    }
+    actions.appendChild(buildLanguageSwitch());
+    // Orden visual: [toggle] [brand] [actions]
+    siteNav.appendChild(actions);
+  } else if (navMenu) {
+    navMenu.appendChild(buildLanguageSwitch());
   }
+
   $$('[data-lang-choice]').forEach((link) => {
     link.addEventListener('click', () => setStoredLanguage(link.dataset.langChoice));
   });
 
+  // Menú desplegable con backdrop
+  let backdrop = null;
+  const setMenu = (open) => {
+    navMenu?.classList.toggle('open', open);
+    navToggle?.setAttribute('aria-expanded', String(open));
+    if (open) {
+      if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'nav-backdrop';
+        backdrop.addEventListener('click', () => setMenu(false));
+        document.body.appendChild(backdrop);
+      }
+      requestAnimationFrame(() => backdrop.classList.add('open'));
+    } else if (backdrop) {
+      backdrop.classList.remove('open');
+    }
+  };
   navToggle?.addEventListener('click', () => {
-    const isOpen = navMenu?.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+    setMenu(!navMenu?.classList.contains('open'));
   });
+  navMenu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -425,6 +479,16 @@
      así estas mejoras conviven con el resto de páginas.
      ============================================================ */
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Wordmark "motex" del hero: envolvemos "mot" y "ex" en spans para que
+  // entren deslizándose desde los lados (la animación vive en el CSS).
+  const heroMark = $('.home-hero .hero-mark');
+  if (heroMark) {
+    const ex = heroMark.querySelector('.logo-ex');
+    const exText = ex ? ex.textContent : 'ex';
+    const motText = (heroMark.textContent || 'Motex').replace(new RegExp(exText + '$'), '');
+    heroMark.innerHTML = `<span class="mot">${motText}</span><span class="logo-ex">${exText}</span>`;
+  }
 
   // Header "stuck", barra de progreso de lectura y botón "volver arriba".
   // Se crean dinámicamente si la página no los trae, así toda la web

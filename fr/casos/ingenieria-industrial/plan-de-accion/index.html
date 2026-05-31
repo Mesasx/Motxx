@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan d'action · Entreprise d'ingénierie technique industrielle · Motex</title>
+<meta name="description" content="Plan d'action Motex réel et anonymisé pour une entreprise d'ingénierie technique industrielle.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://aimotex.com/fr/casos/ingenieria-industrial/plan-de-accion/">
+<link rel="alternate" hreflang="es" href="https://aimotex.com/casos/ingenieria-industrial/plan-de-accion/" />
+<link rel="alternate" hreflang="en" href="https://aimotex.com/en/casos/ingenieria-industrial/plan-de-accion/" />
+<link rel="alternate" hreflang="fr" href="https://aimotex.com/fr/casos/ingenieria-industrial/plan-de-accion/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg-primary: #FAF9F5;
+  --bg-secondary: #F2EFE8;
+  --bg-card: rgba(255,255,255,0.76);
+  --bg-glass: rgba(250,249,245,0.78);
+  --accent-blue: #0F5257;
+  --accent-blue-hover: #0A3D40;
+  --accent-cyan: #0F5257;
+  --accent-purple: #7C6F57;
+  --accent-hot: #9C4A4A;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4D4D4D;
+  --text-muted: #77746D;
+  --border-subtle: rgba(201,192,174,0.45);
+  --border-medium: #D8D0C2;
+  --success: #4D7C5F;
+  --danger: #A04545;
+  --warn: #B8763E;
+  --font-display: 'Source Serif 4', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-impact: 'Inter', system-ui, sans-serif;
+  --radius-sm: 8px; --radius-md: 14px; --radius-lg: 22px; --radius-xl: 32px;
+  --shadow-soft: 0 16px 50px rgba(26,26,26,0.07);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(15,82,87,0.10), transparent 34rem),
+    radial-gradient(circle at 80% 18%, rgba(184,118,62,0.10), transparent 28rem),
+    var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--accent-soft, #D8E4E3); color: var(--text-primary); }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+
+/* LOGO */
+.nav-logo { display: inline-flex; align-items: baseline; gap: 0.1rem; text-decoration: none; transition: transform 200ms ease-out; line-height: 1; }
+.nav-logo:hover { transform: translateY(-1px); }
+.logo-text-main { font-family: var(--font-display); font-size: 1.35rem; color: var(--text-primary); letter-spacing: 0.01em; line-height: 1; font-weight: 700; }
+.logo-xx { color: var(--accent-blue); font-style: italic; display: inline-block; transform: skewX(-8deg); }
+
+/* PIXEL REDACTION */
+.pixel-name, .redacted-name {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  vertical-align: middle;
+}
+.pixel-name::before, .redacted-name::before {
+  content: "";
+  width: clamp(11rem, 28vw, 23rem);
+  height: .86em;
+  display: inline-block;
+  image-rendering: pixelated;
+  background:
+    linear-gradient(90deg, transparent 0 4px, rgba(15,82,87,.92) 4px 8px) 0 0 / 8px 8px,
+    linear-gradient(90deg, rgba(15,82,87,.35), rgba(15,82,87,.80), rgba(184,118,62,.55));
+  filter: blur(.35px);
+  box-shadow: 0 0 0 1px rgba(15,82,87,.12);
+}
+.pixel-name > span, .redacted-name > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem clamp(1.25rem,3vw,2.5rem);
+  background: rgba(250,249,245,0.82);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.nav-right { display: flex; align-items: center; gap: .85rem; font-size: 0.82rem; color: var(--text-muted); }
+.nav-right .client { color: var(--accent-blue); font-family: var(--font-mono); font-size: 0.76rem; }
+.date-badge { background: #FFFFFF; border: 1px solid var(--border-medium); padding: 4px 11px; border-radius: 999px; font-size: 0.75rem; color: var(--accent-blue); }
+.sep { opacity: 0.35; }
+.doc-actions { display: flex; align-items: center; gap: .55rem; margin-left: .25rem; }
+.doc-link {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(15,82,87,.28);
+  transition: color 200ms ease-out, border-color 200ms ease-out;
+}
+.doc-link:hover { color: var(--accent-blue-hover); border-color: currentColor; }
+.doc-link-primary {
+  color: #FAF9F5;
+  background: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
+  border-radius: 999px;
+  padding: 7px 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 200ms ease-out, transform 200ms ease-out;
+}
+.doc-link-primary:hover { background: var(--accent-blue-hover); transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 84vh; display: flex; align-items: center;
+  padding: 8rem 2rem 4rem; overflow: hidden; isolation: isolate;
+}
+.aurora { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.aurora-blob { position: absolute; border-radius: 999px; filter: blur(70px); opacity: .32; animation: aurora-float 18s ease-in-out infinite; }
+.aurora-blob-1 { width: 500px; height: 500px; background: #D8E4E3; top: -14%; left: -8%; }
+.aurora-blob-2 { width: 560px; height: 560px; background: #F2EFE8; bottom: -20%; right: -12%; opacity: .75; animation-delay: -5s; }
+.aurora-blob-3 { width: 380px; height: 380px; background: #C9C0AE; bottom: 8%; left: 22%; opacity: .18; animation-delay: -10s; }
+.aurora-blob-4 { width: 260px; height: 260px; background: #0F5257; top: 24%; right: 18%; opacity: .10; animation-delay: -15s; }
+@keyframes aurora-float { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(26px,-38px) scale(1.08)} 66%{transform:translate(-18px,34px) scale(.96)} }
+.grid-overlay {
+  position: absolute; inset: 0; z-index: -1;
+  background-image: linear-gradient(rgba(15,82,87,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,82,87,.045) 1px,transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center,black 24%,transparent 74%);
+  -webkit-mask-image: radial-gradient(ellipse at center,black 24%,transparent 74%);
+}
+.hero-content { max-width: 980px; margin: 0 auto; width: 100%; position: relative; text-align: center; }
+.anon-note {
+  max-width: 780px;
+  margin: 0 auto 24px;
+  padding: 16px 18px;
+  border: 1px solid rgba(15,82,87,.22);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,.72);
+  color: var(--text-secondary);
+  box-shadow: 0 1px 2px rgba(26,26,26,.04);
+}
+.anon-note strong { color: var(--accent-blue); }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #FFFFFF; border: 1px solid var(--border-medium);
+  padding: 7px 16px; border-radius: 999px;
+  font-size: 0.78rem; color: var(--accent-blue); font-family: var(--font-mono);
+  letter-spacing: 0.045em; margin-bottom: 28px; box-shadow: 0 1px 2px rgba(26,26,26,.04);
+}
+.eyebrow-dot { width: 7px; height: 7px; border-radius: 2px; background: var(--accent-blue); animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero h1 { font-family: var(--font-display); font-size: clamp(3rem,7vw,6.2rem); font-weight: 600; line-height: .98; margin-bottom: 24px; letter-spacing: -0.045em; }
+.text-gradient { color: var(--accent-blue); background: none; }
+.public-client {
+  display: inline-flex;
+  margin: 0 auto 18px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,82,87,.18);
+  background: rgba(216,228,227,.58);
+  color: var(--accent-blue);
+  font-size: .82rem;
+  font-weight: 700;
+}
+.hero-sub { font-size: 1.1rem; color: var(--text-secondary); font-weight: 400; max-width: 680px; margin: 0 auto 42px; line-height: 1.72; }
+.hero-stats { display: grid; grid-template-columns: repeat(4, minmax(130px,1fr)); gap: 0; border: 1px solid var(--border-medium); border-radius: var(--radius-lg); background: var(--bg-card); backdrop-filter: blur(12px); overflow: hidden; max-width: 820px; margin: 0 auto; box-shadow: var(--shadow-soft); }
+.h-stat { padding: 22px 24px; border-right: 1px solid var(--border-subtle); transition: background 200ms ease-out, transform 200ms ease-out; }
+.h-stat:last-child { border-right: none; }
+.h-stat:hover { background: #FFFFFF; transform: translateY(-2px); }
+.h-stat-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 600; line-height: 1; margin-bottom: 4px; }
+.h-stat-lbl { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+.c-cyan,.c-blue{color:var(--accent-blue)} .c-hot{color:var(--accent-hot)} .c-green{color:var(--success)} .c-warn{color:var(--warn)} .c-danger{color:var(--danger)}
+
+/* CONTENT */
+.content { max-width: 1040px; margin: 0 auto; padding: 76px 32px 96px; }
+
+/* SECTION HEADER */
+.section-hd { display: flex; align-items: center; gap: 14px; margin: 72px 0 24px; }
+.section-num { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-blue); letter-spacing: 0.1em; }
+.section-line { flex: 1; height: 1px; background: var(--border-subtle); }
+.section-hd h2 { font-family: var(--font-display); font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 600; letter-spacing: -0.025em; }
+.section-tag { font-family: var(--font-mono); font-size: 0.68rem; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.tag-red{background:rgba(160,69,69,.10);color:var(--danger);border:1px solid rgba(160,69,69,.22)}
+.tag-cyan,.tag-blue{background:#D8E4E3;color:var(--accent-blue);border:1px solid rgba(15,82,87,.18)}
+.tag-purple{background:rgba(124,111,87,.12);color:#685B45;border:1px solid rgba(124,111,87,.25)}
+.tag-green{background:rgba(77,124,95,.10);color:var(--success);border:1px solid rgba(77,124,95,.22)}
+.tag-warn{background:rgba(184,118,62,.11);color:var(--warn);border:1px solid rgba(184,118,62,.22)}
+
+/* CARDS */
+.summary-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.sum-card, .score-card, .nps-wrap, .action-block, .tools-table, .info-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 2px rgba(26,26,26,.04);
+}
+.sum-card { border-radius: var(--radius-md); padding: 22px; transition: transform 200ms ease-out, background 200ms ease-out, box-shadow 200ms ease-out; }
+.sum-card:hover { transform: translateY(-4px); background:#FFFFFF; box-shadow: var(--shadow-soft); }
+.sum-card .lbl { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; font-family: var(--font-mono); }
+.sum-card .val { font-family: var(--font-display); font-size: 2.7rem; font-weight: 600; line-height: 1; margin-bottom: 6px; }
+.sum-card .val sup { font-size: 1rem; opacity: .6; font-weight: 400; }
+.sum-card .desc { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; }
+
+/* SCORES */
+.scores-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+.score-card { border-radius: var(--radius-md); padding: 16px; transition: transform 200ms ease-out, background 200ms ease-out; }
+.score-card:hover { transform: translateY(-3px); background:#FFFFFF; }
+.score-card .sc-lbl { font-size: 0.76rem; color: var(--text-secondary); line-height: 1.35; margin-bottom: 10px; min-height: 32px; }
+.sc-bar-bg { background: rgba(15,82,87,.10); border-radius: 999px; height: 5px; margin-bottom: 8px; overflow: hidden; }
+.sc-bar { height: 5px; border-radius: 999px; }
+.bar-cyan,.bar-blue { background: linear-gradient(90deg,#0F5257,#4D7C5F); }
+.bar-warn { background: linear-gradient(90deg,var(--warn),#C9A66B); }
+.bar-red { background: linear-gradient(90deg,var(--danger),#C07565); }
+.sc-val { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; }
+
+/* NPS */
+.nps-wrap { border-radius: var(--radius-lg); padding: 26px 30px; }
+.nps-title { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.nps-bar { display: flex; height: 12px; border-radius: 999px; overflow: hidden; margin: 12px 0 10px; gap: 2px; background: rgba(15,82,87,.08); }
+.nps-promo { background: var(--success); border-radius: 999px 0 0 999px; }
+.nps-pasivo { background: var(--warn); }
+.nps-detrac { background: var(--danger); border-radius: 0 999px 999px 0; }
+.nps-labels { display: flex; justify-content: space-between; gap: 16px; font-size: 0.72rem; color: var(--text-muted); }
+.nps-result { margin-top: 14px; display: inline-flex; align-items: center; gap: 10px; background: rgba(160,69,69,.08); border: 1px solid rgba(160,69,69,.18); padding: 8px 16px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--danger); }
+
+/* ACTION BLOCKS */
+.action-block { border-radius: var(--radius-lg); margin-bottom: 18px; overflow: hidden; transition: border-color 200ms ease-out, transform 200ms ease-out, box-shadow 200ms ease-out; }
+.action-block:hover { border-color: rgba(15,82,87,.35); transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.action-head { display: flex; align-items: center; gap: 14px; padding: 19px 24px; border-bottom: 1px solid var(--border-subtle); background: rgba(242,239,232,.62); }
+.prio-badge { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; flex-shrink: 0; font-weight: 600; }
+.prio-alta { background: rgba(160,69,69,.10); color: var(--danger); border: 1px solid rgba(160,69,69,.22); }
+.prio-media { background: rgba(184,118,62,.12); color: var(--warn); border: 1px solid rgba(184,118,62,.24); }
+.prio-mant { background: rgba(77,124,95,.10); color: var(--success); border: 1px solid rgba(77,124,95,.22); }
+.action-head h3 { font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; flex: 1; color: var(--text-primary); letter-spacing: -.015em; }
+.action-body { padding: 24px; }
+.diag { border-left: 3px solid var(--accent-blue); padding: 14px 17px; background: rgba(216,228,227,.55); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.68; }
+.diag strong { color: var(--accent-blue); font-weight: 700; }
+.steps { list-style: none; margin-bottom: 18px; }
+.steps li { display: flex; gap: 14px; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.91rem; color: var(--text-secondary); line-height: 1.6; }
+.steps li:last-child { border-bottom: none; }
+.step-n { width: 24px; height: 24px; border-radius: 8px; background: #FFFFFF; border: 1px solid var(--border-medium); color: var(--accent-blue); font-family: var(--font-mono); font-size: 0.66rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; font-weight: 600; }
+.tools-lbl { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin: 18px 0 10px; }
+.tools-row { display: flex; flex-wrap: wrap; gap: 9px; }
+.tool-chip { display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 11px 14px; transition: border-color 200ms ease-out, transform 200ms ease-out, box-shadow 200ms ease-out; }
+.tool-chip:hover { border-color: rgba(15,82,87,.45); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(26,26,26,.06); }
+.tool-mark { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue); flex: 0 0 8px; }
+.tool-name { font-family: var(--font-body); font-size: 0.84rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+.tool-desc { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
+
+/* VERBATIMS */
+.verb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+.verbatim { background: rgba(242,239,232,.7); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 15px 16px 15px 38px; font-size: 0.86rem; font-style: italic; color: var(--text-secondary); position: relative; line-height: 1.58; }
+.verbatim::before { content: '"'; font-family: var(--font-display); font-size: 42px; color: rgba(15,82,87,.22); position: absolute; top: 3px; left: 12px; line-height: 1; font-style: normal; }
+
+/* TIMELINE */
+.tl-phase { display: grid; grid-template-columns: 112px 1fr; margin-bottom: 8px; }
+.tl-phase-lbl { padding: 16px 20px 16px 0; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-start; gap: 4px; border-right: 1px solid var(--border-medium); margin-right: 20px; }
+.tl-phase-name { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); text-align: right; }
+.tl-phase-month { font-family: var(--font-display); font-size: 1rem; font-weight: 600; text-align: right; }
+.tl-items { padding: 12px 0; display: flex; flex-direction: column; gap: 7px; }
+.tl-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg-card); border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 0.86rem; color: var(--text-secondary); transition: transform 200ms ease-out, background 200ms ease-out; }
+.tl-item:hover { transform: translateX(4px); background:#FFFFFF; }
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-red { background: var(--danger); }
+.dot-warn { background: var(--warn); }
+.dot-blue { background: var(--accent-blue); }
+.dot-green { background: var(--success); }
+
+/* TABLE */
+.tools-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.84rem; border-radius: var(--radius-lg); overflow: hidden; }
+.tools-table thead tr { background: rgba(242,239,232,.9); border-bottom: 1px solid var(--border-medium); }
+.tools-table th { padding: 14px 18px; text-align: left; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+.tools-table td { padding: 13px 18px; color: var(--text-secondary); border-bottom: 1px solid var(--border-subtle); }
+.tools-table td:first-child { font-weight: 700; color: var(--text-primary); }
+.tools-table tbody tr:last-child td { border-bottom: none; }
+.tools-table tbody tr:hover { background: #FFFFFF; }
+
+/* INFO BOX */
+.info-box { background: #D8E4E3; border: 1px solid rgba(15,82,87,.18); border-radius: var(--radius-lg); padding: 22px 24px; margin-top: 20px; font-size: 0.91rem; color: var(--text-secondary); line-height: 1.7; }
+.info-box strong { color: var(--accent-blue); font-weight: 700; }
+
+/* DIVIDER */
+.divider { border: none; height: 1px; background: var(--border-medium); margin: 48px 0; }
+
+/* FOOTER */
+.footer { border-top: 1px solid var(--border-medium); padding: 38px 32px; display: flex; align-items: center; justify-content: space-between; background: var(--bg-secondary); }
+.footer-left { display: flex; align-items: center; gap: 16px; }
+.footer-sep { height: 24px; width: 1px; background: var(--border-medium); }
+.footer-text { font-size: 0.78rem; color: var(--text-muted); }
+.footer-right { font-size: 0.74rem; color: var(--text-muted); text-align: right; line-height: 1.6; }
+
+/* REVEAL */
+.reveal-ready .sum-card,
+.reveal-ready .score-card,
+.reveal-ready .nps-wrap,
+.reveal-ready .action-block,
+.reveal-ready .tl-phase,
+.reveal-ready .tools-table,
+.reveal-ready .info-box {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 520ms ease-out, transform 520ms ease-out, box-shadow 200ms ease-out, background 200ms ease-out;
+}
+.reveal-ready .is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media(max-width:900px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+  .scores-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .nav{position:sticky}
+  .nav-right .client,.nav-right .sep,.nav-right > span:not(.date-badge){display:none}
+  .doc-actions{gap:.45rem}
+  .doc-link{font-size:.76rem}
+  .doc-link-primary{padding:7px 10px}
+  .hero{min-height:auto;padding:5rem 1.4rem 3rem}
+  .hero h1{font-size:clamp(2.65rem,16vw,4.2rem)}
+  .hero-stats{grid-template-columns:1fr}
+  .h-stat{border-right:none;border-bottom:1px solid var(--border-subtle)}
+  .h-stat:last-child{border-bottom:none}
+  .summary-grid{grid-template-columns:1fr}
+  .scores-grid{grid-template-columns:1fr}
+  .verb-grid{grid-template-columns:1fr}
+  .tl-phase{grid-template-columns:82px 1fr}
+  .footer{flex-direction:column;gap:16px;text-align:center}
+  .footer-right{text-align:center}
+}
+
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/fr/" class="nav-logo">
+    <span class="logo-text-main">mot<span class="logo-xx">ex</span></span>
+  </a>
+  <div class="nav-right">
+    <span class="client pixel-name"><span>Entreprise d'ingénierie technique industrielle</span></span>
+    <span class="sep">|</span>
+    <span>Plan d'action</span>
+    <span class="sep">|</span>
+    <span class="date-badge">avril 2026</span>
+    <div class="doc-actions" aria-label="Navigation du document">
+      <a class="doc-link" href="/fr/casos/ingenieria-industrial/">Retour au cas</a>
+      <a class="doc-link-primary" href="/fr/contacto/#diagnostico">Demander un audit comme celui-ci</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="aurora">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+    <div class="aurora-blob aurora-blob-4"></div>
+  </div>
+  <div class="grid-overlay"></div>
+  <div class="hero-content">
+    <div class="anon-note"><strong>Document réel anonymisé.</strong> Certains noms et références internes ont été masqués pour protéger la confidentialité du client.</div>
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      Enquête de climat de travail · analyse par IA · 8 réponses
+    </div>
+    <h1>Plan d'action<br><span class="text-gradient pixel-name"><span>Entreprise d'ingénierie technique industrielle</span></span><br>2026</h1>
+    <p class="public-client">Entreprise d'ingénierie technique industrielle · environ 8 salariés</p>
+    <p class="hero-sub">Diagnostic complet et feuille de route exploitable, fondés sur les résultats de l'enquête de satisfaction interne. Généré et analysé par Motex.</p>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <div class="h-stat-num c-cyan">7,6</div>
+        <div class="h-stat-lbl">Satisfaction moyenne /10</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num c-warn">−12,5</div>
+        <div class="h-stat-lbl">eNPS actuel</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num c-danger">1,2</div>
+        <div class="h-stat-lbl">Note des sanitaires /5</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num c-green">87%</div>
+        <div class="h-stat-lbl">Utilisent déjà l'IA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+
+  <div class="section-hd" id="resumen-ejecutivo">
+    <span class="section-num">01</span>
+    <h2>Résumé exécutif</h2>
+    <div class="section-line"></div>
+    <span class="section-tag tag-cyan">Vue d'ensemble</span>
+  </div>
+
+  <div class="summary-grid">
+    <div class="sum-card"><div class="lbl">Satisfaction globale</div><div class="val c-cyan">7,6<sup>/10</sup></div><div class="desc">Moyenne de 8 réponses. Entre 5 et 9 points.</div></div>
+    <div class="sum-card"><div class="lbl">Recommanderaient l'entreprise</div><div class="val c-warn">75%</div><div class="desc">6 personnes sur 8 répondraient « Oui » ou « Probablement oui ».</div></div>
+    <div class="sum-card"><div class="lbl">Utilisent l'IA au travail</div><div class="val c-green">87%</div><div class="desc">Une seule personne ne l'utilise pas. Forte réceptivité à la formation.</div></div>
+    <div class="sum-card"><div class="lbl">Tâches répétitives</div><div class="val c-danger">100%</div><div class="desc">Tout le monde signale des tâches automatisables. Action urgente nécessaire.</div></div>
+    <div class="sum-card"><div class="lbl">Ressources suffisantes</div><div class="val c-warn">62%</div><div class="desc">5 personnes sur 8 indiquent qu'il manque des outils ou des améliorations.</div></div>
+    <div class="sum-card"><div class="lbl">Note la plus basse : sanitaires</div><div class="val c-danger">1,2<sup>/5</sup></div><div class="desc">La note la plus basse de toute l'enquête. Action immédiate.</div></div>
+  </div>
+
+  <div class="nps-wrap" style="margin-top:16px;">
+    <div class="nps-title">eNPS — Employee Net Promoter Score</div>
+    <div class="nps-bar">
+      <div class="nps-promo" style="width:25%"></div>
+      <div class="nps-pasivo" style="width:37.5%"></div>
+      <div class="nps-detrac" style="width:37.5%"></div>
+    </div>
+    <div class="nps-labels">
+      <span>Promoteurs (9-10) : 2 personnes · 25%</span>
+      <span>Passifs (7-8) : 3 personnes · 37,5%</span>
+      <span>Détracteurs (0-6) : 3 personnes · 37,5%</span>
+    </div>
+    <div class="nps-result">eNPS = 25% − 37,5% = −12,5 &nbsp;·&nbsp; Objectif 2026 : dépasser 0</div>
+  </div>
+
+  <div class="section-hd">
+    <span class="section-num">02</span>
+    <h2>Évaluation des aspects du quotidien</h2>
+    <div class="section-line"></div>
+    <span class="section-tag tag-blue">Notes</span>
+  </div>
+
+  <div class="scores-grid">
+    <div class="score-card"><div class="sc-lbl">Équilibre vie professionnelle / vie privée</div><div class="sc-bar-bg"><div class="sc-bar bar-cyan" style="width:90%"></div></div><div class="sc-val c-cyan">4,5 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Charge de travail</div><div class="sc-bar-bg"><div class="sc-bar bar-cyan" style="width:84%"></div></div><div class="sc-val c-cyan">4,2 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Formation reçue</div><div class="sc-bar-bg"><div class="sc-bar bar-blue" style="width:80%"></div></div><div class="sc-val c-blue">4,0 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Communication entre départements</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:76%"></div></div><div class="sc-val c-warn">3,8 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Ressources et outils</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:76%"></div></div><div class="sc-val c-warn">3,8 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Perspectives d'évolution</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:72%"></div></div><div class="sc-val c-warn">3,6 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Communication avec le responsable</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:66%"></div></div><div class="sc-val c-warn">3,3 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Reconnaissance du travail</div><div class="sc-bar-bg"><div class="sc-bar bar-red" style="width:60%"></div></div><div class="sc-val c-danger">3,0 / 5</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-hd"><span class="section-num">03</span><h2>Outils, automatisation et duplication</h2><div class="section-line"></div><span class="section-tag tag-red">Priorité haute</span></div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-alta">Priorité haute</span><h3>Unifier le système de gestion documentaire et éliminer les doublons</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> Plusieurs salariés saisissent les mêmes informations dans différents documents. Un outil de gestion interne est mentionné, ainsi que la nécessité que chacun utilise les mêmes modèles. La duplication est le principal point de douleur opérationnel.</div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Auditer les formulaires et modèles actuels : détecter quelles informations sont dupliquées et entre quels départements.</div></li>
+        <li><span class="step-n">2</span><div>Sélectionner ou adapter un système de gestion unique qui consolide la qualité, l'environnement et les opérations.</div></li>
+        <li><span class="step-n">3</span><div>Créer des modèles d'entreprise standard et obligatoires pour toute la société, intégrés à la même plateforme.</div></li>
+        <li><span class="step-n">4</span><div>Former toutes les équipes avant le lancement officiel du nouveau système.</div></li>
+      </ul>
+      <div class="tools-lbl">Outils recommandés</div>
+      <div class="tools-row">
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">SharePoint + Power Automate</div><div class="tool-desc">Gestion documentaire + flux automatiques · Microsoft 365</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Notion</div><div class="tool-desc">Wiki + modèles + base de connaissances centralisée</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Zapier / Make</div><div class="tool-desc">Automatiser les flux entre systèmes sans coder</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-alta">Priorité haute</span><h3>Automatiser le suivi du temps, les rapports de travail et les tâches administratives répétitives</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> Le suivi du temps et les rapports apparaissent dans plusieurs réponses comme des tâches qui consomment un temps inutile. La facturation et les rapports de travail sont également mentionnés.</div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Mettre en place une application de pointage numérique avec géolocalisation ou NFC qui envoie automatiquement les données au système de paie.</div></li>
+        <li><span class="step-n">2</span><div>Automatiser la génération des rapports de travail à partir des données déjà présentes dans le système de projets.</div></li>
+        <li><span class="step-n">3</span><div>Intégrer la facturation à l'ERP pour que les données des projets alimentent automatiquement les factures.</div></li>
+      </ul>
+      <div class="tools-lbl">Outils recommandés</div>
+      <div class="tools-row">
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Factorial HR</div><div class="tool-desc">Suivi du temps, absences, rapports · solution espagnole</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Sesame HR</div><div class="tool-desc">Application mobile et reporting automatique · espagnole</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Holded</div><div class="tool-desc">ERP + facturation + projets intégrés · espagnol</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-media">Priorité moyenne</span><h3>Fournir un second écran aux postes techniques</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> Un salarié signale expressément l'absence d'un grand second écran comme une limite à l'efficacité lorsqu'il travaille simultanément sur plusieurs documents.</div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Identifier quels postes (technique, projets, conception) nécessitent un double écran et chiffrer le coût.</div></li>
+        <li><span class="step-n">2</span><div>Acheter des moniteurs supplémentaires d'au moins 24" pour ces postes dans les 3 prochains mois.</div></li>
+        <li><span class="step-n">3</span><div>Inclure le double écran comme équipement standard pour les nouveaux postes techniques.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="section-num">04</span><h2>Intelligence artificielle et formation numérique</h2><div class="section-line"></div><span class="section-tag tag-cyan">IA · Stratégie</span></div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-alta">Priorité haute</span><h3>Lancer un programme de formation à l'IA appliquée à l'entreprise</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> 87% utilisent déjà des outils d'IA mais 100% ont besoin de formation. Principaux usages : rédaction de rapports, recherche réglementaire, résumés et analyse de données. Forte motivation : plusieurs répondent « oui, beaucoup » lorsqu'on les interroge sur leur intérêt pour la formation.</div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Créer un groupe de « pionniers de l'IA » avec des utilisateurs avancés pour identifier les 5 cas d'usage à plus fort impact dans l'entreprise.</div></li>
+        <li><span class="step-n">2</span><div>Organiser un atelier pratique de 4 heures : rédaction de rapports techniques, recherche réglementaire et analyse de données assistée par l'IA.</div></li>
+        <li><span class="step-n">3</span><div>Acheter des licences professionnelles pour éviter les comptes gratuits limités et sans confidentialité des données.</div></li>
+        <li><span class="step-n">4</span><div>Créer une bibliothèque interne de prompts utiles pour les tâches les plus courantes de l'entreprise.</div></li>
+      </ul>
+      <div class="tools-lbl">Outils recommandés</div>
+      <div class="tools-row">
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Microsoft Copilot 365</div><div class="tool-desc">IA intégrée à Word, Excel, Outlook et Teams</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Claude for Work</div><div class="tool-desc">Idéal pour les rapports techniques et l'analyse réglementaire</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Perplexity for Teams</div><div class="tool-desc">Recherche réglementaire intelligente avec sources citées</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Autodesk AI</div><div class="tool-desc">Automatisation des tâches répétitives en CAO</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="section-num">05</span><h2>Communication et coordination internes</h2><div class="section-line"></div><span class="section-tag tag-warn">Communication</span></div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-alta">Priorité haute</span><h3>Établir un canal de communication structuré entre les départements</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> La communication entre départements est le deuxième domaine le moins bien noté. Sont mentionnés le manque de coordination en qualité et environnement, la réception chaotique des informations client et l'absence d'alignement des processus.</div>
+      <div class="verb-grid">
+        <div class="verbatim">Les communications liées au système de management de la qualité et au système de management environnemental.</div>
+        <div class="verbatim">Que tous les départements utilisent les mêmes modèles et le même système de gestion.</div>
+      </div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Mettre en place un outil de communication interne structuré avec des canaux par projet et par département.</div></li>
+        <li><span class="step-n">2</span><div>Créer un protocole de réception des informations client : formulaire standard, responsable assigné et délai de réponse.</div></li>
+        <li><span class="step-n">3</span><div>Fixer des réunions interdépartementales bimensuelles de 30 minutes avec un bref compte rendu partagé.</div></li>
+      </ul>
+      <div class="tools-lbl">Outils recommandés</div>
+      <div class="tools-row">
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Microsoft Teams</div><div class="tool-desc">Canaux par projet, visioconférences, intégration Office</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Slack</div><div class="tool-desc">Communication agile avec bots et intégrations</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Typeform + CRM</div><div class="tool-desc">Formulaire standard pour recevoir les informations client</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-media">Priorité moyenne</span><h3>Améliorer la reconnaissance du travail et la communication avec les responsables</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> La reconnaissance du travail est l'aspect du quotidien le moins bien noté (3,0/5). La communication avec le responsable direct obtient aussi une note faible (3,3/5). Impact direct sur la satisfaction et la fidélisation.</div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Mettre en place des entretiens individuels mensuels avec une structure fixe : réussites, difficultés et prochaines étapes.</div></li>
+        <li><span class="step-n">2</span><div>Créer un système de reconnaissance interne : mention en réunion d'équipe, message public dans Teams, etc.</div></li>
+        <li><span class="step-n">3</span><div>Enquête de climat trimestrielle ultra-courte (3 questions) pour suivre les progrès.</div></li>
+      </ul>
+      <div class="tools-lbl">Outils recommandés</div>
+      <div class="tools-row">
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Bonusly</div><div class="tool-desc">Reconnaissance entre pairs avec points échangeables</div></div></div>
+        <div class="tool-chip"><span class="tool-mark" aria-hidden="true"></span><div><div class="tool-name">Officevibe / Leapsome</div><div class="tool-desc">Pouls de climat continu + feedback 360°</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="section-num">06</span><h2>Conditions physiques du bureau</h2><div class="section-line"></div><span class="section-tag tag-red">Urgent</span></div>
+
+  <div class="scores-grid" style="margin-bottom:16px;">
+    <div class="score-card"><div class="sc-lbl">Éclairage</div><div class="sc-bar-bg"><div class="sc-bar bar-cyan" style="width:86%"></div></div><div class="sc-val c-cyan">4,3 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Espace de travail</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:76%"></div></div><div class="sc-val c-warn">3,8 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Équipement (bureau, chaise, écrans)</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:72%"></div></div><div class="sc-val c-warn">3,6 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Propreté</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:64%"></div></div><div class="sc-val c-warn">3,2 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Température / climatisation</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:60%"></div></div><div class="sc-val c-warn">3,0 / 5</div></div>
+    <div class="score-card"><div class="sc-lbl">Niveau sonore</div><div class="sc-bar-bg"><div class="sc-bar bar-warn" style="width:52%"></div></div><div class="sc-val c-warn">2,6 / 5</div></div>
+    <div class="score-card" style="border-color:rgba(255,85,119,0.4);"><div class="sc-lbl">Sanitaires</div><div class="sc-bar-bg"><div class="sc-bar bar-red" style="width:24%"></div></div><div class="sc-val c-danger">1,2 / 5</div></div>
+  </div>
+
+  <div class="action-block" style="border-color:rgba(255,85,119,0.35);">
+    <div class="action-head"><span class="prio-badge prio-alta">Cette semaine - urgent</span><h3>Amélioration immédiate des sanitaires et de la climatisation</h3></div>
+    <div class="action-body">
+      <div class="diag" style="border-color:var(--danger);background:rgba(255,85,119,0.04);"><strong style="color:var(--danger);">Diagnostic :</strong> Les sanitaires sont l'élément le moins bien noté de toute l'enquête (1,2/5). La climatisation obtient aussi une note très basse (3,0/5). Plusieurs salariés le mentionnent avec insistance dans les réponses ouvertes.</div>
+      <div class="verb-grid">
+        <div class="verbatim">Des sanitaires EN BON ÉTAT.</div>
+        <div class="verbatim">Une meilleure climatisation.</div>
+      </div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div><strong style="color:var(--text-primary);">Sanitaires :</strong> Vérification immédiate de l'état et de l'entretien. Augmenter la fréquence de nettoyage et fournir en permanence les consommables de base.</div></li>
+        <li><span class="step-n">2</span><div><strong style="color:var(--text-primary);">Climatisation :</strong> Vérifier le système CVC. S'il est insuffisant, prioriser la réparation avant l'été.</div></li>
+        <li><span class="step-n">3</span><div>Établir un protocole de signalement des problèmes de maintenance pour que tout salarié puisse remonter les problèmes.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-media">Priorité moyenne</span><h3>Créer une salle de réunion / visioconférence et améliorer l'acoustique</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> La salle de visioconférence est la ressource la plus demandée (6 personnes sur 8). Le niveau sonore (2,6/5) est faible car les appels externes gênent les collègues.</div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Aménager un espace dédié aux appels vidéo, même en adaptant une zone existante avec des panneaux acoustiques.</div></li>
+        <li><span class="step-n">2</span><div>Fournir un écran, une caméra et un micro de qualité pour les présentations client.</div></li>
+        <li><span class="step-n">3</span><div>Installer des cloisons acoustiques dans l'espace de travail ouvert pour réduire les interférences.</div></li>
+        <li><span class="step-n">4</span><div>Ajouter des casiers ou un rangement personnel pour chaque salarié (demandé par 3 personnes).</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="section-num">07</span><h2>Développement professionnel et carrière</h2><div class="section-line"></div><span class="section-tag tag-purple">Talent</span></div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-media">Priorité moyenne</span><h3>Définir un plan de carrière et des perspectives d'évolution claires</h3></div>
+    <div class="action-body">
+      <div class="diag"><strong>Diagnostic :</strong> Les perspectives de développement professionnel obtiennent 3,6/5, un salarié leur attribuant un 2. Il y a des mentions explicites du souhait d'avoir davantage d'opportunités d'évolution.</div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Mener des entretiens de développement individuels pour comprendre les aspirations et élaborer un plan sur 1-2 ans.</div></li>
+        <li><span class="step-n">2</span><div>Fixer des objectifs annuels clairs et mesurables, liés aux révisions de rémunération.</div></li>
+        <li><span class="step-n">3</span><div>Créer un budget annuel de formation externe par personne (cours du secteur, certifications).</div></li>
+        <li><span class="step-n">4</span><div>Communiquer activement sur les projets stratégiques pour que les salariés perçoivent l'avenir et leur rôle dans celui-ci.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-hd"><span class="section-num">08</span><h2>Environnement de travail et cohésion d'équipe</h2><div class="section-line"></div><span class="section-tag tag-green">Maintenir</span></div>
+
+  <div class="action-block">
+    <div class="action-head"><span class="prio-badge prio-mant">Maintenance</span><h3>Renforcer les points forts : travail d'équipe et flexibilité des horaires</h3></div>
+    <div class="action-body">
+      <div class="diag" style="border-color:var(--success);background:rgba(0,255,209,0.03);"><strong style="color:var(--success);">Diagnostic :</strong> L'ambiance d'équipe est le plus grand atout de l'entreprise. Les mots employés par les personnes - « confortable », « convivial », « collaboratif », « dynamique », « bonne ambiance » - sont très précieux et doivent être protégés. Les horaires et l'équilibre vie professionnelle / vie privée sont les aspects les mieux notés (4,5/5).</div>
+      <div class="verb-grid">
+        <div class="verbatim" style="border-color:rgba(0,255,209,0.2);background:rgba(0,255,209,0.04);">Confortable, détendu et convivial.</div>
+        <div class="verbatim" style="border-color:rgba(0,255,209,0.2);background:rgba(0,255,209,0.04);">Bon, collaboratif et dynamique.</div>
+        <div class="verbatim" style="border-color:rgba(0,255,209,0.2);background:rgba(0,255,209,0.04);">Bonne ambiance.</div>
+        <div class="verbatim" style="border-color:rgba(0,255,209,0.2);background:rgba(0,255,209,0.04);">Bon, calme, accueillant.</div>
+      </div>
+      <ul class="steps">
+        <li><span class="step-n">1</span><div>Maintenir les horaires flexibles et la politique d'équilibre vie professionnelle / vie privée comme facteur différenciant pour attirer les talents.</div></li>
+        <li><span class="step-n">2</span><div>Organiser des activités de team-building trimestrielles (non obligatoires) pour maintenir la cohésion.</div></li>
+        <li><span class="step-n">3</span><div>Communiquer ouvertement que la direction a écouté l'enquête et agit : cela renforce la confiance.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-hd"><span class="section-num">09</span><h2>Feuille de route : quoi faire et quand ?</h2><div class="section-line"></div><span class="section-tag tag-blue">Feuille de route</span></div>
+
+  <div>
+    <div class="tl-phase">
+      <div class="tl-phase-lbl"><div class="tl-phase-name">Phase 1</div><div class="tl-phase-month c-danger">Mai</div></div>
+      <div class="tl-items">
+        <div class="tl-item"><div class="tl-dot dot-red"></div>Vérification et action immédiate sur les sanitaires et la climatisation</div>
+        <div class="tl-item"><div class="tl-dot dot-red"></div>Informer l'équipe que les résultats ont été lus et que des mesures sont prises</div>
+        <div class="tl-item"><div class="tl-dot dot-red"></div>Acheter des moniteurs supplémentaires pour les postes techniques</div>
+        <div class="tl-item"><div class="tl-dot dot-red"></div>Définir l'outil de communication interne (Teams ou Slack)</div>
+      </div>
+    </div>
+    <div class="tl-phase">
+      <div class="tl-phase-lbl"><div class="tl-phase-name">Phase 2</div><div class="tl-phase-month c-warn">Juin</div></div>
+      <div class="tl-items">
+        <div class="tl-item"><div class="tl-dot dot-warn"></div>Auditer les processus dupliqués et sélectionner l'outil de gestion documentaire</div>
+        <div class="tl-item"><div class="tl-dot dot-warn"></div>Premier atelier IA (4h) pour toute l'équipe</div>
+        <div class="tl-item"><div class="tl-dot dot-warn"></div>Commencer à aménager la salle de visioconférence</div>
+        <div class="tl-item"><div class="tl-dot dot-warn"></div>Mettre en place le système de pointage numérique (Factorial ou Sesame HR)</div>
+      </div>
+    </div>
+    <div class="tl-phase">
+      <div class="tl-phase-lbl"><div class="tl-phase-name">Phase 3</div><div class="tl-phase-month c-blue">Juil.-août</div></div>
+      <div class="tl-items">
+        <div class="tl-item"><div class="tl-dot dot-blue"></div>Déployer les modèles unifiés et le nouveau système de gestion documentaire</div>
+        <div class="tl-item"><div class="tl-dot dot-blue"></div>Entretiens individuels mensuels mis en place comme pratique standard</div>
+        <div class="tl-item"><div class="tl-dot dot-blue"></div>Entretiens individuels de développement professionnel</div>
+        <div class="tl-item"><div class="tl-dot dot-blue"></div>Acheter les licences professionnelles d'IA</div>
+      </div>
+    </div>
+    <div class="tl-phase">
+      <div class="tl-phase-lbl"><div class="tl-phase-name">Phase 4</div><div class="tl-phase-month c-green">Sept.-oct.</div></div>
+      <div class="tl-items">
+        <div class="tl-item"><div class="tl-dot dot-green"></div>Refaire l'enquête de climat (version courte, 5 questions) pour mesurer l'impact</div>
+        <div class="tl-item"><div class="tl-dot dot-green"></div>Plans de carrière individuels finalisés et communiqués</div>
+        <div class="tl-item"><div class="tl-dot dot-green"></div>Système de reconnaissance en cours</div>
+        <div class="tl-item"><div class="tl-dot dot-green"></div>Évaluer l'impact des automatisations mises en place</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-hd"><span class="section-num">10</span><h2>Carte des outils recommandés</h2><div class="section-line"></div><span class="section-tag tag-cyan">Tech Stack</span></div>
+
+  <table class="tools-table">
+    <thead><tr><th>Outil</th><th>Catégorie</th><th>Problème résolu</th><th>Priorité</th></tr></thead>
+    <tbody>
+      <tr><td>Factorial HR / Sesame HR</td><td style="color:var(--text-muted)">RH numériques</td><td>Suivi du temps, rapports et absences automatisés</td><td><span class="section-tag tag-red">Haute</span></td></tr>
+      <tr><td>Microsoft Copilot 365</td><td style="color:var(--text-muted)">IA professionnelle</td><td>Rédaction de rapports, recherche et analyse intégrées à Office</td><td><span class="section-tag tag-red">Haute</span></td></tr>
+      <tr><td>SharePoint + Power Automate</td><td style="color:var(--text-muted)">Gestion documentaire</td><td>Centraliser les documents et automatiser les flux de travail</td><td><span class="section-tag tag-red">Haute</span></td></tr>
+      <tr><td>Microsoft Teams</td><td style="color:var(--text-muted)">Communication</td><td>Canaux par département, appels vidéo et salle virtuelle</td><td><span class="section-tag tag-red">Haute</span></td></tr>
+      <tr><td>Holded</td><td style="color:var(--text-muted)">ERP / Facturation</td><td>Facturation, projets et comptabilité sans duplication</td><td><span class="section-tag tag-warn">Moyenne</span></td></tr>
+      <tr><td>Notion</td><td style="color:var(--text-muted)">Wiki / Connaissances</td><td>Base de connaissances, modèles et processus unifiés</td><td><span class="section-tag tag-warn">Moyenne</span></td></tr>
+      <tr><td>Perplexity for Teams</td><td style="color:var(--text-muted)">IA / Réglementation</td><td>Recherche réglementaire intelligente avec sources vérifiées</td><td><span class="section-tag tag-warn">Moyenne</span></td></tr>
+      <tr><td>Officevibe / Leapsome</td><td style="color:var(--text-muted)">Climat de travail</td><td>Pouls de satisfaction continu, feedback et reconnaissance</td><td><span class="section-tag tag-green">Basse</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <strong>Note pour la direction :</strong> Si l'entreprise utilise déjà Microsoft 365, la recommandation numéro un est d'<strong>activer Teams + SharePoint + Power Automate + Copilot</strong> avant de souscrire un nouvel outil. Cela résout d'un coup la communication interne, la gestion documentaire, l'automatisation et l'accès à l'IA, avec une seule plateforme que l'équipe connaît déjà. Si Microsoft 365 n'est pas utilisé, c'est le moment idéal pour l'évaluer.
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-left">
+    <a href="/fr/" class="nav-logo">
+      <span class="logo-text-main">mot<span class="logo-xx">ex</span></span>
+    </a>
+    <div class="footer-sep"></div>
+    <span class="footer-text">Analyse générée par Motex</span>
+  </div>
+  <div class="footer-right">
+    Entreprise d'ingénierie technique industrielle · environ 8 salariés · Plan d'action 2026<br>
+    Basé sur l'enquête de climat de travail d'avril 2026 · 8 réponses · Client anonymisé<br>
+    <a class="doc-link" href="/fr/casos/ingenieria-industrial/">Retour au cas</a> · <a class="doc-link" href="/fr/contacto/#diagnostico">Demander un audit comme celui-ci</a>
+  </div>
+</footer>
+
+
+<script>
+document.documentElement.classList.add('reveal-ready');
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.sum-card, .score-card, .nps-wrap, .action-block, .tl-phase, .tools-table, .info-box')
+  .forEach((el, index) => {
+    el.style.transitionDelay = `${Math.min(index % 6, 5) * 45}ms`;
+    revealObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
