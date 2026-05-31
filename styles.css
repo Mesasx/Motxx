@@ -3514,3 +3514,28 @@ html.menu-open body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .fb-edge-live { animation: none; }
 }
+
+/* ============================================================
+   HOME · tipografía del wordmark del hero = la de la marca
+   El título grande "motex" del inicio usaba Inter; lo igualamos a
+   Space Grotesk (--font-heading), idéntico al logo de la cabecera y
+   del resto de páginas: "mot" claro + "ex" en cursiva con degradado.
+   ============================================================ */
+.home-hero .hero-mark {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+}
+.home-hero .hero-mark .mot { font-family: var(--font-heading); color: #FFFFFF; }
+.home-hero .hero-mark .logo-ex {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 700;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
