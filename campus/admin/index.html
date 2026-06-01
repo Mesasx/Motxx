@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <script>try{if(localStorage.getItem("motex-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moderación | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body class="campus-app" data-active="admin">
+<header class="app-topbar">
+  <button class="app-burger" type="button" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  <a class="brand" href="/campus/panel/">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+  <span class="spacer"></span>
+  <a href="/campus/perfil/" class="avatar" id="topAvatar" aria-label="Mi perfil"></a>
+</header>
+<div class="app-backdrop"></div>
+<div class="app-layout">
+  <aside class="app-sidebar">
+    <nav>
+      <a href="/campus/panel/" data-side="panel"><span class="ico">▦</span> Panel</a>
+      <p class="side-label">Aprendizaje</p>
+      <a href="/campus/curso/?slug=iniciacion" data-side="cursos"><span class="ico">🎓</span> Mis cursos</a>
+      <a href="/campus/ejercicios/" data-side="ejercicios"><span class="ico">✎</span> Ejercicios</a>
+      <p class="side-label">Cuenta</p>
+      <a href="/campus/mentoria/" data-side="mentoria"><span class="ico">💬</span> Mentoría</a>
+      <a href="/campus/perfil/" data-side="perfil"><span class="ico">👤</span> Perfil</a>
+      <p class="side-label" data-auth="staff" hidden>Equipo</p>
+      <a href="/campus/admin/" data-side="admin" data-auth="staff" hidden><span class="ico">🛡</span> Moderación</a>
+    </nav>
+    <div class="side-bottom">
+      <a href="/cursos/"><span class="ico">↗</span> Web Motex</a>
+      <a href="#" data-action="logout"><span class="ico">⎋</span> Cerrar sesión</a>
+    </div>
+  </aside>
+  <main class="app-content">
+    <h1>Moderación</h1>
+    <p class="page-intro" id="intro">Cargando…</p>
+
+    <div class="stat-grid" id="stats"></div>
+
+    <div class="admin-tabs" id="tabs">
+      <button data-tab="alumnos" class="active">Alumnos</button>
+      <button data-tab="pagos">Pagos</button>
+      <button data-tab="mentorias">Mentorías</button>
+      <button data-tab="mensajes">Mensajes</button>
+    </div>
+
+    <div class="admin-panel" data-panel="alumnos"><div class="table-wrap"><table class="admin-table" id="tAlumnos"></table></div></div>
+    <div class="admin-panel" data-panel="pagos" hidden><div class="table-wrap"><table class="admin-table" id="tPagos"></table></div></div>
+    <div class="admin-panel" data-panel="mentorias" hidden><div class="table-wrap"><table class="admin-table" id="tMent"></table></div></div>
+    <div class="admin-panel" data-panel="mensajes" hidden><div class="table-wrap"><table class="admin-table" id="tMsg"></table></div></div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  if (!MC.configured) { document.getElementById("intro").textContent = MC.notConfiguredMessage(); return; }
+  var session = await MC.requireAuth();
+  if (!session) return;
+
+  var profile = await MC.getProfile();
+  MC.fillAvatar(document.getElementById("topAvatar"), profile);
+
+  // Guarda de acceso: solo moderador / admin.
+  if (!profile || (profile.role !== "moderator" && profile.role !== "admin")) {
+    document.querySelector(".app-content").innerHTML =
+      '<h1>Acceso restringido</h1><p class="page-intro">Esta sección es solo para el equipo de Motex.</p>' +
+      '<a class="btn btn-primary" href="/campus/panel/">Volver al panel</a>';
+    return;
+  }
+  document.getElementById("intro").textContent = "Gestión de alumnos, pagos, mentorías y mensajes.";
+
+  // Cargamos los datos (RLS permite al equipo verlo todo).
+  var P = (await MC.client.from("campus_profiles").select("*").order("created_at", { ascending: false })).data || [];
+  var C = (await MC.client.from("courses").select("id,title,slug")).data || [];
+  var Pay = (await MC.client.from("payments").select("*").order("created_at", { ascending: false })).data || [];
+  var Ment = (await MC.client.from("mentorship_bookings").select("*").order("created_at", { ascending: false })).data || [];
+  var Msg = (await MC.client.from("contact_messages").select("*").order("created_at", { ascending: false })).data || [];
+
+  var pById = {}; P.forEach(function (p) { pById[p.id] = p; });
+  var cById = {}; C.forEach(function (c) { cById[c.id] = c; });
+  function who(uid) { var p = pById[uid]; return p ? (MC.esc(p.username) + " · " + MC.esc(p.email)) : "—"; }
+  function fdate(d) { return d ? new Date(d).toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" }) : "—"; }
+  function fdt(d) { return d ? new Date(d).toLocaleString("es-ES", { dateStyle: "short", timeStyle: "short" }) : "Por concretar"; }
+
+  // Estadísticas
+  var income = Pay.filter(function (p) { return p.status === "paid"; }).reduce(function (a, p) { return a + (p.amount_cents || 0); }, 0);
+  var pend = Ment.filter(function (m) { return m.status === "pending"; }).length;
+  document.getElementById("stats").innerHTML =
+    '<div class="stat"><div class="num">' + P.length + '</div><div class="lbl">Alumnos</div></div>' +
+    '<div class="stat"><div class="num">' + MC.formatPrice(income, "EUR") + '</div><div class="lbl">Ingresos</div></div>' +
+    '<div class="stat"><div class="num">' + pend + '</div><div class="lbl">Mentorías pendientes</div></div>' +
+    '<div class="stat"><div class="num">' + Msg.length + '</div><div class="lbl">Mensajes</div></div>';
+
+  // Alumnos
+  document.getElementById("tAlumnos").innerHTML =
+    "<thead><tr><th>Usuario</th><th>Nombre</th><th>Correo</th><th>País</th><th>Rol</th><th>Alta</th></tr></thead><tbody>" +
+    P.map(function (p) {
+      var rb = '<span class="role-badge ' + (p.role || "") + '">' + MC.esc(p.role || "student") + "</span>";
+      return "<tr><td>" + MC.esc(p.username) + "</td><td>" + MC.esc(((p.first_name||"")+" "+(p.last_name||"")).trim()) + "</td><td>" +
+        MC.esc(p.email) + "</td><td>" + MC.esc(p.country || "—") + "</td><td>" + rb + "</td><td>" + fdate(p.created_at) + "</td></tr>";
+    }).join("") + "</tbody>";
+
+  // Pagos
+  document.getElementById("tPagos").innerHTML =
+    "<thead><tr><th>Fecha</th><th>Alumno</th><th>Curso</th><th>Método</th><th>Importe</th><th>Estado</th></tr></thead><tbody>" +
+    (Pay.length ? Pay.map(function (p) {
+      var c = cById[p.course_id];
+      return "<tr><td>" + fdate(p.created_at) + "</td><td>" + who(p.user_id) + "</td><td>" + MC.esc(c ? c.title : "—") +
+        "</td><td>" + MC.esc(p.method || "—") + "</td><td>" + MC.formatPrice(p.amount_cents, p.currency) +
+        "</td><td>" + MC.esc(p.status) + "</td></tr>";
+    }).join("") : '<tr><td colspan="6" style="color:var(--text-muted)">Sin pagos todavía.</td></tr>') + "</tbody>";
+
+  // Mentorías (estado editable)
+  var STATES = ["pending", "confirmed", "done", "cancelled"];
+  document.getElementById("tMent").innerHTML =
+    "<thead><tr><th>Alumno</th><th>Tema</th><th>Fecha pedida</th><th>Estado</th><th>Notas</th></tr></thead><tbody>" +
+    (Ment.length ? Ment.map(function (m) {
+      var opts = STATES.map(function (s) { return '<option value="' + s + '"' + (s === m.status ? " selected" : "") + ">" + s + "</option>"; }).join("");
+      return "<tr><td>" + who(m.user_id) + "</td><td>" + MC.esc(m.topic || "—") + "</td><td>" + fdt(m.preferred_at) +
+        '</td><td><select data-ment="' + m.id + '">' + opts + '</select></td><td class="wrap">' + MC.esc(m.notes || "") + "</td></tr>";
+    }).join("") : '<tr><td colspan="5" style="color:var(--text-muted)">Sin reservas.</td></tr>') + "</tbody>";
+
+  document.getElementById("tMent").addEventListener("change", async function (e) {
+    var sel = e.target.closest("select[data-ment]");
+    if (!sel) return;
+    sel.disabled = true;
+    await MC.client.from("mentorship_bookings").update({ status: sel.value }).eq("id", sel.getAttribute("data-ment"));
+    sel.disabled = false;
+  });
+
+  // Mensajes
+  document.getElementById("tMsg").innerHTML =
+    "<thead><tr><th>Fecha</th><th>Alumno</th><th>Asunto</th><th>Mensaje</th></tr></thead><tbody>" +
+    (Msg.length ? Msg.map(function (m) {
+      return "<tr><td>" + fdate(m.created_at) + "</td><td>" + who(m.user_id) + "</td><td>" + MC.esc(m.subject || "—") +
+        '</td><td class="wrap">' + MC.esc(m.message) + "</td></tr>";
+    }).join("") : '<tr><td colspan="4" style="color:var(--text-muted)">Sin mensajes.</td></tr>') + "</tbody>";
+
+  // Pestañas
+  document.getElementById("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-tab]"); if (!b) return;
+    document.querySelectorAll("#tabs button").forEach(function (x) { x.classList.toggle("active", x === b); });
+    document.querySelectorAll(".admin-panel").forEach(function (p) { p.hidden = p.getAttribute("data-panel") !== b.getAttribute("data-tab"); });
+  });
+})();
+</script>
+</body>
+</html>
