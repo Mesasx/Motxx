@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <script>try{if(localStorage.getItem("motex-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comunidad | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body class="campus-app" data-active="comunidad">
+<header class="app-topbar">
+  <button class="app-burger" type="button" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  <a class="brand" href="/campus/panel/">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+  <span class="spacer"></span>
+  <a href="/campus/perfil/" class="avatar" id="topAvatar" aria-label="Mi perfil"></a>
+</header>
+<div class="app-backdrop"></div>
+<div class="app-layout">
+  <aside class="app-sidebar">
+    <nav>
+      <a href="/campus/panel/" data-side="panel"><span class="ico">▦</span> Panel</a>
+      <p class="side-label">Aprendizaje</p>
+      <a href="/campus/curso/?slug=iniciacion" data-side="cursos"><span class="ico">🎓</span> Mis cursos</a>
+      <a href="/campus/ejercicios/" data-side="ejercicios"><span class="ico">✎</span> Ejercicios</a>
+      <a href="/campus/comunidad/" data-side="comunidad"><span class="ico">💡</span> Comunidad</a>
+      <p class="side-label">Cuenta</p>
+      <a href="/campus/mentoria/" data-side="mentoria"><span class="ico">💬</span> Mentoría</a>
+      <a href="/campus/perfil/" data-side="perfil"><span class="ico">👤</span> Perfil</a>
+      <p class="side-label" data-auth="staff" hidden>Equipo</p>
+      <a href="/campus/admin/" data-side="admin" data-auth="staff" hidden><span class="ico">🛡</span> Moderación</a>
+    </nav>
+    <div class="side-bottom">
+      <a href="/cursos/"><span class="ico">↗</span> Web Motex</a>
+      <a href="#" data-action="logout"><span class="ico">⎋</span> Cerrar sesión</a>
+    </div>
+  </aside>
+  <main class="app-content">
+    <h1>Comunidad</h1>
+    <p class="page-intro">Comparte ideas, dudas y recursos (PDF) con el resto de alumnos.</p>
+
+    <div class="panel-card composer">
+      <h2>Crear publicación</h2>
+      <div class="form-msg ok" id="okMsg" hidden>¡Publicado!</div>
+      <div class="form-msg error" id="errMsg" hidden></div>
+      <form id="postForm">
+        <div class="field"><input id="title" type="text" placeholder="Título" maxlength="140" required/></div>
+        <div class="field"><textarea id="body" placeholder="Comparte tu idea o pregunta…"></textarea></div>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <label class="btn btn-secondary" for="fileInput" style="cursor:pointer">📎 Adjuntar PDF</label>
+          <input id="fileInput" type="file" accept="application/pdf" hidden/>
+          <span id="fileName" style="color:var(--text-muted);font-size:var(--fs-small)"></span>
+          <span class="spacer" style="flex:1"></span>
+          <button class="btn btn-primary" type="submit" id="postBtn">Publicar</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="feed"><p style="color:var(--text-muted)">Cargando…</p></div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  if (!MC.configured) { document.querySelector(".app-content").innerHTML = "<p>" + MC.notConfiguredMessage() + "</p>"; return; }
+  var session = await MC.requireAuth();
+  if (!session) return;
+  var profile = await MC.getProfile();
+  MC.fillAvatar(document.getElementById("topAvatar"), profile);
+  var staff = await MC.isStaff();
+  var myId = session.user.id;
+
+  // Nombre público (sin exponer el correo en el foro).
+  var handle = profile
+    ? (((profile.first_name || "").trim() + (profile.last_name ? " " + profile.last_name.trim()[0] + "." : "")).trim() || profile.username)
+    : "Alumno";
+
+  function initials(name) { var p = (name || "?").trim().split(/\s+/); var a = (p[0]||"")[0]||""; var b = (p[1]||"")[0]||""; return ((a + b) || "?").toUpperCase(); }
+  function fdt(d) { return new Date(d).toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" }); }
+
+  // ---- Adjuntar PDF ----
+  var pendingFile = null;
+  document.getElementById("fileInput").addEventListener("change", function () {
+    var f = this.files && this.files[0];
+    var errMsg = document.getElementById("errMsg"); errMsg.hidden = true;
+    if (f && f.type !== "application/pdf") { errMsg.textContent = "Solo se permiten archivos PDF."; errMsg.hidden = false; this.value = ""; return; }
+    if (f && f.size > 10 * 1024 * 1024) { errMsg.textContent = "El PDF supera los 10 MB."; errMsg.hidden = false; this.value = ""; return; }
+    pendingFile = f || null;
+    document.getElementById("fileName").textContent = f ? f.name : "";
+  });
+
+  // ---- Publicar ----
+  document.getElementById("postForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var okMsg = document.getElementById("okMsg"), errMsg = document.getElementById("errMsg");
+    okMsg.hidden = true; errMsg.hidden = true;
+    var title = document.getElementById("title").value.trim();
+    if (!title) { errMsg.textContent = "Pon un título."; errMsg.hidden = false; return; }
+    var btn = document.getElementById("postBtn"); btn.disabled = true; btn.textContent = "Publicando…";
+
+    var fileUrl = null, fileName = null;
+    if (pendingFile) {
+      var safe = pendingFile.name.replace(/[^\w.\-]+/g, "_");
+      var path = myId + "/" + Date.now() + "-" + safe;
+      var up = await MC.client.storage.from("campus-files").upload(path, pendingFile, { contentType: "application/pdf" });
+      if (up.error) { errMsg.textContent = up.error.message; errMsg.hidden = false; btn.disabled = false; btn.textContent = "Publicar"; return; }
+      fileUrl = MC.client.storage.from("campus-files").getPublicUrl(path).data.publicUrl;
+      fileName = pendingFile.name;
+    }
+
+    var r = await MC.client.from("community_posts").insert({
+      user_id: myId, author_name: handle, title: title,
+      body: document.getElementById("body").value.trim(), file_url: fileUrl, file_name: fileName
+    });
+    if (r.error) { errMsg.textContent = r.error.message; errMsg.hidden = false; }
+    else {
+      okMsg.hidden = false; e.target.reset(); pendingFile = null; document.getElementById("fileName").textContent = ""; loadFeed();
+    }
+    btn.disabled = false; btn.textContent = "Publicar";
+  });
+
+  // ---- Feed ----
+  var feed = document.getElementById("feed");
+  async function loadFeed() {
+    var r = await MC.client.from("community_posts").select("*").order("created_at", { ascending: false }).limit(50);
+    var posts = r.data || [];
+    if (!posts.length) { feed.innerHTML = '<div class="empty-state"><div class="ico">💡</div><p>Aún no hay publicaciones. ¡Sé el primero en compartir algo!</p></div>'; return; }
+    feed.innerHTML = posts.map(function (p) {
+      var canDel = p.user_id === myId || staff;
+      var file = p.file_url ? '<a class="file-chip" href="' + MC.esc(p.file_url) + '" target="_blank" rel="noopener">📄 ' + MC.esc(p.file_name || "Descargar PDF") + "</a>" : "";
+      return (
+        '<article class="post-card" data-post="' + p.id + '">' +
+          '<div class="post-head">' +
+            '<span class="avatar sm">' + MC.esc(initials(p.author_name)) + "</span>" +
+            '<div><div class="who">' + MC.esc(p.author_name || "Alumno") + '</div><div class="date">' + fdt(p.created_at) + "</div></div>" +
+          "</div>" +
+          "<h3>" + MC.esc(p.title) + "</h3>" +
+          (p.body ? '<p class="body">' + MC.esc(p.body) + "</p>" : "") +
+          file +
+          '<div class="post-actions">' +
+            '<button data-toggle="' + p.id + '">💬 Comentarios</button>' +
+            (canDel ? '<button data-del="' + p.id + '">🗑 Eliminar</button>' : "") +
+          "</div>" +
+          '<div class="comments" id="c-' + p.id + '" hidden></div>' +
+        "</article>"
+      );
+    }).join("");
+  }
+
+  feed.addEventListener("click", async function (e) {
+    var t = e.target.closest("button");
+    if (!t) return;
+    if (t.hasAttribute("data-del")) {
+      if (!confirm("¿Eliminar esta publicación?")) return;
+      await MC.client.from("community_posts").delete().eq("id", t.getAttribute("data-del"));
+      loadFeed(); return;
+    }
+    if (t.hasAttribute("data-toggle")) {
+      var id = t.getAttribute("data-toggle");
+      var box = document.getElementById("c-" + id);
+      if (box.hidden) { box.hidden = false; loadComments(id, box); } else { box.hidden = true; }
+    }
+  });
+
+  async function loadComments(postId, box) {
+    var r = await MC.client.from("community_comments").select("*").eq("post_id", postId).order("created_at", { ascending: true });
+    var cs = r.data || [];
+    box.innerHTML = cs.map(function (c) {
+      return '<div class="comment"><span class="avatar sm">' + MC.esc(initials(c.author_name)) + '</span>' +
+        '<div class="c-body"><span class="who">' + MC.esc(c.author_name || "Alumno") + "</span> — " + MC.esc(c.body) + "</div></div>";
+    }).join("") +
+      '<form class="comment-form" data-post="' + postId + '"><input type="text" placeholder="Escribe un comentario…" maxlength="500"/><button class="btn btn-secondary" type="submit">Enviar</button></form>';
+  }
+
+  feed.addEventListener("submit", async function (e) {
+    var form = e.target.closest(".comment-form"); if (!form) return;
+    e.preventDefault();
+    var postId = form.getAttribute("data-post");
+    var input = form.querySelector("input");
+    var body = input.value.trim(); if (!body) return;
+    input.disabled = true;
+    var r = await MC.client.from("community_comments").insert({ post_id: postId, user_id: myId, author_name: handle, body: body });
+    input.disabled = false;
+    if (!r.error) { input.value = ""; loadComments(postId, document.getElementById("c-" + postId)); }
+  });
+
+  loadFeed();
+})();
+</script>
+</body>
+</html>

@@ -58,6 +58,10 @@ campus/
 > y el equipo puede **dar o quitar acceso a cursos** a cada alumno. El cambio
 > de rol está protegido en el servidor (solo admin; nunca te quedas sin admin).
 >
+> **Comunidad / foro (v6):** ejecuta también `supabase/schema-v6.sql`.
+> Crea el tablón de la comunidad (publicaciones con PDF adjunto y comentarios)
+> y el bucket `campus-files`. Página en `/campus/comunidad/`.
+>
 > Nota de seguridad sobre los vídeos: la web no puede impedir al 100 % la
 > grabación de pantalla (eso requiere DRM nativo). El campus aplica
 > disuasores fuertes (sin descarga ni clic derecho y **marca de agua con el

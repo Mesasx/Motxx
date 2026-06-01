@@ -29,6 +29,7 @@
       <p class="side-label">Aprendizaje</p>
       <a href="/campus/curso/?slug=iniciacion" data-side="cursos"><span class="ico">🎓</span> Mis cursos</a>
       <a href="/campus/ejercicios/" data-side="ejercicios"><span class="ico">✎</span> Ejercicios</a>
+      <a href="/campus/comunidad/" data-side="comunidad"><span class="ico">💡</span> Comunidad</a>
       <p class="side-label">Cuenta</p>
       <a href="/campus/mentoria/" data-side="mentoria"><span class="ico">💬</span> Mentoría</a>
       <a href="/campus/perfil/" data-side="perfil"><span class="ico">👤</span> Perfil</a>
@@ -99,7 +100,7 @@
 
   var pById = {}; P.forEach(function (p) { pById[p.id] = p; });
   var cById = {}; C.forEach(function (c) { cById[c.id] = c; });
-  function who(uid) { var p = pById[uid]; return p ? (MC.esc(p.username) + " · " + MC.esc(p.email)) : "—"; }
+  function who(uid) { var p = pById[uid]; return p ? MC.esc(p.email) : "—"; }
   function fdate(d) { return d ? new Date(d).toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" }) : "—"; }
   function fdt(d) { return d ? new Date(d).toLocaleString("es-ES", { dateStyle: "short", timeStyle: "short" }) : "Por concretar"; }
 
@@ -129,9 +130,10 @@
   }
   function renderAlumnos() {
     document.getElementById("tAlumnos").innerHTML =
-      "<thead><tr><th>Usuario</th><th>Correo</th><th>Rol</th><th>Acceso a cursos</th><th>Alta</th></tr></thead><tbody>" +
+      "<thead><tr><th>Correo</th><th>Nombre</th><th>Rol</th><th>Acceso a cursos</th><th>Alta</th></tr></thead><tbody>" +
       P.map(function (p) {
-        return "<tr><td>" + MC.esc(p.username) + "</td><td>" + MC.esc(p.email) + "</td><td>" +
+        var name = ((p.first_name || "") + " " + (p.last_name || "")).trim() || ("@" + (p.username || ""));
+        return "<tr><td>" + MC.esc(p.email) + "</td><td>" + MC.esc(name) + "</td><td>" +
           roleCell(p) + '</td><td class="wrap">' + courseCell(p) + "</td><td>" + fdate(p.created_at) + "</td></tr>";
       }).join("") + "</tbody>";
   }
