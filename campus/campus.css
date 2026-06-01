@@ -5,6 +5,26 @@
 /* El atributo hidden debe ganar a las reglas display del menú. */
 #campusNav [hidden] { display: none !important; }
 
+/* Desplegable del panel: anclado bajo la barra (no como modal centrado). */
+#campusNav .nav-menu.campus-dropdown {
+  position: fixed;
+  top: 74px;
+  right: 16px;
+  left: auto;
+  width: min(260px, calc(100vw - 32px));
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  transform: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+}
+#campusNav .nav-menu.campus-dropdown.open {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+}
+
 .campus-badge {
   display: inline-flex;
   align-items: center;
