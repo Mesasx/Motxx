@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mis ejercicios | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body class="campus-app" data-active="ejercicios">
+<header class="app-topbar">
+  <button class="app-burger" type="button" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  <a class="brand" href="/campus/panel/">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+  <span class="spacer"></span>
+  <a href="/campus/perfil/" class="avatar" id="topAvatar" aria-label="Mi perfil"></a>
+</header>
+<div class="app-backdrop"></div>
+<div class="app-layout">
+  <aside class="app-sidebar">
+    <nav>
+      <a href="/campus/panel/" data-side="panel"><span class="ico">▦</span> Panel</a>
+      <p class="side-label">Aprendizaje</p>
+      <a href="/campus/curso/?slug=iniciacion" data-side="cursos"><span class="ico">🎓</span> Mis cursos</a>
+      <a href="/campus/ejercicios/" data-side="ejercicios"><span class="ico">✎</span> Ejercicios</a>
+      <p class="side-label">Cuenta</p>
+      <a href="/campus/mentoria/" data-side="mentoria"><span class="ico">💬</span> Mentoría</a>
+      <a href="/campus/perfil/" data-side="perfil"><span class="ico">👤</span> Perfil</a>
+    </nav>
+    <div class="side-bottom">
+      <a href="/cursos/"><span class="ico">↗</span> Web Motex</a>
+      <a href="#" data-action="logout"><span class="ico">⎋</span> Cerrar sesión</a>
+    </div>
+  </aside>
+  <main class="app-content">
+    <h1>Mis ejercicios</h1>
+    <p class="page-intro">Aquí tienes todos los ejercicios que has entregado y su estado.</p>
+    <div id="list"><p style="color:var(--text-muted)">Cargando…</p></div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  if (!MC.configured) { document.getElementById("list").textContent = MC.notConfiguredMessage(); return; }
+  var session = await MC.requireAuth();
+  if (!session) return;
+  MC.fillAvatar(document.getElementById("topAvatar"), await MC.getProfile());
+
+  var r = await MC.client
+    .from("exercise_submissions")
+    .select("answer,status,score,feedback,submitted_at,exercises(title,prompt)")
+    .order("submitted_at", { ascending: false });
+  var subs = r.data || [];
+
+  var list = document.getElementById("list");
+  if (!subs.length) {
+    list.innerHTML =
+      '<div class="empty-state"><div class="ico">✎</div>' +
+      "<h2 style=\"font-size:1.2rem;margin-bottom:6px\">Aún no has entregado ejercicios</h2>" +
+      '<p>Empieza por la primera clase del curso de iniciación: incluye un ejercicio práctico.</p>' +
+      '<a class="btn btn-primary" style="margin-top:16px" href="/campus/curso/?slug=iniciacion">Ir a clase</a></div>';
+    return;
+  }
+
+  list.innerHTML = subs.map(function (s) {
+    var ex = s.exercises || {};
+    var pill = s.status === "reviewed"
+      ? '<span class="pill ok">Revisado' + (s.score != null ? " · " + s.score + "/10" : "") + "</span>"
+      : '<span class="pill wait">Entregado</span>';
+    var date = new Date(s.submitted_at).toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" });
+    return (
+      '<div class="sub-item">' +
+        '<div class="top"><h3>' + MC.esc(ex.title || "Ejercicio") + "</h3>" + pill + "</div>" +
+        '<p class="muted" style="margin:0 0 10px;color:var(--text-muted);font-size:var(--fs-small)">' + MC.esc(ex.prompt || "") + " · " + date + "</p>" +
+        '<p class="answer">' + MC.esc(s.answer) + "</p>" +
+        (s.feedback ? '<p style="margin-top:10px;color:var(--accent);font-size:var(--fs-small)">Feedback: ' + MC.esc(s.feedback) + "</p>" : "") +
+      "</div>"
+    );
+  }).join("");
+})();
+</script>
+</body>
+</html>

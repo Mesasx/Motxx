@@ -85,7 +85,7 @@
         throw new Error("Usuario o contraseña incorrectos.");
       }
 
-      var next = MC.qs("next") || "/campus/";
+      var next = MC.qs("next") || "/campus/panel/";
       location.href = next;
     } catch (err) {
       showError(err.message || "No se ha podido iniciar sesión.");

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi panel | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body class="campus-app" data-active="panel">
+<header class="app-topbar">
+  <button class="app-burger" type="button" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  <a class="brand" href="/campus/panel/">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+  <span class="spacer"></span>
+  <a href="/campus/perfil/" class="avatar" id="topAvatar" aria-label="Mi perfil"></a>
+</header>
+<div class="app-backdrop"></div>
+<div class="app-layout">
+  <aside class="app-sidebar">
+    <nav>
+      <a href="/campus/panel/" data-side="panel"><span class="ico">▦</span> Panel</a>
+      <p class="side-label">Aprendizaje</p>
+      <a href="/campus/curso/?slug=iniciacion" data-side="cursos"><span class="ico">🎓</span> Mis cursos</a>
+      <a href="/campus/ejercicios/" data-side="ejercicios"><span class="ico">✎</span> Ejercicios</a>
+      <p class="side-label">Cuenta</p>
+      <a href="/campus/mentoria/" data-side="mentoria"><span class="ico">💬</span> Mentoría</a>
+      <a href="/campus/perfil/" data-side="perfil"><span class="ico">👤</span> Perfil</a>
+    </nav>
+    <div class="side-bottom">
+      <a href="/cursos/"><span class="ico">↗</span> Web Motex</a>
+      <a href="#" data-action="logout"><span class="ico">⎋</span> Cerrar sesión</a>
+    </div>
+  </aside>
+  <main class="app-content">
+    <h1 id="hello">Tu panel</h1>
+    <p class="page-intro" id="intro">Cargando tu progreso…</p>
+
+    <div id="resume"></div>
+    <div class="stat-grid" id="stats"></div>
+
+    <div class="section-title"><h2>Tus cursos</h2></div>
+    <div class="card-grid three" id="courses"></div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  if (!MC.configured) { document.getElementById("intro").textContent = MC.notConfiguredMessage(); return; }
+  var session = await MC.requireAuth();
+  if (!session) return;
+
+  var profile = await MC.getProfile();
+  MC.fillAvatar(document.getElementById("topAvatar"), profile);
+  document.getElementById("hello").textContent = "Hola, " + (profile ? (profile.first_name || profile.username) : "");
+  document.getElementById("intro").textContent = "Este es tu espacio. Continúa aprendiendo y sigue tu progreso.";
+
+  var staff = await MC.isStaff();
+  var owned = {};
+  (await MC.getEnrollments()).forEach(function (e) { owned[e.course_id] = true; });
+  var done = await MC.completedLessonIds();
+
+  var coursesRes = await MC.client.from("courses").select("*").eq("active", true).order("sort_order");
+  var courses = coursesRes.data || [];
+  var catRes = await MC.client.from("lessons_catalog").select("id,course_id,title,is_free,sort_order").order("sort_order");
+  var lessons = catRes.data || [];
+  var subsRes = await MC.client.from("exercise_submissions").select("id");
+  var subsCount = (subsRes.data || []).length;
+
+  function lessonsOf(cid) { return lessons.filter(function (l) { return l.course_id === cid; }); }
+  function hasAccess(c) { return staff || owned[c.id]; }
+
+  // Estadísticas
+  var ownedCount = Object.keys(owned).length;
+  var doneCount = done.size;
+  document.getElementById("stats").innerHTML =
+    stat(ownedCount, "Cursos comprados") +
+    stat(doneCount, "Clases completadas") +
+    stat(subsCount, "Ejercicios entregados");
+
+  // Continúa aprendiendo: primera clase accesible no completada
+  var resume = null;
+  for (var i = 0; i < courses.length && !resume; i++) {
+    var c = courses[i];
+    var ls = lessonsOf(c.id);
+    for (var j = 0; j < ls.length; j++) {
+      var accessible = hasAccess(c) || ls[j].is_free;
+      if (accessible && !done.has(ls[j].id)) { resume = { course: c, lesson: ls[j] }; break; }
+    }
+  }
+  if (resume) {
+    document.getElementById("resume").innerHTML =
+      '<div class="resume-card">' +
+        '<div class="grow">' +
+          '<p class="eyebrow">Continúa aprendiendo</p>' +
+          '<h2 style="font-size:1.35rem;margin:4px 0 6px">' + MC.esc(resume.lesson.title) + "</h2>" +
+          '<p style="color:var(--text-secondary)">' + MC.esc(resume.course.title) + "</p>" +
+        "</div>" +
+        '<a class="btn btn-primary" href="/campus/curso/?slug=' + resume.course.slug + "&lesson=" + resume.lesson.id + '">Continuar →</a>' +
+      "</div>";
+  }
+
+  // Tus cursos con progreso / catálogo con pago
+  document.getElementById("courses").innerHTML = courses.map(function (c) {
+    var ls = lessonsOf(c.id);
+    var total = ls.length || 1;
+    var completed = ls.filter(function (l) { return done.has(l.id); }).length;
+    var pct = Math.round((completed / total) * 100);
+    var access = hasAccess(c);
+    var body, cta;
+    if (access) {
+      body =
+        '<div class="progress-row"><span>' + completed + "/" + ls.length + " clases</span><span>" + pct + "%</span></div>" +
+        '<div class="progress"><span style="width:' + pct + '%"></span></div>';
+      cta = '<a class="btn btn-primary full" href="/campus/curso/?slug=' + c.slug + '">' + (pct > 0 ? "Continuar" : "Empezar") + "</a>";
+    } else {
+      body = '<p class="price-tag">' + MC.formatPrice(c.price_cents, c.currency) + "</p>";
+      cta = '<a class="btn btn-secondary full" href="/campus/curso/?slug=' + c.slug + '">Ver temario</a>' +
+            '<a class="btn btn-primary full" href="/campus/pago/?slug=' + c.slug + '">Comprar</a>';
+    }
+    return (
+      '<article class="card course-card">' +
+        '<p class="eyebrow">' + MC.esc(c.subtitle || c.level || "") + "</p>" +
+        '<h3 style="font-size:1.15rem">' + MC.esc(c.title) + "</h3>" +
+        body +
+        '<div class="actions">' + cta + "</div>" +
+      "</article>"
+    );
+  }).join("");
+
+  function stat(n, l) { return '<div class="stat"><div class="num">' + n + '</div><div class="lbl">' + l + "</div></div>"; }
+})();
+</script>
+</body>
+</html>

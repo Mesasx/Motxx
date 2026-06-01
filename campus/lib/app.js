@@ -61,6 +61,36 @@
       return r.data || [];
     },
 
+    // Devuelve un Set con los ids de clases completadas por el usuario.
+    async completedLessonIds() {
+      if (!client) return new Set();
+      var r = await client.from("lesson_progress").select("lesson_id").eq("completed", true);
+      return new Set((r.data || []).map(function (x) { return x.lesson_id; }));
+    },
+
+    async markComplete(lessonId, courseId) {
+      if (!client) return;
+      var u = await this.getUser();
+      if (!u) return;
+      return client.from("lesson_progress").upsert(
+        { user_id: u.id, lesson_id: lessonId, course_id: courseId, completed: true, completed_at: new Date().toISOString() },
+        { onConflict: "user_id,lesson_id" }
+      );
+    },
+
+    initials(p) {
+      if (!p) return "·";
+      var a = (p.first_name || p.username || "").trim()[0] || "";
+      var b = (p.last_name || "").trim()[0] || "";
+      return (a + b).toUpperCase() || (p.username || "U")[0].toUpperCase();
+    },
+
+    fillAvatar(el, p) {
+      if (!el) return;
+      if (p && p.avatar_url) { el.innerHTML = '<img src="' + this.esc(p.avatar_url) + '" alt="">'; }
+      else { el.textContent = this.initials(p); }
+    },
+
     /* ---- Guardas de navegacion ---- */
     // Exige sesion iniciada y email verificado; si no, redirige.
     async requireAuth() {
@@ -168,6 +198,23 @@
     out.forEach(function (b) {
       b.addEventListener("click", function (e) { e.preventDefault(); MC.logout(); });
     });
+    // Barra lateral del espacio privado: marcar enlace activo + menú móvil.
+    var sidebar = document.querySelector(".app-sidebar");
+    if (sidebar) {
+      var active = document.body.getAttribute("data-active");
+      sidebar.querySelectorAll("a[data-side]").forEach(function (a) {
+        if (a.getAttribute("data-side") === active) a.classList.add("active");
+      });
+      var burger = document.querySelector(".app-burger");
+      var back = document.querySelector(".app-backdrop");
+      var close = function () { sidebar.classList.remove("open"); if (back) back.classList.remove("open"); };
+      if (burger) burger.addEventListener("click", function () {
+        sidebar.classList.toggle("open"); if (back) back.classList.toggle("open");
+      });
+      if (back) back.addEventListener("click", close);
+      sidebar.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", close); });
+    }
+
     // Menú desplegable centrado, igual que la web principal: movemos el menú
     // al <body> (para que no herede el apilamiento de la barra) y añadimos un
     // velo de fondo. Solo aplica donde existe el botón hamburguesa.

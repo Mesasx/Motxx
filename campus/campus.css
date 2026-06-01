@@ -228,3 +228,123 @@ select {
 .summary-card .line.total { border-bottom: 0; font-size: 1.3rem; font-weight: 700; padding-top: 16px; }
 
 .secure-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 14px; display: flex; gap: 8px; align-items: flex-start; }
+
+/* ============================================================
+   App shell del alumno · barra lateral + contenido
+   ============================================================ */
+.campus-app { background:
+  radial-gradient(1200px 600px at 100% -10%, rgba(33,199,182,0.06), transparent 60%),
+  var(--bg-base); }
+
+.app-topbar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 22px;
+  background: rgba(8,15,12,0.82);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.app-topbar .brand { font-size: 1.25rem; }
+.app-topbar .spacer { flex: 1; }
+.app-burger { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+.app-burger span { display: block; width: 22px; height: 2px; background: var(--text-primary); margin: 4px 0; border-radius: 2px; }
+
+.avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--grad); color: #04110d; font-weight: 700; font-size: 0.95rem;
+  border: 1px solid var(--border-strong); flex: none; overflow: hidden;
+}
+.avatar.lg { width: 72px; height: 72px; font-size: 1.6rem; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.app-layout { display: grid; grid-template-columns: 248px 1fr; min-height: calc(100vh - 67px); }
+
+.app-sidebar {
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+  position: sticky; top: 67px; height: calc(100vh - 67px);
+}
+.app-sidebar .side-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); padding: 6px 12px; margin-top: 10px; }
+.app-sidebar a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px; border-radius: 10px;
+  color: var(--text-secondary); font-weight: 500; font-size: 0.95rem;
+  transition: background var(--transition), color var(--transition);
+}
+.app-sidebar a:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+.app-sidebar a.active { background: var(--accent-soft); color: var(--accent); }
+.app-sidebar a .ico { width: 20px; text-align: center; }
+.app-sidebar .side-bottom { margin-top: auto; }
+
+.app-content { padding: clamp(24px, 4vw, 44px); max-width: 1080px; }
+.app-content h1 { font-size: clamp(1.7rem, 3vw, 2.2rem); }
+.page-intro { color: var(--text-secondary); margin: 4px 0 28px; }
+
+.app-backdrop { position: fixed; inset: 0; background: rgba(4,8,6,0.6); z-index: 35; opacity: 0; visibility: hidden; transition: opacity .2s; }
+.app-backdrop.open { opacity: 1; visibility: visible; }
+
+@media (max-width: 860px) {
+  .app-layout { grid-template-columns: 1fr; }
+  .app-burger { display: block; }
+  .app-sidebar {
+    position: fixed; top: 0; left: 0; height: 100vh; width: 256px; z-index: 45;
+    background: var(--bg-ink-2); transform: translateX(-100%);
+    transition: transform .25s var(--ease);
+  }
+  .app-sidebar.open { transform: translateX(0); }
+}
+
+/* ---- Tarjetas de estadísticas ---- */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 30px; }
+.stat {
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: 20px;
+}
+.stat .num { font-size: 2rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
+.stat .lbl { color: var(--text-muted); font-size: var(--fs-small); margin-top: 6px; }
+
+/* ---- Barra de progreso ---- */
+.progress { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.progress > span { display: block; height: 100%; background: var(--grad); border-radius: 999px; transition: width .4s var(--ease); }
+.progress-row { display: flex; justify-content: space-between; font-size: var(--fs-small); color: var(--text-secondary); margin-bottom: 8px; }
+
+/* ---- Tarjeta "continúa aprendiendo" ---- */
+.resume-card {
+  display: flex; gap: 22px; align-items: center; flex-wrap: wrap;
+  background: linear-gradient(115deg, var(--bg-elevated), rgba(33,199,182,0.08));
+  border: 1px solid var(--accent); border-radius: var(--radius-card);
+  padding: 26px; margin-bottom: 34px;
+}
+.resume-card .grow { flex: 1; min-width: 220px; }
+.resume-card .eyebrow { color: var(--accent); }
+
+.section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 32px 0 16px; }
+.section-title h2 { font-size: 1.3rem; }
+.section-title a { color: var(--accent); font-size: var(--fs-small); }
+
+/* ---- Formularios del espacio privado ---- */
+.panel-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-card); padding: clamp(22px, 3vw, 32px); margin-bottom: 22px; }
+.panel-card h2 { font-size: 1.2rem; margin-bottom: 4px; }
+.panel-card .muted { color: var(--text-muted); font-size: var(--fs-small); margin-bottom: 18px; }
+
+/* ---- Lista de ejercicios / entregas ---- */
+.sub-item { border: 1px solid var(--border); border-radius: var(--radius-card); padding: 20px; margin-bottom: 14px; background: var(--bg-elevated); }
+.sub-item .top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 8px; }
+.sub-item .top h3 { font-size: 1.05rem; }
+.sub-item .answer { color: var(--text-secondary); font-size: var(--fs-small); white-space: pre-wrap; }
+.pill { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border-strong); }
+.pill.ok { color: var(--success); border-color: var(--success); }
+.pill.wait { color: var(--warning); border-color: var(--warning); }
+.pill.confirmed { color: var(--accent); border-color: var(--accent); }
+
+.empty-state { text-align: center; padding: clamp(36px,6vw,64px); border: 1px dashed var(--border-strong); border-radius: var(--radius-card); color: var(--text-secondary); }
+.empty-state .ico { font-size: 2.2rem; margin-bottom: 10px; }
+
+/* ---- Ejercicio dentro de la clase ---- */
+.exercise-box { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: var(--radius-card); padding: 22px; margin-top: 24px; }
+.exercise-box h3 { font-size: 1.1rem; margin-bottom: 6px; }
+
+.lesson-item.done .idx { background: var(--accent); color: #04110d; border-color: var(--accent); }
+
