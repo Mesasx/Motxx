@@ -23,7 +23,9 @@ returns trigger
 language plpgsql security definer set search_path = public
 as $$
 begin
-  if public.is_campus_staff() then
+  -- Permite cambios desde el SQL Editor / service role (sin sesión, auth.uid()
+  -- nulo) y al equipo. Para el alumno corriente, los datos quedan bloqueados.
+  if auth.uid() is null or public.is_campus_staff() then
     return new;
   end if;
   new.username    := old.username;
