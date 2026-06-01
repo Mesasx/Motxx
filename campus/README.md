@@ -53,6 +53,11 @@ campus/
 > Habilita gestionar mentorías y revisar ejercicios por el equipo. El panel
 > está en `/campus/admin/` y solo es visible para `moderator`/`admin`.
 >
+> **Gestión desde el panel (v5):** ejecuta también `supabase/schema-v5.sql`.
+> Desde `/campus/admin/` un **admin** puede cambiar roles (crear moderadores)
+> y el equipo puede **dar o quitar acceso a cursos** a cada alumno. El cambio
+> de rol está protegido en el servidor (solo admin; nunca te quedas sin admin).
+>
 > Nota de seguridad sobre los vídeos: la web no puede impedir al 100 % la
 > grabación de pantalla (eso requiere DRM nativo). El campus aplica
 > disuasores fuertes (sin descarga ni clic derecho y **marca de agua con el

@@ -87,6 +87,15 @@
   var Pay = (await MC.client.from("payments").select("*").order("created_at", { ascending: false })).data || [];
   var Ment = (await MC.client.from("mentorship_bookings").select("*").order("created_at", { ascending: false })).data || [];
   var Msg = (await MC.client.from("contact_messages").select("*").order("created_at", { ascending: false })).data || [];
+  var Enr = (await MC.client.from("enrollments").select("user_id,course_id,status")).data || [];
+
+  var isAdmin = profile.role === "admin";
+  C.sort(function (a, b) { return (a.title > b.title) ? 1 : -1; });
+
+  // Acceso a cursos por alumno (solo matrículas activas).
+  var enrSet = {};
+  Enr.forEach(function (e) { if (e.status === "active") { (enrSet[e.user_id] = enrSet[e.user_id] || {})[e.course_id] = true; } });
+  function hasCourse(uid, cid) { return !!(enrSet[uid] && enrSet[uid][cid]); }
 
   var pById = {}; P.forEach(function (p) { pById[p.id] = p; });
   var cById = {}; C.forEach(function (c) { cById[c.id] = c; });
@@ -103,14 +112,57 @@
     '<div class="stat"><div class="num">' + pend + '</div><div class="lbl">Mentorías pendientes</div></div>' +
     '<div class="stat"><div class="num">' + Msg.length + '</div><div class="lbl">Mensajes</div></div>';
 
-  // Alumnos
-  document.getElementById("tAlumnos").innerHTML =
-    "<thead><tr><th>Usuario</th><th>Nombre</th><th>Correo</th><th>País</th><th>Rol</th><th>Alta</th></tr></thead><tbody>" +
-    P.map(function (p) {
-      var rb = '<span class="role-badge ' + (p.role || "") + '">' + MC.esc(p.role || "student") + "</span>";
-      return "<tr><td>" + MC.esc(p.username) + "</td><td>" + MC.esc(((p.first_name||"")+" "+(p.last_name||"")).trim()) + "</td><td>" +
-        MC.esc(p.email) + "</td><td>" + MC.esc(p.country || "—") + "</td><td>" + rb + "</td><td>" + fdate(p.created_at) + "</td></tr>";
-    }).join("") + "</tbody>";
+  // Alumnos (rol editable solo por admin; acceso a cursos editable por el equipo)
+  var ROLES = ["student", "moderator", "admin"];
+  function roleCell(p) {
+    if (!isAdmin) return '<span class="role-badge ' + (p.role || "") + '">' + MC.esc(p.role || "student") + "</span>";
+    var opts = ROLES.map(function (r) { return '<option value="' + r + '"' + (r === (p.role || "student") ? " selected" : "") + ">" + r + "</option>"; }).join("");
+    return '<select data-role="' + p.id + '">' + opts + "</select>";
+  }
+  function courseCell(p) {
+    return C.map(function (c) {
+      var on = hasCourse(p.id, c.id);
+      return '<button class="btn ' + (on ? "btn-primary" : "btn-secondary") + '" style="padding:5px 9px;font-size:0.72rem;margin:2px"' +
+        ' data-grant="' + p.id + '" data-course="' + c.id + '" data-on="' + (on ? "1" : "0") + '">' +
+        (on ? "✓ " : "+ ") + MC.esc(c.title) + "</button>";
+    }).join("");
+  }
+  function renderAlumnos() {
+    document.getElementById("tAlumnos").innerHTML =
+      "<thead><tr><th>Usuario</th><th>Correo</th><th>Rol</th><th>Acceso a cursos</th><th>Alta</th></tr></thead><tbody>" +
+      P.map(function (p) {
+        return "<tr><td>" + MC.esc(p.username) + "</td><td>" + MC.esc(p.email) + "</td><td>" +
+          roleCell(p) + '</td><td class="wrap">' + courseCell(p) + "</td><td>" + fdate(p.created_at) + "</td></tr>";
+      }).join("") + "</tbody>";
+  }
+  renderAlumnos();
+
+  // Cambio de rol (solo admin; validado también en el servidor).
+  document.getElementById("tAlumnos").addEventListener("change", async function (e) {
+    var sel = e.target.closest("select[data-role]"); if (!sel) return;
+    sel.disabled = true;
+    var r = await MC.client.rpc("campus_set_role", { target_id: sel.getAttribute("data-role"), new_role: sel.value });
+    if (r.error) { alert("No se pudo cambiar el rol: " + r.error.message); }
+    else { var pr = pById[sel.getAttribute("data-role")]; if (pr) pr.role = sel.value; }
+    sel.disabled = false;
+  });
+
+  // Dar / quitar acceso a un curso (matrícula manual por el equipo).
+  document.getElementById("tAlumnos").addEventListener("click", async function (e) {
+    var b = e.target.closest("button[data-grant]"); if (!b) return;
+    var uid = b.getAttribute("data-grant"), cid = b.getAttribute("data-course"), on = b.getAttribute("data-on") === "1";
+    b.disabled = true;
+    var r;
+    if (on) {
+      r = await MC.client.from("enrollments").delete().eq("user_id", uid).eq("course_id", cid);
+    } else {
+      r = await MC.client.from("enrollments").upsert({ user_id: uid, course_id: cid, status: "active" }, { onConflict: "user_id,course_id" });
+    }
+    if (r.error) { alert("No se pudo actualizar el acceso: " + r.error.message); b.disabled = false; return; }
+    (enrSet[uid] = enrSet[uid] || {});
+    if (on) delete enrSet[uid][cid]; else enrSet[uid][cid] = true;
+    b.disabled = false; renderAlumnos();
+  });
 
   // Pagos
   document.getElementById("tPagos").innerHTML =
