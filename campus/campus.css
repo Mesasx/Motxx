@@ -396,3 +396,73 @@ table.admin-table { width: 100%; border-collapse: collapse; font-size: var(--fs-
 }
 :root[data-theme="light"] .player .watermark { color: rgba(255,255,255,0.7); }
 
+
+/* ============================================================
+   Movimiento · animaciones de entrada y vida en la interfaz
+   ============================================================ */
+.mc-reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+.mc-reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .mc-reveal { opacity: 1 !important; transform: none !important; transition: none; } }
+
+@keyframes mcGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.resume-card { background-size: 220% 220%; animation: mcGradient 10s ease infinite; }
+
+.stat { transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); }
+.stat:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow-glow); }
+.card.course-card { transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); }
+.card.course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-glow); border-color: var(--border-strong); }
+
+@keyframes mcPop { 0% { transform: scale(.96); opacity: .4; } 100% { transform: scale(1); opacity: 1; } }
+.stat .num { display: inline-block; animation: mcPop .5s var(--ease) both; }
+
+.app-content h1 { animation: mcFadeUp .5s var(--ease) both; }
+@keyframes mcFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.avatar.sm { width: 30px; height: 30px; font-size: 0.78rem; }
+
+/* ============================================================
+   Comunidad / foro
+   ============================================================ */
+.composer textarea { min-height: 70px; }
+.post-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 22px; margin-bottom: 16px; transition: border-color var(--transition), transform var(--transition); }
+.post-card:hover { border-color: var(--border-strong); }
+.post-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.post-head .who { font-weight: 600; font-size: var(--fs-small); }
+.post-head .date { color: var(--text-muted); font-size: 0.78rem; }
+.post-card h3 { font-size: 1.15rem; margin: 0 0 6px; }
+.post-card .body { color: var(--text-secondary); white-space: pre-wrap; margin: 0 0 12px; }
+.file-chip { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border-strong); border-radius: 10px; color: var(--accent); font-size: var(--fs-small); font-weight: 600; }
+.file-chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+.post-actions { display: flex; gap: 14px; align-items: center; margin-top: 14px; font-size: var(--fs-small); color: var(--text-muted); }
+.post-actions button { background: none; border: 0; color: var(--text-secondary); cursor: pointer; font-size: var(--fs-small); }
+.post-actions button:hover { color: var(--accent); }
+.comments { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; display: grid; gap: 12px; }
+.comments[hidden] { display: none; }
+.comment { display: flex; gap: 10px; }
+.comment .c-body { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 9px 13px; font-size: var(--fs-small); flex: 1; }
+.comment .c-body .who { font-weight: 600; }
+.comment-form { display: flex; gap: 10px; margin-top: 6px; }
+.comment-form input { flex: 1; }
+
+/* Entrada suave de los bloques de contenido (también al insertarse por JS) */
+.app-content .stat,
+.app-content .panel-card,
+.app-content .card,
+.app-content .sub-item,
+.app-content .post-card,
+.app-content .resume-card,
+.app-content .admin-table tbody tr { animation: mcFadeUp .5s var(--ease) both; }
+.app-content .stat:nth-child(2),
+.app-content .card:nth-child(2),
+.app-content .post-card:nth-child(2) { animation-delay: .07s; }
+.app-content .stat:nth-child(3),
+.app-content .card:nth-child(3),
+.app-content .post-card:nth-child(3) { animation-delay: .14s; }
+.app-content .stat:nth-child(4),
+.app-content .card:nth-child(4),
+.app-content .post-card:nth-child(4) { animation-delay: .21s; }
+@media (prefers-reduced-motion: reduce) {
+  .app-content .stat, .app-content .panel-card, .app-content .card,
+  .app-content .sub-item, .app-content .post-card, .app-content .resume-card,
+  .app-content .admin-table tbody tr, .stat .num, .app-content h1 { animation: none !important; }
+}
