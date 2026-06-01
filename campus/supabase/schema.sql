@@ -95,20 +95,20 @@ create trigger on_auth_user_created_campus
   after insert on auth.users
   for each row execute function public.handle_new_campus_user();
 
--- Permite iniciar sesion con nombre de usuario: resuelve el email
--- asociado a un username para que el cliente pueda autenticarse.
-create or replace function public.campus_email_for_username(p_username text)
-returns text
-language sql stable security definer set search_path = public, auth
+-- Comprueba si un nombre de usuario ya esta cogido. Devuelve solo un
+-- booleano (no expone correos), para validar el alta sin filtrar PII.
+create or replace function public.campus_username_taken(p_username text)
+returns boolean
+language sql stable security definer set search_path = public
 as $$
-  select u.email
-  from auth.users u
-  join public.campus_profiles p on p.id = u.id
-  where p.username = p_username
-  limit 1;
+  select exists (select 1 from public.campus_profiles p where p.username = p_username);
 $$;
 
-grant execute on function public.campus_email_for_username(text) to anon, authenticated;
+grant execute on function public.campus_username_taken(text) to anon, authenticated;
+
+-- Compatibilidad: si existia la version anterior que devolvia el email,
+-- se elimina (era una via de enumeracion de correos).
+drop function if exists public.campus_email_for_username(text);
 
 -- ============================================================
 -- 2. CURSOS
@@ -139,6 +139,17 @@ create policy "courses_select_public" on public.courses
 drop policy if exists "courses_write_staff" on public.courses;
 create policy "courses_write_staff" on public.courses
   for all using (public.is_campus_staff()) with check (public.is_campus_staff());
+
+-- Tabla de matriculas (se define antes porque la politica de
+-- 'lessons' la referencia; las politicas se anaden en la seccion 4).
+create table if not exists public.enrollments (
+  id         uuid primary key default uuid_generate_v4(),
+  user_id    uuid not null references auth.users(id) on delete cascade,
+  course_id  uuid not null references public.courses(id) on delete cascade,
+  status     text not null default 'active' check (status in ('active','pending','refunded')),
+  created_at timestamptz not null default now(),
+  unique (user_id, course_id)
+);
 
 -- ============================================================
 -- 3. CLASES / LECCIONES

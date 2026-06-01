@@ -50,7 +50,13 @@ Deno.serve(async (req) => {
     const user = userData.user;
 
     const body = await req.json();
-    const { course_id, method, success_url, cancel_url } = body;
+    const { course_id, method, slug } = body;
+
+    // URLs de retorno construidas SIEMPRE en el servidor (evita open redirect).
+    const SITE_URL = Deno.env.get("SITE_URL") ?? "https://aimotex.com";
+    const safeSlug = String(slug ?? "").replace(/[^a-z0-9_-]/gi, "");
+    const success_url = `${SITE_URL}/campus/pago/?slug=${safeSlug}&success=1`;
+    const cancel_url = `${SITE_URL}/campus/pago/?slug=${safeSlug}&canceled=1`;
 
     // Leemos el precio real desde la base de datos (nunca del cliente).
     const { data: course, error: cErr } = await supabase
@@ -86,8 +92,8 @@ Deno.serve(async (req) => {
         },
         quantity: 1,
       }],
-      success_url: success_url ?? `${req.headers.get("origin")}/campus/pago/?success=1`,
-      cancel_url: cancel_url ?? `${req.headers.get("origin")}/campus/pago/?canceled=1`,
+      success_url,
+      cancel_url,
       metadata: {
         user_id: user.id,
         course_id: course.id,

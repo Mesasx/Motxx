@@ -110,9 +110,9 @@
     var status = isOwned ? '<span class="owned">✓ Comprado</span>' : '<span class="price-tag">' + MC.formatPrice(c.price_cents, c.currency) + "</span>";
     return (
       '<article class="card course-card reveal' + featured + '">' +
-        '<p class="eyebrow">' + (c.subtitle || c.level || "") + "</p>" +
-        "<h2 style=\"font-size:1.3rem\">" + c.title + "</h2>" +
-        "<p style=\"color:var(--text-secondary)\">" + (c.description || "") + "</p>" +
+        '<p class="eyebrow">' + MC.esc(c.subtitle || c.level || "") + "</p>" +
+        "<h2 style=\"font-size:1.3rem\">" + MC.esc(c.title) + "</h2>" +
+        "<p style=\"color:var(--text-secondary)\">" + MC.esc(c.description || "") + "</p>" +
         '<div class="meta">' + status + "</div>" +
         '<div class="actions">' + cta + "</div>" +
       "</article>"

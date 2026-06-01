@@ -202,7 +202,7 @@
 
     try {
       // Comprobamos que el nombre de usuario no esté ya en uso.
-      var exists = await MC.client.rpc("campus_email_for_username", { p_username: username });
+      var exists = await MC.client.rpc("campus_username_taken", { p_username: username });
       if (exists.data) throw new Error("Ese nombre de usuario ya está en uso. Elige otro.");
 
       var meta = {

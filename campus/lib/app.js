@@ -109,6 +109,24 @@
       return new URLSearchParams(location.search).get(name);
     },
 
+    // Escapa texto para insertarlo de forma segura en innerHTML (anti-XSS).
+    esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    },
+
+    // Solo permite URLs de vídeo embebido de orígenes de confianza.
+    safeEmbed(url) {
+      try {
+        var u = new URL(url, location.origin);
+        var ok = ["www.youtube.com", "youtube.com", "youtube-nocookie.com",
+                  "player.vimeo.com", "vimeo.com"];
+        if (u.protocol === "https:" && ok.indexOf(u.hostname) !== -1) return u.href;
+      } catch (e) {}
+      return null;
+    },
+
     notConfiguredMessage() {
       return (
         "El campus aun no esta conectado a su base de datos. " +
