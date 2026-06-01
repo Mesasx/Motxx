@@ -2,6 +2,9 @@
    Motex Campus · estilos propios (heredan tokens.css y styles.css)
    ============================================================ */
 
+/* El atributo hidden debe ganar a las reglas display del menú. */
+#campusNav [hidden] { display: none !important; }
+
 .campus-badge {
   display: inline-flex;
   align-items: center;
