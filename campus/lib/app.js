@@ -138,16 +138,16 @@
 
   // Mantiene la barra superior sincronizada con el estado de sesion.
   MC.refreshNav = async function () {
-    var nav = document.getElementById("campusNav");
-    if (!nav) return;
-    var loggedLinks = nav.querySelectorAll("[data-auth='in']");
-    var guestLinks = nav.querySelectorAll("[data-auth='out']");
+    // Búsqueda en todo el documento: el menú puede haberse movido al <body>.
+    var loggedLinks = document.querySelectorAll("[data-auth='in']");
+    var guestLinks = document.querySelectorAll("[data-auth='out']");
+    if (!loggedLinks.length && !guestLinks.length) return;
     var session = MC.configured ? await MC.getSession() : null;
     var inSession = !!session;
     loggedLinks.forEach(function (el) { el.hidden = !inSession; });
     guestLinks.forEach(function (el) { el.hidden = inSession; });
     if (inSession) {
-      var staffEls = nav.querySelectorAll("[data-auth='staff']");
+      var staffEls = document.querySelectorAll("[data-auth='staff']");
       if (staffEls.length) {
         var staff = await MC.isStaff();
         staffEls.forEach(function (el) { el.hidden = !staff; });
