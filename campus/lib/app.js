@@ -25,6 +25,8 @@
     client: client,
     configured: !!configured,
     config: cfg,
+    THEME_KEY: "motex-theme",
+    SESS_KEY: "motex-campus-sess",
 
     /* ---- Sesion y perfil ---- */
     async getSession() {
@@ -103,7 +105,60 @@
         location.href = "/campus/verificar/?pending=1";
         return null;
       }
+      var ok = await this.enforceSingleSession();
+      if (!ok) return null;
       return session;
+    },
+
+    /* ---- Sesión única por cuenta (anti cuentas compartidas) ---- */
+    newToken() {
+      return (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+        : String(Date.now()) + "-" + Math.random().toString(16).slice(2);
+    },
+
+    // Reclama el dispositivo activo (se llama al iniciar sesión).
+    async claimSession() {
+      if (!client) return;
+      var u = await this.getUser();
+      if (!u) return;
+      var token = this.newToken();
+      localStorage.setItem(this.SESS_KEY, token);
+      await client.from("campus_profiles").update({ active_session: token }).eq("id", u.id);
+    },
+
+    // Verifica que este dispositivo siga siendo el activo. Si la cuenta
+    // tiene el curso de empresas (equipo), no se aplica el límite.
+    async enforceSingleSession() {
+      if (!client) return true;
+      try {
+        var team = await client.rpc("campus_has_team_access");
+        if (team && team.data) return true;
+      } catch (e) { return true; }
+      var profile = await this.getProfile();
+      if (!profile) return true;
+      var local = localStorage.getItem(this.SESS_KEY);
+      if (!profile.active_session) {
+        if (!local) { local = this.newToken(); localStorage.setItem(this.SESS_KEY, local); }
+        await client.from("campus_profiles").update({ active_session: local }).eq("id", profile.id);
+        return true;
+      }
+      if (local && local === profile.active_session) return true;
+      await client.auth.signOut();
+      location.href = "/campus/acceder/?kicked=1";
+      return false;
+    },
+
+    /* ---- Tema claro / oscuro ---- */
+    currentTheme() { return localStorage.getItem(this.THEME_KEY) || "dark"; },
+    applyTheme(t) { document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark"); },
+    setTheme(t) { localStorage.setItem(this.THEME_KEY, t); this.applyTheme(t); this.syncThemeButtons(); },
+    toggleTheme() { this.setTheme(this.currentTheme() === "light" ? "dark" : "light"); },
+    syncThemeButtons() {
+      var self = this;
+      document.querySelectorAll("[data-theme-toggle]").forEach(function (b) {
+        b.textContent = self.currentTheme() === "light" ? "🌙" : "☀";
+        b.setAttribute("aria-label", "Cambiar a tema " + (self.currentTheme() === "light" ? "oscuro" : "claro"));
+      });
     },
 
     /* ---- Validacion de contrasena ---- */
@@ -193,6 +248,19 @@
   window.MC = MC;
 
   document.addEventListener("DOMContentLoaded", function () {
+    MC.applyTheme(MC.currentTheme());
+    // Botón flotante de tema si la página no trae uno propio.
+    if (!document.querySelector("[data-theme-toggle]")) {
+      var fab = document.createElement("button");
+      fab.type = "button";
+      fab.className = "theme-fab";
+      fab.setAttribute("data-theme-toggle", "");
+      document.body.appendChild(fab);
+    }
+    MC.syncThemeButtons();
+    document.querySelectorAll("[data-theme-toggle]").forEach(function (b) {
+      b.addEventListener("click", function (e) { e.preventDefault(); MC.toggleTheme(); });
+    });
     MC.refreshNav();
     var out = document.querySelectorAll("[data-action='logout']");
     out.forEach(function (b) {

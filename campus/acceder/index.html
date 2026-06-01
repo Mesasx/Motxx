@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
+  <script>try{if(localStorage.getItem("motex-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Iniciar sesión | Motex Campus</title>
   <meta name="description" content="Accede a tu cuenta de Motex Campus."/>
@@ -62,6 +63,7 @@
 
   function showError(text) { msg.textContent = text; msg.hidden = false; }
 
+  if (MC.qs("kicked")) showError("Tu cuenta se ha abierto en otro dispositivo. Por seguridad, vuelve a iniciar sesión.");
   if (!MC.configured) showError(MC.notConfiguredMessage());
 
   form.addEventListener("submit", async function (e) {
@@ -85,6 +87,8 @@
         throw new Error("Usuario o contraseña incorrectos.");
       }
 
+      // Reclama este dispositivo como sesión activa (sesión única).
+      await MC.claimSession();
       var next = MC.qs("next") || "/campus/panel/";
       location.href = next;
     } catch (err) {

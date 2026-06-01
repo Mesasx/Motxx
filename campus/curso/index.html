@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
+  <script>try{if(localStorage.getItem("motex-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Curso | Motex Campus</title>
   <meta name="robots" content="noindex, nofollow"/>
@@ -61,7 +62,24 @@
   }
   var session = await MC.requireAuth();
   if (!session) return;
-  MC.fillAvatar(document.getElementById("topAvatar"), await MC.getProfile());
+  var me = await MC.getProfile();
+  MC.fillAvatar(document.getElementById("topAvatar"), me);
+  var wmText = (me && (me.email || me.username)) || session.user.email || "Motex Campus";
+
+  // Disuasores anti-copia: sin clic derecho ni arrastre sobre el reproductor.
+  document.addEventListener("contextmenu", function (e) { if (e.target.closest(".player")) e.preventDefault(); });
+  document.addEventListener("dragstart", function (e) { if (e.target.closest(".player")) e.preventDefault(); });
+
+  var wmTimer = null;
+  function startWatermark() {
+    if (wmTimer) clearInterval(wmTimer);
+    var move = function () {
+      var el = document.getElementById("wm"); if (!el) return;
+      el.style.top = (8 + Math.random() * 78) + "%";
+      el.style.left = (6 + Math.random() * 58) + "%";
+    };
+    move(); wmTimer = setInterval(move, 4000);
+  }
 
   var slug = MC.qs("slug") || "iniciacion";
   var cRes = await MC.client.from("courses").select("*").eq("slug", slug).maybeSingle();
@@ -149,9 +167,10 @@
     if (!lesson) { renderLocked(); return; }
 
     var embed = MC.safeEmbed(lesson.video_url);
+    var wm = '<span class="watermark" id="wm">' + MC.esc(wmText) + "</span>";
     var player = embed
-      ? '<div class="player"><iframe src="' + MC.esc(embed) + '" allowfullscreen></iframe></div>'
-      : '<div class="player"><div style="display:grid;place-items:center;height:100%;color:var(--text-muted)">Vídeo de la clase (pendiente de subir)</div></div>';
+      ? '<div class="player">' + wm + '<iframe src="' + MC.esc(embed) + '" allowfullscreen></iframe></div>'
+      : '<div class="player">' + wm + '<div style="display:grid;place-items:center;height:100%;color:var(--text-muted)">Vídeo de la clase (pendiente de subir)</div></div>';
 
     var isDone = done.has(id);
     var exHtml = await renderExercise(id);
@@ -164,6 +183,8 @@
       "</div>" +
       '<p style="color:var(--text-secondary)">' + MC.esc(lesson.content || lesson.summary || "") + "</p>" +
       exHtml;
+
+    startWatermark();
 
     listEl.querySelectorAll(".lesson-item").forEach(function (el) {
       el.classList.toggle("active", el.getAttribute("data-id") === id);
