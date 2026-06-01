@@ -348,3 +348,29 @@ select {
 
 .lesson-item.done .idx { background: var(--accent); color: #04110d; border-color: var(--accent); }
 
+/* ---- Botón flotante de tema claro/oscuro ---- */
+.theme-fab, .theme-btn {
+  display: inline-grid; place-items: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--border-strong); background: var(--bg-elevated);
+  color: var(--text-primary); cursor: pointer; font-size: 1.1rem; line-height: 1;
+  transition: transform var(--transition), border-color var(--transition);
+}
+.theme-fab:hover, .theme-btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+.theme-fab {
+  position: fixed; right: 18px; bottom: 18px; z-index: 60;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ---- Protección de vídeo: marca de agua dinámica ---- */
+.player { position: relative; }
+.player .watermark {
+  position: absolute; z-index: 3; pointer-events: none;
+  font-size: 0.8rem; color: rgba(255,255,255,0.5);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.18); padding: 3px 8px; border-radius: 6px;
+  transition: top .9s linear, left .9s linear;
+  white-space: nowrap;
+}
+:root[data-theme="light"] .player .watermark { color: rgba(255,255,255,0.7); }
+

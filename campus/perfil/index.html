@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
+  <script>try{if(localStorage.getItem("motex-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mi perfil | Motex Campus</title>
   <meta name="robots" content="noindex, nofollow"/>
@@ -39,48 +40,70 @@
   </aside>
   <main class="app-content">
     <h1>Mi perfil</h1>
-    <p class="page-intro">Gestiona tus datos personales y tu contraseña.</p>
+    <p class="page-intro">Tu foto y tu biografía son editables. Tus datos personales están bloqueados por seguridad.</p>
 
     <div class="panel-card">
-      <div style="display:flex;gap:18px;align-items:center;margin-bottom:22px">
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
         <span class="avatar lg" id="bigAvatar"></span>
-        <div>
+        <div style="flex:1;min-width:200px">
           <h2 id="pName" style="margin:0">—</h2>
-          <p class="muted" id="pMeta" style="margin:2px 0 0">—</p>
+          <p class="muted" id="pMeta" style="margin:2px 0 10px">—</p>
+          <div class="form-msg ok" id="avOk" hidden>Foto actualizada.</div>
+          <div class="form-msg error" id="avErr" hidden></div>
+          <label class="btn btn-secondary" for="avatarInput" style="cursor:pointer">Cambiar foto</label>
+          <input type="file" id="avatarInput" accept="image/png,image/jpeg,image/webp" hidden/>
+          <p class="hint" style="color:var(--text-muted);font-size:0.8rem;margin-top:6px">JPG, PNG o WEBP · máx. 2 MB</p>
         </div>
       </div>
+    </div>
 
-      <div class="form-msg ok" id="okMsg" hidden>Cambios guardados.</div>
-      <div class="form-msg error" id="errMsg" hidden></div>
-
-      <form id="profileForm">
-        <div class="field-row">
-          <div class="field"><label for="first_name">Nombre</label><input id="first_name" type="text"/></div>
-          <div class="field"><label for="last_name">Apellidos</label><input id="last_name" type="text"/></div>
-        </div>
-        <div class="field"><label for="address">Dirección</label><input id="address" type="text"/></div>
-        <div class="field-row">
-          <div class="field"><label for="city">Ciudad</label><input id="city" type="text"/></div>
-          <div class="field"><label for="postal_code">Código postal</label><input id="postal_code" type="text"/></div>
-        </div>
-        <div class="field-row">
-          <div class="field"><label for="country">País</label><input id="country" type="text"/></div>
-          <div class="field"><label for="phone">Teléfono</label><input id="phone" type="tel"/></div>
-        </div>
-        <div class="field"><label for="bio">Sobre ti</label><textarea id="bio" rows="3" placeholder="Cuéntanos a qué te dedicas (opcional)"></textarea></div>
-        <button class="btn btn-primary" type="submit" id="saveBtn">Guardar cambios</button>
+    <div class="panel-card">
+      <h2>Sobre ti</h2>
+      <p class="muted">Una breve descripción (opcional).</p>
+      <div class="form-msg ok" id="bioOk" hidden>Guardado.</div>
+      <form id="bioForm">
+        <div class="field"><textarea id="bio" rows="3" placeholder="A qué te dedicas, qué quieres aprender…"></textarea></div>
+        <button class="btn btn-primary" type="submit" id="bioBtn">Guardar</button>
       </form>
     </div>
 
     <div class="panel-card">
-      <h2>Seguridad</h2>
-      <p class="muted">Cambia tu contraseña. Debe tener 8+ caracteres, mayúscula, minúscula y un símbolo.</p>
-      <div class="form-msg ok" id="pwOk" hidden>Contraseña actualizada.</div>
+      <h2>Datos personales</h2>
+      <p class="muted">🔒 Bloqueados por seguridad. Si necesitas corregir algo, escríbenos desde <a href="/campus/mentoria/" style="color:var(--accent)">Mentoría y contacto</a>.</p>
+      <div class="field-row">
+        <div class="field"><label>Nombre</label><input id="d_first" type="text" disabled/></div>
+        <div class="field"><label>Apellidos</label><input id="d_last" type="text" disabled/></div>
+      </div>
+      <div class="field"><label>Usuario</label><input id="d_user" type="text" disabled/></div>
+      <div class="field"><label>Correo</label><input id="d_email" type="text" disabled/></div>
+      <div class="field"><label>Dirección</label><input id="d_address" type="text" disabled/></div>
+      <div class="field-row">
+        <div class="field"><label>Ciudad</label><input id="d_city" type="text" disabled/></div>
+        <div class="field"><label>Código postal</label><input id="d_postal" type="text" disabled/></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>País</label><input id="d_country" type="text" disabled/></div>
+        <div class="field"><label>Teléfono</label><input id="d_phone" type="text" disabled/></div>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <h2>Cambiar contraseña</h2>
+      <p class="muted">Por seguridad, debes confirmar tu contraseña actual. La nueva debe tener 8+ caracteres, mayúscula, minúscula y un símbolo.</p>
+      <div class="form-msg ok" id="pwOk" hidden>Contraseña actualizada. Por seguridad se cerrará la sesión en otros dispositivos.</div>
       <div class="form-msg error" id="pwErr" hidden></div>
       <form id="pwForm">
-        <div class="field"><label for="pw">Nueva contraseña</label><input id="pw" type="password" autocomplete="new-password"/></div>
-        <div class="field"><label for="pw2">Repetir contraseña</label><input id="pw2" type="password" autocomplete="new-password"/></div>
-        <button class="btn btn-secondary" type="submit" id="pwBtn">Actualizar contraseña</button>
+        <div class="field"><label for="current">Contraseña actual</label><input id="current" type="password" autocomplete="current-password"/></div>
+        <div class="field"><label for="pw">Nueva contraseña</label><input id="pw" type="password" autocomplete="new-password"/>
+          <ul class="pw-rules" id="pwRules">
+            <li data-rule="length">Mínimo 8 caracteres</li>
+            <li data-rule="upper">Una mayúscula</li>
+            <li data-rule="lower">Una minúscula</li>
+            <li data-rule="symbol">Un símbolo</li>
+          </ul>
+        </div>
+        <div class="field"><label for="pw2">Repetir nueva contraseña</label><input id="pw2" type="password" autocomplete="new-password"/></div>
+        <button class="btn btn-primary" type="submit" id="pwBtn">Actualizar contraseña</button>
       </form>
     </div>
   </main>
@@ -99,41 +122,79 @@
   MC.fillAvatar(document.getElementById("topAvatar"), profile);
   MC.fillAvatar(document.getElementById("bigAvatar"), profile);
 
-  function set(id, v) { document.getElementById(id).value = v || ""; }
+  function setVal(id, v) { var el = document.getElementById(id); if (el) el.value = v || ""; }
   if (profile) {
     document.getElementById("pName").textContent = ((profile.first_name || "") + " " + (profile.last_name || "")).trim() || profile.username;
     document.getElementById("pMeta").textContent = "@" + profile.username + " · " + profile.email;
-    ["first_name","last_name","address","city","postal_code","country","phone","bio"].forEach(function (k) { set(k, profile[k]); });
+    setVal("d_first", profile.first_name); setVal("d_last", profile.last_name);
+    setVal("d_user", profile.username); setVal("d_email", profile.email);
+    setVal("d_address", profile.address); setVal("d_city", profile.city);
+    setVal("d_postal", profile.postal_code); setVal("d_country", profile.country);
+    setVal("d_phone", profile.phone); setVal("bio", profile.bio);
   }
 
-  var okMsg = document.getElementById("okMsg"), errMsg = document.getElementById("errMsg");
-  document.getElementById("profileForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    okMsg.hidden = true; errMsg.hidden = true;
-    var btn = document.getElementById("saveBtn");
-    btn.disabled = true; btn.textContent = "Guardando…";
-    var upd = {};
-    ["first_name","last_name","address","city","postal_code","country","phone","bio"].forEach(function (k) {
-      upd[k] = document.getElementById(k).value.trim();
-    });
-    var r = await MC.client.from("campus_profiles").update(upd).eq("id", session.user.id);
-    if (r.error) { errMsg.textContent = r.error.message; errMsg.hidden = false; }
-    else { okMsg.hidden = false; MC.fillAvatar(document.getElementById("topAvatar"), Object.assign(profile, upd)); }
-    btn.disabled = false; btn.textContent = "Guardar cambios";
+  // ---- Subida de avatar ----
+  document.getElementById("avatarInput").addEventListener("change", async function () {
+    var file = this.files && this.files[0];
+    var avErr = document.getElementById("avErr"), avOk = document.getElementById("avOk");
+    avErr.hidden = true; avOk.hidden = true;
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { avErr.textContent = "La imagen supera los 2 MB."; avErr.hidden = false; return; }
+    if (["image/png","image/jpeg","image/webp"].indexOf(file.type) === -1) { avErr.textContent = "Formato no permitido."; avErr.hidden = false; return; }
+    var ext = file.type === "image/png" ? "png" : (file.type === "image/webp" ? "webp" : "jpg");
+    var path = session.user.id + "/avatar-" + Date.now() + "." + ext;
+    var up = await MC.client.storage.from("campus-avatars").upload(path, file, { upsert: true, contentType: file.type });
+    if (up.error) { avErr.textContent = up.error.message; avErr.hidden = false; return; }
+    var pub = MC.client.storage.from("campus-avatars").getPublicUrl(path);
+    var url = pub.data.publicUrl;
+    var r = await MC.client.from("campus_profiles").update({ avatar_url: url }).eq("id", session.user.id);
+    if (r.error) { avErr.textContent = r.error.message; avErr.hidden = false; return; }
+    profile.avatar_url = url;
+    MC.fillAvatar(document.getElementById("topAvatar"), profile);
+    MC.fillAvatar(document.getElementById("bigAvatar"), profile);
+    avOk.hidden = false;
   });
 
-  var pwOk = document.getElementById("pwOk"), pwErr = document.getElementById("pwErr");
+  // ---- Biografía ----
+  document.getElementById("bioForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    document.getElementById("bioOk").hidden = true;
+    var btn = document.getElementById("bioBtn"); btn.disabled = true; btn.textContent = "Guardando…";
+    var r = await MC.client.from("campus_profiles").update({ bio: document.getElementById("bio").value.trim() }).eq("id", session.user.id);
+    if (!r.error) document.getElementById("bioOk").hidden = false;
+    btn.disabled = false; btn.textContent = "Guardar";
+  });
+
+  // ---- Contraseña con re-autenticación ----
+  var pwInput = document.getElementById("pw"), rules = document.getElementById("pwRules");
+  pwInput.addEventListener("input", function () {
+    var c = MC.passwordChecks(pwInput.value);
+    Object.keys(c).forEach(function (k) { var li = rules.querySelector('[data-rule="' + k + '"]'); if (li) li.classList.toggle("ok", c[k]); });
+  });
+
   document.getElementById("pwForm").addEventListener("submit", async function (e) {
     e.preventDefault();
+    var pwOk = document.getElementById("pwOk"), pwErr = document.getElementById("pwErr");
     pwOk.hidden = true; pwErr.hidden = true;
-    var pw = document.getElementById("pw").value, pw2 = document.getElementById("pw2").value;
-    if (!MC.passwordValid(pw)) { pwErr.textContent = "La contraseña no cumple los requisitos."; pwErr.hidden = false; return; }
-    if (pw !== pw2) { pwErr.textContent = "Las contraseñas no coinciden."; pwErr.hidden = false; return; }
-    var btn = document.getElementById("pwBtn");
-    btn.disabled = true; btn.textContent = "Actualizando…";
-    var r = await MC.client.auth.updateUser({ password: pw });
-    if (r.error) { pwErr.textContent = r.error.message; pwErr.hidden = false; }
-    else { pwOk.hidden = false; document.getElementById("pw").value = ""; document.getElementById("pw2").value = ""; }
+    var current = document.getElementById("current").value;
+    var pw = pwInput.value, pw2 = document.getElementById("pw2").value;
+    function err(m) { pwErr.textContent = m; pwErr.hidden = false; }
+    if (!current) return err("Introduce tu contraseña actual.");
+    if (!MC.passwordValid(pw)) return err("La nueva contraseña no cumple los requisitos.");
+    if (pw !== pw2) return err("Las contraseñas no coinciden.");
+    if (pw === current) return err("La nueva contraseña debe ser distinta a la actual.");
+
+    var btn = document.getElementById("pwBtn"); btn.disabled = true; btn.textContent = "Verificando…";
+    // 1) Re-autenticación: comprobamos la contraseña actual.
+    var check = await MC.client.auth.signInWithPassword({ email: profile.email, password: current });
+    if (check.error) { btn.disabled = false; btn.textContent = "Actualizar contraseña"; return err("La contraseña actual no es correcta."); }
+    // 2) Cambio de contraseña.
+    var upd = await MC.client.auth.updateUser({ password: pw });
+    if (upd.error) { btn.disabled = false; btn.textContent = "Actualizar contraseña"; return err(upd.error.message); }
+    // 3) Invalida otros dispositivos rotando el token de sesión.
+    await MC.claimSession();
+    pwOk.hidden = false;
+    document.getElementById("current").value = ""; pwInput.value = ""; document.getElementById("pw2").value = "";
     btn.disabled = false; btn.textContent = "Actualizar contraseña";
   });
 })();

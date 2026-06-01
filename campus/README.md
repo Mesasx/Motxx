@@ -42,6 +42,18 @@ campus/
 > **Espacio privado del alumno (v2):** ejecuta también `supabase/schema-v2.sql`.
 > Añade progreso de clases, ejercicios + entregas, reserva de mentoría,
 > mensajes de contacto y campos extra de perfil (avatar/bio). Es idempotente.
+>
+> **Seguridad reforzada (v3):** ejecuta también `supabase/schema-v3.sql`.
+> Bloquea los datos personales (solo avatar/bio editables), activa la
+> **sesión única por cuenta** (un dispositivo a la vez; excepción: el curso
+> de empresas, pensado para equipos) y crea el bucket `campus-avatars`.
+> Recuerda activar también el **tema claro/oscuro** (botón flotante ☀/🌙).
+>
+> Nota de seguridad sobre los vídeos: la web no puede impedir al 100 % la
+> grabación de pantalla (eso requiere DRM nativo). El campus aplica
+> disuasores fuertes (sin descarga ni clic derecho y **marca de agua con el
+> correo del alumno** sobre el vídeo). Para máxima protección, sube los
+> vídeos a Vimeo/YouTube en modo privado restringido al dominio aimotex.com.
 
 ### 2. Conectar el front-end
 
