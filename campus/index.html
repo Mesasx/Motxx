@@ -40,7 +40,7 @@
           <p class="sub" id="heroSub" style="color:var(--text-secondary);max-width:640px">Regístrate gratis, empieza por la primera clase del curso de iniciación y desbloquea el resto cuando quieras.</p>
         </div>
       </div>
-      <div id="guestCta" class="actions reveal" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px" hidden>
+      <div id="guestCta" class="actions reveal" style="display:none;gap:12px;flex-wrap:wrap;margin-top:8px">
         <a class="btn btn-primary" href="/campus/registro/">Crear cuenta</a>
         <a class="btn btn-secondary" href="/campus/acceder/">Iniciar sesión</a>
       </div>
@@ -90,8 +90,9 @@
   if (profile) {
     document.getElementById("heroTitle").textContent = "Hola, " + (profile.first_name || profile.username) + ".";
     document.getElementById("heroSub").textContent = "Continúa donde lo dejaste o desbloquea un nuevo curso.";
+    document.getElementById("guestCta").style.display = "none";
   } else {
-    document.getElementById("guestCta").hidden = false;
+    document.getElementById("guestCta").style.display = "flex";
   }
 
   // Cursos
