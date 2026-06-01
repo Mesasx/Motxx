@@ -49,6 +49,10 @@ campus/
 > de empresas, pensado para equipos) y crea el bucket `campus-avatars`.
 > Recuerda activar también el **tema claro/oscuro** (botón flotante ☀/🌙).
 >
+> **Panel de moderación (v4):** ejecuta también `supabase/schema-v4.sql`.
+> Habilita gestionar mentorías y revisar ejercicios por el equipo. El panel
+> está en `/campus/admin/` y solo es visible para `moderator`/`admin`.
+>
 > Nota de seguridad sobre los vídeos: la web no puede impedir al 100 % la
 > grabación de pantalla (eso requiere DRM nativo). El campus aplica
 > disuasores fuertes (sin descarga ni clic derecho y **marca de agua con el
