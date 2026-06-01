@@ -2,6 +2,30 @@
    Motex Campus · estilos propios (heredan tokens.css y styles.css)
    ============================================================ */
 
+/* El atributo hidden debe ganar a las reglas display del menú
+   (incluso cuando el menú se mueve al <body> como modal). */
+.nav-menu [hidden] { display: none !important; }
+
+/* Menú del panel: modal centrado y oculto hasta abrirse. */
+.nav-menu.dash-menu {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translate(-50%, -50%) scale(0.98) !important;
+  width: min(420px, calc(100vw - 40px)) !important;
+  max-height: 80vh;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.nav-menu.dash-menu.open {
+  transform: translate(-50%, -50%) scale(1) !important;
+  opacity: 1;
+  visibility: visible;
+}
+
 .campus-badge {
   display: inline-flex;
   align-items: center;

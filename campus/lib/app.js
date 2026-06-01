@@ -138,16 +138,16 @@
 
   // Mantiene la barra superior sincronizada con el estado de sesion.
   MC.refreshNav = async function () {
-    var nav = document.getElementById("campusNav");
-    if (!nav) return;
-    var loggedLinks = nav.querySelectorAll("[data-auth='in']");
-    var guestLinks = nav.querySelectorAll("[data-auth='out']");
+    // Búsqueda en todo el documento: el menú puede haberse movido al <body>.
+    var loggedLinks = document.querySelectorAll("[data-auth='in']");
+    var guestLinks = document.querySelectorAll("[data-auth='out']");
+    if (!loggedLinks.length && !guestLinks.length) return;
     var session = MC.configured ? await MC.getSession() : null;
     var inSession = !!session;
     loggedLinks.forEach(function (el) { el.hidden = !inSession; });
     guestLinks.forEach(function (el) { el.hidden = inSession; });
     if (inSession) {
-      var staffEls = nav.querySelectorAll("[data-auth='staff']");
+      var staffEls = document.querySelectorAll("[data-auth='staff']");
       if (staffEls.length) {
         var staff = await MC.isStaff();
         staffEls.forEach(function (el) { el.hidden = !staff; });
@@ -168,14 +168,35 @@
     out.forEach(function (b) {
       b.addEventListener("click", function (e) { e.preventDefault(); MC.logout(); });
     });
-    // Menú hamburguesa (campus autónomo, sin el script.js general).
+    // Menú desplegable centrado, igual que la web principal: movemos el menú
+    // al <body> (para que no herede el apilamiento de la barra) y añadimos un
+    // velo de fondo. Solo aplica donde existe el botón hamburguesa.
     var toggle = document.getElementById("navToggle");
     var menu = document.getElementById("navMenu");
     if (toggle && menu) {
-      toggle.addEventListener("click", function () {
-        var open = menu.classList.toggle("open");
+      if (menu.parentElement !== document.body) document.body.appendChild(menu);
+      var backdrop = null;
+      var setMenu = function (open) {
+        menu.classList.toggle("open", open);
         toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        document.documentElement.classList.toggle("menu-open", open);
+        if (open) {
+          if (!backdrop) {
+            backdrop = document.createElement("div");
+            backdrop.className = "nav-backdrop";
+            backdrop.addEventListener("click", function () { setMenu(false); });
+            document.body.appendChild(backdrop);
+          }
+          requestAnimationFrame(function () { backdrop.classList.add("open"); });
+        } else if (backdrop) {
+          backdrop.classList.remove("open");
+        }
+      };
+      toggle.addEventListener("click", function () { setMenu(!menu.classList.contains("open")); });
+      menu.querySelectorAll("a").forEach(function (a) {
+        a.addEventListener("click", function () { setMenu(false); });
       });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
     }
   });
 })();
