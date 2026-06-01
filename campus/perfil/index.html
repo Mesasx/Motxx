@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi perfil | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body class="campus-app" data-active="perfil">
+<header class="app-topbar">
+  <button class="app-burger" type="button" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  <a class="brand" href="/campus/panel/">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+  <span class="spacer"></span>
+  <a href="/campus/perfil/" class="avatar" id="topAvatar" aria-label="Mi perfil"></a>
+</header>
+<div class="app-backdrop"></div>
+<div class="app-layout">
+  <aside class="app-sidebar">
+    <nav>
+      <a href="/campus/panel/" data-side="panel"><span class="ico">▦</span> Panel</a>
+      <p class="side-label">Aprendizaje</p>
+      <a href="/campus/curso/?slug=iniciacion" data-side="cursos"><span class="ico">🎓</span> Mis cursos</a>
+      <a href="/campus/ejercicios/" data-side="ejercicios"><span class="ico">✎</span> Ejercicios</a>
+      <p class="side-label">Cuenta</p>
+      <a href="/campus/mentoria/" data-side="mentoria"><span class="ico">💬</span> Mentoría</a>
+      <a href="/campus/perfil/" data-side="perfil"><span class="ico">👤</span> Perfil</a>
+    </nav>
+    <div class="side-bottom">
+      <a href="/cursos/"><span class="ico">↗</span> Web Motex</a>
+      <a href="#" data-action="logout"><span class="ico">⎋</span> Cerrar sesión</a>
+    </div>
+  </aside>
+  <main class="app-content">
+    <h1>Mi perfil</h1>
+    <p class="page-intro">Gestiona tus datos personales y tu contraseña.</p>
+
+    <div class="panel-card">
+      <div style="display:flex;gap:18px;align-items:center;margin-bottom:22px">
+        <span class="avatar lg" id="bigAvatar"></span>
+        <div>
+          <h2 id="pName" style="margin:0">—</h2>
+          <p class="muted" id="pMeta" style="margin:2px 0 0">—</p>
+        </div>
+      </div>
+
+      <div class="form-msg ok" id="okMsg" hidden>Cambios guardados.</div>
+      <div class="form-msg error" id="errMsg" hidden></div>
+
+      <form id="profileForm">
+        <div class="field-row">
+          <div class="field"><label for="first_name">Nombre</label><input id="first_name" type="text"/></div>
+          <div class="field"><label for="last_name">Apellidos</label><input id="last_name" type="text"/></div>
+        </div>
+        <div class="field"><label for="address">Dirección</label><input id="address" type="text"/></div>
+        <div class="field-row">
+          <div class="field"><label for="city">Ciudad</label><input id="city" type="text"/></div>
+          <div class="field"><label for="postal_code">Código postal</label><input id="postal_code" type="text"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="country">País</label><input id="country" type="text"/></div>
+          <div class="field"><label for="phone">Teléfono</label><input id="phone" type="tel"/></div>
+        </div>
+        <div class="field"><label for="bio">Sobre ti</label><textarea id="bio" rows="3" placeholder="Cuéntanos a qué te dedicas (opcional)"></textarea></div>
+        <button class="btn btn-primary" type="submit" id="saveBtn">Guardar cambios</button>
+      </form>
+    </div>
+
+    <div class="panel-card">
+      <h2>Seguridad</h2>
+      <p class="muted">Cambia tu contraseña. Debe tener 8+ caracteres, mayúscula, minúscula y un símbolo.</p>
+      <div class="form-msg ok" id="pwOk" hidden>Contraseña actualizada.</div>
+      <div class="form-msg error" id="pwErr" hidden></div>
+      <form id="pwForm">
+        <div class="field"><label for="pw">Nueva contraseña</label><input id="pw" type="password" autocomplete="new-password"/></div>
+        <div class="field"><label for="pw2">Repetir contraseña</label><input id="pw2" type="password" autocomplete="new-password"/></div>
+        <button class="btn btn-secondary" type="submit" id="pwBtn">Actualizar contraseña</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  if (!MC.configured) { document.querySelector(".app-content").innerHTML = "<p>" + MC.notConfiguredMessage() + "</p>"; return; }
+  var session = await MC.requireAuth();
+  if (!session) return;
+
+  var profile = await MC.getProfile();
+  MC.fillAvatar(document.getElementById("topAvatar"), profile);
+  MC.fillAvatar(document.getElementById("bigAvatar"), profile);
+
+  function set(id, v) { document.getElementById(id).value = v || ""; }
+  if (profile) {
+    document.getElementById("pName").textContent = ((profile.first_name || "") + " " + (profile.last_name || "")).trim() || profile.username;
+    document.getElementById("pMeta").textContent = "@" + profile.username + " · " + profile.email;
+    ["first_name","last_name","address","city","postal_code","country","phone","bio"].forEach(function (k) { set(k, profile[k]); });
+  }
+
+  var okMsg = document.getElementById("okMsg"), errMsg = document.getElementById("errMsg");
+  document.getElementById("profileForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    okMsg.hidden = true; errMsg.hidden = true;
+    var btn = document.getElementById("saveBtn");
+    btn.disabled = true; btn.textContent = "Guardando…";
+    var upd = {};
+    ["first_name","last_name","address","city","postal_code","country","phone","bio"].forEach(function (k) {
+      upd[k] = document.getElementById(k).value.trim();
+    });
+    var r = await MC.client.from("campus_profiles").update(upd).eq("id", session.user.id);
+    if (r.error) { errMsg.textContent = r.error.message; errMsg.hidden = false; }
+    else { okMsg.hidden = false; MC.fillAvatar(document.getElementById("topAvatar"), Object.assign(profile, upd)); }
+    btn.disabled = false; btn.textContent = "Guardar cambios";
+  });
+
+  var pwOk = document.getElementById("pwOk"), pwErr = document.getElementById("pwErr");
+  document.getElementById("pwForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    pwOk.hidden = true; pwErr.hidden = true;
+    var pw = document.getElementById("pw").value, pw2 = document.getElementById("pw2").value;
+    if (!MC.passwordValid(pw)) { pwErr.textContent = "La contraseña no cumple los requisitos."; pwErr.hidden = false; return; }
+    if (pw !== pw2) { pwErr.textContent = "Las contraseñas no coinciden."; pwErr.hidden = false; return; }
+    var btn = document.getElementById("pwBtn");
+    btn.disabled = true; btn.textContent = "Actualizando…";
+    var r = await MC.client.auth.updateUser({ password: pw });
+    if (r.error) { pwErr.textContent = r.error.message; pwErr.hidden = false; }
+    else { pwOk.hidden = false; document.getElementById("pw").value = ""; document.getElementById("pw2").value = ""; }
+    btn.disabled = false; btn.textContent = "Actualizar contraseña";
+  });
+})();
+</script>
+</body>
+</html>

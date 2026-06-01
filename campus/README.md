@@ -39,6 +39,10 @@ campus/
 4. En **Authentication → URL Configuration**, añade como *Redirect URL*:
    `https://aimotex.com/campus/verificar/`.
 
+> **Espacio privado del alumno (v2):** ejecuta también `supabase/schema-v2.sql`.
+> Añade progreso de clases, ejercicios + entregas, reserva de mentoría,
+> mensajes de contacto y campos extra de perfil (avatar/bio). Es idempotente.
+
 ### 2. Conectar el front-end
 
 Edita `campus/config.js` con los datos de tu proyecto

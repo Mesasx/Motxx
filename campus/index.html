@@ -23,7 +23,7 @@
     <div class="nav-menu dash-menu" id="navMenu">
       <a href="/cursos/">Cursos</a>
       <a href="/" >Web Motex</a>
-      <a href="/campus/curso/?slug=iniciacion" data-auth="in" hidden>Mis clases</a>
+      <a href="/campus/panel/" data-auth="in" hidden>Mi panel</a>
       <a href="/campus/acceder/" data-auth="out" hidden>Acceder</a>
       <a class="btn btn-primary" href="/campus/registro/" data-auth="out" hidden>Crear cuenta</a>
       <a href="#" data-auth="in" data-action="logout" hidden>Cerrar sesión</a>
@@ -90,7 +90,9 @@
   if (profile) {
     document.getElementById("heroTitle").textContent = "Hola, " + (profile.first_name || profile.username) + ".";
     document.getElementById("heroSub").textContent = "Continúa donde lo dejaste o desbloquea un nuevo curso.";
-    document.getElementById("guestCta").style.display = "none";
+    var g = document.getElementById("guestCta");
+    g.innerHTML = '<a class="btn btn-primary" href="/campus/panel/">Ir a mi panel →</a>';
+    g.style.display = "flex";
   } else {
     document.getElementById("guestCta").style.display = "flex";
   }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentoría y contacto | Motex Campus</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tokens.css"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="/campus/campus.css"/>
+</head>
+<body class="campus-app" data-active="mentoria">
+<header class="app-topbar">
+  <button class="app-burger" type="button" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  <a class="brand" href="/campus/panel/">Mot<span class="logo-ex">ex</span> <span class="campus-badge">Campus</span></a>
+  <span class="spacer"></span>
+  <a href="/campus/perfil/" class="avatar" id="topAvatar" aria-label="Mi perfil"></a>
+</header>
+<div class="app-backdrop"></div>
+<div class="app-layout">
+  <aside class="app-sidebar">
+    <nav>
+      <a href="/campus/panel/" data-side="panel"><span class="ico">▦</span> Panel</a>
+      <p class="side-label">Aprendizaje</p>
+      <a href="/campus/curso/?slug=iniciacion" data-side="cursos"><span class="ico">🎓</span> Mis cursos</a>
+      <a href="/campus/ejercicios/" data-side="ejercicios"><span class="ico">✎</span> Ejercicios</a>
+      <p class="side-label">Cuenta</p>
+      <a href="/campus/mentoria/" data-side="mentoria"><span class="ico">💬</span> Mentoría</a>
+      <a href="/campus/perfil/" data-side="perfil"><span class="ico">👤</span> Perfil</a>
+    </nav>
+    <div class="side-bottom">
+      <a href="/cursos/"><span class="ico">↗</span> Web Motex</a>
+      <a href="#" data-action="logout"><span class="ico">⎋</span> Cerrar sesión</a>
+    </div>
+  </aside>
+  <main class="app-content">
+    <h1>Mentoría y contacto</h1>
+    <p class="page-intro">Reserva tu sesión de mentoría semanal o escríbenos cualquier duda.</p>
+
+    <div class="panel-card">
+      <h2>Reservar mentoría</h2>
+      <p class="muted">Elige día y hora preferidos. Te confirmaremos por correo.</p>
+      <div class="form-msg ok" id="mOk" hidden>¡Reserva enviada! Te confirmaremos pronto.</div>
+      <div class="form-msg error" id="mErr" hidden></div>
+      <form id="bookForm">
+        <div class="field-row">
+          <div class="field"><label for="preferred_at">Día y hora</label><input id="preferred_at" type="datetime-local"/></div>
+          <div class="field"><label for="topic">Tema</label><input id="topic" type="text" placeholder="Ej.: automatizar correos"/></div>
+        </div>
+        <div class="field"><label for="notes">Notas (opcional)</label><textarea id="notes" rows="3"></textarea></div>
+        <button class="btn btn-primary" type="submit" id="bookBtn">Reservar sesión</button>
+      </form>
+    </div>
+
+    <div class="section-title"><h2>Tus reservas</h2></div>
+    <div id="bookings"><p style="color:var(--text-muted)">Cargando…</p></div>
+
+    <div class="panel-card" style="margin-top:30px">
+      <h2>Escríbenos</h2>
+      <p class="muted">¿Una duda sobre el curso o la plataforma? Te respondemos por correo.</p>
+      <div class="form-msg ok" id="cOk" hidden>Mensaje enviado. Gracias.</div>
+      <div class="form-msg error" id="cErr" hidden></div>
+      <form id="contactForm">
+        <div class="field"><label for="subject">Asunto</label><input id="subject" type="text"/></div>
+        <div class="field"><label for="message">Mensaje</label><textarea id="message" rows="4" required></textarea></div>
+        <button class="btn btn-secondary" type="submit" id="cBtn">Enviar mensaje</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/campus/config.js"></script>
+<script src="/campus/lib/app.js"></script>
+<script>
+(async function () {
+  if (!MC.configured) { document.querySelector(".app-content").innerHTML = "<p>" + MC.notConfiguredMessage() + "</p>"; return; }
+  var session = await MC.requireAuth();
+  if (!session) return;
+  MC.fillAvatar(document.getElementById("topAvatar"), await MC.getProfile());
+
+  async function loadBookings() {
+    var r = await MC.client.from("mentorship_bookings").select("*").order("created_at", { ascending: false });
+    var rows = r.data || [];
+    var el = document.getElementById("bookings");
+    if (!rows.length) { el.innerHTML = '<div class="empty-state"><div class="ico">💬</div><p>Aún no tienes reservas. Pide tu primera mentoría arriba.</p></div>'; return; }
+    var labels = { pending: ["wait","Pendiente"], confirmed: ["confirmed","Confirmada"], done: ["ok","Realizada"], cancelled: ["wait","Cancelada"] };
+    el.innerHTML = rows.map(function (b) {
+      var lp = labels[b.status] || ["wait", b.status];
+      var when = b.preferred_at ? new Date(b.preferred_at).toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" }) : "Por concretar";
+      return '<div class="sub-item"><div class="top"><h3>' + MC.esc(b.topic || "Sesión de mentoría") + '</h3><span class="pill ' + lp[0] + '">' + lp[1] + "</span></div>" +
+             '<p class="muted" style="margin:0;color:var(--text-muted);font-size:var(--fs-small)">' + when + "</p>" +
+             (b.notes ? '<p class="answer" style="margin-top:8px">' + MC.esc(b.notes) + "</p>" : "") + "</div>";
+    }).join("");
+  }
+  loadBookings();
+
+  document.getElementById("bookForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    document.getElementById("mOk").hidden = true; document.getElementById("mErr").hidden = true;
+    var btn = document.getElementById("bookBtn"); btn.disabled = true; btn.textContent = "Enviando…";
+    var at = document.getElementById("preferred_at").value;
+    var r = await MC.client.from("mentorship_bookings").insert({
+      user_id: session.user.id,
+      preferred_at: at ? new Date(at).toISOString() : null,
+      topic: document.getElementById("topic").value.trim(),
+      notes: document.getElementById("notes").value.trim()
+    });
+    if (r.error) { document.getElementById("mErr").textContent = r.error.message; document.getElementById("mErr").hidden = false; }
+    else { document.getElementById("mOk").hidden = false; e.target.reset(); loadBookings(); }
+    btn.disabled = false; btn.textContent = "Reservar sesión";
+  });
+
+  document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    document.getElementById("cOk").hidden = true; document.getElementById("cErr").hidden = true;
+    var msg = document.getElementById("message").value.trim();
+    if (!msg) return;
+    var btn = document.getElementById("cBtn"); btn.disabled = true; btn.textContent = "Enviando…";
+    var r = await MC.client.from("contact_messages").insert({
+      user_id: session.user.id,
+      subject: document.getElementById("subject").value.trim(),
+      message: msg
+    });
+    if (r.error) { document.getElementById("cErr").textContent = r.error.message; document.getElementById("cErr").hidden = false; }
+    else { document.getElementById("cOk").hidden = false; e.target.reset(); }
+    btn.disabled = false; btn.textContent = "Enviar mensaje";
+  });
+})();
+</script>
+</body>
+</html>
