@@ -100,7 +100,7 @@
     return (
       '<li class="lesson-item' + (open ? "" : " locked") + (l.id === currentId ? " active" : "") + '"' + attrs + ' style="cursor:' + (open ? "pointer" : "default") + '">' +
         '<span class="idx">' + (i + 1) + "</span>" +
-        '<span class="body"><h3>' + l.title + "</h3><p>" + (l.summary || "") + (l.duration_min ? " · " + l.duration_min + " min" : "") + "</p></span>" +
+        '<span class="body"><h3>' + MC.esc(l.title) + "</h3><p>" + MC.esc(l.summary || "") + (l.duration_min ? " · " + l.duration_min + " min" : "") + "</p></span>" +
         tag +
       "</li>"
     );
@@ -118,14 +118,15 @@
     var lesson = lRes.data;
     if (!lesson) { renderLocked(); return; }
 
-    var player = lesson.video_url
-      ? '<div class="player"><iframe src="' + lesson.video_url + '" allowfullscreen></iframe></div>'
+    var embed = MC.safeEmbed(lesson.video_url);
+    var player = embed
+      ? '<div class="player"><iframe src="' + MC.esc(embed) + '" allowfullscreen></iframe></div>'
       : '<div class="player"><div style="display:grid;place-items:center;height:100%;color:var(--text-muted)">Vídeo de la clase (pendiente de subir)</div></div>';
 
     stage.innerHTML =
       player +
-      '<h2 style="margin-top:22px">' + lesson.title + "</h2>" +
-      '<p style="color:var(--text-secondary)">' + (lesson.content || lesson.summary || "") + "</p>";
+      '<h2 style="margin-top:22px">' + MC.esc(lesson.title) + "</h2>" +
+      '<p style="color:var(--text-secondary)">' + MC.esc(lesson.content || lesson.summary || "") + "</p>";
 
     listEl.querySelectorAll(".lesson-item").forEach(function (el) {
       el.classList.toggle("active", el.getAttribute("data-id") === id);
