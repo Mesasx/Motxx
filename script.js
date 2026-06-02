@@ -770,8 +770,8 @@
     const defs = svgEl('defs', {});
     const grad = svgEl('linearGradient', { id: 'fbGrad', x1: '0', y1: '0', x2: '1', y2: '0' });
     grad.appendChild(svgEl('stop', { offset: '0', 'stop-color': '#18A89B' }));
-    grad.appendChild(svgEl('stop', { offset: '0.5', 'stop-color': '#46D7E0' }));
-    grad.appendChild(svgEl('stop', { offset: '1', 'stop-color': '#7C97FF' }));
+    grad.appendChild(svgEl('stop', { offset: '0.5', 'stop-color': '#4F63E6' }));
+    grad.appendChild(svgEl('stop', { offset: '1', 'stop-color': '#7B5BD6' }));
     defs.appendChild(grad);
     const soft = svgEl('filter', { id: 'fbSoft', x: '-40%', y: '-40%', width: '180%', height: '180%' });
     soft.appendChild(svgEl('feGaussianBlur', { stdDeviation: '4', result: 'b' }));
@@ -828,8 +828,8 @@
     // Nodes
     (data.nodes || []).forEach((n) => {
       const g = svgEl('g', { class: 'fb-node', transform: `translate(${n.x}, ${n.y})` });
-      g.appendChild(svgEl('rect', { width: NW, height: NH, rx: '14', stroke: n.color || '#46D7E0' }));
-      g.appendChild(svgEl('circle', { cx: '24', cy: NH / 2, r: '7', fill: n.color || '#46D7E0', filter: 'url(#fbSoft)' }));
+      g.appendChild(svgEl('rect', { width: NW, height: NH, rx: '14', stroke: n.color || '#4F63E6' }));
+      g.appendChild(svgEl('circle', { cx: '24', cy: NH / 2, r: '7', fill: n.color || '#4F63E6', filter: 'url(#fbSoft)' }));
       g.appendChild(svgEl('circle', { cx: '24', cy: NH / 2, r: '3', fill: '#0E1B15' }));
       const t = svgEl('text', { class: 'nt', x: '44', y: NH / 2 - 4 }); t.textContent = n.label; g.appendChild(t);
       if (n.sub) { const s = svgEl('text', { class: 'ns', x: '44', y: NH / 2 + 14 }); s.textContent = n.sub; g.appendChild(s); }

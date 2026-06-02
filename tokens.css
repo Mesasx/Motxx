@@ -27,13 +27,13 @@
   --accent-hover:    #3AD2C1;
   --accent-soft:     rgba(37, 190, 174, 0.14);
   --accent-2:        #21C7B6;  /* teal vivo */
-  --accent-3:        #46D7E0;  /* cian */
-  --accent-4:        #7C97FF;  /* índigo */
+  --accent-3:        #4F63E6;  /* azul profundo */
+  --accent-4:        #7B5BD6;  /* azul-morado */
 
   /* Gradientes de marca */
-  --grad: linear-gradient(115deg, #138F83 0%, #21C7B6 48%, #46D7E0 100%);
-  --grad-vivid: linear-gradient(115deg, #139184 0%, #21C7B6 42%, #46D7E0 72%, #7C97FF 100%);
-  --grad-text: linear-gradient(100deg, #3FD7C5, #46D7E0 52%, #8AA0FF);
+  --grad: linear-gradient(115deg, #138F83 0%, #21C7B6 48%, #4F63E6 100%);
+  --grad-vivid: linear-gradient(115deg, #139184 0%, #21C7B6 40%, #4F63E6 74%, #7B5BD6 100%);
+  --grad-text: linear-gradient(100deg, #2FB7A6, #4F63E6 55%, #7B5BD6);
   --grad-ink: radial-gradient(120% 120% at 50% -10%, #0E2019 0%, #060C09 60%);
 
   /* Sutiles (bordes claros translúcidos) */

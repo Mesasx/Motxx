@@ -2702,7 +2702,7 @@ body {
 ::selection { background: rgba(33, 199, 182, 0.32); color: #fff; }
 * { scrollbar-color: rgba(255,255,255,0.18) transparent; }
 ::-webkit-scrollbar { width: 11px; height: 11px; }
-::-webkit-scrollbar-thumb { background: linear-gradient(#139184, #46D7E0); border-radius: 20px; border: 3px solid var(--bg-base); }
+::-webkit-scrollbar-thumb { background: linear-gradient(#139184, #4F63E6); border-radius: 20px; border: 3px solid var(--bg-base); }
 ::-webkit-scrollbar-track { background: var(--bg-base); }
 
 /* ---- Header: glass oscuro ---- */
@@ -3723,7 +3723,7 @@ html.menu-open body { overflow: hidden; }
 
 /* Scrollbar y selección en claro */
 :root[data-theme="light"] ::selection { background: rgba(14,132,120,0.22); color: #06231D; }
-:root[data-theme="light"] ::-webkit-scrollbar-thumb { background: linear-gradient(#0E8478, #46D7E0); border-color: var(--bg-base); }
+:root[data-theme="light"] ::-webkit-scrollbar-thumb { background: linear-gradient(#0E8478, #4F63E6); border-color: var(--bg-base); }
 
 /* Marquee / secciones alternas */
 :root[data-theme="light"] .section-alt::before { background: linear-gradient(90deg, transparent, rgba(14,132,120,0.4), transparent); }
