@@ -466,3 +466,12 @@ table.admin-table { width: 100%; border-collapse: collapse; font-size: var(--fs-
   .app-content .sub-item, .app-content .post-card, .app-content .resume-card,
   .app-content .admin-table tbody tr, .stat .num, .app-content h1 { animation: none !important; }
 }
+
+/* Ajustes para el tema claro (la web usa claro por defecto) */
+:root[data-theme="light"] .app-topbar { background: rgba(255,255,255,0.85); }
+:root[data-theme="light"] .pay-cta-bar { background: linear-gradient(0deg, var(--bg-surface), rgba(255,255,255,0.94)); }
+:root[data-theme="light"] .campus-app {
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(33,199,182,0.10), transparent 60%),
+    var(--bg-base);
+}
