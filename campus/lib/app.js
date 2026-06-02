@@ -149,7 +149,7 @@
     },
 
     /* ---- Tema claro / oscuro ---- */
-    currentTheme() { return localStorage.getItem(this.THEME_KEY) || "dark"; },
+    currentTheme() { return localStorage.getItem(this.THEME_KEY) || "light"; },
     applyTheme(t) { document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark"); },
     setTheme(t) { localStorage.setItem(this.THEME_KEY, t); this.applyTheme(t); this.syncThemeButtons(); },
     toggleTheme() { this.setTheme(this.currentTheme() === "light" ? "dark" : "light"); },

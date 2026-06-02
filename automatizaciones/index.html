@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -236,11 +236,12 @@
 <section class="section" id="diagrama">
   <div class="container">
     <div class="section-heading reveal">
-      <p class="eyebrow">Diagrama interactivo</p>
-      <h2>Un sistema real, nodo a nodo.</h2>
-      <p>Así diseñamos una automatización de captación y reparto de leads con IA. Arrastra para moverte por el lienzo y haz zoom para ver el detalle de cada paso.</p>
+      <p class="eyebrow">Ejemplo de flujo técnico</p>
+      <h2>De una llamada a un lead revisable, sin copiar datos a mano.</h2>
+      <p>Este flujo convierte una llamada atendida por IA en un registro ordenado: valida la entrada, normaliza los datos, evita duplicados en Supabase y deja la decisión final en manos de un responsable.</p>
+      <p>Automatizamos la parte repetitiva del proceso: recibir, ordenar, guardar y preparar la información. La decisión comercial sigue siendo humana.</p>
     </div>
-    <div class="flowboard reveal" data-flowboard aria-label="Diagrama interactivo de una automatización Motex de captación y reparto de leads">
+    <div class="flowboard reveal" data-flowboard aria-label="Diagrama interactivo de una automatización Motex: recepción de llamadas con IA (Vapi a n8n a Supabase) y revisión humana del encargado">
       <span class="flowboard-hint">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
         Arrastra para mover · rueda o pellizca para zoom
@@ -252,55 +253,66 @@
       </div>
       <script type="application/json">
       {
-        "width": 2240, "height": 1280,
+        "width": 2920, "height": 1200,
         "note": {
-          "x": 60, "y": 70, "w": 470, "h": 250,
-          "title": "Cómo funciona",
+          "x": 60, "y": 90, "w": 460, "h": 320,
+          "title": "Demo: recepción de llamadas con IA",
           "lines": [
-            "Cada nuevo contacto se puntúa con IA y se",
-            "reparte al comercial adecuado. Un disparador",
-            "lanza el flujo al llegar un lead nuevo.",
+            "Una llamada atendida por IA se convierte en",
+            "un lead ordenado y revisable, sin copiar datos",
+            "a mano.",
             "",
-            "La IA analiza datos y mensaje, devuelve una",
-            "puntuación 0-100 y un segmento. Según el tramo,",
-            "el lead se etiqueta y se asigna en el CRM, con",
-            "aviso al equipo para los leads calientes."
+            "Vapi envía el informe de fin de llamada a n8n,",
+            "que valida la entrada, normaliza los datos,",
+            "evita duplicados en Supabase y deja la",
+            "decisión final a un responsable."
           ]
         },
         "lanes": [
-          { "x": 600, "y": 60,  "w": 560, "h": 360, "title": "Disparador y datos", "desc": "Entrada del lead y enriquecimiento" },
-          { "x": 600, "y": 470, "w": 560, "h": 320, "title": "Puntuación con IA", "desc": "Analiza, decide y normaliza" },
-          { "x": 1230, "y": 60, "w": 940, "h": 1120, "title": "Reparto y asignación", "desc": "Etiqueta, asigna y avisa según el segmento" }
+          { "x": 556, "y": 120, "w": 2330, "h": 360, "title": "Captación automática de llamada", "desc": "Vapi → n8n → Supabase, con validación y antiduplicados" },
+          { "x": 556, "y": 800, "w": 1180, "h": 330, "title": "Revisión humana del encargado", "desc": "El responsable acepta o rechaza el lead" }
         ],
         "nodes": [
-          { "id": "trigger", "x": 640,  "y": 150, "label": "Nuevo lead",        "sub": "Web · Llamada · Email",   "color": "#46D7E0" },
-          { "id": "config",  "x": 900,  "y": 150, "label": "Configuración",     "sub": "API · CRM · Slack",       "color": "#9DB3AA" },
-          { "id": "fetch",   "x": 640,  "y": 300, "label": "Datos del contacto","sub": "Ficha + historial",       "color": "#9DB3AA" },
-          { "id": "clean",   "x": 900,  "y": 300, "label": "Preparar datos",    "sub": "Limpia y estructura",     "color": "#9DB3AA" },
-          { "id": "ai",      "x": 640,  "y": 560, "label": "Puntuar con IA",    "sub": "GPT · 0-100 + motivo",    "color": "#7C97FF" },
-          { "id": "parse",   "x": 900,  "y": 560, "label": "Normalizar score",  "sub": "Texto IA → número",       "color": "#9DB3AA" },
-          { "id": "ifhot",   "x": 1270, "y": 150, "label": "¿Score ≥ 80?",      "sub": "Lead caliente",           "color": "#25BEAE" },
-          { "id": "taghot",  "x": 1520, "y": 110, "label": "Etiqueta Caliente", "sub": "CRM",                     "color": "#9DB3AA" },
-          { "id": "asnhot",  "x": 1770, "y": 110, "label": "Asignar a top rep", "sub": "Comercial senior",        "color": "#9DB3AA" },
-          { "id": "slack",   "x": 1960, "y": 220, "label": "Avisar al equipo",  "sub": "Slack · prioridad",       "color": "#0F5257" },
-          { "id": "ifwarm",  "x": 1270, "y": 560, "label": "¿Score ≥ 40?",      "sub": "Lead templado",           "color": "#25BEAE" },
-          { "id": "tagwarm", "x": 1520, "y": 520, "label": "Etiqueta Templado", "sub": "CRM",                     "color": "#9DB3AA" },
-          { "id": "asnwarm", "x": 1770, "y": 520, "label": "Asignar a rep",     "sub": "Reparto equilibrado",     "color": "#9DB3AA" },
-          { "id": "tagcold", "x": 1520, "y": 930, "label": "Etiqueta Frío",     "sub": "CRM",                     "color": "#9DB3AA" },
-          { "id": "nurture", "x": 1770, "y": 930, "label": "A nutrición",       "sub": "Secuencia automática",    "color": "#9DB3AA" },
-          { "id": "resp",    "x": 1970, "y": 720, "label": "Respuesta",         "sub": "Webhook + log",           "color": "#46D7E0" }
+          { "id": "llamada",   "x": 600,  "y": 200,  "label": "Llamada recibida",      "sub": "La IA recoge la info clave",   "color": "#4F63E6" },
+          { "id": "vapi",      "x": 830,  "y": 200,  "label": "Vapi · Informe final",  "sub": "Resumen · tel · transcripción","color": "#4F63E6" },
+          { "id": "webhook",   "x": 1060, "y": 200,  "label": "Webhook n8n",           "sub": "Entrada segura del evento",    "color": "#4F63E6" },
+          { "id": "secreto",   "x": 1290, "y": 200,  "label": "Validación de secreto", "sub": "Comprueba x-vapi-secret",      "color": "#25BEAE" },
+          { "id": "r401",      "x": 1290, "y": 380,  "label": "Responder 401",         "sub": "No autorizado · se detiene",   "color": "#E0A24A" },
+          { "id": "normalizar","x": 1520, "y": 200,  "label": "Normalizar datos",      "sub": "Nombre · tel · email · estado","color": "#9DB3AA" },
+          { "id": "iftel",     "x": 1750, "y": 200,  "label": "¿Tiene teléfono?",      "sub": "Decisión",                     "color": "#25BEAE" },
+          { "id": "r422",      "x": 1750, "y": 380,  "label": "Responder 422",         "sub": "Falta teléfono",               "color": "#E0A24A" },
+          { "id": "buscar",    "x": 1980, "y": 200,  "label": "Buscar lead (Supabase)","sub": "¿Existe ese teléfono?",        "color": "#9DB3AA" },
+          { "id": "existe",    "x": 2210, "y": 200,  "label": "¿Existe el lead?",      "sub": "Decisión",                     "color": "#25BEAE" },
+          { "id": "update",    "x": 2440, "y": 140,  "label": "Actualizar lead",       "sub": "Lead existente",               "color": "#9DB3AA" },
+          { "id": "create",    "x": 2440, "y": 300,  "label": "Crear nuevo lead",      "sub": "Estado: nuevo",                "color": "#9DB3AA" },
+          { "id": "respok",    "x": 2670, "y": 200,  "label": "Responder OK",          "sub": "Lead procesado",               "color": "#7B5BD6" },
+          { "id": "whrev",     "x": 600,  "y": 920,  "label": "Webhook revisión",      "sub": "El encargado consulta el lead","color": "#4F63E6" },
+          { "id": "getlead",   "x": 830,  "y": 920,  "label": "Obtener lead",          "sub": "Supabase · datos del lead",    "color": "#9DB3AA" },
+          { "id": "decide",    "x": 1060, "y": 920,  "label": "Aceptar / Rechazar",    "sub": "Decisión manual",              "color": "#25BEAE" },
+          { "id": "stateacc",  "x": 1290, "y": 840,  "label": "Estado: aceptado",      "sub": "Supabase · update",            "color": "#9DB3AA" },
+          { "id": "respacc",   "x": 1520, "y": 840,  "label": "Responder OK",          "sub": "Aceptado",                     "color": "#7B5BD6" },
+          { "id": "staterej",  "x": 1290, "y": 1000, "label": "Estado: rechazado",     "sub": "Supabase · update",            "color": "#9DB3AA" },
+          { "id": "resprej",   "x": 1520, "y": 1000, "label": "Responder OK",          "sub": "Rechazado",                    "color": "#7B5BD6" }
         ],
         "edges": [
-          ["trigger","config"], ["trigger","fetch"], ["config","clean"], ["fetch","clean"],
-          ["clean","ai"], ["ai","parse"], ["parse","ifhot"], ["parse","ifwarm"],
-          ["ifhot","taghot"], ["taghot","asnhot"], ["asnhot","slack"],
-          ["ifwarm","tagwarm"], ["tagwarm","asnwarm"],
-          ["ifwarm","tagcold"], ["tagcold","nurture"],
-          ["slack","resp"], ["asnwarm","resp"], ["nurture","resp"]
+          ["llamada","vapi"], ["vapi","webhook"], ["webhook","secreto"],
+          ["secreto","normalizar"], ["secreto","r401"],
+          ["normalizar","iftel"], ["iftel","buscar"], ["iftel","r422"],
+          ["buscar","existe"], ["existe","update"], ["existe","create"],
+          ["update","respok"], ["create","respok"],
+          ["whrev","getlead"], ["getlead","decide"],
+          ["decide","stateacc"], ["stateacc","respacc"],
+          ["decide","staterej"], ["staterej","resprej"]
         ]
       }
       </script>
     </div>
+    <div class="card-grid three reveal" style="margin-top:24px">
+      <article class="card"><h3>Entrada controlada</h3><p>El webhook solo acepta eventos válidos y responde con errores claros si falta información.</p></article>
+      <article class="card"><h3>Datos trazables</h3><p>Cada llamada queda registrada con teléfono, resumen, transcripción, estado y fuente.</p></article>
+      <article class="card"><h3>Revisión humana</h3><p>El encargado puede aceptar o rechazar el lead antes de cualquier acción comercial.</p></article>
+    </div>
+    <p class="center" style="margin-top:20px;color:var(--text-muted);font-size:var(--fs-small)">Ejemplo de flujo técnico diseñado por Motex para automatizar la recepción y revisión de leads telefónicos.</p>
   </div>
 </section>
 <section class="section">

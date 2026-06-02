@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
-  <script>try{if(localStorage.getItem("motex-theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}</script>
+  <script>try{var t=localStorage.getItem("motex-theme")||"light";document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light");}catch(e){document.documentElement.setAttribute("data-theme","light");}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="theme-color" content="#080F0C"/>
   <title>Mis ejercicios | Motex Campus</title>
