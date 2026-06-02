@@ -273,9 +273,9 @@
           { "x": 556, "y": 800, "w": 1180, "h": 330, "title": "Revisión humana del encargado", "desc": "El responsable acepta o rechaza el lead" }
         ],
         "nodes": [
-          { "id": "llamada",   "x": 600,  "y": 200,  "label": "Llamada recibida",      "sub": "La IA recoge la info clave",   "color": "#46D7E0" },
-          { "id": "vapi",      "x": 830,  "y": 200,  "label": "Vapi · Informe final",  "sub": "Resumen · tel · transcripción","color": "#46D7E0" },
-          { "id": "webhook",   "x": 1060, "y": 200,  "label": "Webhook n8n",           "sub": "Entrada segura del evento",    "color": "#46D7E0" },
+          { "id": "llamada",   "x": 600,  "y": 200,  "label": "Llamada recibida",      "sub": "La IA recoge la info clave",   "color": "#4F63E6" },
+          { "id": "vapi",      "x": 830,  "y": 200,  "label": "Vapi · Informe final",  "sub": "Resumen · tel · transcripción","color": "#4F63E6" },
+          { "id": "webhook",   "x": 1060, "y": 200,  "label": "Webhook n8n",           "sub": "Entrada segura del evento",    "color": "#4F63E6" },
           { "id": "secreto",   "x": 1290, "y": 200,  "label": "Validación de secreto", "sub": "Comprueba x-vapi-secret",      "color": "#25BEAE" },
           { "id": "r401",      "x": 1290, "y": 380,  "label": "Responder 401",         "sub": "No autorizado · se detiene",   "color": "#E0A24A" },
           { "id": "normalizar","x": 1520, "y": 200,  "label": "Normalizar datos",      "sub": "Nombre · tel · email · estado","color": "#9DB3AA" },
@@ -285,14 +285,14 @@
           { "id": "existe",    "x": 2210, "y": 200,  "label": "¿Existe el lead?",      "sub": "Decisión",                     "color": "#25BEAE" },
           { "id": "update",    "x": 2440, "y": 140,  "label": "Actualizar lead",       "sub": "Lead existente",               "color": "#9DB3AA" },
           { "id": "create",    "x": 2440, "y": 300,  "label": "Crear nuevo lead",      "sub": "Estado: nuevo",                "color": "#9DB3AA" },
-          { "id": "respok",    "x": 2670, "y": 200,  "label": "Responder OK",          "sub": "Lead procesado",               "color": "#7C97FF" },
-          { "id": "whrev",     "x": 600,  "y": 920,  "label": "Webhook revisión",      "sub": "El encargado consulta el lead","color": "#46D7E0" },
+          { "id": "respok",    "x": 2670, "y": 200,  "label": "Responder OK",          "sub": "Lead procesado",               "color": "#7B5BD6" },
+          { "id": "whrev",     "x": 600,  "y": 920,  "label": "Webhook revisión",      "sub": "El encargado consulta el lead","color": "#4F63E6" },
           { "id": "getlead",   "x": 830,  "y": 920,  "label": "Obtener lead",          "sub": "Supabase · datos del lead",    "color": "#9DB3AA" },
           { "id": "decide",    "x": 1060, "y": 920,  "label": "Aceptar / Rechazar",    "sub": "Decisión manual",              "color": "#25BEAE" },
           { "id": "stateacc",  "x": 1290, "y": 840,  "label": "Estado: aceptado",      "sub": "Supabase · update",            "color": "#9DB3AA" },
-          { "id": "respacc",   "x": 1520, "y": 840,  "label": "Responder OK",          "sub": "Aceptado",                     "color": "#7C97FF" },
+          { "id": "respacc",   "x": 1520, "y": 840,  "label": "Responder OK",          "sub": "Aceptado",                     "color": "#7B5BD6" },
           { "id": "staterej",  "x": 1290, "y": 1000, "label": "Estado: rechazado",     "sub": "Supabase · update",            "color": "#9DB3AA" },
-          { "id": "resprej",   "x": 1520, "y": 1000, "label": "Responder OK",          "sub": "Rechazado",                    "color": "#7C97FF" }
+          { "id": "resprej",   "x": 1520, "y": 1000, "label": "Responder OK",          "sub": "Rechazado",                    "color": "#7B5BD6" }
         ],
         "edges": [
           ["llamada","vapi"], ["vapi","webhook"], ["webhook","secreto"],
